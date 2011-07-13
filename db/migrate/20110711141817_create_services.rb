@@ -11,11 +11,8 @@ class CreateServices < ActiveRecord::Migration
       t.time :end_time
       t.date :start_date
       t.date :end_date
-      t.integer :charity_id
-      t.float :charity_percentage
-      t.string :logo_file_name
-      t.string :logo_content_type
-      t.integer :logo_file_size
+      t.integer :non_profit__id
+      t.float :non_profit_percentage
       t.boolean :priority
       t.timestamps
     end
