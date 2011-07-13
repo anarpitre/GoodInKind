@@ -1,0 +1,25 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  EIN: MyString
+  description: MyText
+  gateway_id: 1
+  document1_file_name: MyString
+  document2_file_name: MyString
+  document1_content_type: MyString
+  document2_content_type: MyString
+  document1_file_size: 1
+  document2_file_size: 1
+
+two:
+  name: MyString
+  EIN: MyString
+  description: MyText
+  gateway_id: 1
+  document1_file_name: MyString
+  document2_file_name: MyString
+  document1_content_type: MyString
+  document2_content_type: MyString
+  document1_file_size: 1
+  document2_file_size: 1
