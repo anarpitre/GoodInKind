@@ -64,6 +64,7 @@ GEM
       rack (>= 1.0.0)
     rack-test (0.5.7)
       rack (>= 1.0)
+    railroady (1.0.2)
     rails (3.0.0)
       actionmailer (= 3.0.0)
       actionpack (= 3.0.0)
@@ -106,5 +107,6 @@ DEPENDENCIES
   factory_girl_rails
   paperclip
   pg
+  railroady
   rails (= 3.0.0)
   rspec-rails
