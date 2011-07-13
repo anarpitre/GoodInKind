@@ -11,7 +11,6 @@ gem 'devise'
 gem 'rspec-rails'
 gem 'factory_girl_rails'
 gem 'paperclip'
-
 # Use unicorn as the web server
 # gem 'unicorn'
 

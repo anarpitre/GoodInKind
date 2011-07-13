@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110713095236) do
+ActiveRecord::Schema.define(:version => 20110713133144) do
 
   create_table "categories", :force => true do |t|
     t.integer  "category_type"
@@ -94,6 +94,21 @@ ActiveRecord::Schema.define(:version => 20110713095236) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.boolean  "is_verified"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "roles", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "service_id"
+    t.string   "role"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "service_categories", :force => true do |t|
+    t.integer  "service_id"
+    t.integer  "category_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
