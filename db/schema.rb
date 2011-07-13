@@ -12,9 +12,9 @@
 
 ActiveRecord::Schema.define(:version => 20110713094117) do
 
-  create_table "non_profit_categories", :force => true do |t|
-    t.integer  "non_profit_id"
-    t.integer  "category_id"
+  create_table "categories", :force => true do |t|
+    t.integer  "category_type"
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -31,6 +31,13 @@ ActiveRecord::Schema.define(:version => 20110713094117) do
     t.string   "resource_type"
     t.string   "latitude"
     t.string   "longitude"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "non_profit_categories", :force => true do |t|
+    t.integer  "non_profit_id"
+    t.integer  "category_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -53,6 +60,7 @@ ActiveRecord::Schema.define(:version => 20110713094117) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
   create_table "participants", :force => true do |t|
     t.integer  "user_id"
     t.integer  "service_id"
@@ -83,7 +91,7 @@ ActiveRecord::Schema.define(:version => 20110713094117) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-  
+
   create_table "services", :force => true do |t|
     t.string   "title"
     t.text     "description"
@@ -111,6 +119,7 @@ ActiveRecord::Schema.define(:version => 20110713094117) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
   create_table "users", :force => true do |t|
     t.string   "email",                               :default => "", :null => false
     t.string   "encrypted_password",   :limit => 128, :default => "", :null => false

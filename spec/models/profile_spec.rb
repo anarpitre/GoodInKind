@@ -14,7 +14,6 @@ describe Profile do
     end
     #002
     it "is_verified is true" do
-      @pf.is_verified = true
       @pf.save
       @pf.should be_valid
     end
@@ -50,11 +49,6 @@ describe Profile do
     #008
     it "age is blank" do
       @pf.age = nil
-      @pf.should_not be_valid
-    end
-   #009
-    it "is_verified is false" do
-      @pf.is_verified = false
       @pf.should_not be_valid
     end
 
