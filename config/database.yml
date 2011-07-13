@@ -19,7 +19,6 @@ test:
 
 production:
   adapter: postgresql
-  database: good_in_kind_production
-  username: pratik
+  database: good_in_kind
   pool: 5
   timeout: 5000

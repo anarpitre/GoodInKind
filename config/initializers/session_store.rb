@@ -1,8 +1,8 @@
 # Be sure to restart your server when you modify this file.
 
-Goodinkind::Application.config.session_store :cookie_store, :key => '_Goodinkind_session'
+Gik::Application.config.session_store :cookie_store, :key => '_gik_session'
 
 # Use the database for sessions instead of the cookie-based default,
 # which shouldn't be used to store highly confidential information
 # (create the session table with "rails generate session_migration")
-# Goodinkind::Application.config.session_store :active_record_store
+# Gik::Application.config.session_store :active_record_store

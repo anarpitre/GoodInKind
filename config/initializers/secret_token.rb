@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-Goodinkind::Application.config.secret_token = '0d8d1bc9965cf781d351de4242d0ae86c70fa1d541fdc4055b4878e0f7e2e05d22b7cd6e24a523a3061de702fdedb3ca682087888b9cdf77bb5637af34830c5a'
+Gik::Application.config.secret_token = '8c80416a70d8cda8292018e9b1c64f609c714495def32801faed057b2252784beb3fc0fc362d4921873e926c041d230dd5a15c208c402b34466dc59273715a5c'
