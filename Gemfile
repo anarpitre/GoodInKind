@@ -11,9 +11,12 @@ gem 'devise'
 gem 'rspec-rails'
 gem 'factory_girl_rails'
 gem 'paperclip'
+<<<<<<< HEAD
 group :development, :test do
 gem  'railroady'
 end
+=======
+>>>>>>> da8afbb09539d87f0b9b71c47348885c98616cc4
 # Use unicorn as the web server
 # gem 'unicorn'
 

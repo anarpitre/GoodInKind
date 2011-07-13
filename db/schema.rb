@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110713094117) do
+ActiveRecord::Schema.define(:version => 20110713133144) do
 
   create_table "categories", :force => true do |t|
     t.integer  "category_type"
@@ -19,14 +19,20 @@ ActiveRecord::Schema.define(:version => 20110713094117) do
     t.datetime "updated_at"
   end
 
+  create_table "images", :force => true do |t|
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.boolean  "is_album_cover",     :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "locations", :force => true do |t|
-    t.string   "phone"
-    t.string   "mobile"
     t.string   "locality"
     t.string   "city"
     t.string   "state"
     t.string   "country"
-    t.string   "email"
     t.integer  "resource_id"
     t.string   "resource_type"
     t.string   "latitude"
@@ -92,6 +98,13 @@ ActiveRecord::Schema.define(:version => 20110713094117) do
     t.datetime "updated_at"
   end
 
+  create_table "service_categories", :force => true do |t|
+    t.integer  "service_id"
+    t.integer  "category_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "services", :force => true do |t|
     t.string   "title"
     t.text     "description"
@@ -103,11 +116,8 @@ ActiveRecord::Schema.define(:version => 20110713094117) do
     t.time     "end_time"
     t.date     "start_date"
     t.date     "end_date"
-    t.integer  "charity_id"
-    t.float    "charity_percentage"
-    t.string   "logo_file_name"
-    t.string   "logo_content_type"
-    t.integer  "logo_file_size"
+    t.integer  "non_profit__id"
+    t.float    "non_profit_percentage"
     t.boolean  "priority"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -134,6 +144,7 @@ ActiveRecord::Schema.define(:version => 20110713094117) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "authentication_token"
+    t.boolean  "is_admin"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
