@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(:version => 20110713133144) do
   end
 
   create_table "images", :force => true do |t|
+    t.integer  "service_id"
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
@@ -98,6 +99,14 @@ ActiveRecord::Schema.define(:version => 20110713133144) do
     t.datetime "updated_at"
   end
 
+  create_table "roles", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "service_id"
+    t.string   "role"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "service_categories", :force => true do |t|
     t.integer  "service_id"
     t.integer  "category_id"
@@ -110,15 +119,17 @@ ActiveRecord::Schema.define(:version => 20110713133144) do
     t.text     "description"
     t.float    "amount"
     t.integer  "booking_capacity"
+    t.integer  "booked_seat"
     t.boolean  "is_scheduled"
     t.integer  "offerer_id"
     t.time     "start_time"
     t.time     "end_time"
     t.date     "start_date"
     t.date     "end_date"
-    t.integer  "non_profit__id"
+    t.integer  "non_profit_id"
     t.float    "non_profit_percentage"
-    t.boolean  "priority"
+    t.boolean  "is_virtual"
+    t.boolean  "is_public"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
