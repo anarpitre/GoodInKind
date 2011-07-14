@@ -24,22 +24,24 @@ describe NonProfit do
   end
 
     context "should not be created if" do
+        after(:each) do
+          @np.save
+          @np.should_not be_valid
+        end
 
       #003
       it "name is blank" do
         @np.name = nil
-        @np.should_not be_valid
       end
       #004
       it "EIN is blank" do
         @np.EIN = nil
-        @np.should_not be_valid
       end
       #005
       it "description is blank" do
         @np.description = nil
-        @np.should_not be_valid
       end
+      
 
     end
 

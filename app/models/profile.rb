@@ -1,7 +1,7 @@
 class Profile < ActiveRecord::Base
 
   has_one  :user
-  has_many :profile_social_networks
+  has_many :profile_social_networks, :dependent => :destroy
   has_many :social_networks, :through => :profile_social_networks
 
   validates :first_name, :presence => true
