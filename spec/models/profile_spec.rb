@@ -31,26 +31,33 @@ describe Profile do
   end
 
   context "should not created if" do
+
+    after(:each) do
+      @pf.save
+      @pf.should_not be_valid
+    end
+
     #005
     it "first_name is blank" do
       @pf.first_name = nil
-      @pf.should_not be_valid
     end
     #006 
     it "last_name is blank" do
       @pf.last_name = nil
-      @pf.should_not be_valid
     end
     #007
     it "gender is blank" do
       @pf.gender = nil
-      @pf.should_not be_valid
     end
     #008
     it "age is blank" do
       @pf.age = nil
-      @pf.should_not be_valid
     end
+    #009
+    it "age code contains alphabetics letter" do
+      @pf.age = "aabbcc"
+    end
+
 
 
 
