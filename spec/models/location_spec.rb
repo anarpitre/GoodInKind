@@ -24,12 +24,6 @@ describe Location do
     @location.should be_valid
   end
   
-  it "if mobile is not selected" do
-    @location.mobile = ""
-    @location.save
-    @location.should be_valid
-  end
-
   context "should not be saved if"
   
   before(:each) do
@@ -60,21 +54,5 @@ describe Location do
     @location.save
     @location.should_not be_valid
   end
-  
-  it "if is phone not entered" do 
-    @location.phone = nil
-    @location.save
-    @location.should_not be_valid
-  end
-  
-  it "if email is not entered" do 
-    @location.email = nil
-    @location.save
-    @location.should_not be_valid
-  end
-
-
-
-
-
+    
 end

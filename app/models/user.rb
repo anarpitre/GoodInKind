@@ -10,8 +10,11 @@ class User < ActiveRecord::Base
 
  #has_many :participants, :class_name => 'Role', :conditions => ["role = 'Participant'"],:dependent => :destroy
  #has_many :offers, :class_name => 'Role', :conditions => ["role = 'Offer'"], :dependent => :destroy
+
  has_many :participants
  has_many :services, :through => :participants
  has_one :location, :as => :resource,:dependent => :destroy
+
+ validates :is_admin, :presence => true
 
 end

@@ -3,6 +3,6 @@ Factory.define :location do |u|
   u.city 'pune'
   u.state 'maharashra' 
   u.country 'India'
-  u.phone '+919999999999'
-  u.email 'john@deol@gmail.com'
+  u.resource_type 'user'
+  u.resource_id '1'
 end
