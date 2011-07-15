@@ -1,3 +1,4 @@
+require 'faker'
 Factory.define :service_location, :class => Location do |u|
   u.locality 'baner'
   u.city 'pune'

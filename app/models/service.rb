@@ -7,7 +7,8 @@ class Service < ActiveRecord::Base
   has_many :service_categories, :dependent => :destroy
   has_many :categories, :through => :service_categories
   
-  validates :title,:description, :amount, :charity_id, :priority, :presence => true
+  validates :title,:description, :offerer_id,:non_profit_id, :is_public, :presence => true
+  validates :amount, :numericality => true, :presence => true
   validates :start_date,:end_date,:start_time,:end_time,:if => Proc.new { |t| t.is_scheduled == true}, :presence => true
 
 end
