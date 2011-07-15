@@ -9,5 +9,5 @@ Factory.define :profile do |p|
   p.avatar_file_name "Rails.gif"
   p.avatar_content_type "image/gif"
   p.avatar_file_size "2000"
-#  p.user_id    User.first
+  p.association   :user
 end

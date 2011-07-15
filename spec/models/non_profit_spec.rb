@@ -1,48 +1,51 @@
 require 'spec_helper'
+require 'faker'
 
 describe NonProfit do
 
-  before(:each) do
-    @np = Factory(:non_profit)
-  end
+  let(:np) { Factory(:non_profit)}
 
   context "should be created if " do 
 
-    #001   
-    it "all attributes entered" do
-      puts @np
-      @np.save
-      @np.should be_valid
+    it "name is not blank" do
+      np.name = Faker::Name.name
+      np.save
+      np.should be_valid
     end
-    #002
-    it "name is already taken" do
-      @np.save
-      np = NonProfit.create(:name => @np.name, :description => @np.description, :EIN => @np.EIN)
+
+    it "EIN is not blank" do
+      np.EIN = "12345"
+      np.save
+      np.should be_valid
+    end
+
+    it " description is not blank" do
+      np.description = Faker::Lorem.paragraph
+      np.save
+      np.should be_valid
+    end
+
+  end
+
+  context "should not be created if" do
+
+    it "name is blank" do
+      np.name = nil
+      np.save
+      np.should_not be_valid
+    end
+    it "EIN is blank" do
+      np.EIN = nil
+      np.save
+      np.should_not be_valid
+    end
+    it "description is blank" do
+      np.description = nil
+      np.save
       np.should_not be_valid
     end
 
-  end
-
-    context "should not be created if" do
-        after(:each) do
-          @np.save
-          @np.should_not be_valid
-        end
-
-      #003
-      it "name is blank" do
-        @np.name = nil
-      end
-      #004
-      it "EIN is blank" do
-        @np.EIN = nil
-      end
-      #005
-      it "description is blank" do
-        @np.description = nil
-      end
-      
-
-    end
 
   end
+
+end
