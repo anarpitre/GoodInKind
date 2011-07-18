@@ -9,8 +9,6 @@ Factory.define :service do |s|
   s.is_virtual true
   s.is_scheduled true
   s.non_profit_percentage '100'
-  s.start_time Time.now
-  s.end_time Time.now+10.hours
   s.start_date Date.today
   s.end_date Date.today + 5.days
   s.association :location

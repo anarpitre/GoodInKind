@@ -59,19 +59,6 @@ describe Service do
   context " should not be created and its associated user should not be created if" do
 
 
-    it "if start_time is not selected when is_shedule true" do
-      services.is_scheduled = true
-      services.start_time = nil
-      services.save
-      services.should_not be_valid
-    end
-
-    it "if end_time is not selected when is_shedule true" do
-      services.is_scheduled = true
-      services.end_time = nil
-      services.save
-      services.should_not be_valid
-    end
 
 
     it "if start_date is not selected when is_shedule true" do

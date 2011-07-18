@@ -44,14 +44,6 @@ describe Profile do
     it "gender is blank" do
       @pf.gender = nil
     end
-    #007
-    it "age is blank" do
-      @pf.age = nil
-    end
-    #008
-    it "age code contains alphabetics letter" do
-      @pf.age = "aabbcc"
-    end
 
 
 

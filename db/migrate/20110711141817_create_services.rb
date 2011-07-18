@@ -5,14 +5,13 @@ class CreateServices < ActiveRecord::Migration
       t.text :description
       t.float :amount
       t.integer :booking_capacity
-      t.integer :booked_seat
+      t.integer :booked_seats
       t.boolean :is_scheduled
       t.integer :offerer_id
-      t.time :start_time
-      t.time :end_time
-      t.date :start_date
-      t.date :end_date
+      t.datetime :start_date
+      t.datetime :end_date
       t.integer :non_profit_id
+      t.integer :group_number
       t.float :non_profit_percentage
       t.boolean :is_virtual
       t.boolean :is_public
