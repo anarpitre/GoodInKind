@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
  has_many :participants
  has_many :services, :through => :participants
  has_one :location, :as => :resource,:dependent => :destroy
+ has_one :profile, :dependent => :destroy
 
- validates :is_admin, :presence => true
 
 end

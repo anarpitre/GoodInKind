@@ -1,9 +1,16 @@
 require 'faker'
-Factory.define :location do |u|
-  u.locality {Faker::Address.street_name}
-  u.city {Faker::Address.city}
-  u.state {Faker::Address.us_state} 
-  u.country 'US' 
-  u.resource_type 'user'
-  u.resource_id '1'
+Factory.define :service_location, :class => Location do |u|
+  u.locality 'baner'
+  u.city 'pune'
+  u.state 'maharashra' 
+  u.country 'India'
+  u.association :resource, :factory => 'user'
+end
+
+Factory.define :user_location, :class => Location do |u|
+  u.locality 'baner'
+  u.city 'pune'
+  u.state 'maharashra' 
+  u.country 'India'
+  u.association :resource, :factory => 'user'
 end
