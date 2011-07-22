@@ -1,58 +1,64 @@
 require 'spec_helper'
 
 describe Location do
-  
-  context "should be saved if"
-  
-  before(:each) do
-    @location = Factory.build(:location)
-  end
-  
-  it "if all the credentials are provided" do
-    @location.should be_valid
+
+  context "should be created for service" do
+    let(:location) {Factory(:service_location)}
+
+    #001
+    it "if Gemcoder identifies the location entered" do
+      location.save
+      location.should be_valid
+    end
+
+    #002
+    it "if service is not offered virtualy" do
+      service = location.resource
+      service.is_virtual = false
+      service.save
+      location.should be_valid
+    end
+
   end
 
-  it "if latitude is not selected" do
-    @location.latitude = ""
-    @location.save
-    @location.should be_valid
-  end
 
-  it "if longitude is not selected" do
-    @location.latitude = ""
-    @location.save
-    @location.should be_valid
-  end
-  
-  context "should not be saved if"
-  
-  before(:each) do
-    @location = Factory.build(:location)
-  end
-  
-  it "if locality is not entered" do 
-    @location.locality = nil
-    @location.save
-    @location.should_not be_valid
-  end
+  context "for service should not be created" do
 
-  
-  it "if city is not selected" do 
-    @location.city = nil
-    @location.save
-    @location.should_not be_valid
-  end
-  
-  it "if state is not selected" do 
-    @location.state = nil
-    @location.save
-    @location.should_not be_valid
-  end
-  
-  it "if country is not selected" do 
-    @location.country = nil
-    @location.save
-    @location.should_not be_valid
-  end
+    let(:location) {Factory(:service_location)}
+
+    #003
+    it "if service is offered virtualy " do
+      location.save
+      location.should_not be_valid
+    end
     
+    #004
+    it "if Gemcoder dosent identifies the location entered(gemcoder result is empty string)" do
+      location.save
+      location.should_not be_valid
+    end
+
+  end
+  
+  context "should be created for user" do
+    
+    let(:location) {Factory(:user_location)}
+
+    #009
+    it "if Gemcoder identifies the location entered" do
+      location.save
+      location.should be_valid
+    end
+
+  end
+  
+  context "for user should not be saved " do
+    
+    let(:location) {Factory(:user_location)}
+    it "if Gemcoder dosent identifies the location entered(gemcoder result is empty string)" do
+      location.save
+      location.should_not be_valid
+    end
+  end
+
 end
