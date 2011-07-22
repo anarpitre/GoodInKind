@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110718165431) do
+ActiveRecord::Schema.define(:version => 20110720094514) do
 
   create_table "categories", :force => true do |t|
     t.integer  "category_type"
@@ -30,17 +30,14 @@ ActiveRecord::Schema.define(:version => 20110718165431) do
   end
 
   create_table "locations", :force => true do |t|
-    t.string   "phone"
-    t.string   "mobile"
-    t.string   "locality"
+    t.string   "address"
     t.string   "city"
     t.string   "state"
     t.string   "country"
-    t.string   "email"
     t.integer  "resource_id"
     t.string   "resource_type"
-    t.string   "latitude"
-    t.string   "longitude"
+    t.float    "latitude"
+    t.float    "longitude"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -75,13 +72,6 @@ ActiveRecord::Schema.define(:version => 20110718165431) do
     t.datetime "updated_at"
   end
 
-  create_table "participants", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "service_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "profile_social_networks", :force => true do |t|
     t.integer  "profile_id"
     t.integer  "social_network_id"
@@ -94,6 +84,7 @@ ActiveRecord::Schema.define(:version => 20110718165431) do
     t.integer  "user_id"
     t.string   "first_name"
     t.string   "last_name"
+    t.integer  "age",                 :default => 0
     t.string   "gender"
     t.string   "website"
     t.text     "about_me"
@@ -141,9 +132,17 @@ ActiveRecord::Schema.define(:version => 20110718165431) do
     t.datetime "updated_at"
   end
 
+  create_table "user_service_roles", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "service_id"
+    t.string   "role"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", :force => true do |t|
-    t.string   "email",                               :default => "", :null => false
-    t.string   "encrypted_password",   :limit => 128, :default => "", :null => false
+    t.string   "email",                               :default => "",    :null => false
+    t.string   "encrypted_password",   :limit => 128, :default => "",    :null => false
     t.string   "reset_password_token"
     t.datetime "remember_created_at"
     t.integer  "sign_in_count",                       :default => 0
@@ -155,7 +154,7 @@ ActiveRecord::Schema.define(:version => 20110718165431) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "authentication_token"
-    t.boolean  "is_admin"
+    t.boolean  "is_admin",                            :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

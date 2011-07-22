@@ -5,6 +5,12 @@ Gik::Application.routes.draw do
      resources :service
    match 'non_profit/register' => 'non_profit#register',:as => :register
   # match 'non_profit/login' => 'non_profit#login',:as => :login
+  devise_for :users, :controllers => {:sessions => :sessions} 
+  resources :users do
+    get 'profile'
+  end
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -62,4 +68,7 @@ Gik::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   
   match ':controller(/:action(/:id(.:format)))'
+  # match ':controller(/:action(/:id(.:format)))'
+
+  root :to => "users#profile"
 end

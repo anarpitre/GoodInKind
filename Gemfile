@@ -11,6 +11,9 @@ gem 'devise'
 gem 'rspec-rails'
 gem 'factory_girl_rails'
 gem 'paperclip'
+gem "geocoder"
+#gem "oa-oauth", :require => "omniauth/oauth"
+
 gem 'faker'
 gem 'indextank'
 gem 'json_pure'

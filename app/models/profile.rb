@@ -6,6 +6,7 @@ class Profile < ActiveRecord::Base
 
   validates :first_name, :presence => true
   validates :last_name, :presence => true
+  validates_numericality_of :age
 
   validates_attachment_presence :avatar
   validates_attachment_content_type :avatar, :content_type => ["image/jpeg", "image/png", "image/gif"]
