@@ -13,7 +13,6 @@ Factory.define :service do |s|
   s.end_time Time.now+10.hours
   s.start_date Date.today
   s.end_date Date.today + 5.days
-  s.association :location
   #s.logo_file_name "Garden.jpg"
   #s.logo_content_type"image/jpeg"
   #s.logo_file_size "100100"
