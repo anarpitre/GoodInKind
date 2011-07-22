@@ -15,6 +15,8 @@ gem "geocoder"
 #gem "oa-oauth", :require => "omniauth/oauth"
 
 gem 'faker'
+gem 'indextank'
+gem 'json_pure'
 group :development, :test do
 gem  'railroady'
 end

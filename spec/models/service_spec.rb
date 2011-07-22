@@ -2,64 +2,49 @@ require 'spec_helper'
 
 describe Service do
 
-
   let(:services) { Factory(:service) }
 
+  context " should be created and its associated user should be created " do
 
-  context " should be created and its associated user should be created if" do
-
-
-    it "if booked seat is not selected" do
-      services.booked_seat = ""
+    it "if title, description, nonprofit_id, offer_id,amount is entered" do
       services.users.should_not == nil
       services.location.should_not == nil
       services.service_categories.should_not == nil
+      services.save
+      services.should be_valid
+    end
+    it "if booked seats is not selected" do
+      services.booked_seats = ""
       services.save
       services.should be_valid
     end
 
     it "if booking capacity is not selected" do
       services.booking_capacity = ""
-      services.users.should_not == nil
-      services.location.should_not == nil
-      services.service_categories.should_not == nil
       services.save
       services.should be_valid
     end
 
     it"if is_schedules is false" do
       services.is_scheduled = false
-      services.users.should_not == nil
-      services.location.should_not == nil
-      services.service_categories.should_not == nil
       services.save
       services.should be_valid
     end
 
-    it"if is_public is true" do
+    it"if is_public is  selected" do
       services.is_public = true
-      services.users.should_not == nil
-      services.location.should_not == nil
-      services.service_categories.should_not == nil
       services.save
       services.should be_valid
     end
 
-    it"if is_virtual is false" do
+    it"if is_virtual is not select" do
       services.is_virtual = false
-      services.users.should_not == nil
-      services.location.should_not == nil
-      services.service_categories.should_not == nil
       services.save
       services.should be_valid
     end
-
   end
 
-  context " should not be created and its associated user should not be created if" do
-
-
-
+  context " should not be created and its associated user should not be created " do
 
     it "if start_date is not selected when is_shedule true" do
       services.is_scheduled = true
@@ -67,7 +52,6 @@ describe Service do
       services.save
       services.should_not be_valid
     end
-
 
     it "if end_date is not selected when is_shedule true" do
       services.is_scheduled = true
@@ -82,7 +66,7 @@ describe Service do
       services.should_not be_valid
     end
 
-    it "amount is not alphabetical " do
+    it "if amount is not alphabetical " do
       services.amount = "aabbcc"
       services.save
       services.should_not be_valid
@@ -117,17 +101,10 @@ describe Service do
       services.save
       services.should_not be_valid
     end
-
-
-
     it "if logo not is not uploaded" 
-
     it "uploaded logo is not in proper format e.g. txt"
-
     it "uploaded logo is not in proper format e.g. pdf"
-
     it "uploaded logo is not in proper format e.g. word"
-
     it "uploaded logo uploaded is more than 5 mb"
   end
 end

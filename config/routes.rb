@@ -1,4 +1,10 @@
 Gik::Application.routes.draw do
+ # get "non_profit/login"
+  #get "non_profit/register"
+  devise_for :users
+     resources :service
+   match 'non_profit/register' => 'non_profit#register',:as => :register
+  # match 'non_profit/login' => 'non_profit#login',:as => :login
   devise_for :users, :controllers => {:sessions => :sessions} 
   resources :users do
     get 'profile'
@@ -60,6 +66,8 @@ Gik::Application.routes.draw do
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
+  
+  match ':controller(/:action(/:id(.:format)))'
   # match ':controller(/:action(/:id(.:format)))'
 
   root :to => "users#profile"
