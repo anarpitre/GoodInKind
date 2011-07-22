@@ -3,7 +3,9 @@ class CreateSocialNetworks < ActiveRecord::Migration
     create_table :social_networks do |t|
       t.string :name
       t.string :site_url
-
+      t.string :token
+      t.string :key
+      t.string :code
       t.timestamps
     end
   end

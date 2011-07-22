@@ -15,6 +15,6 @@ class Service < ActiveRecord::Base
 
   validates :title,:description, :offerer_id,:non_profit_id, :is_public, :presence => true
   validates :amount, :numericality => true, :presence => true
-  validates :start_date,:end_date,:start_time,:end_time,:if => Proc.new { |t| t.is_scheduled == true}, :presence => true
+  validates :start_date,:end_date,:if => Proc.new { |t| t.is_scheduled == true}, :presence => true
 
 end

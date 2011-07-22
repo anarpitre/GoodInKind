@@ -1,6 +1,10 @@
 require 'faker'
 Factory.define :non_profit do |c|
-  c.name {Faker::Name.name}
+  c.non_profit_name {Faker::Name.name}
+  c.contact_name {Faker::Name.name}
+  c.email {Faker::Internet.free_email}
+  c.username {Faker::Name.name}
+  c.uuid {Faker::Name.name}
   c.EIN  "12345"
   c.description {Faker::Lorem.paragraph}
   c.photo_file_name "Rails.gif"

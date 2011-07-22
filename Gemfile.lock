@@ -46,6 +46,7 @@ GEM
       railties (>= 3.0.0)
     faker (0.9.5)
       i18n (~> 0.4)
+    geocoder (0.9.11)
     i18n (0.4.2)
     mail (2.2.19)
       activesupport (>= 2.3.6)
@@ -108,6 +109,7 @@ DEPENDENCIES
   devise
   factory_girl_rails
   faker
+  geocoder
   paperclip
   pg
   railroady
