@@ -6,7 +6,7 @@ class CreateServices < ActiveRecord::Migration
       t.float :amount
       t.integer :booking_capacity
       t.integer :booked_seats
-      t.boolean :is_scheduled
+      t.boolean :is_scheduled 
       t.integer :offerer_id
       t.datetime :start_date
       t.datetime :end_date

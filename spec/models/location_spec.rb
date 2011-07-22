@@ -5,7 +5,8 @@ describe Location do
   context "should be saved if"
   
   before(:each) do
-    @location = Factory.build(:location)
+    @location = Factory.build(:service_location)
+    @location = Factory.build(:user_location)
   end
   
   it "if all the credentials are provided" do
@@ -27,7 +28,8 @@ describe Location do
   context "should not be saved if"
   
   before(:each) do
-    @location = Factory.build(:location)
+    @location = Factory.build(:service_location)
+    @location = Factory.build(:user_location)
   end
   
   it "if locality is not entered" do 

@@ -1,5 +1,5 @@
 Factory.define :participant do |p|
-  p.association :service
   p.association :user
+  p.association :service
 end
 

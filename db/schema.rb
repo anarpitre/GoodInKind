@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110713133144) do
+ActiveRecord::Schema.define(:version => 20110718165431) do
 
   create_table "categories", :force => true do |t|
     t.integer  "category_type"
@@ -53,15 +53,17 @@ ActiveRecord::Schema.define(:version => 20110713133144) do
   end
 
   create_table "non_profits", :force => true do |t|
-    t.string   "non_profit_name"
+    t.string   "name"
     t.string   "contact_name"
     t.string   "EIN"
     t.string   "uuid"
     t.string   "email"
     t.string   "username"
-    t.string   "password"
-    t.boolean  "is_temporary"
-    t.boolean  "is_verified"
+    t.string   "hashed_password"
+    t.string   "salt"
+    t.boolean  "is_temp_pwd",        :default => true
+    t.boolean  "is_verified",        :default => false
+    t.boolean  "is_active",          :default => true
     t.string   "permalinks"
     t.string   "phone_number"
     t.text     "description"

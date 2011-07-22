@@ -12,6 +12,8 @@ gem 'rspec-rails'
 gem 'factory_girl_rails'
 gem 'paperclip'
 gem 'faker'
+gem 'indextank'
+gem 'json_pure'
 group :development, :test do
 gem  'railroady'
 end
