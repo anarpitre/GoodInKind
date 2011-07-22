@@ -2,61 +2,79 @@ require 'spec_helper'
 
 describe Profile do
 
-  before(:each) do
-    @pf = Factory(:profile)
-  end
-  
   context "should be created if" do
+    let(:pf) {Factory(:profile)}
+
     #001
-    it "is_verified is true" do
-      @pf.save
-      @pf.should be_valid
+    it "first and last name,avatar of user is uploaded and is verfied by admin" do
+      pf.save
+      pf.should be_valid
     end
+
     #002
-    it "website is blank" do
-      @pf.save
-      @pf.should be_valid
+    it "if website is blank" do
+      pf.website = ""
+      pf.save
+      pf.should be_valid
     end
+
     #003
-    it "about_me is blank" do
-      @pf.save
-      @pf.should be_valid
+    it "if about_me is blank" do
+      pf.about_me = ""
+      pf.save
+      pf.should be_valid
+    end
+
+    #004
+    it "if gender is not entered" do
+      pf.gender= ""
+      pf.save
+      pf.should be_valid
     end
 
   end
 
   context "should not created if" do
 
-    after(:each) do
-      @pf.save
-      @pf.should_not be_valid
-    end
+    let(:pf) {Factory(:profile)}
 
-    #004
-    it "first_name is blank" do
-      @pf.first_name = nil
-    end
     #005 
-    it "last_name is blank" do
-      @pf.last_name = nil
+    it "first_name is blank" do
+      pf.first_name = nil
+      pf.save
+      pf.should_not be_valid
     end
+
     #006
-    it "gender is blank" do
-      @pf.gender = nil
+    it "last_name is blank" do
+      pf.last_name = nil
+      pf.save
+      pf.should_not be_valid
     end
+
     #007
-    it "age is blank" do
-      @pf.age = nil
+    it "if avatar is not uploaded" do
+      pf.avatar_file_name = ""
+      pf.save
+      pf.should_not be_valid
     end
+
     #008
-    it "age code contains alphabetics letter" do
-      @pf.age = "aabbcc"
+   it "if avtar is not uploaded in proper format" do
+      pf.avatar_content_type =  "/test.pdf"
+      pf.save
+      pf.should_not be_valid
     end
 
+   #009
+   it "if age entered is not a number" do
+     pf.age = "xxxx"
+     pf.save
+     pf.should_not be_valid
+   end
 
-
-
+   #010
+   pending "if avatar uploaded has size more than 2Mb"
   end
-
 
 end
