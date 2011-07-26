@@ -34,6 +34,7 @@ describe Location do
     
     #004
     it "if Gemcoder dosent identifies the location entered(gemcoder result is empty string)" do
+      location.address = "no city found with this address"
       location.save
       location.should_not be_valid
     end
@@ -56,6 +57,7 @@ describe Location do
     
     let(:location) {Factory(:user_location)}
     it "if Gemcoder dosent identifies the location entered(gemcoder result is empty string)" do
+      location.address = "no city found with this address"
       location.save
       location.should_not be_valid
     end

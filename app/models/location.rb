@@ -1,9 +1,12 @@
 class Location < ActiveRecord::Base
   belongs_to :resource, :polymorphic => true
 
-  #validates :locality,:city,:state,:country,:unless => Proc.new { |t| t.resource.class.name == 'Service' and t.resource.is_virtual == true },:presence => true  
-  #geocoded_by :address # can also be an IP address
-  geocoded_by :full_address
+  validates :address,:latitude,:longitude,:unless => Proc.new { |t| t.resource.class.name == 'Service' and t.resource.is_virtual == true },:presence => true  
+  #validates :address,:unless => Proc.new { |t| t.resource.class.name == 'Service' and t.resource.is_virtual == true },:presence => true  
+
+  #geocoded_by :full_address
+  before_validation :full_address
+  #before_update :full_address
 
 
   def full_address
@@ -24,6 +27,6 @@ class Location < ActiveRecord::Base
     end
   end
 
-  after_validation :geocode # auto-fetch coordinates
+  #after_validation :geocode # auto-fetch coordinates
 
 end
