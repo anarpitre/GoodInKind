@@ -10,11 +10,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110720094514) do
+ActiveRecord::Schema.define(:version => 20110727134427) do
 
   create_table "categories", :force => true do |t|
     t.integer  "category_type"
     t.string   "name"
+    t.string   "fg_code"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -58,16 +59,24 @@ ActiveRecord::Schema.define(:version => 20110720094514) do
     t.string   "username"
     t.string   "hashed_password"
     t.string   "salt"
+    t.string   "mission_statement"
     t.boolean  "is_temp_pwd",        :default => true
     t.boolean  "is_verified",        :default => false
     t.boolean  "is_active",          :default => true
-    t.string   "permalinks"
+    t.string   "permalink"
     t.string   "phone_number"
     t.text     "description"
     t.integer  "gateway_id"
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "participants", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "service_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -84,7 +93,6 @@ ActiveRecord::Schema.define(:version => 20110720094514) do
     t.integer  "user_id"
     t.string   "first_name"
     t.string   "last_name"
-    t.integer  "age",                 :default => 0
     t.string   "gender"
     t.string   "website"
     t.text     "about_me"
@@ -110,17 +118,22 @@ ActiveRecord::Schema.define(:version => 20110720094514) do
     t.integer  "booking_capacity"
     t.integer  "booked_seats"
     t.boolean  "is_scheduled"
-    t.integer  "offerer_id"
     t.datetime "start_date"
     t.datetime "end_date"
+    t.datetime "start_time"
+    t.datetime "end_time"
     t.integer  "non_profit_id"
+    t.integer  "image_id"
     t.integer  "group_number"
     t.float    "non_profit_percentage"
     t.boolean  "is_virtual"
     t.boolean  "is_public"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "permalink"
   end
+
+  add_index "services", ["permalink"], :name => "index_services_on_permalink"
 
   create_table "social_networks", :force => true do |t|
     t.string   "name"
@@ -141,8 +154,8 @@ ActiveRecord::Schema.define(:version => 20110720094514) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                               :default => "",    :null => false
-    t.string   "encrypted_password",   :limit => 128, :default => "",    :null => false
+    t.string   "email",                               :default => "", :null => false
+    t.string   "encrypted_password",   :limit => 128, :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "remember_created_at"
     t.integer  "sign_in_count",                       :default => 0
@@ -154,7 +167,7 @@ ActiveRecord::Schema.define(:version => 20110720094514) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "authentication_token"
-    t.boolean  "is_admin",                            :default => false
+    t.boolean  "is_admin"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

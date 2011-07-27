@@ -1,15 +1,16 @@
 require 'digest/sha1'
 
 class NonProfit < ActiveRecord::Base
-  
 
   EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
-  
+  has_permalink :username 
   has_many :non_profit_categories
   has_many :categories, :through => :non_profit_categories
   has_many :services
-  validates :uuid,:username, :presence => true,:uniqueness => true
-  validates :EIN,:contact_name,:name,  :presence => true
+
+  validates :uuid, :username, :presence => true,:uniqueness => true
+  validates :EIN, :password, :password_confirmation, :contact_name, :name,  :presence => true
+  validates_confirmation_of :password
   validates :description, :presence => true
   validates :email,  :presence => true, :length => { :maximum => 100 }, :format => EMAIL_REGEX
   validates_attachment_presence :photo
@@ -18,10 +19,11 @@ class NonProfit < ActiveRecord::Base
 
   has_attached_file :photo
 
-  attr_accessor :password
+  attr_accessor :password, :password_confirmation
   before_save :create_hash_password
   after_save  :clear_password
   attr_protected :hashed_password,:salt
+
 
 
    def self.authenticate(username="",password="")

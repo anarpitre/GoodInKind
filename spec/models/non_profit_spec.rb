@@ -3,40 +3,24 @@ require 'faker'
 
 describe NonProfit do
 
-  let(:np) { Factory(:non_profit)}
-
-  context "should be created  " do 
-
-    it "if name,contact_name,EIN,username,password,uuid,description,EIN should be entered" do
-      np.save
-      np.should be_valid
-    end
-
-    it "if PhoneNumber is blank" do
-      np.phone_number = nil
-      np.save
-      np.should be_valid
-    end
-
-  end
-
 
   context "should not be created " do
-
+    let(:np) { Factory(:non_profit)}
+    
     it "if name is  blank" do
-      np.name = nil
+      np.name = ''
       np.save
       np.should_not be_valid
     end
 
     it "if contact_name is blank" do
-      np.contact_name = nil
+      np.contact_name = ''
       np.save
       np.should_not be_valid
     end
 
     it "if email is  blank" do
-      np.email = nil
+      np.email = ''
       np.save
       np.should_not be_valid
     end
@@ -48,7 +32,7 @@ describe NonProfit do
     end
 
     it "if username is  blank" do
-      np.username = nil
+      np.username = ''
       np.save
       np.should_not be_valid
     end
@@ -58,10 +42,21 @@ describe NonProfit do
       non_profit.save
       non_profit.should_not be_valid
     end
-     
-      
+
     it "if uuid is  blank" do
-      np.uuid = nil
+      np.uuid = ''
+      np.save
+      np.should_not be_valid
+    end
+    
+    it "if password is  blank" do
+      np.password = ''
+      np.save
+      np.should_not be_valid
+    end
+    
+    it "if confirm password is  blank" do
+      np.password_confirmation = ''
       np.save
       np.should_not be_valid
     end
@@ -73,17 +68,15 @@ describe NonProfit do
     end
 
     it "if EIN is blank" do
-      np.EIN = nil
+      np.EIN = ''
       np.save
       np.should_not be_valid
     end
 
     it "if description is blank" do
-      np.description = nil
+      np.description = ''
       np.save
       np.should_not be_valid
     end
-
   end
-
 end

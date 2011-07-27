@@ -9,10 +9,11 @@ class CreateNonProfits < ActiveRecord::Migration
       t.string  :username
       t.string  :hashed_password
       t.string  :salt
+      t.string  :mission_statement
       t.boolean :is_temp_pwd, :default =>true #
       t.boolean :is_verified, :default => false #
       t.boolean :is_active, :default => true  #
-      t.string  :permalinks
+      t.string  :permalink
       t.string :phone_number
       t.text    :description
       t.integer :gateway_id
