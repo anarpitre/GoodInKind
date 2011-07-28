@@ -3,8 +3,9 @@ Factory.define :non_profit do |c|
   c.name {Faker::Name.name}
   c.contact_name {Faker::Name.name}
   c.email {Faker::Internet.free_email}
-  c.username {Faker::Internet.user_name}
+  c.sequence(:username) {Faker::Internet.user_name}
   c.password "josh123"
+  c.password_confirmation "josh123"
   c.uuid {Faker::Name.name}
   c.EIN  "12345"
   c.description {Faker::Lorem.paragraph}

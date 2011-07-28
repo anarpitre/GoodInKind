@@ -1,24 +1,24 @@
 Gik::Application.routes.draw do
 
   match '/auth/:provider/callback' => 'authentications#create'
-  
-  
   match 'non_profit/register' => 'non_profit#register',:as => :register
-
-  resources :authentications
-  
   match '/auth/failure' => 'dashboard#index'
+  match 'non_profit/register' => 'non_profit#register',:as => :register
+  match 'non_profit/login' => 'non_profit#login',:as => :login
+  match 'non_profit/attempt_login' => 'non_profit#attempt_login',:as => :attempt_login
+  match 'non_profit/change_password/:id' => 'non_profit#change_password',:as => :change_password
 
   devise_for :users, :controllers => {:sessions => :sessions, :registrations => :registrations} 
-  
-  resources :dashboard do
+
+  resources :users do
     get 'profile'
     post 'create_profile'
   end
-  
-  resources :service
-  
-  
+
+  resources :authentications
+  resources :services
+
+
 
 
   # The priority is based upon order of creation:

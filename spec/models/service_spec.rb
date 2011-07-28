@@ -2,14 +2,11 @@ require 'spec_helper'
 
 describe Service do
 
-  let(:services) { Factory(:service) }
 
+  let(:services) { Factory(:service) }
   context " should be created and its associated user should be created " do
 
-    it "if title, description, nonprofit_id, offer_id,amount is entered" do
-      services.users.should_not == nil
-      services.location.should_not == nil
-      services.service_categories.should_not == nil
+    it "if title, description, nonprofit_id, amount is entered" do
       services.save
       services.should be_valid
     end
@@ -90,11 +87,6 @@ describe Service do
       services.should_not be_valid
     end
 
-    it "if offerer_id is not selected" do
-      services.offerer_id = nil
-      services.save
-      services.should_not be_valid
-    end
 
     it "if is_public is not selected" do
       services.is_public = nil

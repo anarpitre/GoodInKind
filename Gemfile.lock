@@ -163,6 +163,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aws-s3
   devise
   factory_girl_rails
   faker

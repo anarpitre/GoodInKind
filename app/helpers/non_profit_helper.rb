@@ -1,0 +1,2 @@
+module NonProfitHelper
+end

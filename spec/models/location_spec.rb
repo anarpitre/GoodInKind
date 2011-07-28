@@ -62,5 +62,26 @@ describe Location do
       location.should_not be_valid
     end
   end
+  
+  context "should be created for non_profit" do
+    
+    let(:location) {Factory(:non_profit_location)}
+
+    it "if Gemcoder identifies the location entered" do
+      location.save
+      location.should be_valid
+    end
+  end
+  
+  context "for non_profit should not be saved " do
+    
+    let(:location) {Factory(:non_profit_location)}
+    
+    it "if Gemcoder dosent identifies the location entered(gemcoder result is empty string)" do
+      location.address = "no city found with this address"
+      location.save
+      location.should_not be_valid
+    end
+  end
 
 end

@@ -11,9 +11,7 @@ class User < ActiveRecord::Base
   has_many :as_participants, :class_name => 'UserServiceRole', :conditions => ["role = 'Participant'"],:dependent => :destroy
   has_many :as_offerer, :class_name => 'UserServiceRole', :conditions => ["role = 'Offerer'"], :dependent => :destroy
   has_many :services, :through => :user_service_role
-
-  has_many :authentications
-
+  has_many :authentications, :dependent => :destroy
   has_one :location, :as => :resource,:dependent => :destroy
   has_one :profile, :dependent => :destroy
 

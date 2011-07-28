@@ -1,7 +1,8 @@
 class Location < ActiveRecord::Base
   belongs_to :resource, :polymorphic => true
 
-  validates :address,:latitude,:longitude,:unless => Proc.new { |t| t.resource.class.name == 'Service' and t.resource.is_virtual == true },:presence => true  
+  validates :address,:unless => Proc.new { |t| t.resource.class.name == 'Service' and t.resource.is_virtual == true },:presence => true  
+  #validates :address,:latitude,:longitude,:unless => Proc.new { |t| t.resource.class.name == 'Service' and t.resource.is_virtual == true },:presence => true  
   #validates :address,:unless => Proc.new { |t| t.resource.class.name == 'Service' and t.resource.is_virtual == true },:presence => true  
 
   #geocoded_by :full_address
