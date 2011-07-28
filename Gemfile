@@ -17,14 +17,9 @@ gem "oa-openid"
 #gem "oa-oauth", :require => "omniauth/oauth"
 gem "aws-s3"
 gem 'faker'
-<<<<<<< HEAD
-#gem 'indextank'
-#gem 'json_pure'
-=======
 gem 'indextank'
 gem 'json_pure'
 gem 'has_permalink'
->>>>>>> 01fd247094f40095e8ebc929e163f7a354bfc9df
 group :development, :test do
 gem  'railroady'
 
