@@ -9,7 +9,7 @@ class ServicesController < ApplicationController
   end
 
   def show
-    @service = Service.find_by_permalink(params[:id])
+    @service = Service.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -29,7 +29,7 @@ class ServicesController < ApplicationController
   end
 
   def edit
-    @service = Service.find_by_permalink(params[:id])
+    @service = Service.find(params[:id])
     @service.images.build
     @service.build_location
   end
@@ -49,7 +49,7 @@ class ServicesController < ApplicationController
   end
 
   def update
-    @service = Service.find_by_permalink(params[:id])
+    @service = Service.find(params[:id])
 
     respond_to do |format|
       if @service.update_attributes(params[:service])
@@ -63,7 +63,7 @@ class ServicesController < ApplicationController
   end
 
   def destroy
-    @service = Service.find_by_permalink(params[:id])
+    @service = Service.find(params[:id])
     @service.destroy
 
     respond_to do |format|

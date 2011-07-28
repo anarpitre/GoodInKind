@@ -11,6 +11,5 @@ Factory.define :service do |s|
   s.end_date Date.today + 5.days
   s.start_time Time.now
   s.end_time Time.now + 5.minutes
-  #s.association :location, :factory => 'service_location'
   s.association :non_profit_id, :factory => 'non_profit'
 end

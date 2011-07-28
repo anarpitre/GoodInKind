@@ -68,7 +68,7 @@
 
   <div class="field">
       <%= f.label :non_profit_id %><br />
-      <%= f.select(:non_profit_id,NonProfit.all.collect{|p| [p.name,p.id]},{:include_blank => 'None'}) %>
+      <%= f.select(:non_profit_id,NonProfit.all.collect{|p| [[p.name,p.location.blank? ? '' : p.location.city].join(','),p.id]},{:include_blank => 'None'}) %>
   </div>
 
   <div class="field">

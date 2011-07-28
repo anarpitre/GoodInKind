@@ -1,6 +1,5 @@
 class Service < ActiveRecord::Base
   
-  has_permalink :title
   has_one :location, :as => :resource,:dependent => :destroy
   has_many :user_service_role
   has_many :participants, :class_name => 'UserServiceRole', :conditions => ["role = 'Participant'"],:dependent => :destroy

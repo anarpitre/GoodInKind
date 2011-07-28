@@ -24,7 +24,6 @@ describe ServicesController do
   # Service. As you add validations to Service, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    
     {
       :title => "MyString",
       :description => "MyString",
@@ -44,7 +43,7 @@ describe ServicesController do
     it "assigns all services as @services" do
       service = Service.create! valid_attributes
       get :index
-      assigns(:services).should_not eq([service])
+      assigns(:services).should eq([service])
     end
   end
 

@@ -22,6 +22,8 @@ class CreateNonProfits < ActiveRecord::Migration
       t.integer :photo_file_size
       t.timestamps
     end
+     
+      add_index :non_profits,:permalink
   end
 
   def self.down

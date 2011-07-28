@@ -7,6 +7,7 @@ class NonProfit < ActiveRecord::Base
   has_many :non_profit_categories
   has_many :categories, :through => :non_profit_categories
   has_many :services
+  has_one :location, :as => :resource,:dependent => :destroy
 
   validates :uuid, :username, :presence => true,:uniqueness => true
   validates :EIN, :password, :password_confirmation, :contact_name, :name,  :presence => true

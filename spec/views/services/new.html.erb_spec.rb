@@ -7,7 +7,6 @@ describe "services/new.html.erb" do
       :description => "MyString",
       :amount => 1.5,
       :booking_capacity => 1,
-      :booked_seats => 1,
       :is_scheduled => false,
       :non_profit_id => 1,
       :group_number => 1,
@@ -26,7 +25,6 @@ describe "services/new.html.erb" do
       assert_select "input#service_description", :name => "service[description]"
       assert_select "input#service_amount", :name => "service[amount]"
       assert_select "input#service_booking_capacity", :name => "service[booking_capacity]"
-      assert_select "input#service_booked_seats", :name => "service[booked_seats]"
       assert_select "input#service_is_scheduled", :name => "service[is_scheduled]"
       assert_select "input#service_non_profit_id", :name => "service[non_profit_id]"
       assert_select "input#service_group_number", :name => "service[group_number]"
