@@ -24,6 +24,8 @@ class Location < ActiveRecord::Base
       end
       self.country = geo.country_code
       self.address= geo.formatted_address
+      self.latitude = geo.latitude
+      self.longitude = geo.longitude
     end
   end
 
