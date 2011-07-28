@@ -1,7 +1,7 @@
 require 'faker'
 Factory.define :service do |s|
-  s.title { Faker::Name.name}
-  s.description {Faker::Lorem.paragraph}
+  s.sequence(:title) {Faker::Name.name}
+  s.sequence(:description) {Faker::Lorem.paragraph}
   s.amount '500'
   s.association :non_profit
   s.offerer_id '1'
