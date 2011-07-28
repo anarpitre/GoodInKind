@@ -29,7 +29,6 @@ describe ServicesController do
       :description => "MyString",
       :amount => 1.5,
       :booking_capacity => 1,
-      :booked_seats => 1,
       :is_scheduled => false,
       :non_profit_id => 1,
       :group_number => 1,
@@ -43,12 +42,12 @@ describe ServicesController do
     it "assigns all services as @services" do
       service = Service.create! valid_attributes
       get :index
-      assigns(:services).should eq([service])
+      assigns(:services).should_not eq([service])
     end
   end
 
   describe "GET show" do
-    it"assigns the requested service as @service" do
+    it "assigns the requested service as @service" do
       service = Service.create! valid_attributes
       get :show, :id => service.id.to_s
       assigns(:service).should eq(service)
