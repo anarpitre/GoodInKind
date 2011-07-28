@@ -12,7 +12,7 @@ gem 'rspec-rails'
 gem 'factory_girl_rails'
 gem 'paperclip'
 gem "geocoder"
-gem 'omniauth'
+gem 'omniauth', '0.2.6'
 gem "oa-openid"
 #gem "oa-oauth", :require => "omniauth/oauth"
 gem "aws-s3"
