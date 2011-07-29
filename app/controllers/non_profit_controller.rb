@@ -38,7 +38,7 @@ class NonProfitController < ApplicationController
   end
 
   def change_password
-    @non_profit = NonProfit.find_by_permalink(params[:id])  
+    @non_profit = NonProfit.find(params[:id])  
     if request.post? 
       @non_profit.update_attributes(:password => params[:non_profit][:password],:password_confirmation => params[:non_profit][:password_confirmation])
       if @non_profit.save

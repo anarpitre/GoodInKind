@@ -3,7 +3,7 @@ require 'digest/sha1'
 class NonProfit < ActiveRecord::Base
 
   EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
-  has_permalink :username 
+ # has_permalink :username 
   has_many :non_profit_categories
   has_many :categories, :through => :non_profit_categories
   has_many :services
@@ -61,10 +61,6 @@ class NonProfit < ActiveRecord::Base
   end
 
   def clear_password
-    self.password = nil
+ #   self.password = nil
   end
-
-
-
-
 end

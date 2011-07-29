@@ -3,9 +3,21 @@ require 'faker'
 
 describe NonProfit do
 
+    let(:np) {Factory(:non_profit) }
+  context "should be created" do
+
+    it "name,contact_name, username,password, confirmation_password, email,description, EIN is entered"do
+      np.should be_valid
+    end
+
+    it "Phone Number is blank" do
+      np.phone_number = ''
+      np.should be_valid
+    end
+  end
+
 
   context "should not be created " do
-    let(:np) { Factory(:non_profit)}
     
     it "if name is  blank" do
       np.name = ''

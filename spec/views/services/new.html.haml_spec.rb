@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "services/new.html.erb" do
+describe "services/new.html.haml" do
   before(:each) do
     assign(:service, stub_model(Service,
       :title => "MyString",
@@ -9,8 +9,6 @@ describe "services/new.html.erb" do
       :booking_capacity => 1,
       :is_scheduled => false,
       :non_profit_id => 1,
-      :group_number => 1,
-      :non_profit_percentage => 1.5,
       :is_virtual => false,
       :is_public => false
     ).as_new_record)
@@ -27,8 +25,6 @@ describe "services/new.html.erb" do
       assert_select "input#service_booking_capacity", :name => "service[booking_capacity]"
       assert_select "input#service_is_scheduled", :name => "service[is_scheduled]"
       assert_select "input#service_non_profit_id", :name => "service[non_profit_id]"
-      assert_select "input#service_group_number", :name => "service[group_number]"
-      assert_select "input#service_non_profit_percentage", :name => "service[non_profit_percentage]"
       assert_select "input#service_is_virtual", :name => "service[is_virtual]"
       assert_select "input#service_is_public", :name => "service[is_public]"
     end

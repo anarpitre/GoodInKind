@@ -31,8 +31,6 @@ describe ServicesController do
       :booking_capacity => 1,
       :is_scheduled => false,
       :non_profit_id => 1,
-      :group_number => 1,
-      :non_profit_percentage => 1.5,
       :is_virtual => false,
       :is_public => true
     }

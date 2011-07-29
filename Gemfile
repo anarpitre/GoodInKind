@@ -20,9 +20,11 @@ gem 'faker'
 gem 'indextank'
 gem 'json_pure'
 gem 'has_permalink'
+gem "haml-rails" 
+gem  "hpricot"
+gem "ruby_parser"
 group :development, :test do
 gem  'railroady'
-
 end
 # Use unicorn as the web server
 # gem 'unicorn'

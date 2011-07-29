@@ -23,7 +23,6 @@ class CreateNonProfits < ActiveRecord::Migration
       t.timestamps
     end
      
-      add_index :non_profits,:permalink
   end
 
   def self.down
