@@ -12,7 +12,7 @@ class Profile < ActiveRecord::Base
   validates_attachment_content_type :avatar, :content_type => ["image/jpeg", "image/png", "image/gif"]
   validates_attachment_size  :avatar, :less_than => 2.megabytes
   
-  has_attached_file :avatar,
+  has_attached_file :avatar,:whiny => false,
     :styles => {
     :thumb=> "100x100#",
     :small  => "400x400>" }

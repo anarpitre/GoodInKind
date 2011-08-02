@@ -1,0 +1,21 @@
+= render :partial => 'form'
+-if signed_in? 
+  -if @authentications 
+    -unless @authentications.empty? 
+      %p 
+        %strong You can sign in to this account using:
+      .authentications
+        -for authentication in @authentications 
+          .authentication 
+            = image_tag "#{authentication.provider}_32.png", :size => "32x32" 
+            .provider= authentication.provider.titleize 
+            .uid= authentication.uid 
+            = link_to "X", authentication, :confirm => 'Are you sure you want to remove this authentication option?', :method => :delete, :class => "remove" 
+          .clear
+        %p      
+          %strong Add another service to sign in with:
+
+%a{ :href => '/auth/facebook' ,:class => 'auth_provider' }= image_tag("facebook_32.png", :size => "32x32", :alt => "Facebook") 
+%a{ :href => '/auth/google' ,:class => 'auth_provider' }= image_tag("google_32.png", :size => "32x32", :alt => "Google") 
+%a{ :href => '/auth/twitter' ,:class => 'auth_provider' }= image_tag("twitter_32.png", :size => "32x32", :alt => "Twitter") 
+%a{ :href => '/auth/lonkedin' ,:class => 'auth_provider' }= image_tag("linkedin_32.png", :size => "32x32", :alt => "LinkedIn") 
