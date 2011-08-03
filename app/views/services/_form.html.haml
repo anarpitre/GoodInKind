@@ -21,7 +21,7 @@
     = f.text_field :description
   .field
     = f.label :non_profit_id
-    = f.select :non_profit_id,NonProfit.all.collect{|p| [[p.name, p.location.blank? ? '' : p.location.city].join(','),p.id]}
+    = f.autocomplete_field :non_profit_id,autocomplete_non_profit_name_services_path 
   .field
     = f.fields_for :images do |photo|
       - if photo.object.new_record?

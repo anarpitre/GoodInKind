@@ -1,0 +1,23 @@
+#slidingDiv2
+  %a.login_close{:href => "#", :onclick => "showSlidingDiv2(); return false;"}
+  .register_top
+    %h4
+      Are you new?
+      %span
+        Register
+        %a{:href => "#"} here
+  .login_divider
+  .login
+    %form
+      %p
+        %input.login_input{:name => "cname", :onblur => "if(this.value=='')this.value='Name';", :onfocus => "if(this.value=='Name')this.value='';", :type => "text", :value => "Name"}/
+      %p
+        %input.login_input{:name => "cemail", :onblur => "if(this.value=='')this.value='Password';", :onfocus => "if(this.value=='Password')this.value='';", :type => "text", :value => "Password"}/
+      %p
+        %input.button.bu_right.btn_form{:type => "button", :value => "Login"}/
+    .forgot_pwd
+      %a{:href => "#"} Forgot your password?
+  .login_divider
+  .login_with
+    %a{:href => "#"}
+      %img{:alt => "Facebook", :src => "/images/facebook_sign.png"}/

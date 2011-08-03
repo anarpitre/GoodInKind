@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(:version => 20110720094514) do
     t.string   "city"
     t.string   "state"
     t.string   "country"
+    t.integer  "zip"
     t.integer  "resource_id"
     t.string   "resource_type"
     t.float    "latitude"
@@ -60,6 +61,7 @@ ActiveRecord::Schema.define(:version => 20110720094514) do
     t.string   "hashed_password"
     t.string   "salt"
     t.string   "mission_statement"
+    t.string   "website"
     t.boolean  "is_temp_pwd",        :default => true
     t.boolean  "is_verified",        :default => false
     t.boolean  "is_active",          :default => true
@@ -129,6 +131,7 @@ ActiveRecord::Schema.define(:version => 20110720094514) do
     t.float    "non_profit_percentage"
     t.boolean  "is_virtual"
     t.boolean  "is_public"
+    t.integer  "estimated_duration"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

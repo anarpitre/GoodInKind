@@ -1,0 +1,20 @@
+.header
+  %h1.logo
+    %a{:href => "#"}
+      %img{:alt => "Goodinkind - Get Together. Do Good.", :src => "/images/goodinkind-logo.png"}/
+  %ul.nav
+    %li
+      %a{:href => "#"} Sign Up
+    %li
+      %a{:href => "#", :onclick => "showSlidingDiv2(); return false;"} Login
+    %li
+      %a{:href => "#"} How it works
+    %li.nav_non
+      = link_to "Non-Profits",search_path
+  .change_city
+    %span.city_name Ithaca, NY
+    %br/
+    %span.city_change_icon
+      change
+      %a{:href => "#", :onclick => "showSlidingDiv(); return false;"}
+        %img{:src => "/images/city_arrow.png"}/

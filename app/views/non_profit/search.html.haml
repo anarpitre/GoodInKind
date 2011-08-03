@@ -1,0 +1,13 @@
+%h2 Search NonProfits
+.form_tab
+  = form_for("non_profit",:url => show_searched_path,:remote => true) do |f|
+    .fields
+      = f.label "Enter NonProfit Name"
+      %br/
+      = f.text_field :name
+      = f.submit "Show NonProfit" , :style => "width:150px;"
+
+
+.div#search_result
+  
+

@@ -17,6 +17,7 @@ class CreateServices < ActiveRecord::Migration
       t.float :non_profit_percentage
       t.boolean :is_virtual
       t.boolean :is_public
+      t.integer :estimated_duration
       t.timestamps
     end
   end

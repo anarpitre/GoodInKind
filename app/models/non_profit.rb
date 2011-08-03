@@ -19,6 +19,7 @@ class NonProfit < ActiveRecord::Base
   validates_attachment_size  :photo, :less_than => 2.megabytes
 
   has_attached_file :photo
+  accepts_nested_attributes_for :location, :allow_destroy => true
 
   attr_accessor :password, :password_confirmation
   before_save :create_hash_password
