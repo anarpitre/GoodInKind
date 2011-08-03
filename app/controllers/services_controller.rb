@@ -1,4 +1,9 @@
 class ServicesController < ApplicationController
+
+  autocomplete :non_profit, :name,:full => true 
+
+
+
   def index
     @services = Service.all
 
@@ -61,6 +66,16 @@ class ServicesController < ApplicationController
       end
     end
   end
+
+  #def autocomplete_non_profit_name
+   # term = params[:term]
+    #if term && !term.empty?
+    #  items = NonProfit.where(["LOWER(name) LIKE ?", "%#{term.downcase}%"]).limit(10).order("name ASC")
+    #else
+     # items = {}
+    #end
+
+  #nd
 
   def destroy
     @service = Service.find(params[:id])

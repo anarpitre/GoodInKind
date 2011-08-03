@@ -1,6 +1,6 @@
 
 
-= form_for :non_profit,:html => { :multipart => true } do |f| 
+= form_for @non_profit,:as => :non_profit,:url => register_path, :html => { :multipart => true } do |f| 
   %h1 
     Organization Information
 
@@ -24,10 +24,27 @@
   = f.label :password_confirmation
   = f.password_field :password_confirmation
   %br
+  
+  %h3= "Location Information"
+  = f.fields_for :location do |location|
+    = location.label :address
+    = location.text_field :address
+    %br
+    = location.label :city
+    = location.text_field :city
+    %br
+    = location.label :state
+    = location.text_field :state
+    %br
+    = location.label :country
+    = location.text_field :country
+    %br
+
+
   %h3= "Contact Information"
 
   = f.label :uuid
-  = f.text_field :uuid
+  = f.text_field :uuid 
   %br
   = f.label :contact_name
   = f.text_field :contact_name

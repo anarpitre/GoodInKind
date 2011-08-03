@@ -10,6 +10,7 @@ class CreateNonProfits < ActiveRecord::Migration
       t.string  :hashed_password
       t.string  :salt
       t.string  :mission_statement
+      t.string  :website
       t.boolean :is_temp_pwd, :default =>true #
       t.boolean :is_verified, :default => false #
       t.boolean :is_active, :default => true  #
