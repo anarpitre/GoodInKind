@@ -1,5 +1,6 @@
 Gik::Application.routes.draw do
 
+
   match '/auth/:provider/callback' => 'authentications#create'
   match 'non_profit/register' => 'non_profit#register',:as => :register
   match '/auth/failure' => 'dashboard#index'
@@ -10,10 +11,8 @@ Gik::Application.routes.draw do
 
   devise_for :users, :controllers => {:sessions => :sessions, :registrations => :registrations} 
 
-  resources :users do
-    get 'profile'
-    post 'create_profile'
-  end
+  resources :dashboard 
+  resources :profiles
 
   resources :authentications
   resources :services
