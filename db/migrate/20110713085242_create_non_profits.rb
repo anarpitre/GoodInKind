@@ -11,6 +11,7 @@ class CreateNonProfits < ActiveRecord::Migration
       t.string  :salt
       t.string  :mission_statement
       t.string  :website
+      t.text    :guideline 
       t.boolean :is_temp_pwd, :default =>true #
       t.boolean :is_verified, :default => false #
       t.boolean :is_active, :default => true  #
@@ -23,7 +24,6 @@ class CreateNonProfits < ActiveRecord::Migration
       t.integer :photo_file_size
       t.timestamps
     end
-     
   end
 
   def self.down

@@ -8,12 +8,13 @@ class NonProfit < ActiveRecord::Base
   has_many :categories, :through => :non_profit_categories
   has_many :services
   has_one :location, :as => :resource,:dependent => :destroy
+  belongs_to :gateway
 
   validates :uuid, :username, :presence => true,:uniqueness => true
   validates :EIN, :password, :password_confirmation, :contact_name, :name,  :presence => true
   validates_confirmation_of :password
   validates :description, :presence => true
-  validates :email,  :presence => true, :length => { :maximum => 100 }, :format => EMAIL_REGEX
+  validates :email,  :presence => true, :format => EMAIL_REGEX
   validates_attachment_presence :photo
   validates_attachment_content_type :photo, :content_type => ["image/jpeg", "image/png", "image/gif"]
   validates_attachment_size  :photo, :less_than => 2.megabytes
