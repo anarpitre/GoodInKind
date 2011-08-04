@@ -1,9 +1,5 @@
 class ServicesController < ApplicationController
 
-  autocomplete :non_profit, :name,:full => true 
-
-
-
   def index
     @services = Service.all
 

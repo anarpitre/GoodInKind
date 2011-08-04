@@ -3,7 +3,6 @@ require 'charity_search'
 class NonProfitController < ApplicationController
 
   #  before_filter :confirm_logged_in , :except => [:login,:register,:attempt_login,:logout]
-  autocomplete :non_profit, :name,:full => true 
 
   def index
     @non_profits = NonProfit.all

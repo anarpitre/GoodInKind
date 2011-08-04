@@ -1,9 +1,8 @@
 class Location < ActiveRecord::Base
   belongs_to :resource, :polymorphic => true
 
-  #validates :address,:latitude,:longitude,:unless => Proc.new { |t| t.resource.class.name == 'Service' and t.resource.is_virtual == true },:presence => true  
+  validates :address,:latitude,:longitude,:presence => true  
 
-  #geocoded_by :full_address
   before_validation :full_address
 
 
@@ -22,11 +21,10 @@ class Location < ActiveRecord::Base
       end
       self.country = geo.country_code
       self.address= geo.formatted_address
+      self.zip = geo.postal_code
       self.latitude = geo.latitude
       self.longitude = geo.longitude
     end
   end
-
-  #after_validation :geocode # auto-fetch coordinates
 
 end

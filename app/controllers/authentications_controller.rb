@@ -1,4 +1,5 @@
 class AuthenticationsController < ApplicationController
+  
   def index
     @authentications = current_user.authentications if current_user
   end
@@ -20,8 +21,6 @@ class AuthenticationsController < ApplicationController
       if user.save
         flash[:notice] = "Registered successfully."
         sign_in_and_redirect(:user, user)
-        #redirect_to '/'
-        #sign_in(:user, user)
       else
         session[:omniauth] = omniauth.except('extra')
         redirect_to new_user_registration_url
