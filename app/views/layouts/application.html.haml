@@ -27,6 +27,10 @@
     / Top Login Div ends here
     / Main Container
     .container
+      - if user_signed_in?
+        = render :partial => 'layouts/dashboard'
+      - else
+        
       .home_top
         =yield
       .clear
