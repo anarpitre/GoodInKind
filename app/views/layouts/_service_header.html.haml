@@ -1,8 +1,17 @@
-.header
-  %h1.logo
+/ Header
+.header.header_inner
+  %h1.logo_inner
     %a{:href => "#"}
-      %img{:alt => "Goodinkind - Get Together. Do Good.", :src => "/images/goodinkind-logo.png"}/
-  %ul.nav
+      %img{:alt => "Goodinkind - Get Together. Do Good.", :src => "/images/goodinkind-logo-small.png"}/
+  .header_services_find
+    .head_serve_box.top_active
+      Find
+      %span a service
+  .header_services_offer
+    .head_serve_box.serve_box_right
+      Offer
+      %span a service
+  %ul.nav.nav_inner
     - if user_signed_in?
       %li= link_to "How it works", "#"
       %li.nav_non= link_to "Non-Profits", "#"
@@ -11,7 +20,7 @@
       %li= link_to "Login","#", :onClick => 'showSlidingDiv2(); return false;'
       %li= link_to "How it works", "#"
       %li.nav_non= link_to "Non-Profits", "#"
-  .change_city
+  .change_city.inner_city
     %span.city_name Ithaca, NY
     %br/
     %span.city_change_icon
