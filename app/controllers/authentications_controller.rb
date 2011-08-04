@@ -1,10 +1,12 @@
 class AuthenticationsController < ApplicationController
+  
   def index
     @authentications = current_user.authentications if current_user
   end
   
   def create
     omniauth = request.env["omniauth.auth"]
+    omniauth['uid'] = omniauth['user_info']['email'] if omniauth['provider'] == 'google'
     authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
     if authentication
       flash[:notice] = "Signed in successfully."
@@ -19,8 +21,6 @@ class AuthenticationsController < ApplicationController
       if user.save
         flash[:notice] = "Registered successfully."
         sign_in_and_redirect(:user, user)
-        #redirect_to '/'
-        #sign_in(:user, user)
       else
         session[:omniauth] = omniauth.except('extra')
         redirect_to new_user_registration_url

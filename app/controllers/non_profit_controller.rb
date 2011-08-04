@@ -2,6 +2,7 @@ require 'charity_search'
 
 class NonProfitController < ApplicationController
 
+
   def index
     @non_profits = NonProfit.all
   end

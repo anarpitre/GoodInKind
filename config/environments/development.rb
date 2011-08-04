@@ -39,3 +39,6 @@ Gik::Application.configure do
 
 end
 
+unless Rails.env == "production"
+  Paperclip.options[:command_path] = "/usr/local/bin"
+end

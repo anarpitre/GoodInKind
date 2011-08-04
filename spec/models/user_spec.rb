@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe User do
+  
   context "Should be registered" do
     let(:user) {Factory(:user)}
 
@@ -30,9 +31,10 @@ describe User do
 
     #004
     it "if email is already registered" do
-      user.email = "pratik@joshsoftware.com"
-      user.save
-      user.should_not be_valid
+      new_user = Factory(:user)
+      new_user.email = user.email
+      new_user.save
+      new_user.should_not be_valid
     end
 
     #005
@@ -44,4 +46,29 @@ describe User do
 
   end
 
+  describe "Should not ask for password while registrations" do
+    let(:user) {Factory(:user)}
+
+    #006
+    it "if authentication exist for user" do 
+      authentication = Factory(:authentication)
+      user = authentication.user(:readonly => false)
+      result = user.password_required?
+      result.should == false
+    end
+  end
+
+  describe "Should get confirmed at the time of registration" do
+    let(:user) {Factory(:user)}
+
+    #007
+    it "if authentication exist for user" do 
+      authentication = Factory(:authentication)
+      user = authentication.user(:readonly => false)
+      result = user.confirmation_required?
+      result.should == false
+    end
+  end
+
 end
+
