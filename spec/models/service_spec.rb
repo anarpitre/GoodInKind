@@ -6,7 +6,7 @@ describe Service do
   let(:services) { Factory(:service) }
   context " should be created and its associated user should be created " do
 
-    it "if title, description, nonprofit_id, amount is entered" do
+    it "if title, description, nonprofit_id, amount are entered" do
       services.save
       services.should be_valid
     end

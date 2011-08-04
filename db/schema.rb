@@ -10,12 +10,26 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110720094514) do
+ActiveRecord::Schema.define(:version => 20110803094854) do
+
+  create_table "authentications", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "provider"
+    t.string   "uid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "categories", :force => true do |t|
     t.integer  "category_type"
     t.string   "name"
     t.string   "fg_code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "gateways", :force => true do |t|
+    t.string   "gateway_name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -62,6 +76,7 @@ ActiveRecord::Schema.define(:version => 20110720094514) do
     t.string   "salt"
     t.string   "mission_statement"
     t.string   "website"
+    t.text     "guideline"
     t.boolean  "is_temp_pwd",        :default => true
     t.boolean  "is_verified",        :default => false
     t.boolean  "is_active",          :default => true

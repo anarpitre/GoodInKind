@@ -1,5 +1,7 @@
 class ServicesController < ApplicationController
 
+  layout 'service'
+
   def index
     @services = Service.all
   end

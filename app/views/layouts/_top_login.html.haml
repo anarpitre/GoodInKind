@@ -5,7 +5,7 @@
       Are you new?
       %span
         Register
-        %a{:href => "#"} here
+        = link_to "here" ,new_user_registration_path
   .login_divider
   .login
     %form
@@ -16,7 +16,7 @@
       %p
         %input.button.bu_right.btn_form{:type => "button", :value => "Login"}/
     .forgot_pwd
-      %a{:href => "#"} Forgot your password?
+      = link_to "Forgot your password?", new_user_password_path
   .login_divider
   .login_with
     %a{:href => "#"}
