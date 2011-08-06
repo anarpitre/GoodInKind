@@ -1,5 +1,6 @@
 class ServicesController < ApplicationController
 
+  autocomplete :non_profit, :name, :full => true
   layout 'service'
 
   def index
@@ -14,6 +15,7 @@ class ServicesController < ApplicationController
     @service = Service.new
     @service.build_location
     @service.images.build
+    @service.categories.build
     @non_profits = NonProfit.all
   end
 
@@ -21,22 +23,23 @@ class ServicesController < ApplicationController
     @service = Service.find(params[:id])
     @service.build_location unless @service.location.blank?
     @service.images.build unless @service.images.blank?
+    @service.categories.build unless @service.categories.blank?
   end
 
   def create
-    @service = Service.new(params[:service])
-
-    if @service.save
+    begin
+      params[:service][:non_profit] = NonProfit.find_by_name(params[:service][:non_profit])
+      @service = Service.new(params[:service])
+      @service.save!
       redirect_to(@service, :notice => 'Service was successfully created.') 
-    else
-      @non_profits = NonProfit.all
+    rescue Exception => e
+      @service.non_profit = nil
       render :action => "new" 
     end
   end
 
   def update
     @service = Service.find(params[:id])
-
     if @service.update_attributes(params[:service])
       redirect_to(@service, :notice => 'Service was successfully updated.') 
     else
@@ -48,4 +51,5 @@ class ServicesController < ApplicationController
     @service = Service.find(params[:id])
     @service.destroy
   end
+
 end

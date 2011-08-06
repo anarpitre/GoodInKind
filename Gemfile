@@ -23,9 +23,9 @@ gem 'has_permalink'
 gem "haml-rails" 
 gem  "hpricot"
 gem "ruby_parser"
-gem 'rails3-jquery-autocomplete'
-gem 'jquery-rails'
 gem 'json'
+gem 'jquery-rails'
+gem 'rails3-jquery-autocomplete'
 group :development, :test do
 gem  'railroady'
 end

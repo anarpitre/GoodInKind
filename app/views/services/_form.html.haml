@@ -1,65 +1,201 @@
 :javascript
   $(document).ready(function() {
     $('#dt_date_start, #dt_time_start,' +
-      '#dt_date_end,   #dt_time_end').calendricalDateTimeRange();
-        });
+    '#dt_date_end,   #dt_time_end').calendricalDateTimeRange();
+  });
 
-
-= form_for @service,:html => { :multipart => true } do |f|
-  -if @service.errors.any?
-    #error_explanation
+  jQuery(document).ready(function(){
+    $('#service_is_virtual').click(function(){
+      if ($("#service_is_virtual").is(':checked')){
+        $('#service_is_virtual').val("true");
+        $('#service_location_attributes_address').attr('disabled', 'disabled'); 
+      }
+      else{
+        $('#service_location_attributes_address').removeAttr('disabled');
+        $('#service_is_virtual').val("false");
+      }
+    });
+    
+    $('#service_is_public').click(function(){
+      if ($("#service_is_public").is(':checked')){
+        $('#service_is_public').val("true");
+      }
+      else{
+        $('#service_is_public').val("false");
+      }
+    });
+    
+    $('#service_is_scheduled').click(function(){
+      if ($("#service_is_scheduled").is(':checked')){
+        $('#service_is_scheduled').val("true"); 
+        $('#dt_date_start').removeAttr('disabled');
+        $('#dt_date_end').removeAttr('disabled');
+        $('#dt_time_start').removeAttr('disabled');
+        $('#dt_time_end').removeAttr('disabled');
+      }
+      else{
+        $('#service_is_scheduled').val("false");
+        $('#dt_date_start').attr('disabled', 'disabled'); 
+        $('#dt_date_end').attr('disabled', 'disabled'); 
+        $('#dt_time_start').attr('disabled', 'disabled'); 
+        $('#dt_time_end').attr('disabled', 'disabled'); 
+      }
+    });
+  
+  });
+%h2.offer_form_h2
+  Offer a Service to support your favorite non-profit
+  %span
+    Want to copy information from an offer you made previously?
+    %a{:href => "#"} Click here
+%a.bro_req_btn{:href => "#"} Browse Requests
+/ Offer Form
+.offer_form
+  = form_for @service,:html => { :multipart => true } do |f|
+    -if @service.errors.any?
       %h2= "#{pluralize(@service.errors.count, "error")} prohibited this service from being saved:"
       %ul
-        - @service.errors.full_messages.each do |msg|
+        -@service.errors.full_messages.each do |msg|
           %li= msg
-
-  .field
-    = f.label :title
-    = f.text_field :title
-  .field
-    = f.label :description
-    = f.text_field :description
-  .field
-    = f.label :non_profit_id
-    = f.autocomplete_field :non_profit_id,autocomplete_non_profit_name_services_path 
-  .field
-    = f.fields_for :images do |photo|
-      - if photo.object.new_record?
-        = photo.label :image
-        = photo.file_field :image
-      - else
-        = link_to( image_tag(photo.object.image.url(:small_thumb)), photo.object.image.url(:original) )
-        = photo.check_box :_destroy
-  .field
-    = f.label :is_virtual
-    = f.check_box :is_virtual
-  .field
-    = f.fields_for :location do |loc|
-      = loc.label :address
-      = loc.text_field :address
-  .field
-    = f.label :amount
-    = f.text_field :amount
-  .field
-    = f.label :booking_capacity
-    = f.text_field :booking_capacity
-  .field
-    = f.label :is_scheduled
-    = f.check_box :is_scheduled
-  .field
-    = f.label :start_date
-    = f.text_field :start_date,:id => 'dt_date_start',:value => @service.start_date.blank? ? '' : @service.start_date.strftime('%m/%d/%Y')
-  .field
-    = f.label :start_time
-    = f.text_field :start_time, :id => 'dt_time_start', :value => @service.start_time.blank? ? '' : @service.start_time.strftime('%I:%M%p')
-  .field
-    = f.label :end_date
-    = f.text_field :end_date, :id => 'dt_date_end', :value => @service.end_date.blank? ? '' : @service.end_date.strftime('%m/%d/%Y')
-  .field
-    = f.label :end_time
-    = f.text_field :end_time, :id => 'dt_time_end',:value => @service.end_time.blank? ? '' : @service.end_time.strftime('%I:%M%p')
-  .field
-    = f.label :is_public
-    = f.check_box :is_public
-  .actions
-    = f.submit 'Save'
+    .setp_box
+      %h3.setp_box_heading
+        %span Step 1:
+        Describe the service or experience you want to offer
+      %p
+        .field
+          .form_lbl= f.label :title
+          = f.text_field :title, :class => "form_input_full"
+          %span.hint
+            This is the place where the detailed event description will show up..
+            %span.hint-pointer &nbsp;
+      %p
+        .field
+          .form_lbl= f.label :description
+          = f.text_area :description, :class => "form_input_full input_area", :rows => 5, :cols => 5
+          %span.hint
+            This is the place where the detailed event description will show up..
+            %span.hint-pointer &nbsp;
+      %p
+        .field
+          = f.fields_for :categories do |cat|
+            .form_lbl= cat.label :cat
+            = cat.select :name, options_for_select(Category.all.collect{|b| [ b[:name] , b[:id] ]}) ,:include_blank => '-select-', :class => "form_input_full input_half"
+            %span.hint
+              This is the place where the detailed event description will show up..
+              %span.hint-pointer &nbsp;
+    .setp_box
+      %h3.setp_box_heading
+        %span Step 2:
+        Choose the non-profit that you would like to support
+      %p
+        .field
+          .form_lbl= f.label :non_profit_id
+          = f.autocomplete_field :non_profit, autocomplete_non_profit_name_services_path, :class => "form_input_full input_half"
+          %span.setp_box_p_span
+            or
+            %a{:href => "#"} click here to browse
+          %span.hint
+          This is the place where the detailed event description will show up..
+          %span.hint-pointer &nbsp;
+    .setp_box
+      %h3.setp_box_heading
+        %span Step 3:
+        Tell us where this service will be offered
+      %p
+        .field
+          .form_lbl= f.label :is_virtual
+          = f.check_box :is_virtual, :class => "input_checkbox", :checked => false
+          %span.setp_box_p_span (Check if this service will be offered virtually/online)
+      %p
+        .field
+          = f.fields_for :location do |loc|
+            .form_lbl= loc.label :address
+            = loc.text_field :address, :class => "form_input_full input_small", :disabled => false
+    .setp_box
+      %h3.setp_box_heading
+        %span Step 4:
+        Tell us when this service will be offered
+      %p
+        .field
+          .form_lbl= f.label :is_scheduled
+          = f.check_box :is_scheduled, :class => "input_checkbox", :checked => true
+          %span.setp_box_p_span
+            (Leave it checked if you would like to choose a date/time with the buyer after purchase)
+          %a{:href => "#"} How it works?
+      %p
+        %span.setp_two_col
+          .field
+            .form_lbl= f.label :start_date
+            = f.text_field :start_date,:id => 'dt_date_start',:value => @service.start_date.blank? ? '' : @service.start_date.strftime('%m/%d/%Y'), :class => "form_input_full input_small"
+            %span.hint
+              This is the place where the detailed event description will show up..
+              %span.hint-pointer &nbsp;
+            %span.setp_two_col
+              .field
+                .form_lbl= f.label :start_time
+                = f.text_field :start_time, :id => 'dt_time_start', :value => @service.start_time.blank? ? '' : @service.start_time.strftime('%I:%M%p'), :class => "form_input_full input_small"
+      %p
+        %span.setp_two_col
+          .field
+            .form_lbl= f.label :end_date
+            = f.text_field :end_date, :id => 'dt_date_end', :value => @service.end_date.blank? ? '' : @service.end_date.strftime('%m/%d/%Y'), :class => "form_input_full input_small"
+          %span.setp_two_col
+            .field
+              .form_lbl= f.label :end_time
+              = f.text_field :end_time, :id => 'dt_time_end',:value => @service.end_time.blank? ? '' : @service.end_time.strftime('%I:%M%p'), :class => "form_input_full input_small"
+      %p
+        %span.setp_two_col
+          .field
+            .form_lbl= f.label :booking_capacity
+            = f.text_field :booking_capacity, :class => "form_input_full input_small"
+            %span.setp_two_col
+              .field
+                .form_lbl= f.label :estimated_duration
+                = f.text_field :estimated_duration, :class => "form_input_full input_small"
+    .setp_box
+      %h3.setp_box_heading
+        %span Step 5:
+        What is the requested donation amount for this service?
+      %p
+        .field
+          .form_lbl= f.label :amount
+          = f.text_field :amount, :class => "form_input_full input_small"
+          %span.hint
+          This is the place where the detailed event description will show up..
+          %span.hint-pointer &nbsp;
+    .setp_box
+      %h3.setp_box_heading
+        %span Step 6:
+        Add Pictures illustrating your service
+      %p
+        .field
+          = f.fields_for :images do |photo|
+            - if photo.object.new_record?
+              .form_lbl= photo.label :image
+              = photo.file_field :image, :class => "input_browse" 
+            - else
+              = link_to( image_tag(photo.object.image.url(:small_thumb)), photo.object.image.url(:original) )
+              = photo.check_box :_destroy
+    .setp_box
+      %h3.setp_box_heading
+        %span Step 7:
+        Choose privacy settings for the listing
+      %ul.input_radio_nav
+        %li
+          .field
+            .form_lbl= f.label :is_public
+            = f.check_box :is_public, :checked => false
+            %span I want this listing posted publicly to everyone on the site
+        %li
+          %input{:name => "test", :type => "radio"}/
+          %span Don't post this on the site. I will share it with and only those I share it with will be able to access it
+      .input_post_div
+        = f.submit 'Save'
+        %p You will be able to share it afterwards
+      %ul.offer_form_bottom_nav
+        %li All services offered must be fully legal under US law and appropriate to discuss in front of people all ages.  Please keep it appropriate and positive!
+        %li Please also check specific policies of the non-profit for whom you are offering your service.
+        %li GoodInKind reserves the right to remove any postings at any time.
+  / #End Offer Form
+  .clear
+/ End Main Container

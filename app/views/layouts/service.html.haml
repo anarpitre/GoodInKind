@@ -6,9 +6,16 @@
     = stylesheet_link_tag "style"
     %link{:href => "http://fonts.googleapis.com/css?family=Crimson+Text&v2", :rel => "stylesheet", :type => "text/css"}/
     = stylesheet_link_tag "calendrical"
+    = stylesheet_link_tag "jquery-ui-1.8.14.custom"
+    = javascript_include_tag :defaults
     = javascript_include_tag "jquery"
     = javascript_include_tag "jquery_ujs"
+    = javascript_include_tag "jquery.min"
+    = javascript_include_tag "jquery-1.5.1.min"
+    = javascript_include_tag "jquery-ui-1.8.14.custom.min"
+    = javascript_include_tag "autocomplete-rails"
     = javascript_include_tag "jquery.calendrical"
+    = javascript_include_tag "tooltip"
     = csrf_meta_tag
     :javascript
       function showSlidingDiv(){
@@ -16,7 +23,7 @@
         function showSlidingDiv2(){
           $("#slidingDiv2").animate({"height": "toggle"}, { duration: 200, });
         }
-        %body
+  %body
     / Header Div starts from here
     = render :partial => 'layouts/service_header'
     / Header Div ends here
@@ -28,7 +35,7 @@
     .container
       - if user_signed_in?
         = render :partial => 'layouts/dashboard'
-      - yield
+      =yield
       .clear
     / End Main Container
     / Footer Starts from here

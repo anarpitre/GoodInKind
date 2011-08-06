@@ -10,7 +10,7 @@ class Service < ActiveRecord::Base
   has_many :categories, :through => :service_categories
   belongs_to :non_profit
   
-  accepts_nested_attributes_for :images,:location, :allow_destroy => true
+  accepts_nested_attributes_for :images,:location,:categories, :allow_destroy => true
   
   validates :title,:description, :non_profit_id,:is_public, :presence => true
   validates :amount, :numericality => true, :presence => true

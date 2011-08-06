@@ -76,7 +76,6 @@ ActiveRecord::Schema.define(:version => 20110803094854) do
     t.string   "salt"
     t.string   "mission_statement"
     t.string   "website"
-    t.text     "guideline"
     t.boolean  "is_temp_pwd",        :default => true
     t.boolean  "is_verified",        :default => false
     t.boolean  "is_active",          :default => true
@@ -87,13 +86,6 @@ ActiveRecord::Schema.define(:version => 20110803094854) do
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "participants", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "service_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -170,8 +162,8 @@ ActiveRecord::Schema.define(:version => 20110803094854) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                               :default => "", :null => false
-    t.string   "encrypted_password",   :limit => 128, :default => "", :null => false
+    t.string   "email",                               :default => "",    :null => false
+    t.string   "encrypted_password",   :limit => 128, :default => "",    :null => false
     t.string   "reset_password_token"
     t.datetime "remember_created_at"
     t.integer  "sign_in_count",                       :default => 0
@@ -183,7 +175,7 @@ ActiveRecord::Schema.define(:version => 20110803094854) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "authentication_token"
-    t.boolean  "is_admin"
+    t.boolean  "is_admin",                            :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
