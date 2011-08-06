@@ -1,21 +1,21 @@
 .footer
   .footer_video
-    %img{:alt => "video", :src => "/images/video-pic.jpg"}/
+    = image_tag('video-pic.jpg', :alt => 'video')
   %ul.footer_nav
     %li
-      %a{:href => "#"} About
+      = link_to "About", "#"
     %li
-      %a{:href => "#"} Blog
+      = link_to "Blog", "#"
     %li
-      %a{:href => "#"} FAQ
+      = link_to "FAQ", "#"
     %li
-      %a{:href => "#"} Contact
+      = link_to "Contact", "#"
     %li
-      %a{:href => "#"} Terms
+      = link_to "Terms", "#"
     %li
-      %a{:href => "#"} Privacy Policy
+      = link_to "Privacy Policy", "#"
     %li
-      %a{:href => "#"} Jobs
+      = link_to "Jobs", "#"
   .footer_divider
   %ul.footer_social_media
     %li

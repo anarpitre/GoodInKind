@@ -1,0 +1,4 @@
+.sidebar_search
+  %form
+    %input.sidebar_sarch_input{:name => "search", :onblur => "if (this.value == '') {this.value = 'Search';}", :onfocus => "if(this.value == 'Search') {this.value = '';}", :value => "Search"}/
+    %input.button.btn_sidebar{:type => "button", :value => "Go"}/

@@ -11,12 +11,13 @@ class CreateNonProfits < ActiveRecord::Migration
       t.string  :salt
       t.string  :mission_statement
       t.string  :website
+      t.string  :is_verified 
+      t.string  :permalink
+      t.string  :phone_number
       t.text    :guideline 
       t.boolean :is_temp_pwd, :default =>true #
-      t.boolean :is_verified, :default => false #
       t.boolean :is_active, :default => true  #
-      t.string  :permalink
-      t.string :phone_number
+      t.boolean :is_subsidiary, :default => false
       t.text    :description
       t.integer :gateway_id
       t.string  :photo_file_name

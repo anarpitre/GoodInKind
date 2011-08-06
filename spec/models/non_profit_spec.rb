@@ -99,13 +99,6 @@ describe NonProfit do
       np.should_not be_valid
     end
 
-    #016
-    it "if uuid is already taken" do
-      non_profit = Factory.build(:non_profit,:uuid => np.uuid)
-      non_profit.save
-      non_profit.should_not be_valid
-    end
-
     #017
     it "if EIN is blank" do
       np.EIN = ''

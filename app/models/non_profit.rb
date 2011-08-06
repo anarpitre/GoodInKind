@@ -10,10 +10,10 @@ class NonProfit < ActiveRecord::Base
   has_one :location, :as => :resource,:dependent => :destroy
   belongs_to :gateway
 
-  validates :uuid, :username, :presence => true,:uniqueness => true
+  validates :username, :presence => true,:uniqueness => true
   validates :EIN, :password, :password_confirmation, :contact_name, :name,  :presence => true
   validates_confirmation_of :password
-  validates :description, :presence => true
+  validates :description, :uuid,  :presence => true
   validates :email,  :presence => true, :format => EMAIL_REGEX
   validates_attachment_presence :photo
   validates_attachment_content_type :photo, :content_type => ["image/jpeg", "image/png", "image/gif"]
