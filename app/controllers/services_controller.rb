@@ -6,8 +6,8 @@ class ServicesController < ApplicationController
     @services = Service.all
 
     respond_to do |format|
-      format.html 
-      format.xml  { render :xml => @services }
+      format.html {render :layout => 'home'} 
+      #format.xml  { render :xml => @services }
     end
   end
 

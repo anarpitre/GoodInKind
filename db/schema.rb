@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110803094854) do
+ActiveRecord::Schema.define(:version => 20110804154634) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -58,6 +58,15 @@ ActiveRecord::Schema.define(:version => 20110803094854) do
     t.datetime "updated_at"
   end
 
+  create_table "messages", :force => true do |t|
+    t.string   "title"
+    t.text     "message"
+    t.boolean  "is_read",           :default => false
+    t.integer  "parent_message_id", :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "non_profit_categories", :force => true do |t|
     t.integer  "non_profit_id"
     t.integer  "category_id"
@@ -76,12 +85,13 @@ ActiveRecord::Schema.define(:version => 20110803094854) do
     t.string   "salt"
     t.string   "mission_statement"
     t.string   "website"
-    t.text     "guideline"
-    t.boolean  "is_temp_pwd",        :default => true
-    t.boolean  "is_verified",        :default => false
-    t.boolean  "is_active",          :default => true
+    t.string   "is_verified"
     t.string   "permalink"
     t.string   "phone_number"
+    t.text     "guideline"
+    t.boolean  "is_temp_pwd",        :default => true
+    t.boolean  "is_active",          :default => true
+    t.boolean  "is_subsidiary",      :default => false
     t.text     "description"
     t.integer  "gateway_id"
     t.string   "photo_file_name"
@@ -122,6 +132,26 @@ ActiveRecord::Schema.define(:version => 20110803094854) do
     t.datetime "updated_at"
   end
 
+  create_table "reviews", :force => true do |t|
+    t.integer  "service_id"
+    t.integer  "group_number"
+    t.integer  "user_id"
+    t.text     "review"
+    t.boolean  "is_positive",  :default => true
+    t.boolean  "is_active",    :default => true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "service_areas", :force => true do |t|
+    t.string   "city"
+    t.integer  "radius"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "service_categories", :force => true do |t|
     t.integer  "service_id"
     t.integer  "category_id"
@@ -157,6 +187,14 @@ ActiveRecord::Schema.define(:version => 20110803094854) do
     t.string   "token"
     t.string   "key"
     t.string   "code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "user_message_roles", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "message_id"
+    t.string   "role"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

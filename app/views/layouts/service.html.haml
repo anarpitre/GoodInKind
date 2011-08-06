@@ -16,21 +16,21 @@
         function showSlidingDiv2(){
           $("#slidingDiv2").animate({"height": "toggle"}, { duration: 200, });
         }
-        %body
+  %body
     / Header Div starts from here
     = render :partial => 'layouts/service_header'
     / Header Div ends here
     #slidingDiv
-    / Top Login Div starts from here
+      / Top Login Div starts from here
     = render :partial => 'layouts/top_login'
     / Top Login Div ends here
     / Main Container
     .container
       - if user_signed_in?
         = render :partial => 'layouts/dashboard'
-      - yield
+      = yield
       .clear
-    / End Main Container
+        / End Main Container
     / Footer Starts from here
     = render :partial => 'layouts/footer'
     / Footer Div ends here

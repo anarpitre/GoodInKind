@@ -7,13 +7,18 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
+  has_many :reviews
   has_many :user_service_role, :dependent => :destroy
+  has_many :user_message_role, :dependent => :destroy
   has_many :as_participants, :class_name => 'UserServiceRole', :conditions => ["role = 'Participant'"]
   has_many :as_offerer, :class_name => 'UserServiceRole', :conditions => ["role = 'Offerer'"]
+  has_many :as_sender, :class_name => 'UserMessageRole', :conditions => ["role = 'Sender'"]
+  has_many :as_receiver, :class_name => 'UserMessageRole', :conditions => ["role = 'Receiver'"]
+  has_many :messages, :through => :user_message_role
   has_many :services, :through => :user_service_role
   has_many :authentications, :dependent => :destroy
-  has_one :location, :as => :resource, :dependent => :destroy
-  has_one :profile, :dependent => :destroy
+  has_one  :location, :as => :resource, :dependent => :destroy
+  has_one  :profile, :dependent => :destroy
 
   def apply_omniauth(omniauth)
     self.email = omniauth['user_info']['email'] if email.blank?

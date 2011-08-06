@@ -8,13 +8,13 @@
         = link_to "here" ,new_user_registration_path
   .login_divider
   .login
-    %form
+    %form{:action => "#{user_session_path}", :method => :post}
       %p
-        %input.login_input{:name => "cname", :onblur => "if(this.value=='')this.value='Name';", :onfocus => "if(this.value=='Name')this.value='';", :type => "text", :value => "Name"}/
+        %input.login_input{:name => "email", :onblur => "if(this.value=='')this.value='Name';", :onfocus => "if(this.value=='Name')this.value='';", :type => "text", :value => "Name"}/
       %p
-        %input.login_input{:name => "cemail", :onblur => "if(this.value=='')this.value='Password';", :onfocus => "if(this.value=='Password')this.value='';", :type => "text", :value => "Password"}/
+        %input.login_input{:name => "password", :onblur => "if(this.value=='')this.value='Password';", :onfocus => "if(this.value=='Password')this.value='';", :type => "password", :value => "Password"}/
       %p
-        %input.button.bu_right.btn_form{:type => "button", :value => "Login"}/
+        %input.button.bu_right.btn_form{:type => "submit", :value => "Login"}/
     .forgot_pwd
       = link_to "Forgot your password?", new_user_password_path
   .login_divider
