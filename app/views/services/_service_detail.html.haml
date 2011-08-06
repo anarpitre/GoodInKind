@@ -1,0 +1,42 @@
+/ Logged Left
+.logged_left
+  .logged_top
+    .logged_gallery
+      .logged_pics
+        .tag_spots_logged
+        %img{:alt => "pics", :src => "images/logged_pic.jpg"}/
+      .logged_pics_bottom
+        %ul
+          %li
+            %a{:href => "#"} &lt;
+          %li
+            %a.pic_active{:href => "#"} 1
+          %li
+            %a{:href => "#"} 2
+          %li
+            %a{:href => "#"} 3
+          %li
+            %a{:href => "#"} 4
+          %li
+            %a{:href => "#"} 5
+          %li
+            %a{:href => "#"} &gt;
+        %span.report_abuse
+          %a{:href => "#"} Report Abuse
+    .logged_right
+      .logged_shar
+        %span.st_plusone_hcount
+        %span.st_twitter_hcount{:displaytext => "Tweet"}
+        %span.st_facebook_hcount{:displaytext => "Facebook"}
+        :javascript
+          var switchTo5x=true;        %script{:src => "http://w.sharethis.com/button/buttons.js", :type => "text/javascript"}
+        :javascript
+          stLight.options({publisher:'d7205d3e-dbdd-455c-a856-b25ec435dd41'});      .services_price
+        %span.req_text Requested Donation
+        %span.price_text $200
+      %a.button.take_it{:href => "#"} Take It
+  .services_content
+    render :partial => "service_description"
+    render :partial => "service_review"
+    .clear
+/ #End Logged Left

@@ -1,0 +1,25 @@
+.sidebar_list
+  %h3 Filter by Price
+  %ul
+    %li
+      %input{:checked => "checked", :type => "checkbox"}/
+      %span All (250)
+    %li
+      %input{:type => "checkbox"}/
+      %span < $50
+    %li
+      %input{:type => "checkbox"}/
+      %span $50 to $100
+    %li
+      %input{:type => "checkbox"}/
+      %span $100 to $200
+    %li
+      %input{:type => "checkbox"}/
+      %span $200 to $500
+    %li
+      %input{:type => "checkbox"}/
+      %span $500 and above
+  %p
+    %a{:href => "#"}
+      show all
+      %img{:alt => "arrow", :src => "images/find_down_arrow.png"}/

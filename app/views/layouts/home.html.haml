@@ -1,0 +1,36 @@
+!!!
+%html{:xmlns => "http://www.w3.org/1999/xhtml"}
+  %head
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}/
+    %title Goodinkind
+    = stylesheet_link_tag "style"
+    %link{:href => "http://fonts.googleapis.com/css?family=Crimson+Text&v2", :rel => "stylesheet", :type => "text/css"}/
+    = javascript_include_tag "jquery.min"
+    = csrf_meta_tag
+    :javascript
+      function showSlidingDiv(){
+        $("#slidingDiv").animate({"height": "toggle"}, { duration: 200 });}
+        function showSlidingDiv2(){
+          $("#slidingDiv2").animate({"height": "toggle"}, { duration: 200, });
+        }
+  %body
+    / Header Div starts from here
+    = render :partial => 'layouts/header'
+    / Header Div ends here
+    #slidingDiv
+    / Top Login Div starts from here
+    = render :partial => 'layouts/top_login'
+    / Top Login Div ends here
+    / Main Container
+    .container
+      - if user_signed_in?
+        = render :partial => 'layouts/dashboard'
+      - else
+        
+      .home_top
+      =yield
+      .clear
+    / End Main Container
+    / Footer Starts from here
+    = render :partial => 'layouts/footer'
+    / Footer Div ends here
