@@ -1,4 +1,0 @@
-- unless @non_profits.nil?
-  %h2 NonProfits
-  .inner
-  = select_tag "non_profit", options_for_select(@non_profits.collect{|b| [ b , b ]}) ,:include_blank => 'select One',:onchange => "document.location = '/non_profit/register/' + this.selectedIndex"
