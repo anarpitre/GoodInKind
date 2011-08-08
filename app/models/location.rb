@@ -1,7 +1,7 @@
 class Location < ActiveRecord::Base
   belongs_to :resource, :polymorphic => true
 
-  validates :address, :latitude, :longitude, :presence => true, :message => "Address cannot be verified"
+  validates :address, :latitude, :longitude, :presence => true
 
   before_validation :full_address
 
