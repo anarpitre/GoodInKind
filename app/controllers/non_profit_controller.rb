@@ -2,7 +2,6 @@ require 'charity_search'
 
 class NonProfitController < ApplicationController
 
-
   def index
     @non_profits = NonProfit.all
   end
@@ -13,14 +12,13 @@ class NonProfitController < ApplicationController
     end
   end
 
+  # FIXME: PLEASE give proper function name!
   def show_searched
     array = CharitySearch.get_non_profit_info(params[:non_profit][:name])
     @non_profits =  []
     non_profits_uuid = []
     array.each do |np|
       @non_profits << "#{np['primary_name']}, #{np['city']}"
-    end
-    array.each do |uuid|
       non_profits_uuid << "#{uuid['charity_uuid']}"
     end
     session[:non_profits] = non_profits_uuid 

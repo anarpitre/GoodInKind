@@ -1,7 +1,7 @@
 class Location < ActiveRecord::Base
   belongs_to :resource, :polymorphic => true
 
-  validates :address,:latitude,:longitude,:presence => true  
+  validates :address, :latitude, :longitude, :presence => true, :message => "Address cannot be verified"
 
   before_validation :full_address
 
@@ -12,6 +12,7 @@ class Location < ActiveRecord::Base
       geo = geo.first
       self.city = geo.city
       #State name is under the name of administrative_area_level_1 in hash result
+      # FIXME: Why are we iterating if we are always setting the state -- this is wrong! 
       count = 0
       geo.data["address_components"].size.times do 
         if geo.data["address_components"][count]["types"][0] == "administrative_area_level_1"

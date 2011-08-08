@@ -1,5 +1,4 @@
 class Service < ActiveRecord::Base
-  
   has_one :location, :as => :resource,:dependent => :destroy
   has_many :reviews
   has_many :user_service_role
@@ -11,10 +10,10 @@ class Service < ActiveRecord::Base
   has_many :categories, :through => :service_categories
   belongs_to :non_profit
   
-  accepts_nested_attributes_for :images,:location,:categories, :allow_destroy => true
+  accepts_nested_attributes_for :images, :location, :categories, :allow_destroy => true
   
-  validates :title,:description, :non_profit_id,:is_public, :presence => true
+  validates :title,:description, :non_profit_id, :is_public, :presence => true
   validates :amount, :numericality => true, :presence => true
-  validates :start_date,:end_date,:if => Proc.new { |t| t.is_scheduled == true}, :presence => true
+  validates :start_date, :end_date, :if => Proc.new { |t| t.is_scheduled == true}, :presence => true
 
 end

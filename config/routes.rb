@@ -2,8 +2,8 @@ Gik::Application.routes.draw do
 
 
   match '/auth/:provider/callback' => 'authentications#create'
-  match 'non_profit/register' => 'non_profit#register',:as => :register
   match '/auth/failure' => 'dashboard#index'
+
   match 'non_profit/register' => 'non_profit#register',:as => :register
   match 'non_profit/search' => 'non_profit#search',:as => :search
   match 'non_profit/show_searched' => 'non_profit#show_searched',:as => :show_searched
@@ -80,8 +80,7 @@ Gik::Application.routes.draw do
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
-
-  match ':controller(/:action(/:id(.:format)))'
+  # match ':controller(/:action(/:id(.:format)))'
 
   root :to => "home#index"
 end
