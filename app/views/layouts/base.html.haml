@@ -15,5 +15,10 @@
 
     = yield :header
 
+    :javascript
+      function showSlidingDiv2(){
+        $("#slidingDiv2").animate({"height": "toggle"}, { duration: 200, });
+      }
+  
   = yield(:layout_content) or yield
 
