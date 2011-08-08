@@ -19,7 +19,7 @@ class NonProfitController < ApplicationController
     non_profits_uuid = []
     array.each do |np|
       @non_profits << "#{np['primary_name']}, #{np['city']}"
-      non_profits_uuid << "#{uuid['charity_uuid']}"
+      non_profits_uuid << "#{np['charity_uuid']}"
     end
     session[:non_profits] = non_profits_uuid 
     respond_to do |format|
