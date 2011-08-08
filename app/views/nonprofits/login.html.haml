@@ -1,0 +1,16 @@
+%h1= "Login"
+= form_tag(:action => 'create_session') do
+  %table
+    %tr 
+      %td= label_tag(:username) 
+      %td= text_field_tag(:username)
+
+    %tr
+      %td= label_tag(:password)
+      %td= password_field_tag(:password)
+
+    %tr
+      %td 
+        %td= submit_tag('Log In')   
+=link_to "New User", register_nonprofits_path
+
