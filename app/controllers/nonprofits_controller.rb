@@ -1,4 +1,5 @@
 class NonprofitsController < ApplicationController
+  layout 'home'
   
   layout 'home'
   
