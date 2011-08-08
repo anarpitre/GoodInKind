@@ -18,7 +18,7 @@ class NonprofitsController < ApplicationController
       flash[:notice] = "User #{@non_profit.username} created"
       redirect_to  :action => 'login'
     else
-      render :action => 'register'
+      render :action => 'new'
     end
   end
   
