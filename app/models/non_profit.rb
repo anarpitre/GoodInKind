@@ -2,7 +2,7 @@ require 'digest/sha1'
 
 class NonProfit < ActiveRecord::Base
 
-  EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
+  EMAIL_REGEX = /^[a-z]+([+\.\w]+)*\w@[a-z0-9]+(\.\w+)+$/i
   has_many :non_profit_categories
   has_many :categories, :through => :non_profit_categories
   has_many :services
@@ -25,31 +25,26 @@ class NonProfit < ActiveRecord::Base
 
   attr_accessor :password, :password_confirmation
   before_save :create_hash_password
-  after_save  :clear_password
-  attr_protected :hashed_password,:salt
+  attr_protected :hashed_password, :salt
 
-
-
-   def self.authenticate(username="",password="")
-     non_profit_user = NonProfit.find_by_username(username)
-     if non_profit_user && non_profit_user.password_match?(password)
-       return non_profit_user
-     else
-       return false
-     end
-   end
-
-
-   def password_match?(password="")
-     hashed_password == NonProfit.hash_with_salt(password,salt)
-   end
-
-  def self.make_salt(username="")
-    Digest::SHA1.hexdigest("Use #{username} with #{Time.now} to make salt")
+  def self.authenticate(username, password)
+    non_profit_user = NonProfit.find_by_username(username)
+    if non_profit_user && non_profit_user.password_match?(password)
+      return non_profit_user
+    else
+      return false
+    end
   end
 
+  def password_match?(password)
+    hashed_password == NonProfit.hash_with_salt(password, salt)
+  end
+
+  def self.make_salt(username)
+    Digest::SHA1.hexdigest("Use #{username} with #{Time.now} to make salt")
+  end
   
-  def self.hash_with_salt(password="",salt="")
+  def self.hash_with_salt(password, salt)
     Digest::SHA1.hexdigest("Put #{salt} on the #{password}")
   end
 
@@ -61,9 +56,5 @@ class NonProfit < ActiveRecord::Base
       self.salt = NonProfit.make_salt(username) if salt.blank?
       self.hashed_password = NonProfit.hash_with_salt(password,salt)
     end
-  end
-
-  def clear_password
- #   self.password = nil
   end
 end

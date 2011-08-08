@@ -1,5 +1,4 @@
 class Profile < ActiveRecord::Base
-
   belongs_to  :user
   has_many :profile_social_networks, :dependent => :destroy
   has_many :social_networks, :through => :profile_social_networks
@@ -9,7 +8,8 @@ class Profile < ActiveRecord::Base
   validates_attachment_content_type :avatar, :content_type => ["image/jpeg", "image/png", "image/gif"]
   validates_attachment_size  :avatar, :less_than => 2.megabytes
 
-  has_attached_file :avatar,:whiny => false,
+  # FIXME: why is it whiny?
+  has_attached_file :avatar, :whiny => false,
     :styles => {
     :thumb=> "101x95#"
     }
