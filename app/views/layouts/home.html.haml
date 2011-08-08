@@ -1,5 +1,8 @@
 - content_for :header do
   :javascript
+    function showSlidingDiv2(){
+      $("#slidingDiv2").animate({"height": "toggle"}, { duration: 200 });
+    }
     function showSlidingDiv(){
       $("#slidingDiv").animate({"height": "toggle"}, { duration: 200 });
     }
