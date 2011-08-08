@@ -1,9 +1,27 @@
 class NonprofitsController < ApplicationController
   
+  layout 'home'
+  
   def index
     @non_profits = NonProfit.all
   end
 
+  def new
+    @non_profit = NonProfit.new
+    @non_profit.build_location
+  end
+  
+  def create
+    @non_profit = NonProfit.new(params[:non_profit])
+    @non_profit.build_location
+    if @non_profit.save
+      flash[:notice] = "User #{@non_profit.username} created"
+      redirect_to  :action => 'login'
+    else
+      render :action => 'register'
+    end
+  end
+  
   def login
   end
   
@@ -17,22 +35,6 @@ class NonprofitsController < ApplicationController
     else
       flash[:notice] = "Invalid Username/Password"
       redirect_to :action => 'login'
-    end
-  end
-
-  def register
-    @non_profit = NonProfit.new
-    @non_profit.build_location
-  end
-
-  def create
-    @non_profit = NonProfit.new(params[:non_profit])
-    @non_profit.build_location
-    if @non_profit.save
-      flash[:notice] = "User #{@non_profit.username} created"
-      redirect_to  :action => 'login'
-    else
-      render :action => 'register'
     end
   end
 

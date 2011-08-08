@@ -12,7 +12,6 @@ Gik::Application.routes.draw do
   
   resources :nonprofits do
     collection do
-      get :register
       get :login
       post :create_session
     end
