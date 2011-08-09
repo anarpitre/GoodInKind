@@ -1,7 +1,6 @@
 class NonprofitsController < ApplicationController
   layout 'home'
   
-  layout 'home'
   
   def index
     @non_profits = NonProfit.all

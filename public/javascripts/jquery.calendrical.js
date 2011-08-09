@@ -271,8 +271,8 @@
                     })
                     .css({
                         position: 'absolute',
-                        left: offset.left,
-                        top: offset.top + element.height() +
+                        left: offset.left - 141,
+                        top: top + element.height() +
                             options.padding * 2
                     });
                 element.after(div); 
@@ -353,8 +353,8 @@
                     })
                     .css({
                         position: 'absolute',
-                        left: offset.left,
-                        top: offset.top + element.height() +
+                        left: offset.left - 141,
+                        top: top + element.height() +
                             options.padding * 2
                     });
                 if (useStartTime) {

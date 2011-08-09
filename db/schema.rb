@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(:version => 20110804154634) do
   create_table "non_profits", :force => true do |t|
     t.string   "name"
     t.string   "contact_name"
+    t.string   "position"
     t.string   "EIN"
     t.string   "uuid"
     t.string   "email"
@@ -88,6 +89,7 @@ ActiveRecord::Schema.define(:version => 20110804154634) do
     t.string   "is_verified"
     t.string   "permalink"
     t.string   "phone_number"
+    t.string   "cell_phone"
     t.text     "guideline"
     t.boolean  "is_temp_pwd",        :default => true
     t.boolean  "is_active",          :default => true
@@ -97,6 +99,13 @@ ActiveRecord::Schema.define(:version => 20110804154634) do
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "participants", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "service_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -159,10 +168,10 @@ ActiveRecord::Schema.define(:version => 20110804154634) do
     t.integer  "booking_capacity"
     t.integer  "booked_seats"
     t.boolean  "is_scheduled"
-    t.datetime "start_date"
-    t.datetime "end_date"
-    t.datetime "start_time"
-    t.datetime "end_time"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.time     "start_time"
+    t.time     "end_time"
     t.integer  "non_profit_id"
     t.integer  "image_id"
     t.integer  "group_number"
@@ -201,8 +210,8 @@ ActiveRecord::Schema.define(:version => 20110804154634) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                               :default => "",    :null => false
-    t.string   "encrypted_password",   :limit => 128, :default => "",    :null => false
+    t.string   "email",                               :default => "", :null => false
+    t.string   "encrypted_password",   :limit => 128, :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "remember_created_at"
     t.integer  "sign_in_count",                       :default => 0
@@ -214,7 +223,7 @@ ActiveRecord::Schema.define(:version => 20110804154634) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "authentication_token"
-    t.boolean  "is_admin",                            :default => false
+    t.boolean  "is_admin"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
