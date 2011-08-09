@@ -1,8 +1,6 @@
 .header
   %h1.logo
     = link_to image_tag('goodinkind-logo.png', :alt => "Goodinkind - Get Together. Do Good."), root_path
-    %a{:href => "#"}
-      %img{:alt => "Goodinkind - Get Together. Do Good.", :src => "/images/goodinkind-logo.png"}/
   %ul.nav
     - if user_signed_in?
       %li= link_to "How it works", "#"

@@ -1,6 +1,9 @@
-
-
-= form_for @non_profit,:as => :non_profit,:url => register_path, :html => { :multipart => true } do |f| 
+= form_for @non_profit,:as => :non_profit,:url => nonprofits_path, :html => { :multipart => true, :method => :post} do |f| 
+  -if @non_profit.errors.any?
+    %h2= "#{pluralize(@non_profit.errors.count, "error")} prohibited this service from being saved:"
+    %ul
+      -@non_profit.errors.full_messages.each do |msg|
+        %li= msg
   %h1 
     Organization Information
 

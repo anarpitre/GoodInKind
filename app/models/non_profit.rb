@@ -3,7 +3,6 @@ require 'digest/sha1'
 class NonProfit < ActiveRecord::Base
 
   EMAIL_REGEX = /^[a-z]+([+\.\w]+)*\w@[a-z0-9]+(\.\w+)+$/i
-
   has_many :non_profit_categories
   has_many :categories, :through => :non_profit_categories
   has_many :services
@@ -19,7 +18,9 @@ class NonProfit < ActiveRecord::Base
   validates_attachment_content_type :photo, :content_type => ["image/jpeg", "image/png", "image/gif"]
   validates_attachment_size  :photo, :less_than => 2.megabytes
 
-  has_attached_file :photo
+  has_attached_file :photo,
+    :styles => { :thumb => [ "172x62#", :jpg ]} 
+
   accepts_nested_attributes_for :location, :allow_destroy => true
 
   attr_accessor :password, :password_confirmation

@@ -11,7 +11,7 @@ class Profile < ActiveRecord::Base
   # FIXME: why is it whiny?
   has_attached_file :avatar, :whiny => false,
     :styles => {
-    :thumb=> "100x100#",
-    :small  => "400x400>" }
+    :thumb=> "101x95#"
+    }
 
 end

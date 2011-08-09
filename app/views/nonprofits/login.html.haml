@@ -1,5 +1,5 @@
 %h1= "Login"
-= form_tag(:action => 'attempt_login') do
+= form_tag(:action => 'create_session') do
   %table
     %tr 
       %td= label_tag(:username) 
@@ -12,5 +12,5 @@
     %tr
       %td 
         %td= submit_tag('Log In')   
-=link_to "New User",register_path
+=link_to "New User", new_nonprofit_path
 
