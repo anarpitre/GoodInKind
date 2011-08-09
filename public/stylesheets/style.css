@@ -224,6 +224,88 @@ a.login_close {
 	line-height:25px;
 	padding:0 10px 3px !important;
 }
+
+/*_____ Main Login _____*/
+
+.main_login{
+	width:480px;
+	margin:30px auto auto auto;
+}
+.main_login h1{
+	width:100%;
+	float:left;
+	margin-bottom:20px;
+	text-align:center;
+}
+.main_login_box{
+	width:388px;
+	float:left;
+	background:#ffffe9;
+	border-radius:5px;
+	box-shadow:0px 2px 5px #333;
+	padding:35px 45px;
+}
+.main_login_box h2{
+	font-family: 'Crimson Text', serif;
+	font-weight: 400;
+	font-size:30px;
+	margin-bottom:45px;
+	float:left;
+	width:100%;
+	text-align:center;
+}
+.main_login_box form{
+	width:305px;
+	margin-left:41px;
+	float:left;
+}
+.main_login_box form p{
+	width:100%;
+	float:left;
+	margin-bottom:10px;
+}
+.main_login_box form label{
+	width:85px;
+	float:left;
+	margin:10px 15px 0px 0px;
+	font-size:18px;
+}
+.login_box_txt{
+	width:190px;
+	height:26px;
+	float:left;
+	padding:5px;
+	background:#fff;
+	border-radius:5px;
+	border:1px solid #cfcfcf;
+}
+.login_box_bottom{
+	margin-top:15px;
+	padding-bottom:30px;
+	border-bottom:1px dotted #afafa0;
+}
+.login_box_bottom input{
+	margin-top:-15px !important;
+	margin-right:3px;
+}
+.login_box_bottom a{
+	color:#004a80;
+	font-size:14px;
+	line-height:1.5;
+	text-decoration:none;
+}
+.main_login_bottom{
+	width:104%;
+	float:left;
+	margin-top:20px;
+	font-size:14px;
+}
+.main_login_bottom a{
+	font-weight:bold;
+	color:#004a80;
+}
+
+
 /*_____ Main _____*/
 
 .container {
@@ -960,7 +1042,8 @@ h2.offer_form_h2 span a {
 }
 .setp_box p {
 	float:left;
-	width:100%;
+	width:700px;
+	margin-left:60px;
 	margin-bottom:7px;
 }
 .setp_box_p_span {
@@ -1004,6 +1087,9 @@ h2.offer_form_h2 span a {
 }
 .input_area {
 	height:122px;
+}
+.input_np {
+	width:350px;
 }
 .input_select {
 	float:left;
@@ -1067,6 +1153,121 @@ h2.offer_form_h2 span a {
 	margin-bottom:8px;
 	list-style:none;
 }
+.np_lbl{
+	width:165px;
+}
+.np_page_top{
+    float: left;
+    width: 900px;
+	padding:20px 20px 0px 20px;
+	margin-left: -10px;
+	margin-bottom:20px;
+	background:#ebebeb;
+}
+.np_page_top p{
+	width:100%;
+	float:left;
+	margin-bottom:20px;
+	line-height:1.4;
+}
+.np_page_top p a{
+	text-decoration:none;
+	color:#004a80;
+}
+.np_span_list{
+	width:40px !important;
+	float:right !important;
+}
+.np_results{
+	width:710px;
+	float:left;
+	margin-left:20px;
+}
+.np_results_list{
+	width:675px;
+	height:70px;
+	overflow:hidden;
+	float:left;
+	padding:15px;
+	margin-bottom:20px;
+}
+.np_results_list:hover{
+	width:665px;
+	box-shadow:0 2px 4px #ccc;
+	border-radius: 5px;
+}
+.np_logos{
+	float:left;
+	width:200px;
+	margin-top:2px;
+}
+.np_rel_text{
+	width:430px;
+	float:left;
+	line-height:1.4;
+	margin-left:20px;
+}
+.np_rel_text a{
+	text-decoration:none;
+	color:#004A80;
+}
+.np_rel_text span{
+	width:430px;
+	float:left;
+}
+.np_rel_text span b{
+	color:#003471;
+}
+
+.np_rel_btns{
+	margin-top:30px;
+	float:left;
+	margin-left:310px;
+	margin-bottom:13px;
+}
+.np_rel_btns a{
+	margin-left:5px;
+}
+.np_no_results{
+	float:left;
+	min-height:400px;
+}
+.np_no_results form{
+	width:100%;
+	float:left;
+	margin-top:30px;
+}
+.np_no_results form p{
+	width:100%;
+	float:left;
+	margin-bottom:10px;
+}
+.no_res_lbl{
+	width:100px;
+	float:left;
+	margin-right:20px;
+	margin-top:5px;
+}
+.no_res_txt{
+	width:270px;
+	float:left;
+	height:15px;
+	padding:5px;
+	background:#ebebeb;
+	border:1px solid #9fa087;
+}
+.no_res_txt_city{
+	width:125px;
+	float:left;
+	height:15px;
+	padding:5px;
+	background:#ebebeb;
+	border:1px solid #9fa087;
+}
+.no_res_btn{
+	margin-left:120px;
+}
+
 /*_____ Tool Tip _____*/
 
 .hint {
@@ -1076,7 +1277,7 @@ h2.offer_form_h2 span a {
 	margin-left:10px;
 	border: 1px solid #c93;
 	padding: 10px 12px;
-	background: #ffc url(../images/pointer.gif) no-repeat -10px 5px;
+	background: #ffc url(../imfages/pointer.gif) no-repeat -10px 5px;
 }
 .hint .hint-pointer {
 	position: absolute;
