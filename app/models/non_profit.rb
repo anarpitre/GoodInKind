@@ -5,7 +5,8 @@ class NonProfit < ActiveRecord::Base
   EMAIL_REGEX = /^[a-z]+([+\.\w]+)*\w@[a-z0-9]+(\.\w+)+$/i
   has_many :non_profit_categories
   has_many :categories, :through => :non_profit_categories
-  has_many :services
+  has_many :service_non_profit
+  has_many :services, :through => :service_non_profit
   has_one :location, :as => :resource,:dependent => :destroy
   belongs_to :gateway
 

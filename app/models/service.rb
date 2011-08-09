@@ -8,11 +8,14 @@ class Service < ActiveRecord::Base
   has_many :images,:dependent => :destroy
   has_many :service_categories, :dependent => :destroy
   has_many :categories, :through => :service_categories
-  belongs_to :non_profit
+  has_one :service_non_profit
+  has_one :non_profit, :through => :service_non_profit
+ 
+  has_friendly_id :title
+
+  accepts_nested_attributes_for :images, :location, :categories, :service_non_profit, :allow_destroy => true
   
-  accepts_nested_attributes_for :images, :location, :categories, :allow_destroy => true
-  
-  validates :title,:description, :non_profit_id, :is_public, :presence => true
+  validates :description, :is_public, :presence => true
   validates :amount, :numericality => true, :presence => true
   validates :start_date, :end_date, :if => Proc.new { |t| t.is_scheduled == true}, :presence => true
 
