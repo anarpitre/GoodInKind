@@ -2,7 +2,7 @@
 .off_by
   .off_by_profile
     %h4.profile_title_h4 Non-Profit:
-    %img.profile_pic_nonpf{:alt => "pic", :src => "images/redcorss.jpg"}/
+    = image_tag('redcross.jpg', :alt => "pic", :class => "profile_pic_nonpf")
     %h3.profile_title_h3
       Red Cross
       %span Cupertino, CA
@@ -10,7 +10,7 @@
     %p
       %span.pl_left Website:
       %span.pl_right
-        %a{:href => "#"} www.redcross.com
+        = link_to "www.redcross.com", "#"
     %p
       %span.pl_left Description:
       %span.pl_right
@@ -20,5 +20,5 @@
         %br/
         I make beautiful things.
   %p.pl_view_more
-    %a{:href => "#"} View profile
+    = link_to "View Profile", "#"
 / #End NonProfit

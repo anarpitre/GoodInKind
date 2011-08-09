@@ -1,10 +1,14 @@
+%h2.services_h2
+  Pick and keep tasty apples from a local orchard
+  %em for
+  Racker Center
 / Logged Left
 .logged_left
   .logged_top
     .logged_gallery
       .logged_pics
         .tag_spots_logged
-        %img{:alt => "pics", :src => "images/logged_pic.jpg"}/
+        = image_tag('logged_pic.jpg', :alt => "pics")
       .logged_pics_bottom
         %ul
           %li
@@ -36,7 +40,7 @@
         %span.price_text $200
       %a.button.take_it{:href => "#"} Take It
   .services_content
-    render :partial => "service_description"
-    render :partial => "service_review"
+    = render :partial => "service_description"
+    = render :partial => "service_review"
     .clear
 / #End Logged Left

@@ -2,7 +2,7 @@
 .off_by
   .off_by_profile
     %h4.profile_title_h4 Offered by:
-    %img.profile_pic{:alt => "pic", :src => "images/photo_pic.jpg"}/
+    = image_tag('photo_pic.jpg', :alt => "pic", :class => "profile_pic")
     %h3.profile_title_h3
       Steve Jobs
       %span Cupertino, CA
@@ -10,13 +10,13 @@
     %p
       %span.pl_left Website:
       %span.pl_right
-        %a{:href => "#"} www.apple.com
+        = link_to "www.apple.com", "#"
     %p
       %span.pl_left Social Network:
       %span.pl_right
-        %a.pl_sn{:href => "#", :target => "_blank", :title => "Facebook"}
-        %a.pl_sn.tw_pl{:href => "#", :target => "_blank", :title => "Twitter"}
-        %a.pl_sn.ln_pl{:href => "#", :target => "_blank", :title => "Linkedin"}
+        = link_to "", "#", :target => "_blank", :title => "Facebook", :class => "pl_sn"
+        = link_to "", "#", :target => "_blank", :title => "Twitter", :class => "pl_sn.tw_pl"
+        = link_to "", "#", :target => "_blank", :title => "Linkedin", :class => "pl_sn.ln_pl"
     %p
       %span.pl_left Reviews:
       %span.pl_right 99% Positive
@@ -35,5 +35,5 @@
         %br/
         I make beautiful things.
   %p.pl_view_more
-    %a{:href => "#"} View profile
+    = link_to "View Profile", "#"
 / #End Offered By

@@ -3,23 +3,23 @@
     Welcome #{current_user.email}, you are an
     %b Agent of Change
   %span.dm_price
-    %img{:alt => "dot", :src => "/images/dot_dash.png"}/
+    = image_tag ('dot_dash.png', :alt => "dot")
     %b $100
   %span.dm_price.dm_time
-    %img{:alt => "time", :src => "/images/dash_time.png"}/
+    = image_tag ('dash_time.png', :alt => "time")
     %b 24h
   %ul.dm_nav
     %li
       = link_to "Profile", profiles_path
     %li
-      %a{:href => "#"} My Services
+      = link_to "My Services", "#"
     %li
       = link_to "Logout", destroy_user_session_path, :method => :get
   %span.dm_network
-    %img{:alt => "network", :src => "/images/network_icon.png"}/
+    = image_tag ('network_icon.png', :alt => "Network")
     %strong.count 3
   %span.dm_mail
-    %img{:alt => "mail", :src => "/images/mail_icon.png"}/
+    = image_tag ('mail_icon.png', :alt => "mail")
     %strong.count.mail_c 3
   %span.dm_st
   %span

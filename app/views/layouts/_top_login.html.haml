@@ -1,5 +1,5 @@
 #slidingDiv2
-  %a.login_close{:href => "#", :onclick => "showSlidingDiv2(); return false;"}
+  = link_to "", "#", :onclick => "showSlidingDiv(); return false;", :class => "login_close"
   .register_top
     %h4
       Are you new?
@@ -8,16 +8,15 @@
         = link_to "here" ,new_user_registration_path
   .login_divider
   .login
-    %form{:action => "#{user_session_path}", :method => :post}
+    = form_for "user", :url => user_session_path, :as => :post do
       %p
-        %input.login_input{:name => "email", :onblur => "if(this.value=='')this.value='Name';", :onfocus => "if(this.value=='Name')this.value='';", :type => "text", :value => "Name"}/
+        = text_field "user", "email", :placeholder => "E-Mail", :class => "login_input"
       %p
-        %input.login_input{:name => "password", :onblur => "if(this.value=='')this.value='Password';", :onfocus => "if(this.value=='Password')this.value='';", :type => "password", :value => "Password"}/
+        = password_field "user", "password", :placeholder => "Password", :class => "login_input"
       %p
-        %input.button.bu_right.btn_form{:type => "submit", :value => "Login"}/
+        = submit_tag "Login", :class => "button bu_right btn_form"
     .forgot_pwd
       = link_to "Forgot your password?", new_user_password_path
   .login_divider
   .login_with
-    %a{:href => "#"}
-      %img{:alt => "Facebook", :src => "/images/facebook_sign.png"}/
+    = link_to image_tag('facebook_sign.png', :alt => "Facebook", "#")

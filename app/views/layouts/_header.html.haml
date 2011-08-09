@@ -1,5 +1,6 @@
 .header
   %h1.logo
+    = link_to image_tag('goodinkind-logo.png', :alt => "Goodinkind - Get Together. Do Good."), root_path
     %a{:href => "#"}
       %img{:alt => "Goodinkind - Get Together. Do Good.", :src => "/images/goodinkind-logo.png"}/
   %ul.nav
@@ -16,7 +17,6 @@
     %br/
     %span.city_change_icon
       change
-      %a{:href => "#", :onclick => "showSlidingDiv(); return false;"}
-        %img{:src => "/images/city_arrow.png"}/
+      = link_to image_tag('city_arrow.png'), "#", :onclick => "showSlidingDiv(); return false;"
 #slidingDiv
 = render :partial => 'layouts/top_login'
