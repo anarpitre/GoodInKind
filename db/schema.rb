@@ -92,10 +92,8 @@ ActiveRecord::Schema.define(:version => 20110809074105) do
     t.string   "cell_phone"
     t.text     "guideline"
     t.boolean  "is_temp_pwd",        :default => true
-    t.boolean  "is_verified",        :default => false
     t.boolean  "is_active",          :default => true
-    t.string   "permalink"
-    t.string   "phone_number"
+    t.boolean  "is_subsidiary",      :default => false
     t.text     "description"
     t.integer  "gateway_id"
     t.string   "photo_file_name"
@@ -176,15 +174,17 @@ ActiveRecord::Schema.define(:version => 20110809074105) do
     t.float    "amount"
     t.integer  "booking_capacity"
     t.integer  "booked_seats"
-    t.boolean  "is_scheduled",          :default => true
+    t.boolean  "is_scheduled"
     t.date     "start_date"
     t.date     "end_date"
     t.time     "start_time"
     t.time     "end_time"
+    t.integer  "non_profit_id"
+    t.integer  "image_id"
     t.integer  "group_number"
     t.float    "non_profit_percentage"
-    t.boolean  "is_virtual",            :default => true
-    t.boolean  "is_public",             :default => true
+    t.boolean  "is_virtual"
+    t.boolean  "is_public"
     t.integer  "estimated_duration"
     t.datetime "created_at"
     t.datetime "updated_at"

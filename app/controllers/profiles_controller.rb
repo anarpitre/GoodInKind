@@ -1,5 +1,7 @@
 class ProfilesController < ApplicationController
-  
+ 
+  layout "home"
+
   def index
     @profile = current_user.profile || current_user.build_profile
     @authentications = current_user.authentications

@@ -1,17 +1,21 @@
 class NonprofitsController < ApplicationController
-  layout 'home'
+  before_filter :set_seo_tags
+  layout 'service'
   
   
   def index
+    @head[:title] = "NP Home"
     @non_profits = NonProfit.all
   end
 
   def new
+    @head[:title] = "Register"
     @non_profit = NonProfit.new
     @non_profit.build_location
   end
   
   def create
+    @head[:title] = "Register"
     @non_profit = NonProfit.new(params[:non_profit])
     @non_profit.build_location
     if @non_profit.save
@@ -23,15 +27,17 @@ class NonprofitsController < ApplicationController
   end
   
   def login
+    @head[:title] = "Login"
   end
   
   def create_session 
+    @head[:title] = "Login"
     authorized_user = NonProfit.authenticate(params[:username],params[:password])
     if authorized_user
       session[:non_profit_user_id] = authorized_user.id
       session[:non_profit_username] = authorized_user.username
       flash[:notice] = "You are now Logged In"
-      redirect_to '/'
+      redirect_to :action => 'index' 
     else
       flash[:notice] = "Invalid Username/Password"
       redirect_to :action => 'login'
@@ -57,6 +63,14 @@ class NonprofitsController < ApplicationController
     session[:non_profit_username] = nil
     flash[:notice] = "You have been Logged Out"
     redirect_to '/'
+  end
+  
+  def set_seo_tags
+    @head = {
+      :title => "Home",
+      :keywords => "a b c d",
+      :description => 'this is awesome'
+    }
   end
 
 end

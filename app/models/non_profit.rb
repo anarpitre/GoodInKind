@@ -13,7 +13,7 @@ class NonProfit < ActiveRecord::Base
   validates :username, :presence => true,:uniqueness => true
   validates :EIN, :password, :password_confirmation, :contact_name, :name,  :presence => true
   validates_confirmation_of :password
-  validates :description, :uuid,  :presence => true
+  #validates :description, :uuid,  :presence => true
   validates :email,  :presence => true, :format => EMAIL_REGEX
   validates_attachment_presence :photo
   validates_attachment_content_type :photo, :content_type => ["image/jpeg", "image/png", "image/gif"]
@@ -22,7 +22,7 @@ class NonProfit < ActiveRecord::Base
   has_attached_file :photo,
     :styles => { :thumb => [ "172x62#", :jpg ]} 
 
-  accepts_nested_attributes_for :location, :allow_destroy => true
+  #accepts_nested_attributes_for :location, :allow_destroy => true
 
   attr_accessor :password, :password_confirmation
   before_save :create_hash_password
