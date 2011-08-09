@@ -31,9 +31,6 @@
   %b End time:
   = @service.end_time.blank? ? "" : @service.end_time.strftime('%I:%M%p')
 %p
-  %b Non profit:
-  = @service.non_profit_id
-%p
   %b Is virtual:
   = @service.is_virtual
 %p

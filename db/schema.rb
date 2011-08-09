@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110804154634) do
+ActiveRecord::Schema.define(:version => 20110809074105) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -85,13 +85,11 @@ ActiveRecord::Schema.define(:version => 20110804154634) do
     t.string   "salt"
     t.string   "mission_statement"
     t.string   "website"
-    t.string   "is_verified"
+    t.boolean  "is_temp_pwd",        :default => true
+    t.boolean  "is_verified",        :default => false
+    t.boolean  "is_active",          :default => true
     t.string   "permalink"
     t.string   "phone_number"
-    t.text     "guideline"
-    t.boolean  "is_temp_pwd",        :default => true
-    t.boolean  "is_active",          :default => true
-    t.boolean  "is_subsidiary",      :default => false
     t.text     "description"
     t.integer  "gateway_id"
     t.string   "photo_file_name"
@@ -152,23 +150,29 @@ ActiveRecord::Schema.define(:version => 20110804154634) do
     t.datetime "updated_at"
   end
 
+  create_table "service_non_profits", :force => true do |t|
+    t.integer  "service_id"
+    t.integer  "non_profit_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "services", :force => true do |t|
     t.string   "title"
     t.text     "description"
     t.float    "amount"
     t.integer  "booking_capacity"
     t.integer  "booked_seats"
-    t.boolean  "is_scheduled"
+    t.boolean  "is_scheduled",          :default => true
     t.datetime "start_date"
     t.datetime "end_date"
     t.datetime "start_time"
     t.datetime "end_time"
-    t.integer  "non_profit_id"
     t.integer  "image_id"
     t.integer  "group_number"
     t.float    "non_profit_percentage"
-    t.boolean  "is_virtual"
-    t.boolean  "is_public"
+    t.boolean  "is_virtual",            :default => true
+    t.boolean  "is_public",             :default => true
     t.integer  "estimated_duration"
     t.datetime "created_at"
     t.datetime "updated_at"

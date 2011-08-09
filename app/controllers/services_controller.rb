@@ -13,38 +13,48 @@ class ServicesController < ApplicationController
 
   def new
     @service = Service.new
-    @service.build_location
-    @service.images.build
-    @service.categories.build
-    @non_profits = NonProfit.all
+    build_objects
   end
 
   def edit
     @service = Service.find(params[:id])
-    @service.build_location unless @service.location.blank?
-    @service.images.build unless @service.images.blank?
-    @service.categories.build unless @service.categories.blank?
+    build_objects
   end
 
   def create
     begin
-      params[:service][:non_profit] = NonProfit.find_by_name(params[:service][:non_profit])
       @service = Service.new(params[:service])
+      get_non_profit_id
       @service.save!
       redirect_to(@service, :notice => 'Service was successfully created.') 
-    rescue Exception => e
-      @service.non_profit = nil
+    rescue 
+      build_objects
       render :action => "new" 
     end
   end
 
   def update
-    @service = Service.find(params[:id])
-    if @service.update_attributes(params[:service])
+    begin
+      @service = Service.find(params[:id])
+      @service.update_attributes(params[:service])
+      get_non_profit_id
+      @service.save!
       redirect_to(@service, :notice => 'Service was successfully updated.') 
-    else
-      render :action => "edit" 
+    rescue 
+      render :action => "edit", :id => @service.id 
     end
+  end
+  
+  def build_objects
+    @service.build_location if @service.location.blank?
+    @service.images.build if @service.images.blank?
+    @service.categories.build if @service.categories.blank?
+    @service.build_service_non_profit if @service.service_non_profit.blank?
+  end
+
+  def get_non_profit_id
+    non_profit = NonProfit.find_by_name(params[:service][:service_non_profit_attributes][:non_profit_id])
+    @service.service_non_profit.non_profit_id = non_profit.id unless non_profit.blank?
   end
 
   def destroy

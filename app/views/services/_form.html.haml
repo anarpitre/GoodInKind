@@ -3,6 +3,8 @@
   $(document).ready(function() {
     $('#dt_date_start, #dt_time_start,' +
     '#dt_date_end,   #dt_time_end').calendricalDateTimeRange();
+      $('#service_location_attributes_address').attr('disabled', 'disabled'); 
+
   });
 
   jQuery(document).ready(function(){
@@ -79,7 +81,7 @@
       %p
         = f.fields_for :categories do |cat|
           = cat.label "Category", :class => "form_lbl"
-          = select_tag :name, options_for_select(Category.all.collect{|b| [ b[:name] , b[:id] ]}) ,:include_blank => '-select-', :class => "input_select"
+          = cat.select :name, options_for_select(Category.all.collect{|b| [ b[:name] , b[:id] ]}) , {:multiple => true, :include_blank => '-select-'}, :class => "input_select"
         %span.hint
           This is the place where the detailed event description will show up..
           %span.hint-pointer &nbsp;
@@ -88,8 +90,9 @@
         %span Step 2:
         Choose the non-profit that you would like to support
       %p
-        = f.label :non_profit_id, :class => "form_lbl"
-        = f.autocomplete_field :non_profit, autocomplete_non_profit_name_services_path, :class => "form_input_full input_half"
+        = f.fields_for :service_non_profit do |np|
+          = np.label :non_profit, :class => "form_lbl"
+          = np.autocomplete_field :non_profit_id, autocomplete_non_profit_name_services_path, :class => "form_input_full input_half", :value => "#{get_non_profit_name(@service.service_non_profit.non_profit_id)}"
         %span.setp_box_p_span
           or
           %a{:href => "#"} click here to browse
@@ -102,7 +105,7 @@
         Tell us where this service will be offered
       %p
         = f.label :is_virtual, :class => "form_lbl"
-        = f.check_box :is_virtual, :class => "input_checkbox", :checked => false
+        = f.check_box :is_virtual, :class => "input_checkbox"
         %span.setp_box_p_span (Check if this service will be offered virtually/online)
       %p
         = f.fields_for :location do |loc|
@@ -114,7 +117,7 @@
         Tell us when this service will be offered
       %p
         = f.label :is_scheduled, :class => "form_lbl"
-        = f.check_box :is_scheduled, :class => "input_checkbox", :checked => true
+        = f.check_box :is_scheduled, :class => "input_checkbox"
         %span.setp_box_p_span
           (Leave it checked if you would like to choose a date/time with the buyer after purchase)
           %a{:href => "#"} How it works?
@@ -170,7 +173,7 @@
         Choose privacy settings for the listing
       %ul.input_radio_nav
         %li
-          = f.check_box :is_public, :checked => false
+          = f.check_box :is_public
           %span I want this listing posted publicly to everyone on the site
         %li
           %input{:name => "test", :type => "radio"}/

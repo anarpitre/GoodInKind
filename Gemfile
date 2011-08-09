@@ -26,6 +26,7 @@ gem "ruby_parser"
 gem 'json'
 gem 'jquery-rails'
 gem 'rails3-jquery-autocomplete'
+gem 'friendly_id'
 group :development, :test do
 gem  'railroady'
 end
