@@ -3,6 +3,7 @@ class CreateNonProfits < ActiveRecord::Migration
     create_table :non_profits do |t|
       t.string  :name
       t.string  :contact_name
+      t.string  :position
       t.string  :EIN
       t.string  :uuid
       t.string  :email
@@ -14,6 +15,7 @@ class CreateNonProfits < ActiveRecord::Migration
       t.string  :is_verified 
       t.string  :permalink
       t.string  :phone_number
+      t.string  :cell_phone
       t.text    :guideline 
       t.boolean :is_temp_pwd, :default =>true #
       t.boolean :is_active, :default => true  #

@@ -1,6 +1,7 @@
 class Location < ActiveRecord::Base
   belongs_to :resource, :polymorphic => true
 
+  #validates :address, :latitude, :longitude, :presence => true, :if => Proc.new {|location| location.resource_type == 'User' || (location.resource_type == 'Service' && location.resource.is_virtual == true) }
   validates :address, :latitude, :longitude, :presence => true
 
   before_validation :full_address
