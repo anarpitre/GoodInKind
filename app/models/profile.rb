@@ -3,7 +3,6 @@ class Profile < ActiveRecord::Base
   has_many :profile_social_networks, :dependent => :destroy
   has_many :social_networks, :through => :profile_social_networks
 
-  validates_numericality_of :age
 
   validates_attachment_content_type :avatar, :content_type => ["image/jpeg", "image/png", "image/gif"]
   validates_attachment_size  :avatar, :less_than => 2.megabytes
