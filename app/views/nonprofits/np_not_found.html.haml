@@ -1,0 +1,27 @@
+/ Featured Services
+.featured_services_find
+  %a.bro_req_btn{:href => "#"} I am a Non-Profit
+  %h2.fs_find_h2
+    Non-Profit Partners
+    %br/
+    %span
+      Choose a non-profit organization below and support it by either purchasing
+      = succeed "a" do
+        %br/
+      posted service or offering a service yourself.
+  .np_results
+    .np_no_results
+      %strong Sorry, we don't yet have that non-profit listed!
+      Want us to add it?  Suggest it here:
+      %form
+        %p
+          %label.no_res_lbl Non-Profit Name
+          %input.no_res_txt{:type => "text"}/
+        %p
+          %label.no_res_lbl City
+          %input.no_res_txt_city{:type => "text"}/
+        %p
+          %label.no_res_lbl Your Email
+          %input.no_res_txt{:type => "text"}/
+        %p
+          %input.button.btn_form.no_res_btn{:type => "button", :value => "Suggest Non-Profit"}/

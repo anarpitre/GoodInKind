@@ -16,17 +16,8 @@
   - else
     %p
       %strong Sign in through one of these services:
-%a.auth_provider{:href => "/auth/twitter"}
-  = image_tag "twitter_32.png", :size => "32x32", :alt => "Twitter"
-  Twitter
 %a.auth_provider{:href => "/auth/facebook"}
   = image_tag "facebook_32.png", :size => "32x32", :alt => "Facebook"
   Facebook
-%a.auth_provider{:href => "/auth/google"}
-  = image_tag "google_32.png", :size => "32x32", :alt => "Google"
-  Google
-%a.auth_provider{:href => "/auth/linked_in"}
-  = image_tag "linkedin_32.png", :size => "32x32", :alt => "Google"
-  LinkedIn
 / <a href="/auth/open_id" class="auth_provider"><haml:loud> image_tag &amp;quot;open_id_32.png&amp;quot;, :size =&amp;gt; &amp;quot;32x32&amp;quot;, :alt =&amp;gt; &amp;quot;OpenID&amp;quot; </haml:loud>  OpenID</a>
 .clear

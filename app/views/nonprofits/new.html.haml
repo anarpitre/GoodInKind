@@ -1,65 +1,74 @@
-= form_for @non_profit,:as => :non_profit,:url => nonprofits_path, :html => { :multipart => true, :method => :post} do |f| 
-  -if @non_profit.errors.any?
-    %h2= "#{pluralize(@non_profit.errors.count, "error")} prohibited this service from being saved:"
-    %ul
-      -@non_profit.errors.full_messages.each do |msg|
-        %li= msg
-  %h1 
-    Organization Information
-
-  = f.label :EIN
-  = f.text_field :EIN
-  %br
-  = f.label :name
-  = f.text_field :name
-  %br
-  = f.label :logo
-  = f.file_field :photo
-  %br
-  %h3= "Account Information"
- 
-  = f.label :username
-  = f.text_field :username
-  %br
-  = f.label :password
-  = f.password_field :password
-  %br
-  = f.label :password_confirmation
-  = f.password_field :password_confirmation
-  %br
-  
-  %h3= "Location Information"
-  = f.fields_for :location do |location|
-    = location.label :address
-    = location.text_field :address
-    %br
-    = location.label :city
-    = location.text_field :city
-    %br
-    = location.label :state
-    = location.text_field :state
-    %br
-    = location.label :country
-    = location.text_field :country
-    %br
+%h2.offer_form_h2
+  Non-Profit Partner Application
+.np_page_top
+  %p
+    Thank you for your interest in becoming a nonprofit partner on GoodInKind. Becoming a partner organization will allow you to build and customize your profile, increase your organization's rankings in search results, and track causes that benefit your organization.
+  %p
+    You must be a representative or employee of the nonprofit organization to submit the partner application.
+  %p
+    Only U.S. nonprofits can be partners.
+    = succeed "." do
+      %a{:href => "#"} Learn more
+  %p
+    Submit your application by filling out the information below.
 
 
-  %h3= "Contact Information"
 
-  = f.label :uuid
-  = f.text_field :uuid 
-  %br
-  = f.label :contact_name
-  = f.text_field :contact_name
-  %br
-  = f.label :email
-  = f.text_field :email
-  %br
-  = f.label :description
-  = f.text_area :description
-  %br
-  = f.label :phone_number
-  = f.text_field :phone_number
-  %br
-  = f.submit 'Register'
+.offer_form
+  = form_for @non_profit,:url => nonprofits_path, :html => { :multipart => true, :method => :post} do |f|
+
+    .setp_box
+      %h3.setp_box_heading
+        %span Organization Information
+      %p
+        = f.label :EIN, :class => "form_lbl np_lbl"
+        = f.text_field :EIN, :class => "form_input_full input_np"
+      %p
+        = f.label :name, :class => "form_lbl np_lbl"
+        = f.text_field :name, :class => "form_input_full input_np"
+      %p
+        = f.label :website, :class => "form_lbl np_lbl"
+        = f.text_field :website, :class => "form_input_full input_np"
+      %p
+        = f.label "Logo", :class => "form_lbl np_lbl"
+        = f.file_field :photo, :class => "input_browse"
+    .setp_box
+      %h3.setp_box_heading
+        %span Account Information
+      %p
+        = f.label :username, :class => "form_lbl np_lbl"
+        = f.text_field :username, :class => "form_input_full input_np"
+      %p
+        = f.label :password, :class => "form_lbl np_lbl"
+        = f.password_field :password, :class => "form_input_full input_np"
+      %p
+        = f.label "Confirm Password", :class => "form_lbl np_lbl"
+        = f.password_field :password_confirmation, :class => "form_input_full input_np"
+    .setp_box
+      %h3.setp_box_heading
+        %span Contact Information
+      %p
+        = f.label :contact_name, :class => "form_lbl np_lbl"
+        = f.text_field :contact_name, :class => "form_input_full input_np"
+      %p
+        = f.label :position, :class => "form_lbl np_lbl"
+        = f.text_field :position, :class => "form_input_full input_np"
+      %p
+        = f.label "Work Email", :class => "form_lbl np_lbl"
+        = f.text_field :email, :class => "form_input_full input_np"
+      %p
+        = f.label "Confirm Work Email", :class => "form_lbl np_lbl"
+        = f.text_field :email, :class => "form_input_full input_np"
+      %p
+        = f.label :phone_number, :class => "form_lbl np_lbl"
+        = f.text_field :phone_number, :class => "form_input_full input_np"
+      %p
+        = f.label :cell_phone, :class => "form_lbl np_lbl"
+        = f.text_field :cell_phone, :class => "form_input_full input_np"
+    .input_post_div
+      %p By clicking "Submit Application", you are confirming that you are an official representative of the organization for which you are applying.
+      %br/
+      = f.submit "Submit", :class => "btn_form button form_post_btn"
+
+
 
