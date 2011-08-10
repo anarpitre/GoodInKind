@@ -13,7 +13,7 @@
   %ul.nav.nav_inner
     - if user_signed_in?
       %li= link_to "How it works", "#"
-      %li.nav_non= link_to "Non-Profits", "#"
+      %li.nav_non= link_to "Non-Profits", nonprofits_path
     - else
       %li= link_to "Sign Up", new_user_registration_path
       %li= link_to "Login","#", :onClick => 'showSlidingDiv2(); return false;'

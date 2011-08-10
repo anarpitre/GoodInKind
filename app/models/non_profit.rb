@@ -11,13 +11,12 @@ class NonProfit < ActiveRecord::Base
   belongs_to :gateway
 
   validates :username, :presence => true,:uniqueness => true
-  validates :EIN, :password, :password_confirmation, :contact_name, :name,  :presence => true
+  validates :password, :password_confirmation, :contact_name, :name, :phone_number, :presence => true
   validates_confirmation_of :password
-  #validates :description, :uuid,  :presence => true
   validates :email,  :presence => true, :format => EMAIL_REGEX
-  validates_attachment_presence :photo
-  validates_attachment_content_type :photo, :content_type => ["image/jpeg", "image/png", "image/gif"]
-  validates_attachment_size  :photo, :less_than => 2.megabytes
+  #validates_attachment_presence :photo
+  #validates_attachment_content_type :photo, :content_type => ["image/jpeg", "image/png", "image/gif"]
+  #validates_attachment_size  :photo, :less_than => 2.megabytes
 
   has_attached_file :photo,
     :styles => { :thumb => [ "172x62#", :jpg ]} 

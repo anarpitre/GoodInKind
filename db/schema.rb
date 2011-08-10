@@ -122,7 +122,6 @@ ActiveRecord::Schema.define(:version => 20110809074105) do
     t.integer  "user_id"
     t.string   "first_name"
     t.string   "last_name"
-    t.integer  "age",                 :default => 0
     t.string   "gender"
     t.string   "website"
     t.text     "about_me"
