@@ -9,7 +9,7 @@ class Service < ActiveRecord::Base
   has_many :resource_categories, :as => :resource, :dependent => :destroy
   has_many :categories, :through => :resource_categories #, :foreign_key => :category_id
   has_one :service_non_profit
-  has_one :non_profit, :through => :service_non_profit
+  belongs_to :non_profit
 
  
   def to_param
