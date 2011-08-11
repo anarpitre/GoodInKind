@@ -1,4 +1,4 @@
-if RAILS_ENV == 'production'
+if Rails.env == 'production'
   S3_DEFAULTS = { 
       :storage => :s3,
       :s3_credentials => "#{RAILS_ROOT}/config/s3.yml",

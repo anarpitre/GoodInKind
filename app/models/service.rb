@@ -8,15 +8,13 @@ class Service < ActiveRecord::Base
   has_many :images,:dependent => :destroy
   has_many :resource_categories, :as => :resource, :dependent => :destroy
   has_many :categories, :through => :resource_categories #, :foreign_key => :category_id
-  has_one :service_non_profit
   belongs_to :non_profit
-
  
   def to_param
     "#{id}-#{title.parameterize}"
   end
 
-  accepts_nested_attributes_for :images, :location, :service_non_profit, :allow_destroy => true
+  accepts_nested_attributes_for :images, :location, :allow_destroy => true
 
   validates :title, :description, :presence => true
   validates_inclusion_of :is_public, :in => [true, false]

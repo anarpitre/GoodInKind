@@ -23,12 +23,9 @@ class ServicesController < ApplicationController
 
   def create
     begin
-      @service = Service.new(params[:service])
-      get_non_profit_id
-      @service.save!
+      @service = Service.create!(params[:service])
       redirect_to(@service, :notice => 'Service was successfully created.') 
     rescue 
-      build_objects
       render :action => "new" 
     end
   end
@@ -37,8 +34,6 @@ class ServicesController < ApplicationController
     begin
       @service = Service.find(params[:id])
       @service.update_attributes(params[:service])
-      get_non_profit_id
-      @service.save!
       redirect_to(@service, :notice => 'Service was successfully updated.') 
     rescue 
       render :action => "edit", :id => @service.id 
@@ -49,12 +44,6 @@ class ServicesController < ApplicationController
     @service.build_location if @service.location.blank?
     @service.images.build if @service.images.blank?
     @service.categories.build if @service.categories.blank?
-    @service.build_service_non_profit if @service.service_non_profit.blank?
-  end
-
-  def get_non_profit_id
-    non_profit = NonProfit.find_by_name(params[:service][:service_non_profit_attributes][:non_profit_id])
-    @service.service_non_profit.non_profit_id = non_profit.id unless non_profit.blank?
   end
 
   def destroy
