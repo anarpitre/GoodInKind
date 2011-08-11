@@ -32,9 +32,9 @@
       %td= service.non_profit_id
       %td= service.is_virtual
       %td= service.is_public
-      %td= link_to 'Show', service
-      %td= link_to 'Edit', edit_service_path(service)
-      %td= link_to 'Destroy', service, :confirm => 'Are you sure?', :method => :delete
+      %td= link_to 'Show', service_path(:id => service.id)
+      %td= link_to 'Edit', edit_service_path(:id => service.id)
+      %td= link_to 'Destroy', service_path(:id => service.id), :confirm => 'Are you sure?', :method => :delete
 
 %br
 

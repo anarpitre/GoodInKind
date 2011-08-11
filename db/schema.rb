@@ -10,12 +10,28 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110809074105) do
+ActiveRecord::Schema.define(:version => 20110811143948) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
     t.string   "provider"
     t.string   "uid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "bookings", :force => true do |t|
+    t.integer  "service_id"
+    t.integer  "user_id"
+    t.integer  "seats_booked"
+    t.date     "charge_on_date"
+    t.string   "charge_status"
+    t.string   "cardonfile_id"
+    t.float    "donation_amount"
+    t.float    "additional_donation_amount"
+    t.float    "CC_charges"
+    t.float    "GIK_charges"
+    t.float    "total_amount"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -101,6 +117,7 @@ ActiveRecord::Schema.define(:version => 20110809074105) do
     t.integer  "photo_file_size"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "parent_non_profit"
   end
 
   create_table "participants", :force => true do |t|
@@ -131,6 +148,8 @@ ActiveRecord::Schema.define(:version => 20110809074105) do
     t.boolean  "is_verified"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.float    "donated_amount",      :default => 0.0
+    t.integer  "donated_time",        :default => 0
   end
 
   create_table "reviews", :force => true do |t|
@@ -187,6 +206,7 @@ ActiveRecord::Schema.define(:version => 20110809074105) do
     t.integer  "estimated_duration"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   create_table "social_networks", :force => true do |t|
@@ -195,6 +215,24 @@ ActiveRecord::Schema.define(:version => 20110809074105) do
     t.string   "token"
     t.string   "key"
     t.string   "code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "transactions", :force => true do |t|
+    t.integer  "booking_id"
+    t.string   "FG_trnx_id"
+    t.float    "total_amount"
+    t.boolean  "is_success"
+    t.text     "failed_reason"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "user_booking_roles", :force => true do |t|
+    t.integer  "booking_id"
+    t.integer  "user_id"
+    t.string   "role"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -216,8 +254,8 @@ ActiveRecord::Schema.define(:version => 20110809074105) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                               :default => "", :null => false
-    t.string   "encrypted_password",   :limit => 128, :default => "", :null => false
+    t.string   "email",                               :default => "",   :null => false
+    t.string   "encrypted_password",   :limit => 128, :default => "",   :null => false
     t.string   "reset_password_token"
     t.datetime "remember_created_at"
     t.integer  "sign_in_count",                       :default => 0
@@ -232,6 +270,7 @@ ActiveRecord::Schema.define(:version => 20110809074105) do
     t.boolean  "is_admin"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_temp_pwd",                         :default => true
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
