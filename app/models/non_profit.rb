@@ -6,7 +6,7 @@ class NonProfit < ActiveRecord::Base
   has_many :non_profit_categories
   has_many :categories, :through => :non_profit_categories
   has_many :service_non_profit
-  has_many :services, :through => :service_non_profit
+  has_many :services
   has_one :location, :as => :resource,:dependent => :destroy
   belongs_to :gateway
 
