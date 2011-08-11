@@ -1,0 +1,41 @@
+.np_profile_left
+  .np_profile_info
+    = form_for @non_profit, :url => nonprofits_path do |f|
+      %p
+        = f.label "Name"
+        = f.text_field :name, :class => "edit_input"
+      %p
+        %label EIN:
+        %span.np_info_text= @non_profit.EIN
+      %p
+        = f.fields_for :categories do |cat|
+          = cat.label "Category"
+          = cat.select :name, options_for_select(Category.where(:category_type => 2).collect{|b| [ b[:name] , b[:id] ]}) , {:multiple => true, :include_blank => '-select-'}, :class => "edit_input"
+      %p
+        %label Website:
+        = f.text_field :website, :class => "edit_input"
+      %p
+        = f.fields_for :location do |loc|
+          = loc.label "Address"
+          = loc.text_field :address, :class => "edit_input"
+      %p
+        %label Phone:
+        %span.np_info_text= @non_profit.phone_number
+      %p
+        %label Contact Name:
+        %span.np_info_text= @non_profit.contact_name
+      %p
+        %label Contact Email:
+        %span.np_info_text= @non_profit.email
+      %p
+        = f.label "Mission"
+        = f.text_field :mission_statement, :class => "edit_input"
+      %p
+        = f.label "Description:"
+        = f.text_area :description, :class => "edit_area edit_input"
+      %p
+        %label Guideline:
+        = f.text_area :guideline, :class => "edit_area edit_input"
+      %p.edit_acc_btn
+        = f.submit "Save", :class => "btn_form button"
+        %input.btn_form.button.np_cancel_btn{:type => "reset", :value => "Cancel"}/

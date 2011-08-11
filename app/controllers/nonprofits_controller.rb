@@ -1,6 +1,6 @@
 class NonprofitsController < ApplicationController
   before_filter :set_seo_tags
-  layout 'service'
+  layout 'non_profit'
   
   
   def index
@@ -8,10 +8,18 @@ class NonprofitsController < ApplicationController
     @non_profits = NonProfit.all
   end
 
+  def show
+    @non_profit = NonProfit.find(params[:id])
+  end
+  
   def new
     @head[:title] = "Register"
     @non_profit = NonProfit.new
     @non_profit.build_location
+  end
+
+  def edit
+    @non_profit = NonProfit.find(params[:id])
   end
   
   def create

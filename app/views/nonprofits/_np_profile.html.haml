@@ -1,0 +1,41 @@
+#c1{:style => "float:left;"}
+  .np_tab_logo
+    = image_tag('non_profit_client_icon.jpg', :class => "np_logos")
+  .np_profile_left
+    .np_profile_info
+      %span.edit_info
+        = image_tag('edit_icon.jpg', :alt => "edit")
+        = link_to "Edit Information", "#"
+      %p
+        %label Name:
+        %span.np_info_text Food For The Poor
+      %p
+        %label EIN:
+        %span.np_info_text 87654298
+      %p
+        %label Category:
+        %span.np_info_text Food
+      %p
+        %label Website:
+        %span.np_info_text
+          %a{:href => "#"} www.eli-africa.org
+      %p
+        %label Address:
+        %span.np_info_text 2345, Main Street, Ithaca, NY
+      %p
+        %label Phone:
+        %span.np_info_text 1234567890
+      %p
+        %label Contact Name:
+        %span.np_info_text Kalyan J
+      %p
+        %label Contact Email:
+        %span.np_info_text kalyan@goodinkind.com
+      %p
+        %label Mission:
+        %span.np_info_text ELI Africa is a 501(c)(3) non-profit organization founded in the United States and operating in the United States and Africa. We work with local communities to run hands-on ("experiential") learning projects for underprivileged youth. ELI Africa specializes in locally relevant, hands-on education. Our mission is to work with local communities in Africa to run experiential learning projects for underprivileged youth, who have had little or no access to educational support. Our goal is to create and promote sustainable education programs that are both locally relevant and that encourage community involvement. The projects that we run will be at once practical, creative, aimed at connecting these children with their local communities, and designed for sustainability and perpetuity.
+      %p
+        %label Guideline:
+        %span.np_info_text Services that include, facilitate, or promote alcohol consumption are prohibited.
+  = render :partial => "gik_stats"
+/ END C1

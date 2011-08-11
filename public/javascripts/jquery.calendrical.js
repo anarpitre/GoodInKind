@@ -271,8 +271,8 @@
                     })
                     .css({
                         position: 'absolute',
-                        left: offset.left - 141,
-                        top: top + element.height() +
+                        left: offset.left - 142,
+                        top: offset.top - 86.1 + element.height() +
                             options.padding * 2
                     });
                 element.after(div); 
@@ -354,7 +354,7 @@
                     .css({
                         position: 'absolute',
                         left: offset.left - 141,
-                        top: top + element.height() +
+                        top: offset.top-86 + element.height() +
                             options.padding * 2
                     });
                 if (useStartTime) {
