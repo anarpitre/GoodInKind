@@ -1,5 +1,6 @@
 class ServicesController < ApplicationController
-
+  
+  before_filter :get_service_by_id, :only => [:update, :destroy, :show, :edit]
   autocomplete :non_profit, :name, :full => true
   layout 'service'
 
@@ -8,7 +9,6 @@ class ServicesController < ApplicationController
   end
 
   def show
-    @service = Service.find(params[:id])
   end
 
   def new
@@ -17,25 +17,26 @@ class ServicesController < ApplicationController
   end
 
   def edit
-    @service = Service.find(params[:id])
     build_objects
   end
 
   def create
     begin
-      @service = Service.create!(params[:service])
+      @service = Service.new(params[:service])
+      @service.save!
       redirect_to(@service, :notice => 'Service was successfully created.') 
     rescue 
+      build_objects
       render :action => "new" 
     end
   end
 
   def update
     begin
-      @service = Service.find(params[:id])
-      @service.update_attributes(params[:service])
+      @service.update_attributes!(params[:service])
       redirect_to(@service, :notice => 'Service was successfully updated.') 
     rescue 
+      build_objects
       render :action => "edit", :id => @service.id 
     end
   end
@@ -47,8 +48,11 @@ class ServicesController < ApplicationController
   end
 
   def destroy
-    @service = Service.find(params[:id])
     @service.destroy
+  end
+  
+  def get_service_by_id
+    @service = Service.find(params[:id])
   end
 
 end

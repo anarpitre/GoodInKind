@@ -14,7 +14,6 @@ gem 'paperclip'
 gem "geocoder"
 gem 'omniauth', '0.2.6'
 gem "oa-openid"
-#gem "oa-oauth", :require => "omniauth/oauth"
 gem "aws-s3"
 gem 'faker'
 gem 'indextank'
@@ -25,8 +24,7 @@ gem  "hpricot"
 gem "ruby_parser"
 gem 'json'
 gem 'jquery-rails'
-gem 'rails3-jquery-autocomplete'
-gem 'friendly_id'
+gem 'rails3-jquery-autocomplete', '0.9.0'
 group :development, :test do
 gem  'railroady'
 end

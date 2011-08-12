@@ -3,54 +3,56 @@
   $(document).ready(function() {
     $('#dt_date_start, #dt_time_start,' +
     '#dt_date_end,   #dt_time_end').calendricalDateTimeRange({usa:true});
-    if ($("#service_is_virtual").is(':checked')){
-      $('#service_location_attributes_address').attr('disabled', 'disabled');  
-    }
-    else{
-      $('#service_location_attributes_address').removeAttr('disabled');
-    }
+      var virtual_flag = #{@service.is_virtual}
+      var scheduled_flag = #{@service.is_scheduled}
+      is_virtual(virtual_flag);
+      is_scheduled(scheduled_flag);
+
+
 
   });
 
   jQuery(document).ready(function(){
     $('#service_is_virtual').click(function(){
-      if ($("#service_is_virtual").is(':checked')){
-        $('#service_is_virtual').val("true");
-        $('#service_location_attributes_address').attr('disabled', 'disabled'); 
-      }
-      else{
-        $('#service_location_attributes_address').removeAttr('disabled');
-        $('#service_is_virtual').val("false");
-      }
-    });
-    
-    $('#service_is_public').click(function(){
-      if ($("#service_is_public").is(':checked')){
-        $('#service_is_public').val("true");
-      }
-      else{
-        $('#service_is_public').val("false");
-      }
+      is_virtual($("#service_is_virtual").is(':checked'))
     });
     
     $('#service_is_scheduled').click(function(){
-      if ($("#service_is_scheduled").is(':checked')){
-        $('#service_is_scheduled').val("true"); 
-        $('#dt_date_start').removeAttr('disabled');
-        $('#dt_date_end').removeAttr('disabled');
-        $('#dt_time_start').removeAttr('disabled');
-        $('#dt_time_end').removeAttr('disabled');
-      }
-      else{
-        $('#service_is_scheduled').val("false");
-        $('#dt_date_start').attr('disabled', 'disabled'); 
-        $('#dt_date_end').attr('disabled', 'disabled'); 
-        $('#dt_time_start').attr('disabled', 'disabled'); 
-        $('#dt_time_end').attr('disabled', 'disabled'); 
-      }
+      is_scheduled($("#service_is_scheduled").is(':checked'))
     });
   
   });
+
+  function is_virtual(flag)
+  {
+    if (flag){
+      $('#service_location_attributes_address').attr('disabled', 'disabled');  
+      $('#service_is_virtual').val("true");
+      }
+    else{
+      $('#service_location_attributes_address').removeAttr('disabled');
+      $('#service_is_virtual').val("false");
+    }
+  }
+
+  function is_scheduled(flag)
+  {
+    if (flag){
+      $('#service_is_scheduled').val("true"); 
+      $('#dt_date_start').removeAttr('disabled');
+      $('#dt_date_end').removeAttr('disabled');
+      $('#dt_time_start').removeAttr('disabled');
+      $('#dt_time_end').removeAttr('disabled');
+    }
+    else{
+      $('#service_is_scheduled').val("false");
+      $('#dt_date_start').attr('disabled', 'disabled'); 
+      $('#dt_date_end').attr('disabled', 'disabled'); 
+      $('#dt_time_start').attr('disabled', 'disabled'); 
+      $('#dt_time_end').attr('disabled', 'disabled'); 
+    }
+  }
+
 %h2.offer_form_h2
   Offer a Service to support your favorite non-profit
   %span
@@ -73,7 +75,7 @@
         Describe the service or experience you want to offer
       = f.text_field :title, :hint => "This is title hint"
       = f.text_area :description, :class => 'input_area', :hint => "descriptoin hint"
-      = f.collection_select :category_ids, Category.all, :id, :name, {:selected => @service.resource_categories.collect(&:category_id)}, { :multiple => true, :class => "input_select", :style => "height:100px;width:530px;", :hint => "This is the place where the detailed event description will show up.." }
+      = f.collection_select :category_ids, get_service_category, :id, :name, {:selected => @service.resource_categories.collect(&:category_id)}, { :multiple => true, :class => "input_select", :style => "height:100px;width:530px;", :hint => "This is the place where the detailed event description will show up.." }
     .setp_box
       %h3.setp_box_heading
         %span Step 2:
@@ -98,7 +100,7 @@
         %span.setp_box_p_span (Check if this service will be offered virtually/online)
       %p
         = f.fields_for :location do |loc|
-          = loc.text_field :address, :class => "input_small", :disabled => false
+          = loc.text_field :address, :class => "input_small"
     .setp_box
       %h3.setp_box_heading
         %span Step 4:

@@ -1,0 +1,2 @@
+SERVICE = 1
+NONPROFIT = 2
