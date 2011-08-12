@@ -15,6 +15,9 @@ class JoshForm < ActionView::Helpers::FormBuilder
   def self.create_tagged_field(method_name)
     define_method(method_name) do |attribute, *args|
 
+      #default args (an array with the hash as the last argument)
+      args = [{}] unless args
+
       # Bypass form-builder and do your own custome stuff!
       return super if args.last.is_a?(Hash) && args.last.delete(:skip)
 
@@ -22,15 +25,16 @@ class JoshForm < ActionView::Helpers::FormBuilder
       if args.last.is_a?(Hash)
         hint = args.last[:hint]
         css_class = args.last[:class]
+        label_txt = args.last[:label]
       end
 
-      if ['text_field', 'text_area'].include?(method_name)
-        args.last[:class] = "form_input_full #{css_class}"
+      if ['password_field', 'text_field', 'text_area'].include?(method_name)
+        args.last[:class] = "form_input_full #{css_class}" 
       end
 
       base_tag = super
       # Incase its a mandatory field, the '*' is added to the field.
-      label_tag = label("#{attribute.to_s.titleize} #{"*" if required(attribute)}", :class => CSS[:label]) 
+      label_tag = label("#{label_txt or attribute.to_s.titleize} #{"*" if required(attribute)}", :class => CSS[:label]) 
 
       if hint
         hint_pointer = @template.content_tag(:span, '', :class => CSS[:hint_ptr])
@@ -48,7 +52,7 @@ class JoshForm < ActionView::Helpers::FormBuilder
     end
   end
 
-  helpers = %w[text_field text_area password_field check_box select file_field collection_select radio_button]
+  helpers = %w[text_field text_area password_field select file_field collection_select ]
   helpers.each do |name|
     create_tagged_field(name)
   end
