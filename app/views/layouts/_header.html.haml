@@ -4,6 +4,10 @@
       = link_to image_tag('goodinkind-logo.png', :alt => "Goodinkind - Get Together. Do Good."), profiles_path
     - else
       = link_to image_tag('goodinkind-logo.png', :alt => "Goodinkind - Get Together. Do Good."), root_path
+  .header_services_find
+    .head_serve_box.top_active
+      Find
+      %span a service
   %ul.nav
     - if user_signed_in?
       %li= link_to "How it works", "#"
@@ -17,7 +21,6 @@
     %span.city_name Ithaca, NY
     %br/
     %span.city_change_icon
-      change
-      = link_to image_tag('city_arrow.png'), "#", :onclick => "showSlidingDiv(); return false;"
+      = link_to("Change #{image_tag('city_arrow.png')}".html_safe, "#", :onclick => "showSlidingDiv(); return false;")
 #slidingDiv
 = render :partial => 'layouts/top_login'

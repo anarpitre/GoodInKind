@@ -32,7 +32,7 @@ class JoshForm < ActionView::Helpers::FormBuilder
         args.last[:class] = "form_input_full #{css_class}" 
       end
 
-      base_tag = super
+      base_tag = super(attribute, *args)
       # Incase its a mandatory field, the '*' is added to the field.
       label_tag = label("#{label_txt or attribute.to_s.titleize} #{"*" if required(attribute)}", :class => CSS[:label]) 
 

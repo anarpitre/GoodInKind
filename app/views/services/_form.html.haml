@@ -96,18 +96,18 @@
         Tell us where this service will be offered
       %p
         = f.label :is_virtual, :class => 'form_lbl'
-        = f.check_box :is_virtual, :class => "input_checkbox", :skip => true
-        %span.setp_box_p_span (Check if this service will be offered virtually/online)
+        = f.check_box :is_virtual, { :class => "input_checkbox"}, "true", "false"
+        %span.setp_box_p_span (Online Service and keep it unchecked.)
       %p
         = f.fields_for :location do |loc|
-          = loc.text_field :address, :class => "input_small"
+          = loc.text_field :address, :class => "input_half"
     .setp_box
       %h3.setp_box_heading
         %span Step 4:
         Tell us when this service will be offered
       %p
         = f.label :is_scheduled, :class => 'form_lbl'
-        = f.check_box :is_scheduled, :class => "input_checkbox", :skip => true
+        = f.check_box :is_scheduled, { :class => "input_checkbox"}, "true", "false"
         %span.setp_box_p_span
           (Leave it checked if you would like to choose a date/time with the buyer after purchase)
           %a{:href => "#"} How it works?
@@ -155,10 +155,10 @@
         Choose privacy settings for the listing
       %ul.input_radio_nav
         %li
-          = f.radio_button(:is_public, true, :skip => true)
+          = f.radio_button(:is_public, true)
           = f.label(:gender, "I want this listing posted publicly to everyone on the site") 
         %li
-          = f.radio_button(:is_public, false, :skip => true)
+          = f.radio_button(:is_public, false)
           = f.label(:is_public, "Don't post this on the site. I will share it with and only those I share it with will be able to access it")
     .input_post_div
       = f.submit "Post It", :class => "btn_form button form_post_btn"

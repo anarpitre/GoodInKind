@@ -3,26 +3,29 @@ class NonprofitsController < ApplicationController
   layout 'nonprofit'
   
   def index
+    @head[:title] = "NonProfit Home"
     @nonprofits = Nonprofit.all
   end
 
   def show
+    @head[:title] = "My NonProfit"
     @nonprofit = Nonprofit.find(params[:id])
     @head[:title] = @nonprofit.name
   end
   
   def new
-    @head[:title] = "Register"
+    @head[:title] = "NonProfit"
     @nonprofit = Nonprofit.new
     @nonprofit.build_location
   end
 
   def edit
+    @head[:title] = "Register NonProfit"
     @nonprofit = Nonprofit.find(params[:id])
   end
   
   def create
-    @head[:title] = "Register"
+    @head[:title] = "Register My NonProfit"
     @nonprofit = Nonprofit.new(params[:nonprofit])
     @nonprofit.build_location
     if @nonprofit.save
@@ -34,11 +37,11 @@ class NonprofitsController < ApplicationController
   end
   
   def login
-    @head[:title] = "Login"
+    @head[:title] = "NonProfit Login"
   end
   
   def create_session 
-    @head[:title] = "Login"
+    @head[:title] = "My NonProfit Login"
     authorized_user = Nonprofit.authenticate(params[:username],params[:password])
     if authorized_user
       session[:nonprofit_user_id] = authorized_user.id
@@ -52,6 +55,7 @@ class NonprofitsController < ApplicationController
   end
 
   def change_password
+    @head[:title] = "Change My Password"
     @nonprofit = Nonprofit.find(params[:nonprofit_id])  
     if request.post? 
       @nonprofit.update_attributes(:password => params[:nonprofit][:password],:password_confirmation => params[:nonprofit][:password_confirmation])
@@ -74,9 +78,9 @@ class NonprofitsController < ApplicationController
   
   def set_seo_tags
     @head = {
-      :title => "Non Profits",
-      :keywords => "a b c d",
-      :description => 'this is awesome'
+      :title => "Non Profits Home",
+      :keywords => "NonProfits, Charities, NGos",
+      :description => 'Choose a non-profit organization below and support it by either purchasing '
     }
   end
 
