@@ -16,3 +16,4 @@ test/*
 vendor/rails/*
 vendor/bundle/*
 config/database.yml
+public/system/*
