@@ -1,11 +1,7 @@
 class Location < ActiveRecord::Base
   belongs_to :resource, :polymorphic => true
 
-  #validates :address, :latitude, :longitude, :presence => true, :if => Proc.new {|location| location.resource_type == 'User' || (location.resource_type == 'Service' && location.resource.is_virtual == true) }
-  validates :address, :latitude, :longitude, :presence => true
-
   before_validation :full_address
-
 
   def full_address
     geo = Geocoder.search(self.address)
@@ -18,6 +14,10 @@ class Location < ActiveRecord::Base
       self.zip = geo.postal_code
       self.latitude = geo.latitude
       self.longitude = geo.longitude
+    else
+      # address is wrong. reset lat / lng
+      self.latitude = self.longitude = nil
+      self.errors.add(:address, "cannot be verified")
     end
   end
 
