@@ -1,6 +1,7 @@
 class ServicesController < ApplicationController
   before_filter :set_seo_tags
   before_filter :get_service_by_id, :only => [:update, :destroy, :show, :edit]
+  
   autocomplete :nonprofit, :name, :full => true
 
   layout 'service'

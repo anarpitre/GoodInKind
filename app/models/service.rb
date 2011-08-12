@@ -12,28 +12,26 @@ class Service < ActiveRecord::Base
  
   accepts_nested_attributes_for :images, :location, :allow_destroy => true
   
-  before_save :create_location
+  
   validates :title, :description, :presence => true
   validates_inclusion_of :is_public, :in => [true, false]
   validates :amount, :numericality => true, :presence => true
-  validates :start_date, :end_date, :if => Proc.new { |t| t.is_schedulelater == false }, :presence => true
-  #validates :check_date
+  validates :start_date, :end_date, :start_time, :end_time, :if => Proc.new { |t| t.is_schedulelater == false}, :presence => true
+  validate :check_categories
+  validate :check_date
   
   def to_param
     "#{id}-#{title.parameterize}"
   end
 
-  def create_location
-    self.location.create  unless self.is_virtual
+  def check_categories
+    errors.add_to_base("No category selected") if self.categories.blank?
   end
 
   def check_date
-    if self.start_date > self.end_date
-      errors.add(:start_date,"Check Date")
-    end
-    
-    if self.start_time >= self.end_time
-      errors.add(:start_time," Check time") 
+    unless self.is_schedulelater
+        errors.add(:start_date,"Check Date") if self.start_date > self.end_date
+        errors.add(:start_time," Check time") if self.start_time >= self.end_time
     end
   end
 

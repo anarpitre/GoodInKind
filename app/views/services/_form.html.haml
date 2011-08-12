@@ -8,8 +8,6 @@
       is_virtual(virtual_flag);
       is_schedulelater(scheduled_flag);
 
-
-
   });
 
   jQuery(document).ready(function(){
@@ -27,11 +25,9 @@
   {
     if (flag){
       $('#service_location_attributes_address').attr('disabled', 'disabled');  
-      $('#service_is_virtual').val("true");
       }
     else{
       $('#service_location_attributes_address').removeAttr('disabled');
-      $('#service_is_virtual').val("false");
     }
   }
 

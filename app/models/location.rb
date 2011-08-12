@@ -5,7 +5,7 @@ class Location < ActiveRecord::Base
 
   def full_address
     geo = Geocoder.search(self.address)
-    if geo && geo.first 
+    if geo && geo.first
       geo = geo.first
       self.city = geo.city
       self.state = geo.state
@@ -15,8 +15,7 @@ class Location < ActiveRecord::Base
       self.latitude = geo.latitude
       self.longitude = geo.longitude
     else
-      # address is wrong. reset lat / lng
-      self.latitude = self.longitude = nil
+      # address is wrong.
       self.errors.add(:address, "cannot be verified")
     end
   end
