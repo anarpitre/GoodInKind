@@ -1,0 +1,238 @@
+diff --git a/app/controllers/services_controller.rb b/app/controllers/services_controller.rb
+index eb22f68..8c311a9 100644
+--- a/app/controllers/services_controller.rb
++++ b/app/controllers/services_controller.rb
+@@ -23,12 +23,9 @@ class ServicesController < ApplicationController
+ 
+   def create
+     begin
+-      @service = Service.new(params[:service])
+-      get_non_profit_id
+-      @service.save!
++      @service = Service.create!(params[:service])
+       redirect_to(@service, :notice => 'Service was successfully created.') 
+     rescue 
+-      build_objects
+       render :action => "new" 
+     end
+   end
+@@ -37,8 +34,6 @@ class ServicesController < ApplicationController
+     begin
+       @service = Service.find(params[:id])
+       @service.update_attributes(params[:service])
+-      get_non_profit_id
+-      @service.save!
+       redirect_to(@service, :notice => 'Service was successfully updated.') 
+     rescue 
+       render :action => "edit", :id => @service.id 
+@@ -49,12 +44,6 @@ class ServicesController < ApplicationController
+     @service.build_location if @service.location.blank?
+     @service.images.build if @service.images.blank?
+     @service.categories.build if @service.categories.blank?
+-    @service.build_service_non_profit if @service.service_non_profit.blank?
+-  end
+-
+-  def get_non_profit_id
+-    non_profit = NonProfit.find_by_name(params[:service][:service_non_profit_attributes][:non_profit_id])
+-    @service.service_non_profit.non_profit_id = non_profit.id unless non_profit.blank?
+   end
+ 
+   def destroy
+diff --git a/app/helpers/application_helper.rb b/app/helpers/application_helper.rb
+index de6be79..fc3dbe1 100644
+--- a/app/helpers/application_helper.rb
++++ b/app/helpers/application_helper.rb
+@@ -1,2 +1,9 @@
+ module ApplicationHelper
++  def gik_formatted_date(date)
++    date.strftime("%m/%d/%Y")
++  end
++
++  def gik_formatted_time(time)
++    time.strftime("%I:%M %p")
++  end
+ end
+diff --git a/app/helpers/services_helper.rb b/app/helpers/services_helper.rb
+index a6ee65c..00fc66b 100644
+--- a/app/helpers/services_helper.rb
++++ b/app/helpers/services_helper.rb
+@@ -1,6 +1,6 @@
+ module ServicesHelper
+   def get_non_profit_name
+-    return @service.non_profit.blank? ? "" : @service.non_profit.name
++    @service.non_profit.try(:name) #blank? ? "" : @service.non_profit.name
+   end
+ 
+   def get_remaining_spots
+diff --git a/app/models/service.rb b/app/models/service.rb
+index 2178055..fd57450 100644
+--- a/app/models/service.rb
++++ b/app/models/service.rb
+@@ -8,15 +8,13 @@ class Service < ActiveRecord::Base
+   has_many :images,:dependent => :destroy
+   has_many :resource_categories, :as => :resource, :dependent => :destroy
+   has_many :categories, :through => :resource_categories #, :foreign_key => :category_id
+-  has_one :service_non_profit
+   belongs_to :non_profit
+-
+  
+   def to_param
+     "#{id}-#{title.parameterize}"
+   end
+ 
+-  accepts_nested_attributes_for :images, :location, :service_non_profit, :allow_destroy => true
++  accepts_nested_attributes_for :images, :location, :allow_destroy => true
+ 
+   validates :title, :description, :presence => true
+   validates_inclusion_of :is_public, :in => [true, false]
+diff --git a/app/views/services/_form.html.haml b/app/views/services/_form.html.haml
+index 5507b60..bc404e1 100644
+--- a/app/views/services/_form.html.haml
++++ b/app/views/services/_form.html.haml
+@@ -2,7 +2,7 @@
+ :javascript
+   $(document).ready(function() {
+     $('#dt_date_start, #dt_time_start,' +
+-    '#dt_date_end,   #dt_time_end').calendricalDateTimeRange();
++    '#dt_date_end,   #dt_time_end').calendricalDateTimeRange({usa:true});
+     if ($("#service_is_virtual").is(':checked')){
+       $('#service_location_attributes_address').attr('disabled', 'disabled');  
+     }
+@@ -58,7 +58,7 @@
+     %a{:href => "#"} Click here
+ %a.bro_req_btn{:href => "#"} Browse Requests
+ .offer_form
+-  = form_for @service, :html => {:multipart => true} do |f|
++  = form_for @service, :builder => JoshForm, :html => {:multipart => true} do |f|
+     - if @service.errors.any?
+       #error_explanation
+         %h2
+@@ -71,27 +71,9 @@
+       %h3.setp_box_heading
+         %span Step 1:
+         Describe the service or experience you want to offer
+-      %p
+-        = f.label :title, :class => "form_lbl"
+-        = f.text_field :title, :class => 'form_input_full'
+-        %span.hint
+-          This is the place where the detailed event description will show up..
+-          %span.hint-pointer &nbsp;
+-      %p
+-        = f.label :description, :class => 'form_lbl'
+-        = f.text_area :description, :class => 'form_input_full input_area'
+-        %span.hint
+-          This is the place where the detailed event description will show up..
+-          %span.hint-pointer &nbsp;
+-      %p
+-        = f.fields_for :resource_categories do |cat|
+-          = cat.label "Category", :class => "form_lbl"
+-          = collection_select "resource_categories", "category_id", Category.all, :id, :name, {:selected => @service.resource_categories.collect(&:category_id)}, {:multiple => true, :class => "input_select", :style => "height:100px;width:530px;"}
+-
+-
+-        %span.hint
+-          This is the place where the detailed event description will show up..
+-          %span.hint-pointer &nbsp;
++      = f.text_field :title, :hint => "This is title hint"
++      = f.text_area :description, :class => 'input_area', :hint => "descriptoin hint"
++      = f.collection_select :category_ids, Category.all, :id, :name, {:selected => @service.resource_categories.collect(&:category_id)}, { :multiple => true, :class => "input_select", :style => "height:100px;width:530px;", :hint => "This is the place where the detailed event description will show up.." }
+     .setp_box
+       %h3.setp_box_heading
+         %span Step 2:
+@@ -111,54 +93,46 @@
+         %span Step 3:
+         Tell us where this service will be offered
+       %p
+-        = f.label :is_virtual, :class => "form_lbl"
+-        = f.check_box :is_virtual, :class => "input_checkbox"
++        = f.label :is_virtual, :class => 'form_lbl'
++        = f.check_box :is_virtual, :class => "input_checkbox", :skip => true
+         %span.setp_box_p_span (Check if this service will be offered virtually/online)
+       %p
+         = f.fields_for :location do |loc|
+-          = loc.label :address, :class => "form_lbl"
+-          = loc.text_field :address, :class => "form_input_full input_small", :disabled => false
++          = loc.text_field :address, :class => "input_small", :disabled => false
+     .setp_box
+       %h3.setp_box_heading
+         %span Step 4:
+         Tell us when this service will be offered
+       %p
+-        = f.label :is_scheduled, :class => "form_lbl"
+-        = f.check_box :is_scheduled, :class => "input_checkbox"
++        = f.label :is_scheduled, :class => 'form_lbl'
++        = f.check_box :is_scheduled, :class => "input_checkbox", :skip => true
+         %span.setp_box_p_span
+           (Leave it checked if you would like to choose a date/time with the buyer after purchase)
+           %a{:href => "#"} How it works?
+       %p
+         %span.setp_two_col
+-          = f.label :start_date, :class => "form_lbl"
+-          = f.text_field :start_date,:id => 'dt_date_start',:value => @service.start_date.blank? ? '' : @service.start_date.strftime('%m/%d/%Y'), :class => "form_input_full input_small"
++          = f.text_field :start_date, :id => 'dt_date_start',:value => gik_formatted_date(@service.start_date), :class => "input_small"
+           %span.hint
+             This is the place where the detailed event description will show up..
+             %span.hint-pointer &nbsp;
+         %span.setp_two_col
+-          = f.label :start_time, :class => "form_lbl"
+-          = f.text_field :start_time, :id => 'dt_time_start', :value => @service.start_time.blank? ? '' : @service.start_time.strftime('%I:%M%p'), :class => "form_input_full input_small"
++          = f.text_field :start_time, :id => 'dt_time_start', :value => gik_formatted_time(@service.start_time), :class => "input_small"
+       %p
+         %span.setp_two_col
+-          = f.label :end_date, :class => "form_lbl"
+-          = f.text_field :end_date, :id => 'dt_date_end', :value => @service.end_date.blank? ? '' : @service.end_date.strftime('%m/%d/%Y'), :class => "form_input_full input_small"
++          = f.text_field :end_date, :id => 'dt_date_end', :value => gik_formatted_date(@service.end_date), :class => "input_small"
+         %span.setp_two_col
+-          = f.label :end_time, :class => "form_lbl"
+-          = f.text_field :end_time, :id => 'dt_time_end', :value => @service.end_time.blank? ? '' : @service.end_time.strftime('%I:%M%p'), :class => "form_input_full input_small"
++          = f.text_field :end_time, :id => 'dt_time_end', :value => gik_formatted_time(@service.end_time), :class => "input_small"
+       %p
+         %span.setp_two_col
+-          = f.label :booking_capacity, :class => "form_lbl"
+-          = f.text_field :booking_capacity,  :class => "form_input_full input_small"
++          = f.text_field :booking_capacity,  :class => "input_small"
+         %span.setp_two_col
+-          = f.label :estimated_duration, :class => "form_lbl"
+-          = f.text_field :estimated_duration,  :class => "form_input_full input_small"
++          = f.text_field :estimated_duration,  :class => "input_small"
+     .setp_box
+       %h3.setp_box_heading
+         %span Step 5:
+         What is the requested donation amount for this service?
+       %p
+-        = f.label :amount, :class => "form_lbl"
+-        = f.text_field :amount,  :class => "form_input_full input_small"
++        = f.text_field :amount,  :class => "input_small"
+         %span.hint
+           This is the place where the detailed event description will show up..
+           %span.hint-pointer &nbsp;
+@@ -169,7 +143,6 @@
+       %p
+         = f.fields_for :images do |photo|
+           - if photo.object.new_record?
+-            = photo.label :image, :class => "form_lbl"
+             = photo.file_field :image, :class => "input_browse"
+           - else
+             = link_to( image_tag(photo.object.image.url(:small_thumb)), photo.object.image.url(:original) )
+@@ -180,10 +153,10 @@
+         Choose privacy settings for the listing
+       %ul.input_radio_nav
+         %li
+-          = f.radio_button(:is_public, true) 
++          = f.radio_button(:is_public, true, :skip => true)
+           = f.label(:gender, "I want this listing posted publicly to everyone on the site") 
+         %li
+-          = f.radio_button(:is_public, false) 
++          = f.radio_button(:is_public, false, :skip => true)
+           = f.label(:is_public, "Don't post this on the site. I will share it with and only those I share it with will be able to access it")
+     .input_post_div
+       = f.submit "Post It", :class => "btn_form button form_post_btn"
+diff --git a/config/initializers/gik.rb b/config/initializers/gik.rb
+index e52dcda..94bd807 100644
+--- a/config/initializers/gik.rb
++++ b/config/initializers/gik.rb
+@@ -1,4 +1,4 @@
+-if RAILS_ENV == 'production'
++if Rails.env == 'production'
+   S3_DEFAULTS = { 
+       :storage => :s3,
+       :s3_credentials => "#{RAILS_ROOT}/config/s3.yml",
