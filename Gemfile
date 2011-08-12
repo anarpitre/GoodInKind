@@ -2,12 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.7'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-#gem 'sqlite3'
-#gem 'pg'
-gem 'mysql2', '= 0.2.8'
+gem 'pg'
 gem 'devise'
 gem 'rspec-rails'
 gem 'factory_girl_rails'
@@ -19,15 +14,16 @@ gem "aws-s3"
 gem 'faker'
 gem 'indextank'
 gem 'json_pure'
-gem 'has_permalink'
 gem "haml-rails" 
 gem  "hpricot"
 gem "ruby_parser"
 gem 'json'
 gem 'jquery-rails'
 gem 'rails3-jquery-autocomplete', '0.9.0'
+
 group :development, :test do
-gem  'railroady'
+ gem  'railroady'
+#gem 'mysql2', '= 0.2.8'
 end
 # Use unicorn as the web server
 # gem 'unicorn'
