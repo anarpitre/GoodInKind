@@ -9,7 +9,7 @@ describe "services/index.html.haml" do
                       :amount => 1.5,
                       :booking_capacity => 1,
                       :is_scheduled => false,
-                      :non_profit_id => 1,
+                      :nonprofit_id => 1,
                       :is_virtual => false,
                       :is_public => false
                      ),
@@ -19,7 +19,7 @@ describe "services/index.html.haml" do
                                   :amount => 1.5,
                                   :booking_capacity => 1,
                                   :is_scheduled => false,
-                                  :non_profit_id => 1,
+                                  :nonprofit_id => 1,
                                   :is_virtual => false,
                                   :is_public => false
                                  )

@@ -9,9 +9,9 @@ describe "services/show.html.haml" do
       :booking_capacity => 1,
       :booked_seats => 1,
       :group_number => 1,
-      :non_profit_percentage => 1.5,
+      :nonprofit_percentage => 1.5,
       :is_scheduled => false,
-      :non_profit_id => 1,
+      :nonprofit_id => 1,
       :is_virtual => false,
       :is_public => false
     ))

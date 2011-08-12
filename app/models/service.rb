@@ -8,7 +8,7 @@ class Service < ActiveRecord::Base
   has_many :images,:dependent => :destroy
   has_many :resource_categories, :as => :resource, :dependent => :destroy
   has_many :categories, :through => :resource_categories #, :foreign_key => :category_id
-  belongs_to :non_profit
+  belongs_to :nonprofit
  
   accepts_nested_attributes_for :images, :location, :allow_destroy => true
   

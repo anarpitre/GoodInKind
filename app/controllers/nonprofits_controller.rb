@@ -1,33 +1,32 @@
 class NonprofitsController < ApplicationController
   before_filter :set_seo_tags
-  layout 'non_profit'
-  
+  layout 'nonprofit'
   
   def index
-    @head[:title] = "NP Home"
-    @non_profits = NonProfit.all
+    @nonprofits = Nonprofit.all
   end
 
   def show
-    @non_profit = NonProfit.find(params[:id])
+    @nonprofit = Nonprofit.find(params[:id])
+    @head[:title] = @nonprofit.name
   end
   
   def new
     @head[:title] = "Register"
-    @non_profit = NonProfit.new
-    @non_profit.build_location
+    @nonprofit = Nonprofit.new
+    @nonprofit.build_location
   end
 
   def edit
-    @non_profit = NonProfit.find(params[:id])
+    @nonprofit = Nonprofit.find(params[:id])
   end
   
   def create
     @head[:title] = "Register"
-    @non_profit = NonProfit.new(params[:non_profit])
-    @non_profit.build_location
-    if @non_profit.save
-      flash[:notice] = "User #{@non_profit.username} created"
+    @nonprofit = Nonprofit.new(params[:nonprofit])
+    @nonprofit.build_location
+    if @nonprofit.save
+      flash[:notice] = "User #{@nonprofit.username} created"
       redirect_to  :action => 'login'
     else
       render :action => 'new'
@@ -40,10 +39,10 @@ class NonprofitsController < ApplicationController
   
   def create_session 
     @head[:title] = "Login"
-    authorized_user = NonProfit.authenticate(params[:username],params[:password])
+    authorized_user = Nonprofit.authenticate(params[:username],params[:password])
     if authorized_user
-      session[:non_profit_user_id] = authorized_user.id
-      session[:non_profit_username] = authorized_user.username
+      session[:nonprofit_user_id] = authorized_user.id
+      session[:nonprofit_username] = authorized_user.username
       flash[:notice] = "You are now Logged In"
       redirect_to :action => 'index' 
     else
@@ -53,10 +52,10 @@ class NonprofitsController < ApplicationController
   end
 
   def change_password
-    @non_profit = NonProfit.find(params[:nonprofit_id])  
+    @nonprofit = Nonprofit.find(params[:nonprofit_id])  
     if request.post? 
-      @non_profit.update_attributes(:password => params[:non_profit][:password],:password_confirmation => params[:non_profit][:password_confirmation])
-      if @non_profit.save
+      @nonprofit.update_attributes(:password => params[:nonprofit][:password],:password_confirmation => params[:nonprofit][:password_confirmation])
+      if @nonprofit.save
         flash[:message] = "Password Changed"
         redirect_to(:action => 'login')
       else
@@ -67,15 +66,15 @@ class NonprofitsController < ApplicationController
   end
 
   def logout
-    session[:non_profit_user_id] = nil 
-    session[:non_profit_username] = nil
+    session[:nonprofit_user_id] = nil 
+    session[:nonprofit_username] = nil
     flash[:notice] = "You have been Logged Out"
     redirect_to '/'
   end
   
   def set_seo_tags
     @head = {
-      :title => "Home",
+      :title => "Non Profits",
       :keywords => "a b c d",
       :description => 'this is awesome'
     }

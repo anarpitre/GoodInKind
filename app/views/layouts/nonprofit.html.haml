@@ -12,7 +12,7 @@
 - unless content_for?(:layout_content)
   - content_for :layout_content do
     %body
-      = content_for?(:layout_header) ? yield(:layout_header) : render('layouts/non_profit_header')
+      = content_for?(:layout_header) ? yield(:layout_header) : render('layouts/nonprofit_header')
       .container
         = content_for?(:body_content) ? yield(:body_content) : yield
         .clear

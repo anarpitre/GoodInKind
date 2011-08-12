@@ -1,6 +1,6 @@
 module ServicesHelper
-  def get_non_profit_name
-    @service.non_profit.try(:name) #blank? ? "" : @service.non_profit.name
+  def get_nonprofit_name
+    @service.nonprofit.try(:name) #blank? ? "" : @service.nonprofit.name
   end
 
   def get_remaining_spots

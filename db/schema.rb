@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110811143948) do
+ActiveRecord::Schema.define(:version => 20110812065916) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -83,14 +83,14 @@ ActiveRecord::Schema.define(:version => 20110811143948) do
     t.datetime "updated_at"
   end
 
-  create_table "non_profit_categories", :force => true do |t|
-    t.integer  "non_profit_id"
+  create_table "nonprofit_categories", :force => true do |t|
+    t.integer  "nonprofit_id"
     t.integer  "category_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "non_profits", :force => true do |t|
+  create_table "nonprofits", :force => true do |t|
     t.string   "name"
     t.string   "contact_name"
     t.string   "position"
@@ -117,15 +117,10 @@ ActiveRecord::Schema.define(:version => 20110811143948) do
     t.integer  "photo_file_size"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "parent_non_profit"
+    t.string   "parent_nonprofit"
   end
 
-  create_table "participants", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "service_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+  add_index "nonprofits", ["username"], :name => "index_non_profits_on_username"
 
   create_table "profile_social_networks", :force => true do |t|
     t.integer  "profile_id"
@@ -150,6 +145,14 @@ ActiveRecord::Schema.define(:version => 20110811143948) do
     t.datetime "updated_at"
     t.float    "donated_amount",      :default => 0.0
     t.integer  "donated_time",        :default => 0
+  end
+
+  create_table "resource_categories", :force => true do |t|
+    t.integer  "resource_id"
+    t.string   "resource_type"
+    t.integer  "category_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "reviews", :force => true do |t|
@@ -179,9 +182,9 @@ ActiveRecord::Schema.define(:version => 20110811143948) do
     t.datetime "updated_at"
   end
 
-  create_table "service_non_profits", :force => true do |t|
+  create_table "service_nonprofits", :force => true do |t|
     t.integer  "service_id"
-    t.integer  "non_profit_id"
+    t.integer  "nonprofit_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -192,20 +195,19 @@ ActiveRecord::Schema.define(:version => 20110811143948) do
     t.float    "amount"
     t.integer  "booking_capacity"
     t.integer  "booked_seats"
-    t.boolean  "is_scheduled"
+    t.boolean  "is_scheduled",         :default => true
     t.date     "start_date"
     t.date     "end_date"
     t.time     "start_time"
     t.time     "end_time"
-    t.integer  "non_profit_id"
-    t.integer  "image_id"
     t.integer  "group_number"
-    t.float    "non_profit_percentage"
-    t.boolean  "is_virtual"
-    t.boolean  "is_public"
+    t.float    "nonprofit_percentage"
+    t.boolean  "is_virtual",           :default => true
+    t.boolean  "is_public",            :default => true
     t.integer  "estimated_duration"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "nonprofit_id"
     t.integer  "user_id"
   end
 
@@ -229,14 +231,6 @@ ActiveRecord::Schema.define(:version => 20110811143948) do
     t.datetime "updated_at"
   end
 
-  create_table "user_booking_roles", :force => true do |t|
-    t.integer  "booking_id"
-    t.integer  "user_id"
-    t.string   "role"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "user_message_roles", :force => true do |t|
     t.integer  "user_id"
     t.integer  "message_id"
@@ -254,8 +248,8 @@ ActiveRecord::Schema.define(:version => 20110811143948) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                               :default => "",   :null => false
-    t.string   "encrypted_password",   :limit => 128, :default => "",   :null => false
+    t.string   "email",                               :default => "",    :null => false
+    t.string   "encrypted_password",   :limit => 128, :default => "",    :null => false
     t.string   "reset_password_token"
     t.datetime "remember_created_at"
     t.integer  "sign_in_count",                       :default => 0
@@ -267,15 +261,15 @@ ActiveRecord::Schema.define(:version => 20110811143948) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "authentication_token"
-    t.boolean  "is_admin"
+    t.boolean  "is_admin",                            :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_temp_pwd",                         :default => true
   end
 
-  add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
-  add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token"
+  add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token"
+  add_index "users", ["email"], :name => "index_users_on_email"
+  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token"
 
 end

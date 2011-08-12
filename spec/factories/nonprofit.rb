@@ -1,5 +1,5 @@
 require 'faker'
-Factory.define :non_profit do |c|
+Factory.define :nonprofit do |c|
   c.name {Faker::Name.name}
   c.contact_name {Faker::Name.name}
   c.email {Faker::Internet.free_email}

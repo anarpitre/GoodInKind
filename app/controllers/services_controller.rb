@@ -1,7 +1,7 @@
 class ServicesController < ApplicationController
-  
   before_filter :get_service_by_id, :only => [:update, :destroy, :show, :edit]
-  autocomplete :non_profit, :name, :full => true
+  autocomplete :nonprofit, :name, :full => true
+
   layout 'service'
 
   def index

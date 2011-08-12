@@ -67,9 +67,9 @@ describe Location do
     end
   end
 
-  context "should be created for non_profit" do
+  context "should be created for nonprofit" do
 
-    let(:location) {Factory(:non_profit_location)}
+    let(:location) {Factory(:nonprofit_location)}
 
     it "if Gemcoder identifies the location entered" do
       location.save
@@ -77,9 +77,9 @@ describe Location do
     end
   end
 
-  context "for non_profit should not be saved " do
+  context "for nonprofit should not be saved " do
 
-    let(:location) {Factory(:non_profit_location)}
+    let(:location) {Factory(:nonprofit_location)}
 
     it "if Gemcoder dosent identifies the location entered(gemcoder result is empty string)" do
       location  = Location.new

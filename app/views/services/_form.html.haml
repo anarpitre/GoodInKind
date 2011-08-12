@@ -81,9 +81,9 @@
         %span Step 2:
         Choose the non-profit that you would like to support
       %p
-        = f.label :non_profit, :class => "form_lbl"
-        = f.hidden_field :non_profit_id
-        = autocomplete_field_tag :non_profit_name,'', autocomplete_non_profit_name_services_path, :class => "form_input_full input_half", "data-id-element" => "#service_non_profit_id", :value => "#{get_non_profit_name}"
+        = f.label :nonprofit, :class => "form_lbl"
+        = f.hidden_field :nonprofit_id
+        = autocomplete_field_tag :nonprofit_name,'', autocomplete_nonprofit_name_services_path, :class => "form_input_full input_half", "data-id-element" => "#service_nonprofit_id", :value => "#{get_nonprofit_name}"
         %span.setp_box_p_span
           or
           %a{:href => "#"} click here to browse

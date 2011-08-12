@@ -81,8 +81,8 @@ describe Service do
       services.should_not be_valid
     end
 
-    it "if non_profit_id is not selected" do
-      services.non_profit_id = nil
+    it "if nonprofit_id is not selected" do
+      services.nonprofit_id = nil
       services.save
       services.should_not be_valid
     end

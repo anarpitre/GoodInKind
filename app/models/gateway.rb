@@ -1,3 +1,3 @@
 class Gateway < ActiveRecord::Base
-  has_one :non_profit
+  has_one :nonprofit
 end

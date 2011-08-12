@@ -12,7 +12,7 @@ Gik::Application.routes.draw do
   
   resources :nonprofits do
     collection do
-      get :login
+      get :login, :logout 
       post :create_session
     end
       match :change_password
@@ -21,7 +21,7 @@ Gik::Application.routes.draw do
   resources :authentications
 
   resources :services do
-    get :autocomplete_non_profit_name, :on => :collection
+    get :autocomplete_nonprofit_name, :on => :collection
   end
 
 

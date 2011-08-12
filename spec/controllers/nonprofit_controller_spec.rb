@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe NonProfitController do
+describe NonprofitController do
 
   describe "GET 'login'" do
     it "should be successful" do

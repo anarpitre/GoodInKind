@@ -1,9 +1,9 @@
 require 'spec_helper'
 require 'faker'
 
-describe NonProfit do
+describe Nonprofit do
 
-  let(:np) {Factory(:non_profit) }
+  let(:np) {Factory(:nonprofit) }
   context "should be created" do
 
     #001
@@ -69,9 +69,9 @@ describe NonProfit do
 
     #011
     it "if username is already taken" do
-      non_profit = Factory.build(:non_profit,:username => np.username)
-      non_profit.save
-      non_profit.should_not be_valid
+      nonprofit = Factory.build(:nonprofit,:username => np.username)
+      nonprofit.save
+      nonprofit.should_not be_valid
     end
 
     #012

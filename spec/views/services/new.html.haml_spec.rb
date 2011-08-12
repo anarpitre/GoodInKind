@@ -8,7 +8,7 @@ describe "services/new.html.haml" do
       :amount => 1.5,
       :booking_capacity => 1,
       :is_scheduled => false,
-      :non_profit_id => 1,
+      :nonprofit_id => 1,
       :is_virtual => false,
       :is_public => false
     ).as_new_record)
@@ -24,7 +24,7 @@ describe "services/new.html.haml" do
       assert_select "input#service_amount", :name => "service[amount]"
       assert_select "input#service_booking_capacity", :name => "service[booking_capacity]"
       assert_select "input#service_is_scheduled", :name => "service[is_scheduled]"
-      assert_select "input#service_non_profit_id", :name => "service[non_profit_id]"
+      assert_select "input#service_nonprofit_id", :name => "service[nonprofit_id]"
       assert_select "input#service_is_virtual", :name => "service[is_virtual]"
       assert_select "input#service_is_public", :name => "service[is_public]"
     end

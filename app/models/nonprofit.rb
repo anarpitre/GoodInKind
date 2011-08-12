@@ -1,25 +1,27 @@
 require 'digest/sha1'
 
-class NonProfit < ActiveRecord::Base
+class Nonprofit < ActiveRecord::Base
 
   EMAIL_REGEX = /^[a-z]+([+\.\w]+)*\w@[a-z0-9]+(\.\w+)+$/i
-  has_many :non_profit_categories
-  has_many :categories, :through => :non_profit_categories
-  has_many :service_non_profit
+  has_many :nonprofit_categories
+  has_many :categories, :through => :nonprofit_categories
+  has_many :service_nonprofits
   has_many :services
   has_one :location, :as => :resource,:dependent => :destroy
   belongs_to :gateway
 
   validates :username, :presence => true,:uniqueness => true
   validates :password, :password_confirmation, :contact_name, :name, :phone_number, :presence => true
+  validates :permalink, :uniqueness => true
   validates_confirmation_of :password
   validates :email,  :presence => true, :format => EMAIL_REGEX
   #validates_attachment_presence :photo
   #validates_attachment_content_type :photo, :content_type => ["image/jpeg", "image/png", "image/gif"]
   #validates_attachment_size  :photo, :less_than => 2.megabytes
 
-  has_attached_file :photo,
-    :styles => { :thumb => [ "172x62#", :jpg ]} 
+  has_attached_file :photo, S3_DEFAULTS.merge(
+    :styles => { :thumb => [ "200x70#", :jpg ] }
+  )
 
   #accepts_nested_attributes_for :location, :allow_destroy => true
 
@@ -27,18 +29,24 @@ class NonProfit < ActiveRecord::Base
   before_save :create_hash_password
   attr_protected :hashed_password, :salt
 
+  def to_param
+    "#{permalink}"
+  end
+
   def self.authenticate(username, password)
-    non_profit_user = NonProfit.find_by_username(username)
-    if non_profit_user && non_profit_user.password_match?(password)
-      return non_profit_user
+    nonprofit_user = Nonprofit.find_by_username(username)
+    if nonprofit_user && nonprofit_user.password_match?(password)
+      return nonprofit_user
     else
       return false
     end
   end
 
   def password_match?(password)
-    hashed_password == NonProfit.hash_with_salt(password, salt)
+    hashed_password == Nonprofit.hash_with_salt(password, salt)
   end
+
+  private
 
   def self.make_salt(username)
     Digest::SHA1.hexdigest("Use #{username} with #{Time.now} to make salt")
@@ -48,13 +56,10 @@ class NonProfit < ActiveRecord::Base
     Digest::SHA1.hexdigest("Put #{salt} on the #{password}")
   end
 
-
-  private
-
   def create_hash_password
     unless password.blank?
-      self.salt = NonProfit.make_salt(username) if salt.blank?
-      self.hashed_password = NonProfit.hash_with_salt(password,salt)
+      self.salt = Nonprofit.make_salt(username) if salt.blank?
+      self.hashed_password = Nonprofit.hash_with_salt(password,salt)
     end
   end
 end

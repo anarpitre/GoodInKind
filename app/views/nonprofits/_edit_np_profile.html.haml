@@ -1,12 +1,12 @@
 .np_profile_left
   .np_profile_info
-    = form_for @non_profit, :url => nonprofits_path do |f|
+    = form_for @nonprofit, :url => nonprofits_path do |f|
       %p
         = f.label "Name"
         = f.text_field :name, :class => "edit_input"
       %p
         %label EIN:
-        %span.np_info_text= @non_profit.EIN
+        %span.np_info_text= @nonprofit.EIN
       %p
         = f.fields_for :categories do |cat|
           = cat.label "Category"
@@ -20,13 +20,13 @@
           = loc.text_field :address, :class => "edit_input"
       %p
         %label Phone:
-        %span.np_info_text= @non_profit.phone_number
+        %span.np_info_text= @nonprofit.phone_number
       %p
         %label Contact Name:
-        %span.np_info_text= @non_profit.contact_name
+        %span.np_info_text= @nonprofit.contact_name
       %p
         %label Contact Email:
-        %span.np_info_text= @non_profit.email
+        %span.np_info_text= @nonprofit.email
       %p
         = f.label "Mission"
         = f.text_field :mission_statement, :class => "edit_input"
