@@ -1,9 +1,10 @@
 - content_for :tab_content do
   .np_profile_left
     .np_profile_info
-      %span.edit_info
-        = image_tag('edit_icon.jpg', :alt => "edit")
-        = link_to "Edit Information", edit_nonprofit_path(@nonprofit)
+      - if current_nonprofit == @nonprofit
+        %span.edit_info
+          = image_tag('edit_icon.jpg', :alt => "edit")
+          = link_to "Edit Information", edit_nonprofit_path(@nonprofit)
       %p
         %label Name:
         %span.np_info_text= @nonprofit.name
@@ -12,14 +13,14 @@
         %span.np_info_text= @nonprofit.EIN
       %p
         %label Category:
-        %span.np_info_text= @nonprofit.category.name
+        %span.np_info_text= @nonprofit.category.try(:name)
       %p
         %label Website:
         %span.np_info_text
           = link_to @nonprofit.website, format_link(@nonprofit.website)
       %p
         %label Address:
-        %span.np_info_text= @nonprofit.location.address
+        %span.np_info_text= @nonprofit.location.try(:address)
       %p
         %label Phone:
         %span.np_info_text= @nonprofit.phone_number

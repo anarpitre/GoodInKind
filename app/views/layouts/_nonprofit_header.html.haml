@@ -5,6 +5,6 @@
     %ul.nav.np_nav_top
       %li
         / FIXME: fixed login issues
-        = link_to @nonprofit.name, nonprofit_path(@nonprofit), :class => 'np_nav_active'
+        = link_to current_nonprofit.name, nonprofit_path(current_nonprofit), :class => 'np_nav_active'
       %li.nav_non
         = link_to "Logout", logout_nonprofits_path

@@ -1,6 +1,7 @@
 class NonprofitsController < ApplicationController
   before_filter :set_seo_tags
   before_filter :get_nonprofit, :except => [:new, :create, :login, :create_session]
+  before_filter :nonprofit_owner, :only => [:edit, :logout, :change_password]
 
   layout 'nonprofit'
   
@@ -98,6 +99,11 @@ class NonprofitsController < ApplicationController
       :keywords => "NonProfits, Charities, NGos",
       :description => 'Choose a non-profit organization below and support it by either purchasing '
     }
+  end
+
+  def nonprofit_owner
+    return true if session and (session[:nonprofit][:id] == @nonprofit.id)
+    redirect_to login_nonprofits_path
   end
 
 end
