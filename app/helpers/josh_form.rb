@@ -9,6 +9,11 @@ class JoshForm < ActionView::Helpers::FormBuilder
     object.class.validators_on(name).map(&:class).include?(ActiveModel::Validations::PresenceValidator) rescue nil
   end
 
+  def cancel(options={})
+    link = options.fetch(:return, "/")
+    @template.content_tag(:a, "Cancel", :href => link, :class => "btn_form button np_cancel_btn")
+  end
+
   # Optional arguments that are processed with form_fields
   # :hint 
   # :skip

@@ -1,8 +1,10 @@
 .header.header_inner
   %h1.logo_inner
     = link_to image_tag("goodinkind-logo-small.png", :alt => "Goodinkind - Get Together. Do Good."), root_path
-  %ul.nav.np_nav_top
-    %li
-      %a.np_nav_active{:href => "#"} Food For The Poor
-    %li.nav_non
-      %a{:href => "#"} Logout
+  - if nonprofit_logged_in?
+    %ul.nav.np_nav_top
+      %li
+        / FIXME: fixed login issues
+        = link_to @nonprofit.name, nonprofit_path(@nonprofit), :class => 'np_nav_active'
+      %li.nav_non
+        = link_to "Logout", logout_nonprofits_path

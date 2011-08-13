@@ -12,10 +12,12 @@ Gik::Application.routes.draw do
   
   resources :nonprofits do
     collection do
-      get :login, :logout 
+      get :login, :logout
       post :create_session
     end
+    member do
       match :change_password
+    end
   end
 
   resources :authentications

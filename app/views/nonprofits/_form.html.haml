@@ -1,53 +1,35 @@
 .offer_form
-  = form_for @nonprofit, :builder => JoshForm do |f| #,:url => nonprofits_path, :html => { :multipart => true, :method => :post} do |f|
+  = form_for @nonprofit, :builder => JoshForm  do |f| 
+    - if @nonprofit.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(@nonprofit.errors.count, "error")
+          prohibited this post from being saved:
+        %ul
+          - @nonprofit.errors.full_messages.each do |msg|
+            %li= msg
     .setp_box
       %h3.setp_box_heading
         %span Organization Information
-        = f.text_field :EIN #, :class => "form_input_full input_np"
-      %p
-        = f.label "Organization Name*", :class => "form_lbl np_lbl"
-        = f.text_field :name, :class => "form_input_full input_np"
-      %p
-        = f.label :website, :class => "form_lbl np_lbl"
-        = f.text_field :website, :class => "form_input_full input_np"
-      %p
-        = f.label "Logo", :class => "form_lbl np_lbl"
-        = f.file_field :photo, :class => "input_browse"
+      = f.text_field :EIN, :class => "input_np"
+      = f.text_field :name, :class => "input_np", :label => 'Organization'
+      = f.text_field :website, :class => "input_np"
+      = f.file_field :photo, :class => "input_browse", :label => "Logo"
     .setp_box
       %h3.setp_box_heading
         %span Account Information
-      %p
-        = f.label "Username*", :class => "form_lbl np_lbl"
-        = f.text_field :username, :class => "form_input_full input_np"
-      %p
-        = f.label "Password*", :class => "form_lbl np_lbl"
-        = f.password_field :password, :class => "form_input_full input_np"
-      %p
-        = f.label "Confirm Password*", :class => "form_lbl np_lbl"
-        = f.password_field :password_confirmation, :class => "form_input_full input_np"
+      = f.text_field :username, :class => "input_np"
+      = f.password_field :password, :class => "input_np"
+      = f.password_field :password_confirmation, :class => "input_np", :label => "Confirm Password"
     .setp_box
       %h3.setp_box_heading
         %span Contact Information
-      %p
-        = f.label "Name*", :class => "form_lbl np_lbl"
-        = f.text_field :contact_name, :class => "form_input_full input_np"
-      %p
-        = f.label "Position*", :class => "form_lbl np_lbl"
-        = f.text_field :position, :class => "form_input_full input_np"
-      %p
-        = f.label "Work Email*", :class => "form_lbl np_lbl"
-        = f.text_field :email, :class => "form_input_full input_np"
-      %p
-        = f.label "Confirm Work Email*", :class => "form_lbl np_lbl"
-        = f.text_field :email, :class => "form_input_full input_np"
-      %p
-        = f.label "Phone Number*", :class => "form_lbl np_lbl"
-        = f.text_field :phone_number, :class => "form_input_full input_np"
-      %p
-        = f.label :cell_phone, :class => "form_lbl np_lbl"
-        = f.text_field :cell_phone, :class => "form_input_full input_np"
+      = f.text_field :contact_name, :class => "input_np", :label => "Name"
+      = f.text_field :position, :class => "input_np"
+      = f.text_field :email, :class => "input_np", :label => "Work Email"
+      = f.text_field :phone_number, :class => "input_np"
+      = f.text_field :cell_phone, :class => "input_np"
     .input_post_div
       %p By clicking "Submit Application", you are confirming that you are an official representative of the organization for which you are applying.
       %br/
       = f.submit "Submit", :class => "btn_form button form_post_btn"
-

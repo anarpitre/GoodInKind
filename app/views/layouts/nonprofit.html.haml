@@ -1,20 +1,21 @@
 - content_for :header do
   = javascript_include_tag "tooltip"
-  = javascript_include_tag "jquery-tab"
   
-  :javascript
-    $(document).ready(function() {
-        $('#tabvanilla > ul').tabs({ fx: { height: 'fade', opacity: 'toggle' } });
-            $('#featuredvid > ul').tabs();
-
-        });
-   
 - unless content_for?(:layout_content)
   - content_for :layout_content do
     %body
       = content_for?(:layout_header) ? yield(:layout_header) : render('layouts/nonprofit_header')
       .container
-        = content_for?(:body_content) ? yield(:body_content) : yield
+        - if nonprofit_logged_in?
+          = render "layouts/nonprofit_tabs"
+
+        #c1{:style => "float:left;"}
+          .np_tab_logo
+            /FIXME: Photo should have a default!
+            = image_tag(@nonprofit.photo.try(:url), :class => "np_logos") if @nonprofit
+
+          = content_for?(:tab_content) ? yield(:tab_content) : yield
         .clear
       = render 'layouts/footer'
+
 = render :file => "layouts/base"
