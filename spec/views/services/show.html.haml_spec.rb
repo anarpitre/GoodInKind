@@ -10,7 +10,7 @@ describe "services/show.html.haml" do
       :booked_seats => 1,
       :group_number => 1,
       :nonprofit_percentage => 1.5,
-      :is_scheduled => false,
+      :is_schedulelater => true,
       :nonprofit_id => 1,
       :is_virtual => false,
       :is_public => false

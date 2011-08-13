@@ -16,8 +16,8 @@
   %b Location:
   = @service.location.blank? ? '' : @service.location.address
 %p
-  %b Is scheduled:
-  = @service.is_scheduled
+  %b Schedule later:
+  = @service.is_schedulelater
 %p
   %b Start date:
   = @service.start_date.blank? ? '' : @service.start_date.strftime('%m/%d/%Y')

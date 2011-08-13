@@ -5,7 +5,7 @@ Factory.define :service do |s|
   s.amount '500'
   s.is_public true
   s.is_virtual true
-  s.is_scheduled true
+  s.is_schedulelater false 
   s.nonprofit_percentage '100'
   s.start_date Date.today
   s.end_date Date.today + 5.days

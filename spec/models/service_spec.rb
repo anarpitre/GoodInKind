@@ -22,8 +22,8 @@ describe Service do
       services.should be_valid
     end
 
-    it"if is_schedules is false" do
-      services.is_scheduled = false
+    it"if is_schedulelater is true" do
+      services.is_schedulelater = true 
       services.save
       services.should be_valid
     end
@@ -43,15 +43,15 @@ describe Service do
 
   context " should not be created and its associated user should not be created " do
 
-    it "if start_date is not selected when is_shedule true" do
-      services.is_scheduled = true
+    it "if start_date is not selected when is_shedulelater is false" do
+      services.is_schedulelater = false
       services.start_date = nil
       services.save
       services.should_not be_valid
     end
 
-    it "if end_date is not selected when is_shedule true" do
-      services.is_scheduled = true
+    it "if end_date is not selected when is_shedulelater is false" do
+      services.is_schedulelater = false
       services.end_date = nil
       services.save
       services.should_not be_valid

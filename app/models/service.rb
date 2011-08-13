@@ -16,8 +16,8 @@ class Service < ActiveRecord::Base
   validates :title, :description, :presence => true
   validates_inclusion_of :is_public, :in => [true, false]
   validates :amount, :numericality => true, :presence => true
-  validates :start_date, :end_date, :if => Proc.new { |t| t.is_scheduled == true}, :presence => true
-  validate :check_date
+  validates :start_date, :end_date, :if => Proc.new { |t| t.is_schedulelater == false }, :presence => true
+  #validates :check_date
   
   def to_param
     "#{id}-#{title.parameterize}"

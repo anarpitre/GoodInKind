@@ -7,7 +7,7 @@ describe "services/new.html.haml" do
       :description => "MyString",
       :amount => 1.5,
       :booking_capacity => 1,
-      :is_scheduled => false,
+      :is_schedulelater => true,
       :nonprofit_id => 1,
       :is_virtual => false,
       :is_public => false
@@ -23,7 +23,7 @@ describe "services/new.html.haml" do
       assert_select "input#service_description", :name => "service[description]"
       assert_select "input#service_amount", :name => "service[amount]"
       assert_select "input#service_booking_capacity", :name => "service[booking_capacity]"
-      assert_select "input#service_is_scheduled", :name => "service[is_scheduled]"
+      assert_select "input#service_is_schedulelater", :name => "service[is_schedulelater]"
       assert_select "input#service_nonprofit_id", :name => "service[nonprofit_id]"
       assert_select "input#service_is_virtual", :name => "service[is_virtual]"
       assert_select "input#service_is_public", :name => "service[is_public]"

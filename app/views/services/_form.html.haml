@@ -4,9 +4,9 @@
     $('#dt_date_start, #dt_time_start,' +
     '#dt_date_end,   #dt_time_end').calendricalDateTimeRange({usa:true});
       var virtual_flag = #{@service.is_virtual}
-      var scheduled_flag = #{@service.is_scheduled}
+      var scheduled_flag = #{@service.is_schedulelater}
       is_virtual(virtual_flag);
-      is_scheduled(scheduled_flag);
+      is_schedulelater(scheduled_flag);
 
 
 
@@ -17,8 +17,8 @@
       is_virtual($("#service_is_virtual").is(':checked'))
     });
     
-    $('#service_is_scheduled').click(function(){
-      is_scheduled($("#service_is_scheduled").is(':checked'))
+    $('#service_is_schedulelater').click(function(){
+      is_schedulelater($("#service_is_schedulelater").is(':checked'))
     });
   
   });
@@ -35,21 +35,21 @@
     }
   }
 
-  function is_scheduled(flag)
+  function is_schedulelater(flag)
   {
     if (flag){
-      $('#service_is_scheduled').val("true"); 
-      $('#dt_date_start').removeAttr('disabled');
-      $('#dt_date_end').removeAttr('disabled');
-      $('#dt_time_start').removeAttr('disabled');
-      $('#dt_time_end').removeAttr('disabled');
-    }
-    else{
-      $('#service_is_scheduled').val("false");
+      $('#service_is_schedulelater').val("true"); 
       $('#dt_date_start').attr('disabled', 'disabled'); 
       $('#dt_date_end').attr('disabled', 'disabled'); 
       $('#dt_time_start').attr('disabled', 'disabled'); 
       $('#dt_time_end').attr('disabled', 'disabled'); 
+    }
+    else{
+      $('#service_is_schedulelater').val("false");
+      $('#dt_date_start').removeAttr('disabled');
+      $('#dt_date_end').removeAttr('disabled');
+      $('#dt_time_start').removeAttr('disabled');
+      $('#dt_time_end').removeAttr('disabled');
     }
   }
 
@@ -75,31 +75,28 @@
       %h3.setp_box_heading
         %span Step 1:
         Describe the service or experience you want to offer
-      = f.text_field :title, :hint => "This is title hint"
-      = f.text_area :description, :class => 'input_area', :hint => "descriptoin hint"
-      = f.collection_select :category_ids, get_service_category, :id, :name, {:selected => @service.resource_categories.collect(&:category_id)}, { :multiple => true, :class => "input_select", :style => "height:100px;width:530px;", :hint => "This is the place where the detailed event description will show up.." }
+      = f.text_field :title, :hint => "Give short and sweet Title to your Service"
+      = f.text_area :description, :class => 'input_area', :hint => "Give detail Description of your Service"
+      = f.collection_select :category_ids, get_service_category, :id, :name, {:selected => @service.resource_categories.collect(&:category_id)}, { :multiple => true, :class => "input_select", :style => "height:100px;width:530px;", :hint => "Select one or more categories matching your service", :label => "Category *" }
     .setp_box
       %h3.setp_box_heading
         %span Step 2:
         Choose the non-profit that you would like to support
       %p
-        = f.label :nonprofit, :class => "form_lbl"
+        = f.label "Nonprofit *", :class => "form_lbl"
         = f.hidden_field :nonprofit_id
         = autocomplete_field_tag :nonprofit_name,'', autocomplete_nonprofit_name_services_path, :class => "form_input_full input_half", "data-id-element" => "#service_nonprofit_id", :value => "#{get_nonprofit_name}"
-        %span.setp_box_p_span
-          or
-          %a{:href => "#"} click here to browse
         %span.hint
-          This is the place where the detailed event description will show up..
+          Type few letters of Nonprofit name and then select it from the list
           %span.hint-pointer &nbsp;
     .setp_box
       %h3.setp_box_heading
         %span Step 3:
         Tell us where this service will be offered
       %p
-        = f.label :is_virtual, :class => 'form_lbl'
+        = f.label "Online Service", :class => 'form_lbl'
         = f.check_box :is_virtual, { :class => "input_checkbox"}, "true", "false"
-        %span.setp_box_p_span (Online Service and keep it unchecked.)
+        %span.setp_box_p_span (Leave it checked if this service will be offered virtually/online)
       %p
         = f.fields_for :location do |loc|
           = loc.text_field :address, :class => "input_half"
@@ -108,17 +105,14 @@
         %span Step 4:
         Tell us when this service will be offered
       %p
-        = f.label :is_scheduled, :class => 'form_lbl'
-        = f.check_box :is_scheduled, { :class => "input_checkbox"}, "true", "false"
+        = f.label "Schedule Later", :class => 'form_lbl'
+        = f.check_box :is_schedulelater, { :class => "input_checkbox"}, "true", "false"
         %span.setp_box_p_span
           (Leave it checked if you would like to choose a date/time with the buyer after purchase)
           %a{:href => "#"} How it works?
       %p
         %span.setp_two_col
           = f.text_field :start_date, :id => 'dt_date_start',:value => gik_formatted_date(@service.start_date), :class => "input_small"
-          %span.hint
-            This is the place where the detailed event description will show up..
-            %span.hint-pointer &nbsp;
         %span.setp_two_col
           = f.text_field :start_time, :id => 'dt_time_start', :value => gik_formatted_time(@service.start_time), :class => "input_small"
       %p
@@ -130,20 +124,17 @@
         %span.setp_two_col
           = f.text_field :booking_capacity,  :class => "input_small"
         %span.setp_two_col
-          = f.text_field :estimated_duration,  :class => "input_small"
+          = f.text_field :estimated_duration,  :label => "Estimated Duration (min)", :class => "input_small"
     .setp_box
       %h3.setp_box_heading
         %span Step 5:
         What is the requested donation amount for this service?
       %p
-        = f.text_field :amount, :label => "Amount($)", :class => "input_small"
-        %span.hint
-          This is the place where the detailed event description will show up..
-          %span.hint-pointer &nbsp;
+        = f.text_field :amount, :label => "Amount ($)", :class => "input_small"
     .setp_box
       %h3.setp_box_heading
         %span Step 6:
-        Add Pictures illustrating your service
+        Add Picture illustrating your service
       %p
         = f.fields_for :images do |photo|
           - if photo.object.new_record?
@@ -158,7 +149,7 @@
       %ul.input_radio_nav
         %li
           = f.radio_button(:is_public, true)
-          = f.label(:gender, "I want this listing posted publicly to everyone on the site") 
+          = f.label(:is_public, "I want this listing posted publicly to everyone on the site") 
         %li
           = f.radio_button(:is_public, false)
           = f.label(:is_public, "Don't post this on the site. I will share it with and only those I share it with will be able to access it")

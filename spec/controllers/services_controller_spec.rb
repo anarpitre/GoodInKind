@@ -29,7 +29,7 @@ describe ServicesController do
       :description => "MyString",
       :amount => 1.5,
       :booking_capacity => 1,
-      :is_scheduled => false,
+      :is_schedulelater => true,
       :nonprofit_id => 1,
       :is_virtual => false,
       :is_public => true
