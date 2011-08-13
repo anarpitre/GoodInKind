@@ -9,6 +9,7 @@ class AuthenticationsController < ApplicationController
     omniauth['uid'] = omniauth['user_info']['email'] if omniauth['provider'] == 'google'
     authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
     if authentication
+      change_service_offerer(session[:service_id],authentication.user.id) unless session[:service_id].blank? 
       flash[:notice] = "Signed in successfully."
       sign_in_and_redirect(:user, authentication.user)
     elsif current_user
@@ -19,6 +20,7 @@ class AuthenticationsController < ApplicationController
       user = User.new
       user.apply_omniauth(omniauth)
       if user.save
+        change_service_offerer(session[:service_id],user.id) unless session[:service_id].blank? 
         flash[:notice] = "Registered successfully."
         sign_in_and_redirect(:user, user)
       else

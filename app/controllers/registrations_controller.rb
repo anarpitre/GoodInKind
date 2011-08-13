@@ -10,6 +10,7 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     super
     session[:omniauth] = nil unless @user.new_record?
+    change_service_offerer(session[:service_id],resource.id) unless session[:service_id].blank? 
   end
   
   private

@@ -17,6 +17,8 @@ class User < ActiveRecord::Base
   has_one  :location, :as => :resource, :dependent => :destroy
   has_one  :profile, :dependent => :destroy
 
+  scope :get_dummy_user, where("email = ?", DUMMY_EMAIL) 
+  
   def apply_omniauth(omniauth)
     self.email = omniauth['user_info']['email'] if email.blank?
     authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'])

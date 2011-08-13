@@ -30,9 +30,15 @@ class ServicesController < ApplicationController
     begin
       @head[:title] = "Create Service"
       @service = Service.new(params[:service])
+      add_user_id                                                             
       @service.save!
-      redirect_to(@service, :notice => 'Service was successfully created.') 
-    rescue 
+      if current_user.blank?               
+        session[:service_id] = @service.id                                      #if user is not siggned in than service id is stored in session  
+        redirect_to(new_user_registration_path, :notice => 'Service was successfully created.') 
+      else
+        redirect_to(@service, :notice => 'Service was successfully created.') 
+      end
+    rescue Exception => e 
       build_objects
       render :action => "new" 
     end
@@ -61,6 +67,11 @@ class ServicesController < ApplicationController
 
   def get_service_by_id
     @service = Service.find(params[:id])
+  end
+
+  #Add temporary_user_id if user is not siggned in  else add current_user_id 
+  def add_user_id
+    @service.user_id = !current_user.blank? ? current_user.id : User.get_dummy_user.first.id
   end
 
   def set_seo_tags
