@@ -55,9 +55,11 @@
 
 %h2.offer_form_h2
   Offer a Service to support your favorite non-profit
-  %span
-    Want to copy information from an offer you made previously?
-    %a{:href => "#"} Click here
+  - if user_signed_in?
+    %span
+      Want to copy information from an offer you made previously?
+      %a{:href => "#"} Click here
+  - else
 %a.bro_req_btn{:href => "#"} Browse Requests
 .offer_form
   = form_for @service, :builder => JoshForm, :html => {:multipart => true} do |f|
@@ -134,7 +136,7 @@
         %span Step 5:
         What is the requested donation amount for this service?
       %p
-        = f.text_field :amount,  :class => "input_small"
+        = f.text_field :amount, :label => "Amount($)", :class => "input_small"
         %span.hint
           This is the place where the detailed event description will show up..
           %span.hint-pointer &nbsp;
