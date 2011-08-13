@@ -32,7 +32,7 @@ class Nonprofit < ActiveRecord::Base
   attr_protected :hashed_password, :salt
 
   def to_param
-    "#{id}-#{name.parameterize}"
+    permalink || "#{id}-#{name.parameterize}"
   end
 
   def self.authenticate(username, password)
