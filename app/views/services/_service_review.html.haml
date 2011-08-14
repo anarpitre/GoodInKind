@@ -1,7 +1,7 @@
 %h3.comment_icon
   = image_tag('review_icon.png', :alt => "Review")
   %span Reviews
-%p.review_content_disc= !@service.reviews.blank? ? "#{@service.reviews.first.review}" : "" 
+%p.review_content_disc= @service.reviews.first.try(:review) 
 %hr.add_hr/
 %h3.comment_icon
   = image_tag('q_a_icon.png', :alt => "Reviews")

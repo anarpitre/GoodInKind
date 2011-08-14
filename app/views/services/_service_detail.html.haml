@@ -39,7 +39,7 @@
           stLight.options({publisher:'d7205d3e-dbdd-455c-a856-b25ec435dd41'});
       .services_price
         %span.req_text Requested Donation
-        %span.price_text $200
+        %span.price_text= "$"  + @service.amount.to_i.to_s 
       %a.button.take_it{:href => "#"} Take It
   .services_content
     = render :partial => "service_description"

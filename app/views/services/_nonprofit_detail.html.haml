@@ -1,7 +1,8 @@
 .off_by
   .off_by_profile
     %h4.profile_title_h4 Non-Profit:
-    = image_tag('redcorss.jpg', :alt => "pic", :class => "profile_pic_nonpf")
+
+    = image_tag('nonprofit_ph.jpeg', :alt => "pic", :class => "profile_pic_nonpf")
     %h3.profile_title_h3
       = @service.nonprofit.name
       %span= @service.nonprofit.location.try(:address)
@@ -13,7 +14,7 @@
     %p
       %span.pl_left Description:
       %span.pl_right
-        = @service.nonprofit.description
+        = truncate(@service.nonprofit.description, :length => 100)
         %br/
   %p.pl_view_more
     = link_to "View Profile", nonprofit_path(:id => @service.nonprofit.id)

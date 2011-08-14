@@ -7,42 +7,6 @@
 
 %p#notice= notice
 
-%p
-  %b Title:
-  = @service.title
-%p
-  %b Description:
-  = @service.description
-%p
-  %b Amount:
-  = @service.amount
-%p
-  %b Booking capacity:
-  = @service.booking_capacity
-%p
-  %b Location:
-  = @service.location.blank? ? '' : @service.location.address
-%p
-  %b Schedule later:
-  = @service.is_schedulelater
-%p
-  %b Start date:
-  = @service.start_date.blank? ? '' : @service.start_date.strftime('%m/%d/%Y')
-%p
-  %b End date:
-  = @service.end_date.blank? ? "" : @service.end_date.strftime("%m/%d/%Y")
-%p
-  %b Start time:
-  = @service.start_time.blank? ? "" : @service.start_time.strftime('%I:%M%p')
-%p
-  %b End time:
-  = @service.end_time.blank? ? "" : @service.end_time.strftime('%I:%M%p')
-%p
-  %b Is virtual:
-  = @service.is_virtual
-%p
-  %b Is public:
-  = @service.is_public
 
 = link_to 'Edit', edit_service_path(@service)
 \|
