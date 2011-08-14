@@ -2,7 +2,8 @@ require 'digest/sha1'
 
 class Nonprofit < ActiveRecord::Base
   EMAIL_REGEX = /^[a-z]+([+\.\w]+)*\w@[a-z0-9]+(\.\w+)+$/i
-  belongs_to :category
+  has_many :nonprofit_categories
+  has_many :categories, :through => :nonprofit_categories
 
   has_many :service_nonprofits
   has_many :services, :through => :service_nonprofits

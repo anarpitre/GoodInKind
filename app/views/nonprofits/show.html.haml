@@ -13,7 +13,7 @@
         %span.np_info_text= @nonprofit.EIN
       %p
         %label Category:
-        %span.np_info_text= @nonprofit.category.try(:name)
+        %span.np_info_text= @nonprofit.categories.try(:first).try(:name)
       %p
         %label Website:
         %span.np_info_text
