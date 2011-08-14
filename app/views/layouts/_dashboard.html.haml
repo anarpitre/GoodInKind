@@ -4,7 +4,7 @@
     %b Agent of Change
   %span.dm_price
     = image_tag('dot_dash.png', :alt => "dot")
-    %b $#{current_user.profile.blank? ? 0 : current_use.profile.donated_amount}
+    %b $#{current_user.profile.blank? ? 0 : current_user.profile.donated_amount}
   %span.dm_price.dm_time
     = image_tag('dash_time.png', :alt => "time")
     %b #{current_user.profile.blank? ? 0 : current_user.profile.donated_time}

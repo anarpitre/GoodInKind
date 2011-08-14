@@ -8,6 +8,7 @@ class AuthenticationsController < ApplicationController
     omniauth = request.env["omniauth.auth"]
     omniauth['uid'] = omniauth['user_info']['email'] if omniauth['provider'] == 'google'
     authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
+    session[:thank_you] = "yes" unless session[:service_id].blank?
     if authentication
       change_service_offerer(session[:service_id],authentication.user.id) unless session[:service_id].blank? 
       flash[:notice] = "Signed in successfully."

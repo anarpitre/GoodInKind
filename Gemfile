@@ -20,7 +20,7 @@ gem "ruby_parser"
 gem 'json'
 gem 'jquery-rails'
 gem 'rails3-jquery-autocomplete', '0.9.0'
-
+gem 'aasm'
 group :development, :test do
  gem  'railroady'
 #gem 'mysql2', '= 0.2.8'

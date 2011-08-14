@@ -2,10 +2,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   
   def after_sign_in_path_for(scope)
-    if scope.is_a?(User)
-      dashboard_index_path(current_user.id)
+    if session[:thank_you] == "yes"
+      session[:thank_you] = nil
+      thankyou_services_path
     else
-      super
+      dashboard_index_path(current_user.id)
     end
   end
 
@@ -15,6 +16,7 @@ class ApplicationController < ActionController::Base
     service = Service.find(service_id)
     service.user_id = user_id
     service.save
+    service.activate! 
     session[:service_id] = nil
   end
 

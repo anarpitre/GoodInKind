@@ -1,5 +1,7 @@
 class Service < ActiveRecord::Base
   
+  include AASM
+  
   belongs_to  :user, :dependent => :destroy
   belongs_to :nonprofit
   has_one :location, :as => :resource,:dependent => :destroy
@@ -18,7 +20,17 @@ class Service < ActiveRecord::Base
   validates :start_date, :end_date, :start_time, :end_time, :if => Proc.new { |t| t.is_schedulelater == false}, :presence => true
   validate :check_categories
   validate :check_date
-  
+
+  aasm_column :status
+  aasm_initial_state :pending
+  aasm_state :pending
+  aasm_state :active
+
+  aasm_event :activate do
+    transitions :to => :active, :from => [ :pending, :active]
+  end
+
+
   def to_param
     "#{id}-#{title.parameterize}"
   end

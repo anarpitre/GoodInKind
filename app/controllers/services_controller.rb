@@ -35,8 +35,9 @@ class ServicesController < ApplicationController
       if current_user.blank?               
         session[:service_id] = @service.id                                      #if user is not siggned in than service id is stored in session  
         redirect_to(new_user_registration_path, :notice => 'Service was successfully created.') 
-      else
-        redirect_to(@service, :notice => 'Service was successfully created.') 
+      else 
+        @service.activate!
+        redirect_to(thankyou_services_path, :notice => 'Service was successfully created.') 
       end
     rescue Exception => e 
       build_objects
@@ -53,6 +54,11 @@ class ServicesController < ApplicationController
       build_objects
       render :action => "edit", :id => @service.id 
     end
+  end
+
+
+  def thankyou
+    @service = @service.blank? ? @service : current_user.service 
   end
 
   def build_objects
