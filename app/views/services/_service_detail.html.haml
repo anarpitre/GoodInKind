@@ -8,7 +8,7 @@
     .logged_gallery
       .logged_pics
         .tag_spots_logged
-        = image_tag('logged_pic.jpg', :alt => "pics")
+        = image_tag !@service.images.first.blank? ? "#{@service.images.first.image.url}" : "/images/logged_pic.jpg"
       .logged_pics_bottom
         %ul
           %li
@@ -33,9 +33,11 @@
         %span.st_twitter_hcount{:displaytext => "Tweet"}
         %span.st_facebook_hcount{:displaytext => "Facebook"}
         :javascript
-          var switchTo5x=true;        %script{:src => "http://w.sharethis.com/button/buttons.js", :type => "text/javascript"}
+          var switchTo5x=true;
+        %script{:src => "http://w.sharethis.com/button/buttons.js"}
         :javascript
-          stLight.options({publisher:'d7205d3e-dbdd-455c-a856-b25ec435dd41'});      .services_price
+          stLight.options({publisher:'d7205d3e-dbdd-455c-a856-b25ec435dd41'});
+      .services_price
         %span.req_text Requested Donation
         %span.price_text $200
       %a.button.take_it{:href => "#"} Take It

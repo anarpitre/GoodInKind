@@ -1,22 +1,19 @@
 .off_by
   .off_by_profile
     %h4.profile_title_h4 Non-Profit:
-    = image_tag('redcross.jpg', :alt => "pic", :class => "profile_pic_nonpf")
+    = image_tag('redcorss.jpg', :alt => "pic", :class => "profile_pic_nonpf")
     %h3.profile_title_h3
-      Red Cross
-      %span Cupertino, CA
+      = @service.nonprofit.name
+      %span= @service.nonprofit.location.try(:address)
   .profile_list
     %p
       %span.pl_left Website:
       %span.pl_right
-        = link_to "www.redcross.com", "#"
+        = link_to "#{@service.nonprofit.website}", "#"
     %p
       %span.pl_left Description:
       %span.pl_right
-        I make beautiful things.
+        = @service.nonprofit.description
         %br/
-        I make beautiful things.
-        %br/
-        I make beautiful things.
   %p.pl_view_more
-    = link_to "View Profile", "#"
+    = link_to "View Profile", nonprofit_path(:id => @service.nonprofit.id)

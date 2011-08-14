@@ -16,9 +16,8 @@ class Nonprofit < ActiveRecord::Base
 
   validates_confirmation_of :password, :on => :create
   validates :email,  :presence => true, :format => EMAIL_REGEX, :on => :create
-  #validates_attachment_presence :photo
-  #validates_attachment_content_type :photo, :content_type => ["image/jpeg", "image/png", "image/gif"]
-  #validates_attachment_size  :photo, :less_than => 2.megabytes
+  validates_attachment_content_type :photo, :content_type => ["image/jpeg", "image/png", "image/gif"]
+  validates_attachment_size  :photo, :less_than => 2.megabytes
 
   has_attached_file :photo, S3_DEFAULTS.merge(
     :styles => { :thumb => [ "200x70#", :jpg ] }

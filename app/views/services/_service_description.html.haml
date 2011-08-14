@@ -1,12 +1,12 @@
-%p.services_content_disc This is the place where the detailed event description will show up.. Maybe max 100 words... This is the place where the detailed event description will show up.. Maybe max 100 words...This is the place where the detailed event description will show up.. Maybe max 100 words...This is the place where the detailed event description will show up.. Maybe max 100 words...
+%p.services_content_disc= @service.description
 .address_text
   %p
     %span.add_left Location:
-    %span.add_right 23, Main Street, Ithaca, NY
+    %span.add_right= !@service.location.blank? ? "#{@service.location.address}" : ""
   %p
     %span.add_left Dates Available:
     %span.add_right To be scheduled
   %p
     %span.add_left Spots Available:
-    %span.add_right 23
+    %span.add_right= @service.booking_capacity 
 %hr.add_hr/

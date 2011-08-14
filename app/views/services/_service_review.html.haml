@@ -1,9 +1,9 @@
 %h3.comment_icon
-  = image_tag ('review_icon.png', :alt => "Review")
+  = image_tag('review_icon.png', :alt => "Review")
   %span Reviews
-%p.review_content_disc This is the place where the detailed event description will show up.. Maybe max 100 words... This is the place where the detailed event description will show up.. Maybe max 100 words...This is the place where the detailed event description will show up.. Maybe max 100 words...This is the place where the detailed event description will show up.. Maybe max 100 words...
+%p.review_content_disc= !@service.reviews.blank? ? "#{@service.reviews.first.review}" : "" 
 %hr.add_hr/
 %h3.comment_icon
-  = image_tag ('q_a_icon.png', :alt => "Reviews")
+  = image_tag('q_a_icon.png', :alt => "Reviews")
   %span Q&amp;A
-= image_tag ('comments.png', :alt => "comments", :style => "float:left;")
+= image_tag('comments.png', :alt => "comments", :style => "float:left;")

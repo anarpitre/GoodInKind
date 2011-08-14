@@ -4,10 +4,6 @@
       = link_to image_tag('goodinkind-logo.png', :alt => "Goodinkind - Get Together. Do Good."), profiles_path
     - else
       = link_to image_tag('goodinkind-logo.png', :alt => "Goodinkind - Get Together. Do Good."), root_path
-  .header_services_find
-    .head_serve_box.top_active
-      Find
-      %span a service
   %ul.nav
     - if user_signed_in?
       %li= link_to "How it works", "#"
