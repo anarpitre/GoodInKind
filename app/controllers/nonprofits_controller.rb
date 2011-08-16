@@ -27,6 +27,7 @@ class NonprofitsController < ApplicationController
   end
   
   def create
+    logger.info(params[:nonprofit])
     @nonprofit = Nonprofit.new(params[:nonprofit])
     if @nonprofit.save
       flash[:notice] = "User #{@nonprofit.username} created"
