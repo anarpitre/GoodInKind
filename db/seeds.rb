@@ -1,14 +1,15 @@
 SERVICE = 1
 NON_PROFIT = 2
-
+=begin
 user = User.create(:email => "dummy@dummy.com", :password => "dummy123")
 user.save!
 user.confirm!
-
 user = User.create(:email => "admin@goodinkind.com", :password => "admin123")
 user.is_admin = true
 user.save!
 user.confirm!
+
+=end
 
 FIRSTGIVING_CATETORIES = {
   "A" => "Arts, Culture & Humanities",
