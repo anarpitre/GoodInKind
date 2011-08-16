@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.7'
 
-gem 'pg'
+#gem 'pg'
 gem 'devise'
 gem 'rspec-rails'
 gem 'factory_girl_rails'
@@ -21,6 +21,7 @@ gem 'json'
 gem 'jquery-rails'
 gem 'rails3-jquery-autocomplete', '0.9.0'
 gem 'aasm'
+gem 'rake', '0.8.7'
 group :development, :test do
  gem  'railroady'
 #gem 'mysql2', '= 0.2.8'
