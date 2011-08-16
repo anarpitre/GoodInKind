@@ -2,7 +2,6 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.7'
 
-gem 'pg'
 gem 'devise'
 gem 'rspec-rails'
 gem 'factory_girl_rails'
@@ -24,6 +23,7 @@ gem 'aasm'
 gem 'rake', '0.8.7'
 group :development, :test do
  gem  'railroady'
+ gem 'pg'
 #gem 'mysql2', '= 0.2.8'
 end
 # Use unicorn as the web server
