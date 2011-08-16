@@ -12,4 +12,5 @@ Factory.define :service do |s|
   s.start_time Time.now
   s.end_time Time.now + 5.minutes
   s.association :nonprofit_id, :factory => 'nonprofit'
+  s.association :user_id, :factory => 'user'
 end

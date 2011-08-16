@@ -1,41 +1,9 @@
-%h1 Listing services
 
-%table
-  %tr
-    %th Title
-    %th Description
-    %th Amount
-    %th Booking capacity
-    %th Schedule later
-    %th Start date
-    %th End date
-    %th Start time
-    %th End time
-    %th Non profit
-    %th Is virtual
-    %th Is public
-    %th
-    %th
-    %th
-
-  - @services.each do |service|
-    %tr
-      %td= service.title
-      %td= service.description
-      %td= service.amount
-      %td= service.booking_capacity
-      %td= service.is_schedulelater
-      %td= service.start_date.blank? ? "" : service.start_date.strftime("%m/%d/%Y")
-      %td= service.end_date.blank? ? "" : service.end_date.strftime("%m/%d/%Y")
-      %td= service.start_time.blank? ? "" : service.start_time.strftime('%I:%M%p')
-      %td= service.end_time.blank? ? "" : service.end_time.strftime('%I:%M%p') 
-      %td= service.nonprofit_id
-      %td= service.is_virtual
-      %td= service.is_public
-      %td= link_to 'Show', service_path(:id => service.id)
-      %td= link_to 'Edit', edit_service_path(:id => service.id)
-      %td= link_to 'Destroy', service_path(:id => service.id), :confirm => 'Are you sure?', :method => :delete
-
-%br
-
-= link_to 'New Service', new_service_path
+.sidebar_bar
+  = render :partial => "service_search"
+  .sidebar_left_find
+    = render :partial => "service_by_category"
+    = render :partial => "service_by_nonprofit"
+    = render :partial => "service_by_price"
+    = render :partial => "service_by_date"
+= render :partial => "find_featured_service" 

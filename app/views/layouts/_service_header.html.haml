@@ -3,11 +3,11 @@
   %h1.logo_inner
     = link_to image_tag("goodinkind-logo-small.png", :alt => "Goodinkind - Get Together. Do Good."), root_path
   .header_services_find
-    .head_serve_box.top_active
+    .head_serve_box
       Find
       %span a service
   .header_services_offer
-    .head_serve_box.serve_box_right
+    .head_serve_box.serve_box_right{:onclick => "location.href='#{new_service_path}'"}
       Offer
       %span a service
   %ul.nav.nav_inner

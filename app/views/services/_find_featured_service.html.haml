@@ -18,7 +18,7 @@
               .fs_left
                 %span.fs_head= service.title
                 %span.fs_for for
-                %span.fs_disc= service.nonprofit.name
+                %span.fs_disc= service.nonprofit.try(:name)
               .fs_price
                 $#{service.amount}
               .clear

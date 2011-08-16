@@ -15,12 +15,12 @@
       = link_to "My Services", "#"
     %li
       = link_to "Logout", destroy_user_session_path, :method => :get
-  / Network Functionality posted on 7-SEP-11    
   %span.dm_network
     = image_tag('network_icon.png', :alt => "Network")
-    %strong.count 3
+    %strong.count= current_user.messages.where(:is_read => false).size 
+  / Network Functionality posted on 7-SEP-11    
   %span.dm_mail
-    = image_tag('mail_icon.png', :alt => "mail")
-    %strong.count.mail_c 3
+    /= image_tag('mail_icon.png', :alt => "mail")
+    /%strong.count.mail_c 3
   %span.dm_st
   %span

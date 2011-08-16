@@ -505,7 +505,7 @@ h2.fs_h2 {
 	text-align:center;
 	line-height:20px;
 	padding-top:5px;
-	cursor:default;
+	cursor:pointer;
 	box-shadow:1px 1px 3px #a9b997;
 }
 .head_serve_box span {
@@ -870,6 +870,7 @@ h2.services_h2 em {
 }
 .logged_pics {
 	width:448px;
+    height:260px;
 	float:left;
 	border:1px solid #938b8b;
 }
