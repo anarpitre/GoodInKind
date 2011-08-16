@@ -7,7 +7,10 @@ class NonprofitsController < ApplicationController
   
   def index
     @head[:title] = "NonProfit Home"
-    @nonprofits = Nonprofit.verified
+    @nonprofits = Nonprofit.all
+
+    # FIXME: To add index-tank search on the following Nonprofit criteria:
+    # name, EIN, category, mission, guideline, description, website
   end
 
   def show
@@ -24,17 +27,12 @@ class NonprofitsController < ApplicationController
   end
   
   def create
-    @nonprofit.build_location unless @nonprofit.location
-    @head[:title] = @nonprofit.name
-  end
-  
-  def create
     @nonprofit = Nonprofit.new(params[:nonprofit])
     if @nonprofit.save
       flash[:notice] = "User #{@nonprofit.username} created"
       redirect_to  :action => 'login'
     else
-      render :action => 'new'
+      render :action => :new
     end
   end
 
