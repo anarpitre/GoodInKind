@@ -80,6 +80,11 @@ class ServicesController < ApplicationController
     @service.user_id = !current_user.blank? ? current_user.id : User.get_dummy_user.first.id
   end
 
+  def browse_nonprofit
+    @nonprofit = Nonprofit.all
+    render :layout => nil
+  end
+
   def set_seo_tags
     @head = {
       :title => "Service Home",
