@@ -8,8 +8,8 @@ class Service < ActiveRecord::Base
   has_many :reviews
   has_many :users, :through => :user_service_role
   has_many :images,:dependent => :destroy
-  has_many :resource_categories, :as => :resource, :dependent => :destroy
-  has_many :categories, :through => :resource_categories #, :foreign_key => :category_id
+  has_many :service_categories, :dependent => :destroy
+  has_many :categories, :through => :service_categories #, :foreign_key => :category_id
  
   accepts_nested_attributes_for :images, :location, :allow_destroy => true
   

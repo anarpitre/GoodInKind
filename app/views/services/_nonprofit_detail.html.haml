@@ -2,7 +2,7 @@
   .off_by_profile
     %h4.profile_title_h4 Non-Profit:
 
-    = image_tag('nonprofit_ph.jpeg', :alt => "pic", :class => "profile_pic_nonpf")
+    = image_tag(@service.nonprofit.photo.url(:thumb), :alt => "pic", :class => "profile_pic_nonpf")
     %h3.profile_title_h3
       = @service.nonprofit.name
       %span= @service.nonprofit.location.try(:address)

@@ -1,25 +1,22 @@
-- unless @services.blank?
+- unless @services.empty?
   .featured_services
     %h2.fs_h2
       Featured Services
       %a.button.bu_right.explore_btn{:href => "#"} Explore All
     - counter = 0
     .featured_list
-      - 12.times do
-        - service = @services[counter]
-        - unless service.blank?
-          %a{:href => "#"}
-            .fs_box
-              .tag_spots
-              = image_tag !service.images.first.blank? ? "#{service.images.first.image.url(:original)}" : "/images/pics-1.jpg", :class => 'fs_box_pic'  
-              .fs_left
-                %span.fs_head= truncate(service.title, :length => 21)
-                %span.fs_for for
-                %span.fs_disc= !service.nonprofit.blank? ? "#{service.nonprofit.name}" : ""
-              .fs_price
-                $#{service.amount}
-              .clear
-            - counter = counter + 1
+      - @services.each do |service|
+        %a{:href => "#"}
+          .fs_box
+            .tag_spots
+            = image_tag !service.images.first.blank? ? "#{service.images.first.image.url(:original)}" : "/images/pics-1.jpg", :class => 'fs_box_pic'  
+            .fs_left
+              %span.fs_head= truncate(service.title, :length => 21)
+              %span.fs_for for
+              %span.fs_disc= service.nonprofit.try(:name)
+            .fs_price
+              $#{service.amount}
+            .clear
       %p.view_more
         %a{:href => "#"} View More Services
 / End Featured Services

@@ -11,7 +11,7 @@
       - 9.times do
         - service = @services[counter]
         - unless service.blank?
-          %a{:href => "#"}
+          %a{:href => service_path(:id => service.id)}
             .fs_box
               .tag_spots
               = image_tag !service.images.first.blank? ? "#{service.images.first.image.url(:original)}" : "/images/pics-1.jpg", :class => 'fs_box_pic'  

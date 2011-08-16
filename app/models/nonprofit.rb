@@ -20,7 +20,8 @@ class Nonprofit < ActiveRecord::Base
   validates_attachment_size  :photo, :less_than => 2.megabytes
 
   has_attached_file :photo, S3_DEFAULTS.merge(
-    :styles => { :thumb => [ "200x70#", :jpg ] }
+    :styles => { :thumb => [ "200x70#", :jpg] },
+    :default_url => "/images/missing/nonprofit_ph.jpg"
   )
 
   accepts_nested_attributes_for :location, :allow_destroy => true
