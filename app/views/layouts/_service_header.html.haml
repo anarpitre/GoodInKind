@@ -3,11 +3,11 @@
   %h1.logo_inner
     = link_to image_tag("goodinkind-logo-small.png", :alt => "Goodinkind - Get Together. Do Good."), root_path
   .header_services_find
-    .head_serve_box
+    .head_serve_box.top_active
       Find
       %span a service
   .header_services_offer
-    .head_serve_box.serve_box_right{:onclick => "location.href='#{new_service_path}'"}
+    .head_serve_box.serve_box_right
       Offer
       %span a service
   %ul.nav.nav_inner
@@ -18,9 +18,9 @@
       %li= link_to "Sign Up", new_user_registration_path
       %li#login= link_to "Login", "#"
       :javascript
-        $('#login').click {
+        $('#login').click(function() {
           $("#slidingDiv2").animate({"height": "toggle"}, { duration: 200 });
-        }
+        });
       %li= link_to "How it works", "#"
       %li.nav_non= link_to "Non-Profits", nonprofits_path
   .change_city.inner_city
@@ -28,7 +28,11 @@
     %br/
     %span.city_change_icon
       change
-      = link_to image_tag('city_arrow.png'), "#", :onclick => "showSlidingDiv(); return false;"
+      = link_to image_tag('city_arrow.png'), "#"
+      :javascript
+        $('.city_change_icon').click(function() { 
+          $("#slidingDiv").animate({"height": "toggle"}, { duration: 200, });
+        });
 / End Header
 #slidingDiv
 = render :partial => 'layouts/top_login'
