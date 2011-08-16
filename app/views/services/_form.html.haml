@@ -83,7 +83,7 @@
         Describe the service or experience you want to offer
       = f.text_field :title, :hint => "Give short and sweet Title to your Service"
       = f.text_area :description, :class => 'input_area', :hint => "Give detail Description of your Service"
-      = f.collection_select :category_ids, get_service_category, :id, :name, {:selected => @service.resource_categories.collect(&:category_id)}, { :multiple => true, :class => "input_select", :style => "height:100px;width:530px;", :hint => "Select one or more categories matching your service", :label => "Category *" }
+      = f.collection_select :category_ids, get_service_category, :id, :name, {:selected => @service.service_categories.collect(&:category_id)}, { :multiple => true, :class => "input_select", :style => "height:100px;width:530px;", :hint => "Select one or more categories matching your service", :label => "Category *" }
     .setp_box
       %h3.setp_box_heading
         %span Step 2:
