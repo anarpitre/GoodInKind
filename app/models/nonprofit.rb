@@ -1,6 +1,8 @@
 require 'digest/sha1'
 
 class Nonprofit < ActiveRecord::Base
+  include AASM
+
   EMAIL_REGEX = /^[a-z]+([+\.\w]+)*\w@[a-z0-9]+(\.\w+)+$/i
   has_many :nonprofit_categories
   has_many :categories, :through => :nonprofit_categories
@@ -24,16 +26,42 @@ class Nonprofit < ActiveRecord::Base
     :default_url => "/images/missing/nonprofit_ph.jpg"
   )
 
+  scope :verified, where(:is_verified => 'yes')
+
   accepts_nested_attributes_for :location, :allow_destroy => true
 
   attr_accessor :password, :password_confirmation
+  attr_protected :hashed_password, :salt
+
   before_create :create_hash_password
   after_create :generate_permalink
 
-  attr_protected :hashed_password, :salt
+  ###  AASM transition ###
+  aasm_column :is_verified
+  aasm_initial_state :no
+
+  aasm_state :no
+  aasm_state :yes, :enter => :confirm_nonprofit
+  aasm_state :rejected, :enter => :reject_nonprofit
+
+  aasm_event :confirm! do
+    transitions :to => [:yes, :rejected], :from => :no
+  end
+
+  aasm_event :reject! do
+    transitions :to => :rejected, :from => [:yes, :no]
+  end
 
   def to_param
     permalink || "#{id}-#{name.parameterize}"
+  end
+
+  def confirm_nonprofit
+    # FIXME: Deliver confirmation email notification
+  end
+
+  def reject_nonprofit
+    # FIXME: Deliver rejection email notification
   end
 
   def self.authenticate(username, password)

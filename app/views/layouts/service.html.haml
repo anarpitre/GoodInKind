@@ -1,28 +1,15 @@
 - content_for :header do
   = stylesheet_link_tag "calendrical"
   = stylesheet_link_tag "jquery-ui-1.8.14.custom"
+  = stylesheet_link_tag "thickbox"
+
   = javascript_include_tag "jquery"
   = javascript_include_tag "jquery-1.5.1.min"
   = javascript_include_tag "jquery-ui-1.8.14.custom.min"
   = javascript_include_tag "autocomplete-rails"
   = javascript_include_tag "jquery.calendrical"
   = javascript_include_tag "tooltip"
-  = stylesheet_link_tag "thickbox"
   = javascript_include_tag 'thickbox'
-
-  :javascript
-    function showSlidingDiv2(){
-      $("#slidingDiv2").animate({"height": "toggle"}, { duration: 200 });
-    }
-    $(function(){
-      $(".np_results_list").hover(function(){
-        $(this).stop().animate({height:"160px"},{queue:false,duration:200});
-        }, function() {
-            $(this).stop().animate({height:"70px"},{queue:false,duration:200});
-           });
-    });
-
-
 
 - unless content_for?(:layout_content)
   - content_for :layout_content do

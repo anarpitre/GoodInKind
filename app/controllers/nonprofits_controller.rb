@@ -7,7 +7,7 @@ class NonprofitsController < ApplicationController
   
   def index
     @head[:title] = "NonProfit Home"
-    @nonprofits = Nonprofit.all
+    @nonprofits = Nonprofit.verified
   end
 
   def show
@@ -52,13 +52,13 @@ class NonprofitsController < ApplicationController
   end
   
   def create_session 
-    authorized_user = Nonprofit.authenticate(params[:username],params[:password])
-    if authorized_user
+    @nonprofit = Nonprofit.authenticate(params[:username],params[:password])
+    if @nonprofit
       session[:nonprofit] = {}
-      session[:nonprofit][:name] = authorized_user.name
-      session[:nonprofit][:id] = authorized_user.id
+      session[:nonprofit][:name] = @nonprofit.name
+      session[:nonprofit][:id] = @nonprofit.id
       flash[:notice] = "You are now Logged In"
-      redirect_to :action => 'index' 
+      redirect_to nonprofit_path(@nonprofit)
     else
       flash[:notice] = "Invalid Username/Password"
       redirect_to :action => 'login'

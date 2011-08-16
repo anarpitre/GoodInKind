@@ -16,7 +16,11 @@
       %li.nav_non= link_to "Non-Profits", nonprofits_path
     - else
       %li= link_to "Sign Up", new_user_registration_path
-      %li= link_to "Login","#", :onClick => 'showSlidingDiv2(); return false;'
+      %li#login= link_to "Login", "#"
+      :javascript
+        $('#login').click {
+          $("#slidingDiv2").animate({"height": "toggle"}, { duration: 200 });
+        }
       %li= link_to "How it works", "#"
       %li.nav_non= link_to "Non-Profits", nonprofits_path
   .change_city.inner_city

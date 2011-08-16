@@ -1,10 +1,23 @@
 - content_for :header do
   = javascript_include_tag "tooltip"
+  :javascript
+    $(function(){
+      $(".np_results_list").hover(function(){
+        $(this).stop().animate({height:"160px"},{queue:false,duration:200});
+        }, function() {
+            $(this).stop().animate({height:"70px"},{queue:false,duration:200});
+           });
+    });
   
 - unless content_for?(:layout_content)
   - content_for :layout_content do
     %body
-      = content_for?(:layout_header) ? yield(:layout_header) : render('layouts/nonprofit_header')
+      - if content_for?(:layout_header)
+        = yield (:layout_header)
+      - elsif nonprofit_logged_in?
+        = render('layouts/nonprofit_header')
+      - else
+        = render('layouts/service_header')
       .container
         - if nonprofit_logged_in?
           = render "layouts/nonprofit_tabs"
@@ -13,7 +26,9 @@
           .np_tab_logo
             /FIXME: Photo should have a default!
             = image_tag(@nonprofit.photo.try(:url), :class => "np_logos") if @nonprofit
-
+          - if defined?(search) and search
+            .sidebar_bar
+              = render 'layouts/nonprofit_search' 
           = content_for?(:tab_content) ? yield(:tab_content) : yield
         .clear
       = render 'layouts/footer'

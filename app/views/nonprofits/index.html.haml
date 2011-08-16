@@ -1,4 +1,4 @@
-.sidebar_bar
-  = render :partial => "search_nonprofits"
+- content_for :tab_content do
+  = render 'np_search_result'
 
-= render :partial => "np_search_result" 
+= render :file => 'layouts/nonprofit', :locals => {:search => true}
