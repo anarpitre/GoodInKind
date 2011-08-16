@@ -1,4 +1,6 @@
-if Rails.env == 'production'
+if Rails.env == 'development'
+  S3_DEFAULTS = {}
+else
   S3_DEFAULTS = { 
       :storage => :s3,
       :s3_credentials => "#{RAILS_ROOT}/config/s3.yml",
@@ -6,7 +8,5 @@ if Rails.env == 'production'
       :bucket => 'yourbucket',                       
       :default_url => "/images/missing/logo/:style.gif"
   }
-else
-  S3_DEFAULTS = { }
 end
 
