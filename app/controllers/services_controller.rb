@@ -2,7 +2,7 @@ class ServicesController < ApplicationController
   before_filter :set_seo_tags
   before_filter :get_service_by_id, :only => [:update, :destroy, :show, :edit]
   
-  autocomplete :nonprofit, :name, :full => true
+  autocomplete :nonprofit, :name, :full => true, :scopes => [:verified]
 
   layout 'service'
 
@@ -39,7 +39,7 @@ class ServicesController < ApplicationController
         @service.activate!
         redirect_to(thankyou_services_path, :notice => 'Service was successfully created.') 
       end
-    rescue Exception => e 
+    rescue
       build_objects
       render :action => "new" 
     end
@@ -81,7 +81,8 @@ class ServicesController < ApplicationController
   end
 
   def browse_nonprofit
-    @nonprofit = Nonprofit.all
+    @nonprofit = Nonprofit.verified
+    #@nonprofit = Nonprofit.verifiedall
     render :layout => nil
   end
 

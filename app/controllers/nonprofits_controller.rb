@@ -7,7 +7,7 @@ class NonprofitsController < ApplicationController
   
   def index
     @head[:title] = "NonProfit Home"
-    @nonprofits = Nonprofit.all
+    @nonprofits = Nonprofit.verified
 
     # FIXME: To add index-tank search on the following Nonprofit criteria:
     # name, EIN, category, mission, guideline, description, website

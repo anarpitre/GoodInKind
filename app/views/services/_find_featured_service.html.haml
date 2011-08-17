@@ -8,18 +8,23 @@
         %a{:href => "#"} Place your request here
     - counter = 0
     .featured_list_find
-      - @services.each do |service|
-        %a{:href => service_path(service)}
-          .fs_box
-            .tag_spots
-            = image_tag !service.images.first.blank? ? "#{service.images.first.image.url(:original)}" : "/images/pics-1.jpg", :class => 'fs_box_pic'  
-            .fs_left
-              %span.fs_head= service.title
-              %span.fs_for for
-              %span.fs_disc= service.nonprofit.try(:name)
-            .fs_price
-              $#{service.amount}
-            .clear
+      - 9.times do
+        - service = @services[counter]
+        - unless service.blank?
+          %a{:href => service_path(:id => service.id)}
+            .fs_box
+              .tag_spots
+              = image_tag !service.images.first.blank? ? "#{service.images.first.image.url(:thumb)}" : "/images/pics-1.jpg", :class => 'fs_box_pic'  
+              /TBD - set category image as default if service image is not given. image name = categoryname.parameterize.jpg
+              /= image_tag !service.images.first.blank? ? "#{service.images.first.image.url(:thumb)}" : "#{service.categories.first.name.parameterize}", :class => 'fs_box_pic'  
+              .fs_left
+                %span.fs_head= service.title
+                %span.fs_for for
+                %span.fs_disc= service.nonprofit.try(:name)
+              .fs_price
+                $#{service.amount}
+              .clear
+                - counter = counter + 1
       %p.view_more
         %a{:href => "#"} View More Services
 / End Featured Services
