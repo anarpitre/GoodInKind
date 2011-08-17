@@ -6,7 +6,7 @@
     - counter = 0
     .featured_list
       - @services.each do |service|
-        %a{:href => "#"}
+        %a{:href => service_path(service)}
           .fs_box
             .tag_spots
             = image_tag !service.images.first.blank? ? "#{service.images.first.image.url(:original)}" : "/images/pics-1.jpg", :class => 'fs_box_pic'  
