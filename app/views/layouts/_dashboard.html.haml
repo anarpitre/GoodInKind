@@ -21,6 +21,6 @@
     /%strong.count= current_user.messages.where(:is_read => false).size 
   %span.dm_mail
     = image_tag('mail_icon.png', :alt => "mail")
-    %strong.count.mail_c= current_user.messages.where(:is_read => false).size
+    %strong.count.mail_c= current_user.received_messages.where(:is_read => false).size
   %span.dm_st
   %span

@@ -1,8 +1,12 @@
 class Message < ActiveRecord::Base
-  has_one  :sender, :class_name => 'UserMessageRole', :conditions => ["role = 'Sender'"], :dependent => :destroy
-  has_one  :receiver, :class_name => 'UserMessageRole', :conditions => ["role = 'Receiver'"],:dependent => :destroy
-  has_many :user_message_role, :dependent => :destroy
-  has_many :users, :through => 'user_message_role'
+  
+  belongs_to :sender, :class_name => 'User', :dependent => :destroy
+  belongs_to :receiver, :class_name => 'User', :dependent => :destroy
 
   validates :title, :message, :presence => true
+  validate :check_receiver
+
+  def check_receiver
+    errors.add(:receiver_id,"User doesnot exist") if self.receiver.blank?
+  end
 end

@@ -8,10 +8,11 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
   has_many :reviews
-  has_many :user_message_role, :dependent => :destroy
-  has_many :as_sender, :class_name => 'UserMessageRole', :conditions => ["role = 'Sender'"]
-  has_many :as_receiver, :class_name => 'UserMessageRole', :conditions => ["role = 'Receiver'"]
-  has_many :messages, :through => :user_message_role
+
+  has_many :sent_messages, :class_name => 'Message', :foreign_key => :sender_id, :dependent => :destroy
+  has_many :received_messages, :class_name => 'Message', :foreign_key => :receiver_id, :dependent => :destroy
+
+  
   has_many :services, :dependent => :destroy
   has_many :authentications, :dependent => :destroy
   has_one  :location, :as => :resource, :dependent => :destroy

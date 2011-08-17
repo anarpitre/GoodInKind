@@ -6,7 +6,6 @@ class Service < ActiveRecord::Base
   belongs_to :nonprofit
   has_one :location, :as => :resource,:dependent => :destroy
   has_many :reviews
-  has_many :users, :through => :user_service_role
   has_many :images,:dependent => :destroy
   
   has_many :service_categories, :dependent => :destroy
