@@ -1,8 +1,8 @@
 #tabvanilla
   %ul.tabnav.ui-tabs-nav.np_tab_bg
     %li{:class => "#{'ui-tabs-selected' if ['show', 'edit'].include?(action_name)}"}
-      = link_to content_tag(:span, "Non-Profit Profile"), nonprofit_path(@nonprofit)
+      = link_to content_tag(:span, "Non-Profit Profile"), nonprofit_path(current_nonprofit)
     %li{:class => "#{'ui-tabs-selected' if action_name == 'transactions'}"}
-      = link_to content_tag(:span, "Transactions"), transactions_nonprofit_path(@nonprofit)
+      = link_to content_tag(:span, "Transactions"), transactions_nonprofit_path(current_nonprofit)
     %li{:class => "#{'ui-tabs-selected' if action_name == 'account'}"}
-      = link_to content_tag(:span, "Account"), account_nonprofit_path(@nonprofit)
+      = link_to content_tag(:span, "Account"), account_nonprofit_path(current_nonprofit)

@@ -13,11 +13,12 @@ class Nonprofit < ActiveRecord::Base
   has_one :location, :as => :resource,:dependent => :destroy
   belongs_to :gateway
 
-  validates :username, :presence => true,:uniqueness => true
-  validates :password, :password_confirmation, :contact_name, :name, :phone_number, :presence => true, :on => :create
+  validates :username, :presence => true, :uniqueness => true
+  validates :password, :password_confirmation, :presence => true, :on => :create
+  validates :contact_name, :name, :phone_number, :presence => true
 
   validates_confirmation_of :password, :on => :create
-  validates :email,  :presence => true, :format => EMAIL_REGEX, :on => :create
+  validates :email,  :presence => true, :format => EMAIL_REGEX
   validates_attachment_content_type :photo, :content_type => ["image/jpeg", "image/png", "image/gif", "image/jpg" ]
   validates_attachment_size  :photo, :less_than => 2.megabytes
 

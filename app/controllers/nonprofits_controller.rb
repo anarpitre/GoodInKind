@@ -24,6 +24,8 @@ class NonprofitsController < ApplicationController
 
   def edit
     @nonprofit = Nonprofit.find(params[:id])
+    # reset stagnant URL if any
+    session[:referer] = 'edit'
   end
   
   def create
@@ -56,7 +58,7 @@ class NonprofitsController < ApplicationController
           params[:nonprofit].delete(:password)
           params[:nonprofit].delete(:password_confirmation)
         else
-            @nonprofit.errors.add(:password, "does not match")
+            @nonprofit.errors.add(:password, "is incorrect or does not match")
             render :action => :account and return
         end
       end
@@ -119,7 +121,7 @@ class NonprofitsController < ApplicationController
   end
 
   def nonprofit_owner
-    return true if session and (session[:nonprofit][:id] == @nonprofit.id)
+    return true if session[:nonprofit] and (session[:nonprofit][:id] == @nonprofit.try(:id))
     redirect_to login_nonprofits_path
   end
 
