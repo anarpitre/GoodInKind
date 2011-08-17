@@ -4,10 +4,7 @@ describe User do
   
   context "Should be registered" do
     let(:user) {Factory(:user)}
-
-    #001
-    it "if email_id and password are provided in valid format" do 
-      user.save
+    it "if email and password are provided in valid format" do 
       user.should be_valid
     end
   end
@@ -15,29 +12,29 @@ describe User do
   context "Should not be registered" do
     let(:user) {Factory(:user)}
 
-    #002
     it "if email is blank" do
       user.email = ''
       user.save
       user.should_not be_valid
     end
 
-    #003
     it "if provided email is not in valid format" do
       user.email = 'xxxx.com'
       user.save
       user.should_not be_valid
     end
 
-    #004
     it "if email is already registered" do
       new_user = Factory(:user)
+      p new_user.email
+      p 'ffffff'
+      p user.email
       new_user.email = user.email
       new_user.save
+      p new_user.email
       new_user.should_not be_valid
     end
 
-    #005
     it "if password is blank" do
       user.password = ''
       user.save
@@ -46,10 +43,9 @@ describe User do
 
   end
 
-  describe "Should not ask for password while registrations" do
+  describe "Should not ask for password while registrations if signed up through facebook and " do
     let(:user) {Factory(:user)}
 
-    #006
     it "if authentication exist for user" do 
       authentication = Factory(:authentication)
       user = authentication.user(:readonly => false)
@@ -60,8 +56,6 @@ describe User do
 
   describe "Should get confirmed at the time of registration" do
     let(:user) {Factory(:user)}
-
-    #007
     it "if authentication exist for user" do 
       authentication = Factory(:authentication)
       user = authentication.user(:readonly => false)

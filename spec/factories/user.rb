@@ -6,6 +6,7 @@ Factory.define :user do |u|
   u.is_admin false
   u.confirmed_at Time.now
   u.confirmation_sent_at Time.now
+
 end
 
 Factory.define :admin_user, :class => User do |u|

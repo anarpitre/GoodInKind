@@ -1,22 +1,18 @@
 require 'spec_helper'
 
 describe Service do
-
-
   let(:services) { Factory(:service) }
-  context " should be created and its associated user should be created " do
+  context "should be created if" do
 
-    it "if title, description, nonprofit_id, amount are entered" do
-      services.save
-      services.should be_valid
-    end
-    it "if booked seats is not selected" do
-      services.booked_seats = ""
-      services.save
-      services.should be_valid
-    end
+    it "all the details are entered"
 
-    it "if booking capacity is not selected" do
+    it "category ids is not selected"
+
+    it "start time is blank"
+
+    it "end time is blank"
+
+    it "booking capacity blank " do
       services.booking_capacity = ""
       services.save
       services.should be_valid
@@ -24,20 +20,30 @@ describe Service do
 
     it"if is_schedulelater is true" do
       services.is_schedulelater = true 
+    it "estimated duration is blank"
+
+    it "is_schedules is false" do
+      services.is_scheduled = false
       services.save
       services.should be_valid
     end
 
-    it"if is_public is  selected" do
+    it "public posting is checked for privacy setting" do
       services.is_public = true
       services.save
       services.should be_valid
     end
 
-    it"if is_virtual is not select" do
+    it "is_virtual is not select" do
       services.is_virtual = false
       services.save
       services.should be_valid
+    end
+    
+    it "if is_public is not selected" do
+      services.is_public = nil
+      services.save
+      services.should_not be_valid
     end
   end
 
@@ -53,30 +59,47 @@ describe Service do
     it "if end_date is not selected when is_shedulelater is false" do
       services.is_schedulelater = false
       services.end_date = nil
+    
+    it "description is blank" do
+      services.description = nil
       services.save
       services.should_not be_valid
     end
 
-    it "if amount is not selected" do 
+    it "address is blank"
+
+    it "start date is blank"
+
+    it "start date is in wrong format i.e. dd/mm/yyyy"
+    
+    it "end date is in wrong format i.e. dd/mm/yyyy"
+
+    it "start_date is not selected when is_shedule true" do
+      services.is_scheduled = true
+      services.start_date = nil
+      services.save
+      services.should_not be_valid
+    end
+
+    it "end_date is not selected when is_shedule true" do
+      services.is_scheduled = true
+      services.end_date = nil
+      services.save
+      services.should_not be_valid
+    end
+
+    it "start date is greater than end date"
+
+    it "start time is greater than end time"
+
+    it "amount is blank" do 
       services.amount = nil
       services.save
       services.should_not be_valid
     end
 
-    it "if amount is not alphabetical " do
+    it "amount entered is non-numeric" do
       services.amount = "aabbcc"
-      services.save
-      services.should_not be_valid
-    end
-
-    it "if title is not selected" do 
-      services.title = nil
-      services.save
-      services.should_not be_valid
-    end
-
-    it "if description is not selected" do
-      services.description = nil
       services.save
       services.should_not be_valid
     end
@@ -87,16 +110,14 @@ describe Service do
       services.should_not be_valid
     end
 
+    it "if logo not is not uploaded"
 
-    it "if is_public is not selected" do
-      services.is_public = nil
-      services.save
-      services.should_not be_valid
-    end
-    it "if logo not is not uploaded" 
     it "uploaded logo is not in proper format e.g. txt"
+
     it "uploaded logo is not in proper format e.g. pdf"
+
     it "uploaded logo is not in proper format e.g. word"
+
     it "uploaded logo uploaded is more than 5 mb"
   end
 end
