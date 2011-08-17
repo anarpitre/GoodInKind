@@ -26,6 +26,7 @@ class NonprofitsController < ApplicationController
     @nonprofit = Nonprofit.find(params[:id])
     # reset stagnant URL if any
     session[:referer] = 'edit'
+    @nonprofit.build_location unless @nonprofit.location
   end
   
   def create

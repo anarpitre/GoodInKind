@@ -9,7 +9,7 @@ class Profile < ActiveRecord::Base
 
   # TBD - change size of medium as per HTML layout.
   has_attached_file :avatar,
-    :style => {
+    :styles => {
     :thumb => "101x95>",
     :medium => "200x200>"
     },

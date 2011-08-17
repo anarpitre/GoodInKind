@@ -1,5 +1,5 @@
 .offer_form
-  = form_for @nonprofit, :builder => JoshForm  do |f| 
+  = form_for @nonprofit, :builder => JoshForm, :html => {:multipart => true}  do |f| 
     - if @nonprofit.errors.any?
       #error_explanation
         %h2

@@ -1,4 +1,4 @@
-if Rails.env == 'development' || 'test'
+if Rails.env =~ /development|test/
   S3_DEFAULTS = {}
 else
   S3_DEFAULTS = { 

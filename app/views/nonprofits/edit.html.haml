@@ -1,7 +1,7 @@
 - content_for :tab_content do 
   .np_profile_left
     .np_profile_info
-      = form_for @nonprofit do |f|
+      = form_for @nonprofit, :html => {:multipart => true} do |f|
         - if @nonprofit.errors.any?
           #error_explanation
             %h2
@@ -26,6 +26,9 @@
           = f.fields_for :location do |loc|
             = loc.label "Address"
             = loc.text_field :address, :class => "edit_input"
+        %p
+          %label Logo:
+          = f.file_field :photo, :class => "edit_input"
         %p
           %label Phone:
           %span.np_info_text= @nonprofit.phone_number
