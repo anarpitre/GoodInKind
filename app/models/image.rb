@@ -5,7 +5,7 @@ class Image < ActiveRecord::Base
      :styles => { 
      :thumb => "200x100>", 
      :medium => "448x260>"
-     },
+     }
   )
 
   validates_attachment_content_type :image, :content_type => ['image/jpeg', 'image/png','image/gif', 'image/jpg'], :message=>:logo_format
