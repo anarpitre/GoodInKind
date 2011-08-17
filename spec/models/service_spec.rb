@@ -1,113 +1,143 @@
 require 'spec_helper'
 
 describe Service do
-  let(:services) { Factory(:service) }
   context "should be created if" do
-
-    it "all the details are entered"
-
-    it "category ids is not selected"
-
-    it "start time is blank"
-
-    it "end time is blank"
-
-    it "booking capacity blank " do
-      services.booking_capacity = ""
-      services.save
-      services.should be_valid
+    before(:each) do
+      @services = Factory(:service)
+    end
+    after(:each) do
+      @services.should be_valid
     end
 
-    it"if is_schedulelater is true" do
-      services.is_schedulelater = true 
-    it "estimated duration is blank"
+    it "all the details are entered" do
+      @services.should be_valid
+    end
 
-    it "is_schedules is false" do
-      services.is_scheduled = false
-      services.save
-      services.should be_valid
+    it "booking capacity blank" do
+      @services.booking_capacity = ""
+      @services.save
+    end
+
+    it "estimated duration is blank" do
+      @services.estimated_duration = ""
+      @services.save
+    end
+
+    it "schedule later is true and date and time is not entered" do
+      @services.is_schedulelater = true
+      @services.start_date = ""
+      @services.end_date = ""
+      @services.start_time = ""
+      @services.end_time = ""
+      @services.save
     end
 
     it "public posting is checked for privacy setting" do
-      services.is_public = true
-      services.save
-      services.should be_valid
-    end
-
-    it "is_virtual is not select" do
-      services.is_virtual = false
-      services.save
-      services.should be_valid
+      @services.is_public = true
+      @services.save
     end
     
-    it "if is_public is not selected" do
-      services.is_public = nil
-      services.save
-      services.should_not be_valid
+    it "private posting is checked for privacy setting" do
+      @services.is_public = false
+      @services.save
+    end
+
+    it "online service is checked and address is not entered" do
+      @services.is_virtual = true
+      @services.save
+    end
+    
+    it "online service is not checked and address is entered" do
+      @services.is_virtual = false
+      ser_loc = @services.build_location
+      ser_loc.address = "baner"
+      ser_loc.save
+      loc = Location.last
+      loc.should_not == nil
+      @services.save
     end
   end
 
-  context " should not be created and its associated user should not be created " do
+  context "should not be created if" do
+    before(:each) do
+      @services = Factory(:service)
+    end
+
+    after(:each) do
+      @services.save
+      @services.should_not be_valid
+    end
+
+    it "title is blank" do 
+      @services.title = nil
+    end
+
+    it "description is blank" do
+      @services.description = nil
+    end
+    
+    it "online service is not checked and address is blank" do
+      ser_loc = @services.build_location
+      ser_loc.address = ""
+      ser_loc.save
+    end
+    
+    it "category ids is not selected"
+    
+    it "start date is blank" do
+      @services.start_date = ""
+    end
+    
+    it "end date is blank" do
+      @services.end_date = ""
+    end
+    
+    it "start date is in wrong format i.e. dd/mm/yyyy" do
+      @services.start_date = "23/08/2011"
+    end
+
+    it "end date is in wrong format i.e. dd/mm/yyyy" do
+      @services.end_date = "23/08/2011"
+    end
+    
+    it "start date is greater than end date" do
+      @services.start_date = Date.today + 3.days
+      @services.end_date = Date.today + 1.days
+    end
 
     it "if start_date is not selected when is_shedulelater is false" do
-      services.is_schedulelater = false
-      services.start_date = nil
-      services.save
-      services.should_not be_valid
-    end
-
-    it "if end_date is not selected when is_shedulelater is false" do
-      services.is_schedulelater = false
-      services.end_date = nil
-    
-    it "description is blank" do
-      services.description = nil
-      services.save
-      services.should_not be_valid
-    end
-
-    it "address is blank"
-
-    it "start date is blank"
-
-    it "start date is in wrong format i.e. dd/mm/yyyy"
-    
-    it "end date is in wrong format i.e. dd/mm/yyyy"
-
-    it "start_date is not selected when is_shedule true" do
-      services.is_scheduled = true
-      services.start_date = nil
-      services.save
-      services.should_not be_valid
+      @services.is_schedulelater = false
+      @services.start_date = nil
     end
 
     it "end_date is not selected when is_shedule true" do
-      services.is_scheduled = true
-      services.end_date = nil
-      services.save
-      services.should_not be_valid
+      @services.is_schedulelater = true
+      @services.end_date = nil
+    end
+    
+    it "start time is blank" do
+      @services.start_time = ""
+    end
+    
+    it "end time is blank" do
+      @services.end_time = ""
     end
 
-    it "start date is greater than end date"
-
-    it "start time is greater than end time"
+    it "start time is greater than end time" do
+      @services.start_time = "2:00pm"
+      @services.end_time = "1:30am"
+    end
 
     it "amount is blank" do 
-      services.amount = nil
-      services.save
-      services.should_not be_valid
+      @services.amount = ""
     end
 
     it "amount entered is non-numeric" do
-      services.amount = "aabbcc"
-      services.save
-      services.should_not be_valid
+      @services.amount = "aabbcc"
     end
 
     it "if nonprofit_id is not selected" do
-      services.nonprofit_id = nil
-      services.save
-      services.should_not be_valid
+      @services.nonprofit_id = nil
     end
 
     it "if logo not is not uploaded"
