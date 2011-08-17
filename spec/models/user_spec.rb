@@ -26,12 +26,8 @@ describe User do
 
     it "if email is already registered" do
       new_user = Factory(:user)
-      p new_user.email
-      p 'ffffff'
-      p user.email
       new_user.email = user.email
       new_user.save
-      p new_user.email
       new_user.should_not be_valid
     end
 
@@ -63,6 +59,5 @@ describe User do
       result.should == false
     end
   end
-
 end
 

@@ -1,6 +1,11 @@
 require 'spec_helper'
 
 describe ServicesController do
+  before(:each) do
+    @user = Factory(:user)
+    @request.env['devise.mapping'] = :user
+    sign_in @user
+  end
   context "User should be able to" do
 
   # This should return the minimal set of attributes required to create a valid
