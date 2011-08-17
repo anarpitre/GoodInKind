@@ -20,7 +20,9 @@
     /= image_tag('network_icon.png', :alt => "Network")
     /%strong.count= current_user.messages.where(:is_read => false).size 
   %span.dm_mail
-    = image_tag('mail_icon.png', :alt => "mail")
-    %strong.count.mail_c= current_user.received_messages.where(:is_read => false).size
+    = link_to image_tag('mail_icon.png', :alt => "mail"), list_messages_path
+    - message_count = get_unread_message_size
+    - unless message_count == 0
+      %strong.count.mail_c= message_count
   %span.dm_st
   %span

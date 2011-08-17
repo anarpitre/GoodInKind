@@ -11,6 +11,7 @@
     .setp_box
       = f.text_field :title, :label => "title"
       = f.text_area :message, :hint => "something"
-      = f.hidden_field :sender_id, :value => current_user.id
+      = f.hidden_field :sender_id
       = f.hidden_field :receiver_id
+      = f.hidden_field :parent_message_id
       = f.submit "Send" 

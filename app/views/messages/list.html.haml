@@ -1,0 +1,35 @@
+%h3 Unread
+- counter = 0
+- unless @unread_message.blank?
+  - @unread_message.each do |msg|
+    %table
+      - if counter == 0
+        %tr
+          %th{:style => "width:40px;"} Replied
+          %th{:style => "width:40px;"} name
+          %th{:style => "width:40px;"} title
+          %th{:style => "width:40px;"} date
+      %tr
+        %td{:style => "width:40px;"}= msg.is_replied
+        %td{:style => "width:60px;"}= msg.sender.profile.first_name
+        %td{:style => "width:100px;"}= link_to msg.title, message_path(msg.id)
+        %td{:style => "width:40px;"}= msg.created_at.strftime("%m-%d-%y")
+      -  counter += 1
+%h3 Read
+- counter = 0
+- unless @read_message.blank?
+  - @read_message.each do |msg|
+    %table
+      - if counter == 0
+        %tr
+          %th Replied
+          %th name
+          %th title
+          %th date
+      %tr
+        %td{:style => "width:40px;"}= msg.is_replied
+        %td{:style => "width:60px;"}= msg.sender.profile.first_name
+        %td{:style => "width:100px;"}= link_to msg.title, message_path(msg.id)
+        %td{:style => "width:40px;"}= msg.created_at.strftime("%m-%d-%y")
+      - counter += 1
+

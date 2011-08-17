@@ -31,7 +31,12 @@ Gik::Application.routes.draw do
     end
   end
 
-  resources :messages
+  resources :messages do
+    collection do
+      get :list
+    end
+  end
+
 
 
 

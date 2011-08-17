@@ -1,0 +1,10 @@
+%h3= @message.title
+
+%p= @message.message
+
+%br
+%p= link_to "reply", new_message_path(:msg_id => @message.id)
+%br
+
+= link_to "Back", list_messages_path
+    
