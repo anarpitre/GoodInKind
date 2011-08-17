@@ -9,10 +9,10 @@
     .np_results
       - @nonprofits.each do |np|
         .np_results_list
-          = image_tag(np.photo.try(:url), :alt => np.name)
+          = image_tag(np.photo.url(:medium), :alt => np.name, :class => 'np_logos')
           %p.np_rel_text
             %span
-              %b= np.name,
+              %b= np.name
               = np.location.try(:address)
             = truncate(np.description, :length => 300)
             = link_to "read more", nonprofit_path(np)
