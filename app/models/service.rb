@@ -42,7 +42,7 @@ class Service < ActiveRecord::Base
   def check_date
     unless self.is_schedulelater
       errors.add(:start_date,"Check Date") unless (self.start_date || self.end_date || (self.start_date < self.end_date))
-      errors.add(:start_time," Check time") unless (self.start_time || self.end_time || (self.start_time =< self.end_time))
+      errors.add(:start_time," Check time") unless (self.start_time || self.end_time || (self.start_time <= self.end_time))
     end
   end
 
