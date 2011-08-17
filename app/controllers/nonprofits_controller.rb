@@ -1,7 +1,7 @@
 class NonprofitsController < ApplicationController
   before_filter :set_seo_tags
-  before_filter :get_nonprofit, :except => [:new, :create, :login, :create_session, :transactions]
-  before_filter :nonprofit_owner, :only => [:edit, :logout, :change_password, :account, :transactions]
+  before_filter :get_nonprofit, :except => [:new, :create, :login, :create_session]
+  before_filter :nonprofit_owner, :only => [:edit, :logout, :account, :transactions]
 
   layout 'nonprofit'
   
@@ -76,6 +76,7 @@ class NonprofitsController < ApplicationController
   end
 
   def transactions
+    @transactions = @nonprofit.services.collect(&:transactions)
   end
   
   def login
@@ -94,21 +95,6 @@ class NonprofitsController < ApplicationController
       flash[:notice] = "Invalid Username/Password"
       redirect_to :action => 'login'
     end
-  end
-
-  def change_password
-    if request.post? 
-      @nonprofit.update_attributes(:password => params[:nonprofit][:password],
-                 :password_confirmation => params[:nonprofit][:password_confirmation])
-      if @nonprofit.save
-        flash[:message] = "Password Changed"
-        redirect_to(:action => 'login')
-      else
-        flash[:message] = "Invalid"
-        redirect_to :action => 'change_password'
-      end
-    end
-    # GET: render form
   end
 
   def logout

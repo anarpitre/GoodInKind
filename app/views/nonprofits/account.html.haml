@@ -62,9 +62,7 @@
           %span When payment is actually processed by GIK in support of your non-profit
       .input_post_div
         %p.np_acc_btn
-          = f.submit "Save"
-          /%input.btn_form.button{:type => "button", :value => "Save"}/
-          %input.btn_form.button.np_cancel_btn{:type => "reset", :value => "Cancel"}/
+          = f.submit
     :javascript
       $('#edit_info_link').click( function() {
           $('#contact_info').toggle();

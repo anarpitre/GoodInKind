@@ -14,6 +14,12 @@ class JoshForm < ActionView::Helpers::FormBuilder
     @template.content_tag(:a, "Cancel", :href => link, :class => "btn_form button np_cancel_btn")
   end
 
+  def submit(value="Save", options={})
+    options[:class] = "btn_form button"
+    value = options.delete(:label) if options[:label] 
+    super
+  end
+
   # Optional arguments that are processed with form_fields
   # :hint 
   # :skip
