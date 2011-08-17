@@ -2,7 +2,7 @@
 .off_by
   .off_by_profile
     %h4.profile_title_h4 Offered by:
-    = image_tag('offerer_ph.jpeg', :alt => "pic", :class => "profile_pic")
+    = image_tag(@service.user.profile.avatar.url(:thumb), :alt => "pic", :class => "profile_pic")
     %h3.profile_title_h3
       = @service.user.profile.try(:first_name)
       %span= @service.user.location.try(:address)

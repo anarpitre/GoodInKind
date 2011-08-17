@@ -22,6 +22,6 @@
   %p= f.label :avatar 
   = f.file_field :avatar
   -unless f.object.new_record?
-    = link_to( image_tag(f.object.avatar.url(:small)), f.object.avatar.url(:original) )
+    = link_to( image_tag(f.object.avatar.url(:thumb)), f.object.avatar.url(:medium) )
   
   %p= f.submit "Create" 

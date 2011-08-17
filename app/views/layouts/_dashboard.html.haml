@@ -1,7 +1,7 @@
 .dashboard_mini
   %span.dm_user
     - usr_email =  current_user.email.split("@")
-    Welcome #{current_user.profile.blank? ? usr_email[0] : current_user.profile.first_name}   you are an
+    Welcome #{current_user.profile.first_name.blank? ? usr_email[0] : current_user.profile.first_name}   you are an
     %b Agent of Change
   %span.dm_price
     = image_tag('dot_dash.png', :alt => "dot")
