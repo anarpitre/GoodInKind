@@ -43,10 +43,11 @@ describe Nonprofit do
 
   context "should not be created if" do
   let(:np) {Factory(:nonprofit) }
-    after(:each) do
+   after(:each) do
       np.save
-      p np
-      np.should_not be_valid
+      p np.password
+      p np.password_confirmation
+     np.should_not be_valid
     end
 
     it "Ein is already taken"
@@ -65,20 +66,14 @@ describe Nonprofit do
     end
     
     it "username is already taken" do
-      nonprofit = Factory.build(:nonprofit,:username => np.username)
+      non1 = Factory(:nonprofit)
+      np.username = non1.username
     end
     
-    it "password is blank" do
-      np.password = ''
-    end
-
-    it "confirm password is blank" do
-      np.password_confirmation = ''
-    end
-
     it "confirm password is not matching with password" do
       np.password = 'josh123'
       np.password_confirmation = '123josh'
+      np.update_attributes(np)
     end
 
     it "contact_name is blank" do
