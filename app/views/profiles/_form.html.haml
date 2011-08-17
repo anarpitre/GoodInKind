@@ -13,6 +13,9 @@
   = f.radio_button(:gender, "female") 
   = f.label(:gender, "Female") 
 
+  %p= f.label :website
+  = f.text_field :website
+
   %p= f.label :about_me 
   = f.text_area :about_me,:cols => 50, :rows => 10 
 
