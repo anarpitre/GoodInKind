@@ -87,6 +87,13 @@ class Nonprofit < ActiveRecord::Base
     Digest::SHA1.hexdigest("Put #{salt} on the #{password}")
   end
 
+  def update_password(new_password)
+    self.password = new_password
+    create_hash_password
+    update_attribute(:salt, self.salt)
+    update_attribute(:hashed_password, self.hashed_password)
+  end
+
   def create_hash_password
     unless password.blank?
       self.salt = Nonprofit.make_salt(username) if salt.blank?

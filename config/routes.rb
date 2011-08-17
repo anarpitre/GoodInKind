@@ -16,7 +16,8 @@ Gik::Application.routes.draw do
       post :create_session
     end
     member do
-      match :change_password
+      match :change_password, :account
+      get :transactions
     end
   end
 

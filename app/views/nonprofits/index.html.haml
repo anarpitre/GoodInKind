@@ -1,4 +1,31 @@
 - content_for :tab_content do
-  = render 'np_search_result'
-
+  .featured_services_find
+    = link_to "I am a Non-Profit", login_nonprofits_path, :class => 'bro_req_btn'
+    %h2.fs_find_h2
+      Non-Profit Partners
+      %br/
+      %span
+        Choose a non-profit organization below and support it by either purchasing posted service or offering a service yourself.
+    .np_results
+      - @nonprofits.each do |np|
+        .np_results_list
+          = image_tag(np.photo.try(:url), :alt => np.name)
+          %p.np_rel_text
+            %span
+              %b= np.name,
+              = np.location.try(:address)
+            = truncate(np.description, :length => 300)
+            = link_to "read more", nonprofit_path(np)
+          %p.np_rel_btns
+            %a.button{:href => "#"}> Browse Services (10)
+            \&nbsp;&nbsp;&nbsp;
+            %a.button{:href => "#"} Offer a Service
+    :javascript
+      $(".np_results_list").hover(function(){
+        $(this).stop().animate({height:"160px"},{queue:false,duration:200});
+      },
+      function() {
+        $(this).stop().animate({height:"70px"},{queue:false,duration:200});
+      });
+  
 = render :file => 'layouts/nonprofit', :locals => {:search => true}

@@ -1,0 +1,73 @@
+- content_for :tab_content do
+  .np_account_form
+    = form_for @nonprofit, :builder => JoshForm, :url => nonprofit_path(@nonprofit), :method => :put do |f|
+      - if @nonprofit.errors.any?
+        #error_explanation
+          %h2
+            = pluralize(@nonprofit.errors.count, "error")
+            prohibited this post from being saved:
+          %ul
+            - @nonprofit.errors.full_messages.each do |msg|
+              %li= msg
+      .setp_box
+        %h3.setp_box_heading
+          %span Contact Information
+        %span.edit_info_left.edit_info
+          = image_tag('edit_icon.jpg', :alt => "edit")
+          = link_to "Edit Information", '#', :id => 'edit_info_link'
+        #contact_info
+          %p
+            %label.form_lbl.np_lbl Name
+            %span.np_account_span= @nonprofit.contact_name
+          %p
+            %label.form_lbl.np_lbl Title/Positon
+            %span.np_account_span= @nonprofit.position
+          %p
+            %label.form_lbl.np_lbl Work Email
+            %span.np_account_span= @nonprofit.email
+          %p
+            %label.form_lbl.np_lbl Work Phone
+            %span.np_account_span= @nonprofit.phone_number
+          %p
+            %label.form_lbl.np_lbl Cell Phone
+            %span.np_account_span= @nonprofit.cell_phone
+        #edit_contact_info{:style => 'display:none'}
+          = f.text_field :contact_name, :class => "input_np", :label => "Name"
+          = f.text_field :position, :class => "input_np"
+          = f.text_field :email, :class => "input_np", :label => "Work Email"
+          = f.text_field :phone_number, :class => "input_np"
+          = f.text_field :cell_phone, :class => "input_np"
+        %p.np_bot_p
+          = f.check_box :show_contact_details, {:class => 'input_checkbox'}, "true", "false"
+          %span.setp_box_p_span Show this contact name and contact email to users viewing my organization profile
+      .setp_box
+        %h3.setp_box_heading
+          %span Change Password
+        %p
+          = f.label "Old Password *", :class =>'form_lbl'
+          = password_field_tag :old_password, '', :class => 'form_input_full input_np '
+        = f.password_field :password, :class => 'input_np'
+        = f.password_field :password_confirmation, :class => "input_np", :label => "Confirm Password"
+      .setp_box
+        %h3.setp_box_heading
+          %span Email Alert Preferences
+        %p.np_bot_check
+          = f.check_box :email_offer, {}, "true", "false"
+          %span When a service is offered in support of your non-profit
+        %p.np_bot_check
+          = f.check_box :email_purchase, {}, "true", "false"
+          %span When a service is purchased in support of your non-profit
+        %p.np_bot_check
+          = f.check_box :email_process, {}, "true", "false"
+          %span When payment is actually processed by GIK in support of your non-profit
+      .input_post_div
+        %p.np_acc_btn
+          = f.submit "Save"
+          /%input.btn_form.button{:type => "button", :value => "Save"}/
+          %input.btn_form.button.np_cancel_btn{:type => "reset", :value => "Cancel"}/
+    :javascript
+      $('#edit_info_link').click( function() {
+          $('#contact_info').toggle();
+          $('#edit_contact_info').toggle();
+
+       });

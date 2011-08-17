@@ -1,7 +1,7 @@
 class NonprofitsController < ApplicationController
   before_filter :set_seo_tags
-  before_filter :get_nonprofit, :except => [:new, :create, :login, :create_session]
-  before_filter :nonprofit_owner, :only => [:edit, :logout, :change_password]
+  before_filter :get_nonprofit, :except => [:new, :create, :login, :create_session, :transactions]
+  before_filter :nonprofit_owner, :only => [:edit, :logout, :change_password, :account, :transactions]
 
   layout 'nonprofit'
   
@@ -37,13 +37,45 @@ class NonprofitsController < ApplicationController
     end
   end
 
+  # Update gets called from /account and /edit page
   def update
+    referer = session[:referer]
+
+    if referer == 'account'
+      # If old_password and password are not blank validate the old
+      # password and if its correct, change it to the new one!
+      unless (params[:old_password].blank? and params[:nonprofit][:password].blank?)
+        if Nonprofit.authenticate(@nonprofit.username, params[:old_password]) and
+           (params[:nonprofit][:password] == params[:nonprofit][:password_confirmation])
+
+          # invoke private method!
+          @nonprofit.send(:update_password, params[:nonprofit][:password]) 
+
+          # remove these parameters from the params
+          params.delete(:old_password)
+          params[:nonprofit].delete(:password)
+          params[:nonprofit].delete(:password_confirmation)
+        else
+            @nonprofit.errors.add(:password, "does not match")
+            render :action => :account and return
+        end
+      end
+    end
     if @nonprofit.update_attributes(params[:nonprofit])
       flash[:notice] = "User #{@nonprofit.username} updated"
-      redirect_to  nonprofit_path(@nonprofit)
+      session[:referer] = nil # cleanup first!
+      redirect_to  (referer == 'account' ? account_nonprofit_path(@nonprofit) : nonprofit_path(@nonprofit) )
     else
-      render :action => 'edit'
+      render :action => referer
     end
+  end
+
+  def account
+    # Maintain a session variable, to identify the referrer in update action
+    session[:referer] = 'account'
+  end
+
+  def transactions
   end
   
   def login

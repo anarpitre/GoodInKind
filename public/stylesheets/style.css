@@ -1211,6 +1211,7 @@ h2.offer_form_h2 span a {
 }
 .np_rel_text {
 	width:430px;
+  height:70px;
 	float:left;
 	line-height:1.4;
 	margin-left:20px;

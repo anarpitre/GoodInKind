@@ -1,9 +1,3 @@
-- content_for :header do
-  :javascript
-    function showSlidingDiv2(){
-      $("#slidingDiv2").animate({"height": "toggle"}, { duration: 200 });
-    }
-
 - unless content_for?(:layout_content)
   - content_for :layout_content do
     %body

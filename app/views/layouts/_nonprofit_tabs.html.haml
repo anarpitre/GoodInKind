@@ -1,12 +1,8 @@
 #tabvanilla
   %ul.tabnav.ui-tabs-nav.np_tab_bg
-    %li.ui-tabs-selected
-      %a{:href => "#c1"}
-        %span Non-Profit Profile
-    %li
-      %a{:href => "#c2"}
-        %span Transactions
-    %li
-      %a{:href => "#c3"}
-        %span Account
-
+    %li{:class => "#{'ui-tabs-selected' if ['show', 'edit'].include?(action_name)}"}
+      = link_to content_tag(:span, "Non-Profit Profile"), nonprofit_path(@nonprofit)
+    %li{:class => "#{'ui-tabs-selected' if action_name == 'transactions'}"}
+      = link_to content_tag(:span, "Transactions"), transactions_nonprofit_path(@nonprofit)
+    %li{:class => "#{'ui-tabs-selected' if action_name == 'account'}"}
+      = link_to content_tag(:span, "Account"), account_nonprofit_path(@nonprofit)
