@@ -7,13 +7,12 @@ class Profile < ActiveRecord::Base
   validates_attachment_content_type :avatar, :content_type => ["image/jpeg", "image/png", "image/gif", "image/jpg"]
   validates_attachment_size  :avatar, :less_than => 2.megabytes
 
-  # FIXME: why is it whiny? 
   # TBD - change size of medium as per HTML layout.
   has_attached_file :avatar,
-    :styles => {
+    :style => {
     :thumb => "101x95>",
     :medium => "101x95>"
     },
-    :default_url => "/images/missing/user_:styles.jpg"
+    :default_url => "/images/missing/user_:style.jpg"
 
 end

@@ -22,11 +22,11 @@ class Nonprofit < ActiveRecord::Base
   validates_attachment_size  :photo, :less_than => 2.megabytes
 
   has_attached_file :photo, S3_DEFAULTS.merge(
-    :styles => { 
+    :style => { 
     :thumb => "172x62>", 
     :medium => "200x61>"
     },
-    :default_url => "/images/missing/nonprofit_:styles.jpg"
+    :default_url => "/images/missing/nonprofit_:style.jpg"
   )
 
   scope :verified, where(:is_verified => 'yes')

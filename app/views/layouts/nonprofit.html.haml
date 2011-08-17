@@ -13,8 +13,7 @@
 
         #c1{:style => "float:left;"}
           .np_tab_logo
-            /FIXME: Photo should have a default!
-            = image_tag(@nonprofit.photo.try(:url), :class => "np_logos") if @nonprofit
+            = image_tag(@nonprofit.photo.url(:medium), :class => "np_logos") if @nonprofit
           - if defined?(search) and search
             .sidebar_bar
               = render 'layouts/nonprofit_search' 
