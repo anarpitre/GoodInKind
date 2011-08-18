@@ -35,7 +35,7 @@
         %span.my_pro_spn= get_gender
       %p.my_pro_p
         %label.my_pro_lbl Location:
-        %span.my_pro_spn= @profile.location.address
+        %span.my_pro_spn= !@profile.location.blank? ? @profile.location.address : "--"
       %p.my_pro_p
         %label.my_pro_lbl Email:
         %span.my_pro_spn
