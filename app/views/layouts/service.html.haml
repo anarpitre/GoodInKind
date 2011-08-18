@@ -1,36 +1,9 @@
-- content_for :header do
-  = stylesheet_link_tag "calendrical"
-  = stylesheet_link_tag "jquery-ui-1.8.14.custom"
-  = stylesheet_link_tag "thickbox"
+- content_for :header_content do
+  .header.header_inner
+    %h1.logo_inner
+      = link_to image_tag("goodinkind-logo-small.png", :alt => "Goodinkind - Get Together. Do Good."), root_path
+    = render 'layouts/header', :find => (defined?(find) ? find : true)
+    = yield(:header_find)
+    = yield(:header_links)
 
-  = javascript_include_tag "jquery-ui-1.8.14.custom.min"
-  = javascript_include_tag "autocomplete-rails"
-  = javascript_include_tag "jquery.calendrical"
-  = javascript_include_tag "tooltip"
-  = javascript_include_tag 'thickbox'
-
-  :javascript
-    function showSlidingDiv2(){
-      $("#slidingDiv2").animate({"height": "toggle"}, { duration: 200 });
-    }
-    $(function(){
-      $(".np_results_list").hover(function(){
-        $(this).stop().animate({height:"160px"},{queue:false,duration:200});
-        }, function() {
-            $(this).stop().animate({height:"70px"},{queue:false,duration:200});
-           });
-    });
-
-
-
-- unless content_for?(:layout_content)
-  - content_for :layout_content do
-    %body
-      = content_for?(:layout_header) ? yield(:layout_header) : render('layouts/service_header')
-      .container
-        - if user_signed_in?
-          = render 'layouts/dashboard'
-        = content_for?(:body_content) ? yield(:body_content) : yield
-        .clear
-      = render 'layouts/footer'
-= render :file => "layouts/base"
+= render :file => 'layouts/base', :locals => {:dashboard => (defined?(dashboard) ? dashboard : true)}

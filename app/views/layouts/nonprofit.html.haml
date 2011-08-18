@@ -1,24 +1,20 @@
-- unless content_for?(:layout_content)
-  - content_for :layout_content do
-    %body
-      - if content_for?(:layout_header)
-        = yield (:layout_header)
-      - elsif nonprofit_logged_in?
-        = render('layouts/nonprofit_header')
-      - else
-        = render('layouts/service_header')
-      .container
-        - if nonprofit_logged_in?
-          = render "layouts/nonprofit_tabs"
+- if nonprofit_logged_in?
+  - content_for :header_links do
+    %ul.nav.np_nav_top
+      %li
+        = link_to current_nonprofit.name, nonprofit_path(current_nonprofit), :class => 'np_nav_active'
+      %li.nav_non
+        = link_to "Logout", logout_nonprofits_path
 
-        #c1{:style => "float:left;"}
-          .np_tab_logo
-            = image_tag(@nonprofit.photo.url(:medium), :class => "np_logos") if @nonprofit
-          - if defined?(search) and search
-            .sidebar_bar
-              = render 'layouts/nonprofit_search' 
-          = content_for?(:tab_content) ? yield(:tab_content) : yield
-        .clear
-      = render 'layouts/footer'
+- content_for :body_content do 
+  - if nonprofit_logged_in?
+    = render "layouts/nonprofit_tabs"
+  #c1{:style => "float:left;"}
+    .np_tab_logo
+      = image_tag(@nonprofit.photo.url(:medium), :class => "np_logos") if @nonprofit
+    - if defined?(search) and search
+      .sidebar_bar
+        = render 'layouts/nonprofit_search' 
+    = content_for?(:tab_content) ? yield(:tab_content) : yield
 
-= render :file => "layouts/base"
+= render :file => 'layouts/service', :locals => {:find => false}

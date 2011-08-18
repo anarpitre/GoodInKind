@@ -1,22 +1,25 @@
-.header
-  %h1.logo
-    - if user_signed_in?
-      = link_to image_tag('goodinkind-logo.png', :alt => "Goodinkind - Get Together. Do Good."), profiles_path
-    - else
-      = link_to image_tag('goodinkind-logo.png', :alt => "Goodinkind - Get Together. Do Good."), root_path
-  %ul.nav
-    - if user_signed_in?
+- if defined?(find) and find 
+  - content_for :header_find do
+    .header_services_find
+      .head_serve_box.top_active
+        Find
+        %span a service
+    .header_services_offer
+      .head_serve_box.serve_box_right
+        Offer
+        %span a service
+
+- unless content_for?(:header_links)
+  - content_for :header_links do
+    %ul.nav.nav_inner
+      - unless user_signed_in?
+        %li= link_to "Sign Up", new_user_registration_path
+        %li#login= link_to "Login", "#"
       %li= link_to "How it works", "#"
       %li.nav_non= link_to "Non-Profits", nonprofits_path
-    - else
-      %li= link_to "Sign Up", new_user_registration_path
-      %li= link_to "Login","#", :onClick => 'showSlidingDiv2(); return false;'
-      %li= link_to "How it works", "#"
-      %li.nav_non= link_to "Non-Profits", nonprofits_path
-  .change_city
-    %span.city_name Ithaca, NY
-    %br/
-    %span.city_change_icon
-      = link_to("Change #{image_tag('city_arrow.png')}".html_safe, "#", :onclick => "showSlidingDiv(); return false;")
-#slidingDiv
-= render :partial => 'layouts/top_login'
+    .change_city.inner_city
+      %span.city_name Ithaca, NY
+      %br/
+      %span.city_change_icon
+        change
+        = link_to image_tag('city_arrow.png'), "#"

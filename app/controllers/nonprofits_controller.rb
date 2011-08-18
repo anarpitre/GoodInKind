@@ -11,6 +11,8 @@ class NonprofitsController < ApplicationController
 
     # FIXME: To add index-tank search on the following Nonprofit criteria:
     # name, EIN, category, mission, guideline, description, website
+
+    render :locals => { :search => true }
   end
 
   def show

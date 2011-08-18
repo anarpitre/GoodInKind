@@ -9,13 +9,28 @@
 
     - if Rails.env != 'development'
       %link{:href => "http://fonts.googleapis.com/css?family=Crimson+Text&v2", :rel => "stylesheet", :type => "text/css"}
-    = stylesheet_link_tag "style"
 
-    = javascript_include_tag "jquery.min", "jquery_ujs"
+    = stylesheet_link_tag "calendrical", "jquery-ui-1.8.14.custom", "thickbox", "style", :cache => true
+    = javascript_include_tag "jquery.min", "jquery_ujs", "jquery-ui-1.8.14.custom.min", "tooltip", "thickbox", "autocomplete-rails", "jquery.calendrical", "application", :cache => true
     = csrf_meta_tag
 
     = yield :header
 
-  
-  = yield(:layout_content) or yield
+  %body
+    - unless content_for?(:header_content)
+      .header
+        %h1.logo
+          = link_to image_tag('goodinkind-logo.png', :alt => "Goodinkind - Get Together. Do Good."), root_path
+        = yield(:header_find)
+        = yield(:header_links)
+    - else
+      = yield(:header_content)
+    = render 'layouts/change_city'
+    = render 'layouts/top_login' unless user_signed_in?
 
+    .container
+      - if user_signed_in? and defined?(dashboard) and dashboard
+        = render 'layouts/dashboard' 
+      = content_for?(:body_content) ? yield(:body_content) : yield
+      .clear
+    = render 'layouts/footer'
