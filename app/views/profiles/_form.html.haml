@@ -1,27 +1,45 @@
-= form_for @profile, :as => :profile, :url => profiles_path,:html => {:method => 'post', :multipart => true} do |f| 
-
-  %p= f.label :first_name 
-  = f.text_field :first_name 
-
-  %p= f.label :last_name 
-  = f.text_field :last_name 
-
-
-  %p= f.label :gender 
-  = f.radio_button(:gender, "male") 
-  = f.label(:gender, "Male") 
-  = f.radio_button(:gender, "female") 
-  = f.label(:gender, "Female") 
-
-  %p= f.label :website
-  = f.text_field :website
-
-  %p= f.label :about_me 
-  = f.text_area :about_me,:cols => 50, :rows => 10 
-
-  %p= f.label :avatar 
-  = f.file_field :avatar
-  -unless f.object.new_record?
-    = link_to( image_tag(f.object.avatar.url(:thumb)), f.object.avatar.url(:medium) )
-  
-  %p= f.submit "Create" 
+#tab1.tab_content
+  .up_my_profile
+    .up_my_profile_left
+      .mypic
+        %img{:alt => "MyPic", :src => "images/mypic.jpg"}/
+        %a.change_pic{:href => "#"} Change Picture
+    .up_my_profile_right_edit
+      = form_for @profile, :as => :profile, :url => profiles_path, :builder => JoshForm, :html => {:method => 'post', :multipart => true} do |f| 
+        = f.text_field :first_name, :label => "First name", :type => "profile"
+        = f.text_field :last_name, :label => "last name", :type => "profile"
+        = f.file_field :avatar, :type => "profile"
+        -unless f.object.new_record?
+          = link_to( image_tag(f.object.avatar.url(:small)), f.object.avatar.url(:original) )
+        %p.my_pro_p
+          %label.my_pro_lbl Sex:
+          %select.my_edit_input.sle_inp
+            %option Male
+            %option Female
+          %input.my_edit_check{:type => "checkbox"}/
+          %span Don't display on my public profile
+        %p.my_pro_p
+          %label.my_pro_lbl Location:
+          %input.my_edit_input{:type => "text"}/
+        %p.my_pro_p
+          %label.my_pro_lbl Email:
+          %span.my_edit_lbl_l stevejobs@apple.com
+          %input.my_edit_check{:type => "checkbox"}/
+          %span Don't display on my public profile
+        = f.text_field :website, :label => "website", :type => "profile"
+        = f.text_area :about_me,:cols => 50, :rows => 10, :label => "about me", :type => "profile"
+        %p.my_pro_p
+          %label.my_pro_lbl Twitter:
+          %span.sm_buttons
+          %input.my_edit_input.sm_input{:type => "text"}/
+        %p.my_pro_p
+          %label.my_pro_lbl Facebook:
+          %span.sm_buttons.sm_edit_facebook
+          %input.my_edit_input.sm_input{:type => "text"}/
+        %p.my_pro_p
+          %label.my_pro_lbl Linked-in:
+          %span.sm_buttons.sm_edit_linked
+          %input.my_edit_input.sm_input{:type => "text"}/
+        %p.my_edit_btns
+          = f.cancel  :class => "bu_right up_acc_btns_c", :type => "profile"
+          = f.submit "Save", :class => "bu_right", :type => "profile"

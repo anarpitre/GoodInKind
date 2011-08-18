@@ -81,9 +81,9 @@
       %h3.setp_box_heading
         %span Step 1:
         Describe the service or experience you want to offer
-      = f.text_field :title, :hint => "Give short and sweet Title to your Service"
-      = f.text_area :description, :class => 'input_area', :hint => "Give detail Description of your Service"
-      = f.collection_select :category_ids, Category.by_services, :id, :name, {:selected => @service.service_categories.collect(&:category_id)}, { :multiple => true, :class => "input_select", :style => "height:100px;width:530px;", :hint => "Select one or more categories matching your service", :label => "Category *" }
+      = f.text_field :title, :hint => "Give short and sweet Title to your Service", :type => "service"
+      = f.text_area :description, :class => 'input_area', :hint => "Give detail Description of your Service", :type => "service"
+      = f.collection_select :category_ids, Category.by_services, :id, :name, {:selected => @service.service_categories.collect(&:category_id)}, { :multiple => true, :class => "input_select", :style => "height:100px;width:530px;", :hint => "Select one or more categories matching your service", :label => "Category *" }, :type => "service"
     .setp_box
       %h3.setp_box_heading
         %span Step 2:
@@ -106,7 +106,7 @@
         %span.setp_box_p_span (Check if this service will be offered virtually/online)
       %p
         = f.fields_for :location do |loc|
-          = loc.text_field :address, :class => "input_half"
+          = loc.text_field :address, :class => "input_half", :type => "service"
     .setp_box
       %h3.setp_box_heading
         %span Step 4:
@@ -119,25 +119,25 @@
           %a{:href => "#"} How it works?
       %p
         %span.setp_two_col
-          = f.text_field :start_date, :id => 'dt_date_start',:value => gik_formatted_date(@service.start_date), :class => "input_small"
+          = f.text_field :start_date, :id => 'dt_date_start',:value => gik_formatted_date(@service.start_date), :class => "input_small", :type => "service"
         %span.setp_two_col
-          = f.text_field :start_time, :id => 'dt_time_start', :value => gik_formatted_time(@service.start_time), :class => "input_small"
+          = f.text_field :start_time, :id => 'dt_time_start', :value => gik_formatted_time(@service.start_time), :class => "input_small", :type => "service"
       %p
         %span.setp_two_col
-          = f.text_field :end_date, :id => 'dt_date_end', :value => gik_formatted_date(@service.end_date), :class => "input_small"
+          = f.text_field :end_date, :id => 'dt_date_end', :value => gik_formatted_date(@service.end_date), :class => "input_small", :type => "service"
         %span.setp_two_col
-          = f.text_field :end_time, :id => 'dt_time_end', :value => gik_formatted_time(@service.end_time), :class => "input_small"
+          = f.text_field :end_time, :id => 'dt_time_end', :value => gik_formatted_time(@service.end_time), :class => "input_small", :type => "service"
       %p
         %span.setp_two_col
-          = f.text_field :booking_capacity,  :class => "input_small"
+          = f.text_field :booking_capacity,  :class => "input_small", :type => "service"
         %span.setp_two_col
-          = f.text_field :estimated_duration,  :label => "Estimated Duration (min)", :class => "input_small"
+          = f.text_field :estimated_duration,  :label => "Estimated Duration (min)", :class => "input_small", :type => "service"
     .setp_box
       %h3.setp_box_heading
         %span Step 5:
         What is the requested donation amount for this service?
       %p
-        = f.text_field :amount, :label => "Amount ($)", :class => "input_small"
+        = f.text_field :amount, :label => "Amount ($)", :class => "input_small", :type => "service"
     .setp_box
       %h3.setp_box_heading
         %span Step 6:
@@ -145,7 +145,7 @@
       %p
         = f.fields_for :images do |photo|
           - if photo.object.new_record?
-            = photo.file_field :image, :class => "input_browse"
+            = photo.file_field :image, :class => "input_browse", :type => "service"
           - else
             = link_to( image_tag(photo.object.image.url(:small_thumb)), photo.object.image.url(:original) )
             = photo.check_box :_destroy

@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
  
-  layout "home"
+  layout "service"
 
   def index
     @profile = current_user.profile || current_user.build_profile
