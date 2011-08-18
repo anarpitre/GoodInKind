@@ -1,0 +1,98 @@
+#tab2.tab_content
+  .up_profile
+    %h2
+      %span.edit_service_head Service Details
+    %ul.edit_service_list
+      %li
+        %span.set_icons.viewpost
+        %a{:href => "#"} View posting
+      %li
+        %span.set_icons.re_offer
+        %a{:href => "#"} Offer Again
+      %li
+        %span.set_icons.invate_friends
+        %a{:href => "#"} Invite Friends
+      %li
+        %span.set_icons.cancel_red
+        %a{:href => "#"} Remove Posting
+    %a.bro_req_btn{:href => "#"} Go back to my services
+    .service_details
+      %p
+        %label.service_details_lbl Service title:
+        %span.service_details_txt Blah blah
+      %p
+        %label.service_details_lbl category:
+        %span.service_details_txt category
+      %p
+        %label.service_details_lbl Non-profit:
+        %span.service_details_txt Red Cross
+      %p
+        %label.service_details_lbl Location:
+        %span.service_details_txt Ithaca, NY
+      %p
+        %label.service_details_lbl Duration:
+        %span.service_details_txt 3 Hours
+      %p
+        %label.service_details_lbl Date:
+        %span.service_details_txt 24 / 7 / 2011
+      %p
+        %label.service_details_lbl Group size:
+        %span.service_details_txt 5
+      %p
+        %label.service_details_lbl Price:
+        %span.service_details_txt $20
+      %p
+        %label.service_details_lbl Visibility:
+        %span.service_details_txt Private (?)
+      %p
+        %label.service_details_lbl Description:
+        %span.service_details_txt
+          Lorizzle dawg mofo sit sure, consectetuer adipiscing elizzle. Nullizzle fo shizzle mah nizzle fo rizzle,
+          mah home g-dizzle shizzle my nizzle crocodizzle, da bomb volutpizzle, my shizz my shizz, check it
+          out vizzle, arcu. Pellentesque check out this tortizzle. Sed break yo neck, yall. Fusce izzle dolor da
+          pibizzle turpizzle the bizzle nizzle. Fo shizzle mah nizzle fo rizzle, mah home g-dizzle pellentesque
+          nibh mofo turpis. Shiznit crackalackin dizzle.
+    %h2 Transactions:
+    %table.up_table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+      %tr.up_tab_top
+        %th
+          %span Buyer
+        %th Payment Amt
+        %th Payment Status
+        %th Review?
+        %th.empty_col
+        %th.bg_white &nbsp;
+        %th.bg_white &nbsp;
+        %th.bg_white &nbsp;
+        %th.bg_white &nbsp;
+      %tr
+        %td
+          %span.person_review Kalyan J
+        %td $100
+        %td
+          %b.paid_txt Paid
+        %td
+          %b.set_icons.paid_icon
+        %td.empty_col
+        %td.bg_white
+        %td.bg_white
+        %td.bg_white
+        %td.bg_white
+        %td.bg_white
+          %a.set_icons.cancel_red{:href => "#"}
+      %tr.refunded_row
+        %td
+          %span.person_review Anar P
+        %td $100
+        %td
+          %b.refunded_txt Refunded
+        %td
+          %b.set_icons.refunded_icon
+        %td.empty_col
+        %td.bg_white
+        %td.bg_white
+        %td.bg_white
+        %td.bg_white
+          %a.set_icons.refund
+        %td.bg_white
+          %a.set_icons.cancel_red{:href => "#"}

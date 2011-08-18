@@ -1,0 +1,190 @@
+#tab2.tab_content
+  .up_profile
+    %h2 Offered By me:
+    %table.up_table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+      %tr.up_tab_top
+        %th
+          %span Service Title
+        %th Non-Profit
+        %th Purchases
+        %th Amount Donated
+        %th Expires
+        %th.empty_col
+        %th.bg_white &nbsp;
+        %th.bg_white &nbsp;
+        %th.bg_white &nbsp;
+        %th.bg_white &nbsp;
+      %tr.expired_row
+        %td
+          %span Apple picking in an orchard
+        %td Eli-Africa
+        %td 10
+        %td $100
+        %td
+          %b Expired
+        %td.empty_col
+        %td.bg_white
+          %a.set_icons.refund{:href => "#"}
+        %td.bg_white
+          %a.set_icons.viewpost{:href => "#"}
+        %td.bg_white
+          %a.set_icons.manage_service{:href => "#"}
+        %td.bg_white
+          %a.set_icons.re_offer{:href => "#"}
+      %tr
+        %td
+          %span Apple picking in an orchard
+        %td Eli-Africa
+        %td 10
+        %td $100
+        %td
+          %b 10-23-2011
+        %td.empty_col
+        %td.bg_white
+          %a.set_icons.refund{:href => "#"}
+        %td.bg_white
+          %a.set_icons.viewpost{:href => "#"}
+        %td.bg_white
+          %a.set_icons.manage_service{:href => "#"}
+        %td.bg_white
+          %a.set_icons.re_offer{:href => "#"}
+      %tr
+        %td
+          %span Apple picking in an orchard
+        %td Eli-Africa
+        %td 10
+        %td $100
+        %td
+          %b 10-23-2011
+        %td.empty_col
+        %td.bg_white
+          %a.set_icons.refund{:href => "#"}
+        %td.bg_white
+          %a.set_icons.viewpost{:href => "#"}
+        %td.bg_white
+          %a.set_icons.manage_service{:href => "#"}
+        %td.bg_white
+          %a.set_icons.re_offer{:href => "#"}
+    %p.up_bottom_p
+      %a{:href => "#"} Check out requests from buyers and offer a new service today!
+    %h2 Reviews for me:
+    .reviews_animate
+      .review_top
+        .review_top_heading
+          %span.positive_review Positive
+          by
+          %span.person_review Kalyan J
+          for
+          %strong Apple picking in an orchard
+          %a.expand{:href => "#"} expand
+        .review_text.review_content
+          %h4 August 14, 2011
+          %p Lorizzle ipsum dolizzle mofo fizzle, consectetuer adipiscing i'm in the shizzle. Nullam sapizzle velit, fo shizzle volutpizzle, suscipit quis, gravida vizzle, arcu. Pellentesque you son of a bizzle tortizzle. Sizzle erizzle. Things at dolor dapibus turpis tempus i'm in the shizzle. Uhuh ... yih! pellentesque brizzle izzle gizzle. Vestibulum izzle tortizzle. Pellentesque eleifend rhoncizzle nisi. In hac habitasse platea fizzle. I'm in the shizzle dapibus. Funky fresh tellizzle things, pretium nizzle, bling bling ac, eleifend boom shackalack, nunc. Sheezy suscipit. Integer sempizzle velit sizzle ass.
+      .review_top
+        .review_top_heading
+          %span.negative_review Negative
+          by
+          %span.person_review Kalyan J
+          for
+          %strong Apple picking in an orchard
+          %a.expand{:href => "#"} expand
+        .review_text.review_content
+          %h4 August 14, 2011
+          %p Lorizzle ipsum dolizzle mofo fizzle, consectetuer adipiscing i'm in the shizzle. Nullam sapizzle velit, fo shizzle volutpizzle, suscipit quis, gravida vizzle, arcu. Pellentesque you son of a bizzle tortizzle. Sizzle erizzle. Things at dolor dapibus turpis tempus i'm in the shizzle. Uhuh ... yih! pellentesque brizzle izzle gizzle. Vestibulum izzle tortizzle. Pellentesque eleifend rhoncizzle nisi. In hac habitasse platea fizzle. I'm in the shizzle dapibus. Funky fresh tellizzle things, pretium nizzle, bling bling ac, eleifend boom shackalack, nunc. Sheezy suscipit. Integer sempizzle velit sizzle ass.
+    %h2 Purchased by me:
+    %table.up_table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+      %tr.up_tab_top
+        %th
+          %span Service Title
+        %th Offerer
+        %th Location
+        %th Date
+        %th
+          Payment
+          = succeed "Amount" do
+            %br/
+        %th
+          Payment
+          = succeed "Status" do
+            %br/
+        %th.empty_col
+        %th.bg_white &nbsp;
+        %th.bg_white &nbsp;
+        %th.bg_white &nbsp;
+      %tr
+        %td
+          %span Apple picking in an orchard
+        %td Steve Jobs
+        %td Ithaca, NY
+        %td 10-23-2011
+        %td $100
+        %td Paid
+        %td.empty_col
+        %td.bg_white
+          %a.set_icons.viewpost{:href => "#"}
+        %td.bg_white
+          %a.set_icons.write_review{:href => "#"}
+        %td.bg_white
+          %a.set_icons.cancel_red{:href => "#"}
+      %tr
+        %td
+          %span Apple picking in an orchard
+        %td Steve Jobs
+        %td Ithaca, NY
+        %td 10-23-2011
+        %td $100
+        %td
+          %b.refund_txt
+            Refund
+            = succeed "requested" do
+              %br/
+        %td.empty_col
+        %td.bg_white
+          %a.set_icons.viewpost{:href => "#"}
+        %td.bg_white
+          %a.set_icons.write_review{:href => "#"}
+        %td.bg_white
+          %a.set_icons.cancel_grey
+      %tr
+        %td
+          %span Apple picking in an orchard
+        %td Steve Jobs
+        %td Ithaca, NY
+        %td 10-23-2011
+        %td $100
+        %td
+          %b.cancel_txt Cancelled
+        %td.empty_col
+        %td.bg_white
+          %a.set_icons.viewpost{:href => "#"}
+        %td.bg_white
+          %a.set_icons.write_review{:href => "#"}
+        %td.bg_white &nbsp;
+    %p.up_bottom_p
+      %a{:href => "#"} Browse all services offerd
+      %span or
+      %a{:href => "#"} Make a request
+    %h2 Reviews by me:
+    .reviews_animate
+      .review_top
+        .review_top_heading
+          %span.positive_review Positive
+          by
+          %span.person_review Kalyan J
+          for
+          %strong Apple picking in an orchard
+          %a.expand{:href => "#"} expand
+        .review_text.review_content
+          %h4 August 14, 2011
+          %p Lorizzle ipsum dolizzle mofo fizzle, consectetuer adipiscing i'm in the shizzle. Nullam sapizzle velit, fo shizzle volutpizzle, suscipit quis, gravida vizzle, arcu. Pellentesque you son of a bizzle tortizzle. Sizzle erizzle. Things at dolor dapibus turpis tempus i'm in the shizzle. Uhuh ... yih! pellentesque brizzle izzle gizzle. Vestibulum izzle tortizzle. Pellentesque eleifend rhoncizzle nisi. In hac habitasse platea fizzle. I'm in the shizzle dapibus. Funky fresh tellizzle things, pretium nizzle, bling bling ac, eleifend boom shackalack, nunc. Sheezy suscipit. Integer sempizzle velit sizzle ass.
+      .review_top
+        .review_top_heading
+          %span.negative_review Negative
+          by
+          %span.person_review Kalyan J
+          for
+          %strong Apple picking in an orchard
+          %a.expand{:href => "#"} expand
+        .review_text.review_content
+          %h4 August 14, 2011
+          %p Lorizzle ipsum dolizzle mofo fizzle, consectetuer adipiscing i'm in the shizzle. Nullam sapizzle velit, fo shizzle volutpizzle, suscipit quis, gravida vizzle, arcu. Pellentesque you son of a bizzle tortizzle. Sizzle erizzle. Things at dolor dapibus turpis tempus i'm in the shizzle. Uhuh ... yih! pellentesque brizzle izzle gizzle. Vestibulum izzle tortizzle. Pellentesque eleifend rhoncizzle nisi. In hac habitasse platea fizzle. I'm in the shizzle dapibus. Funky fresh tellizzle things, pretium nizzle, bling bling ac, eleifend boom shackalack, nunc. Sheezy suscipit. Integer sempizzle velit sizzle ass.
