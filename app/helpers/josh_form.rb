@@ -24,11 +24,11 @@ class JoshForm < ActionView::Helpers::FormBuilder
   end
 
   def submit(value="Save", options={})
+    options[:type] = "submit"
     if options[:type] == "service"
       options[:class] = "btn_form button #{options[:class]}"
     else
       options[:class] = "button btn_form #{options[:class]}"
-      options[:type] = "reset"
     end
     value = options.delete(:label) if options[:label] 
     super
@@ -59,7 +59,12 @@ class JoshForm < ActionView::Helpers::FormBuilder
         args.last[:class] = "my_edit_input #{css_class}" if type.to_s == "profile"
       end
 
+      if ['file_field'].include?(method_name)
+        args.last[:type] = 'file'
+      end
+      
       base_tag = super(attribute, *args)
+      
       # Incase its a mandatory field, the '*' is added to the field.
       label_tag = label("#{label_txt or attribute.to_s.titleize} #{"*" if required(attribute)}", :class => CSS[type][:label]) 
 

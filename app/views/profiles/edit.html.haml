@@ -1,2 +1,30 @@
-%h1 Profiles#edit
-%p Find me in app/views/profiles/edit.html.haml
+#tab1.tab_content
+  .up_my_profile
+    = form_for @profile, :as => :profile, :url => profile_path, :builder => JoshForm, :html => {:method => 'put', :multipart => true} do |f| 
+      .up_my_profile_left
+        .mypic
+          = image_tag(f.object.avatar.url(:medium))
+      .up_my_profile_right_edit
+        = f.text_field :first_name, :label => "First name", :type => "profile"
+        = f.text_field :last_name, :label => "last name", :type => "profile"
+        %p.my_pro_p
+          %label.my_pro_lbl Email:
+          = f.select "gender", GENDER.collect{ |g| [ g, g] }, { }, :class => "my_edit_input sle_inp", :type => "profile", :skip => true, :style => "float:left;" 
+          = f.check_box :hide_gender, :checked => true, :unchecked => false, :class => "my_edit_check"
+          %text Don't display on my public profile
+        = f.fields_for :location do |loc|
+          = loc.text_field :address, :class => "input_half", :type => "profile"
+        %p.my_pro_p
+          %label.my_pro_lbl Email:
+          %text.my_edit_lbl_l= @profile.user.email
+          = f.check_box :hide_email, :checked => true, :unchecked => false, :class => "my_edit_check"
+          %text Don't display on my public profile
+        = f.text_field :website, :label => "website", :type => "profile"
+        = f.file_field :avatar, :type => "profile"
+        = f.text_area :about_me,:cols => 50, :rows => 10, :label => "about me", :type => "profile"
+        = f.text_field :facebook, :type => "profile"
+        = f.text_field :twitter, :type => "profile"
+        = f.text_field :linkedin, :type => "profile"
+        %p.my_edit_btns
+          = f.cancel  :class => "bu_right up_acc_btns_c", :type => "profile"
+          = f.submit "Save", :class => "bu_right", :type => "profile"
