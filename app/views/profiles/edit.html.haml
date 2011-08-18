@@ -1,30 +1,30 @@
 #tab1.tab_content
   .up_my_profile
-    = form_for @profile, :as => :profile, :url => profile_path, :builder => JoshForm, :html => {:method => 'put', :multipart => true} do |f| 
+    = form_for @profile, :builder => JoshForm, :html => {:multipart => true} do |f| 
       .up_my_profile_left
         .mypic
           = image_tag(f.object.avatar.url(:medium))
       .up_my_profile_right_edit
-        = f.text_field :first_name, :label => "First name", :type => "profile"
-        = f.text_field :last_name, :label => "last name", :type => "profile"
-        %p.my_pro_p
-          %label.my_pro_lbl Email:
-          = f.select "gender", GENDER.collect{ |g| [ g, g] }, { }, :class => "my_edit_input sle_inp", :type => "profile", :skip => true, :style => "float:left;" 
+        = f.text_field :first_name, :class => "input_half"
+        = f.text_field :last_name, :class => "input_half"
+        %p
+          %label.form_lbl Sex:
+          = f.select :gender, GENDER.collect{ |g| [ g, g] }, { }, :class => "my_edit_input sle_inp", :skip => true, :style => "float:left;margin-left:10px" 
           = f.check_box :hide_gender, {:class => "my_edit_check"}, "true", "false"
           %text Don't display on my public profile
         = f.fields_for :location do |loc|
           = loc.text_field :address, :class => "input_half", :type => "profile"
-        %p.my_pro_p
-          %label.my_pro_lbl Email:
-          %text.my_edit_lbl_l= @profile.user.email
+        %p
+          %label.form_lbl Email:
+          %text.my_edit_lbl_l{:style => "float:left;margin-left:10px"}= @profile.user.email
           = f.check_box :hide_email, {:class => "my_edit_check"}, "true", "false"
           %text Don't display on my public profile
-        = f.text_field :website, :label => "website", :type => "profile"
-        = f.file_field :avatar, :type => "profile"
-        = f.text_area :about_me,:cols => 50, :rows => 10, :label => "about me", :type => "profile"
-        = f.text_field :facebook, :type => "profile"
-        = f.text_field :twitter, :type => "profile"
-        = f.text_field :linkedin, :type => "profile"
+        = f.text_field :website, :class => 'input_half'
+        = f.file_field :avatar, :class => 'input_half'
+        = f.text_area :about_me, :cols => 50, :rows => 10 
+        = f.text_field :facebook, :class => 'input_half'
+        = f.text_field :twitter, :class => 'input_half'
+        = f.text_field :linkedin, :class => 'input_half'
         %p.my_edit_btns
-          = f.cancel  :class => "bu_right up_acc_btns_c", :type => "profile"
-          = f.submit "Save", :class => "bu_right", :type => "profile"
+          = f.submit 
+          = f.cancel  

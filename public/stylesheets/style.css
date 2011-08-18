@@ -1499,6 +1499,7 @@ h2.offer_form_h2 span a {
 	background:#bebebe;
 	color:#3d3d3d !important;
 	padding:0 12px 3px !important;
+  margin: 0 10px;
 }
 .np_account_form p {
 	float: left;
@@ -1618,12 +1619,12 @@ h2.my_name span a {
 h2.my_name span a img {
 	margin-right:7px;
 }
-.my_pro_p {
+.up_my_profile_right_edit p {
 	width:100%;
 	float:left;
 	margin-bottom:10px;
 }
-.my_pro_lbl {
+.up_my_profile_right_edit label {
 	width:85px;
 	float:left;
 	margin-right:25px;
