@@ -29,8 +29,6 @@ class Nonprofit < ActiveRecord::Base
     :default_url => "/images/missing/nonprofit_:style.jpg"
   )
 
-  scope :verified, where(:is_verified => 'yes')
-
   accepts_nested_attributes_for :location, :allow_destroy => true
 
   attr_accessor :password, :password_confirmation
@@ -41,18 +39,18 @@ class Nonprofit < ActiveRecord::Base
 
   ###  AASM transition ###
   aasm_column :is_verified
-  aasm_initial_state :no
+  aasm_initial_state :created
 
-  aasm_state :no
-  aasm_state :yes, :enter => :confirm_nonprofit
+  aasm_state :created
+  aasm_state :verified, :enter => :confirm_nonprofit
   aasm_state :rejected, :enter => :reject_nonprofit
 
   aasm_event :confirm! do
-    transitions :to => [:yes, :rejected], :from => :no
+    transitions :to => :verified, :from => [:created, :rejected]
   end
 
   aasm_event :reject! do
-    transitions :to => :rejected, :from => [:yes, :no]
+    transitions :to => :rejected, :from => [:verified, :created]
   end
 
   def to_param
