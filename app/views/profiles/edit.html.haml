@@ -10,14 +10,14 @@
         %p.my_pro_p
           %label.my_pro_lbl Email:
           = f.select "gender", GENDER.collect{ |g| [ g, g] }, { }, :class => "my_edit_input sle_inp", :type => "profile", :skip => true, :style => "float:left;" 
-          = f.check_box :hide_gender, :checked => true, :unchecked => false, :class => "my_edit_check"
+          = f.check_box :hide_gender, {:class => "my_edit_check"}, "true", "false"
           %text Don't display on my public profile
         = f.fields_for :location do |loc|
           = loc.text_field :address, :class => "input_half", :type => "profile"
         %p.my_pro_p
           %label.my_pro_lbl Email:
           %text.my_edit_lbl_l= @profile.user.email
-          = f.check_box :hide_email, :checked => true, :unchecked => false, :class => "my_edit_check"
+          = f.check_box :hide_email, {:class => "my_edit_check"}, "true", "false"
           %text Don't display on my public profile
         = f.text_field :website, :label => "website", :type => "profile"
         = f.file_field :avatar, :type => "profile"

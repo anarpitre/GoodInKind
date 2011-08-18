@@ -8,7 +8,7 @@
         %ul
           %li
             Total Services Offered:
-            %span 0
+            %span= @profile.user.services.size
           %li
             Total Purchased:
             %span 0
@@ -26,53 +26,35 @@
             %span 0
     .up_my_profile_right
       %h2.my_name
-        Steve Jobs
+        = get_user_name
         %span
-          %a{:href => "user_tab_profile_edit.html"}
-            %img{:alt => "edit", :src => "images/edit_icon.jpg"}>/
-            Edit Profile
-      %p.my_pro_p
-        %label.my_pro_lbl Age:
-        %span.my_pro_spn
-          54
-          %span.my_pro_not_pl
-            Not-Public
-            %b (?)
+          = link_to image_tag("/images/edit_icon.jpg"), edit_profile_path(current_user)
+          Edit Profile
       %p.my_pro_p
         %label.my_pro_lbl Sex:
-        %span.my_pro_spn --
+        %span.my_pro_spn= get_gender
       %p.my_pro_p
         %label.my_pro_lbl Location:
-        %span.my_pro_spn --
+        %span.my_pro_spn= @profile.location.address
       %p.my_pro_p
         %label.my_pro_lbl Email:
         %span.my_pro_spn
-          stevejobs@apple.com
+          = get_user_email
           %span.my_pro_not_pl
             Not-Public
             %b (?)
       %p.my_pro_p
         %label.my_pro_lbl Website:
-        %span.my_pro_spn --
+        %span.my_pro_spn= @profile.website
       %p.my_pro_p
         %label.my_pro_lbl About Me:
-        %span.my_pro_spn --
+        %span.my_pro_spn= @profile.about_me
       .my_pro_sm
         %label.my_pro_lbl Follow Me:
         %ul
           %li
-            %a{:href => "#"}
+            %a{:href => "http://www.twitter.com/#!/#{@profile.twitter}"}
           %li
-            %a.my_sm_facebook{:href => "#"}
+            %a.my_sm_facebook{:href => "http://www.facebook.com/#{@profile.facebook}"}
           %li
-            %a.my_sm_youtube{:href => "#"}
-          %li
-            %a.my_sm_linked{:href => "#"}
-          %li
-            %a.my_sm_tumblr{:href => "#"}
-          %li
-            %a.my_sm_posterous{:href => "#"}
-          %li
-            %a.my_sm_blog{:href => "#"}
-          %li
-            %a.my_sm_website{:href => "#"}
+            %a.my_sm_linked{:href => "http://www.linkedin.com/#{@profile.linkedin}"}

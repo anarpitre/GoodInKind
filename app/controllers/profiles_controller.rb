@@ -3,7 +3,7 @@ class ProfilesController < ApplicationController
   layout "service"
 
   def index
-
+    @profile = current_user.profile
   end
 
   def edit
