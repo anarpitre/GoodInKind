@@ -1,9 +1,20 @@
-
+- content_for :header do
+  = javascript_include_tag 'service'
 .sidebar_bar
   = render :partial => "service_search"
   .sidebar_left_find
-    = render :partial => "service_by_category"
-    = render :partial => "service_by_nonprofit"
-    = render :partial => "service_by_price"
-    = render :partial => "service_by_date"
-= render :partial => "find_featured_service" 
+    = render :partial => 'category_filter'
+    = render :partial => 'nonprofit_filter'
+    = render :partial => 'price_filter'
+    = render :partial => 'date_filter'
+.featured_services_find
+  %h2.fs_find_h2
+    Popular results
+    %br/
+    %span
+      Don't find what you are looking for?
+      %a{:href => "#"} Place your request here
+  .featured_list_find
+    = render @services
+%p.view_more
+  %a{:href => "#"} View More Services

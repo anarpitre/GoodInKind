@@ -8,7 +8,7 @@ class ServicesController < ApplicationController
 
   def index
     @head[:title] = "Service Home"
-    @services = Service.all
+    @services = Service.includes([:images, :nonprofit]).all
   end
 
   def show

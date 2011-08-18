@@ -1,0 +1,11 @@
+%a{:href => "#"}
+  .fs_box
+    .tag_spots
+    = image_tag !service.images.first.blank? ? "#{service.images.first.image.url(:original)}" : "/images/pics-1.jpg", :class => 'fs_box_pic'     
+    .fs_left
+      %span.fs_head= service.title
+      %span.fs_for for
+      %span.fs_disc= service.nonprofit.try(:name)
+    .fs_price
+      $#{service.amount}
+    .clear
