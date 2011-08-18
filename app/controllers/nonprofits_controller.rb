@@ -4,6 +4,7 @@ class NonprofitsController < ApplicationController
   before_filter :nonprofit_owner, :only => [:edit, :logout, :account, :transactions]
 
   layout 'nonprofit'
+  include NonprofitsHelper
   
   def index
     @head[:title] = "NonProfit Home"
@@ -20,6 +21,7 @@ class NonprofitsController < ApplicationController
   end
   
   def new
+    return redirect_to nonprofit_path(current_nonprofit) if nonprofit_logged_in?
     @head[:title] = "NonProfit"
     @nonprofit = Nonprofit.new
   end
