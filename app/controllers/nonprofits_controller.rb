@@ -83,7 +83,9 @@ class NonprofitsController < ApplicationController
   end
 
   def transactions
-    @transactions = @nonprofit.services.collect(&:transactions)
+    # FIXME
+    @transactions = []
+    #@transactions = @nonprofit.services.collect(&:transactions)
   end
   
   def login
