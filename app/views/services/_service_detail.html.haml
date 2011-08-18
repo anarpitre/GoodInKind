@@ -7,7 +7,7 @@
   .logged_top
     .logged_gallery
       .logged_pics
-        = image_tag !@service.images.first.blank? ? "#{@service.images.first.image.url}" : "/images/service_ph.jpeg"
+        = image_tag !@service.images.first.blank? ? "#{@service.images.first.image.url(:medium)}" : "/images/service_ph.jpeg"
       .logged_pics_bottom
         %ul
           %li
