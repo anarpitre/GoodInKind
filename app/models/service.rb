@@ -4,6 +4,7 @@ class Service < ActiveRecord::Base
   
   belongs_to  :user, :dependent => :destroy
   belongs_to :nonprofit
+  belongs_to :request
   has_one :location, :as => :resource,:dependent => :destroy
   has_many :reviews
   has_many :images,:dependent => :destroy
@@ -26,12 +27,15 @@ class Service < ActiveRecord::Base
   aasm_column :status
   aasm_initial_state :pending
   aasm_state :pending
-  aasm_state :active
+  aasm_state :active, :enter => :verify_request
 
   aasm_event :activate do
     transitions :to => :active, :from => [ :pending, :active]
   end
 
+  def verify_request
+    self.request.offered! unless self.request.blank?
+  end
 
   def to_param
     permalink || "#{id}-#{title.parameterize}"

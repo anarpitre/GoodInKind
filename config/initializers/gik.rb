@@ -10,3 +10,4 @@ else
   }
 end
 
+EMAIL_REGEX = /^[a-z]+([+\.\w]+)*\w@[a-z0-9]+(\.\w+)+$/i

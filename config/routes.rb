@@ -37,7 +37,7 @@ Gik::Application.routes.draw do
     end
   end
 
-
+  resources :requests
 
 
 
