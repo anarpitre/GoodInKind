@@ -20,7 +20,9 @@ describe Profile do
       pf.gender= ""
     end
 
-    it "website is blank"
+    it "website is blank" do
+      pf.website = ""
+    end
 
     it "if about_me is blank" do
       pf.about_me = ""
