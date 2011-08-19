@@ -19,6 +19,14 @@ class ServicesController < ApplicationController
     @head[:title] = "New Service"
     @service = Service.new
     build_objects
+    requested_service unless params[:request_id].blank?
+  end
+
+  def requested_service
+    req = Request.find(params[:request_id])
+    @service.attributes = {"title" => req.title, "description" => req.description} 
+    @service.location.address = req.location.address if req.location
+    @service.request_id = req.id
   end
 
   def edit
@@ -39,7 +47,7 @@ class ServicesController < ApplicationController
         @service.activate!
         redirect_to(thankyou_services_path, :notice => 'Service was successfully created.') 
       end
-    rescue
+    rescue 
       build_objects
       render :action => "new" 
     end
@@ -82,7 +90,6 @@ class ServicesController < ApplicationController
 
   def browse_nonprofit
     @nonprofit = Nonprofit.verified
-    #@nonprofit = Nonprofit.verifiedall
     render :layout => nil
   end
 

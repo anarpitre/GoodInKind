@@ -66,7 +66,7 @@
       Want to copy information from an offer you made previously?
       %a{:href => "#"} Click here
   - else
-%a.bro_req_btn{:href => "#"} Browse Requests
+%a.bro_req_btn{:href => requests_path} Browse Requests
 .offer_form
   = form_for @service, :builder => JoshForm, :html => {:multipart => true} do |f|
     - if @service.errors.any?
@@ -160,6 +160,7 @@
         %li
           = f.radio_button(:is_public, false)
           = f.label(:is_public, "Don't post this on the site. I will share it with and only those I share it with will be able to access it")
+          = f.hidden_field :request_id
     .input_post_div
       = f.submit "Post It", :class => "btn_form button form_post_btn"
       %p You will be able to share it afterwards

@@ -1,11 +1,11 @@
 - if defined?(find) and find 
   - content_for :header_find do
     .header_services_find
-      .head_serve_box.top_active
+      .head_serve_box{:onclick => "location.href = '#{services_path}' "}
         Find
         %span a service
     .header_services_offer
-      .head_serve_box.serve_box_right
+      .head_serve_box.serve_box_right{:onclick => "location.href = '#{new_service_path}' "}
         Offer
         %span a service
 

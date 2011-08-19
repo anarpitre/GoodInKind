@@ -1,0 +1,17 @@
+%b title:
+= @request.title
+%br
+%b Description:
+= @request.description
+%br
+%b Email:
+= @request.email
+%br
+- unless @request.location.blank?
+  %b Location:
+  = @request.location.address
+%br
+
+= link_to 'New', new_request_path
+\|
+= link_to 'Index', requests_path
