@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
       session[:thank_you] = nil
       thankyou_services_path
     else
-      dashboard_index_path(current_user)
+      services_path(current_user)
     end
   end
 
