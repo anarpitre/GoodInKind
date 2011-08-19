@@ -94,7 +94,7 @@ class NonprofitsController < ApplicationController
   
   def create_session 
     @nonprofit = Nonprofit.authenticate(params[:username],params[:password])
-    if @nonprofit
+    if @nonprofit && @nonprofit.is_verified == "verified"
       session[:nonprofit] = {}
       session[:nonprofit][:name] = @nonprofit.name
       session[:nonprofit][:id] = @nonprofit.id
