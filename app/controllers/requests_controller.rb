@@ -2,7 +2,8 @@ class RequestsController < ApplicationController
   layout 'service'
   
   def index
-    @request = Request.all
+    #@request = Request.all
+    @request = Request.created
   end
 
   def new

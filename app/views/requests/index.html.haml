@@ -5,14 +5,16 @@
     %th Email
     %th Location
     %th 
-  - @request.each do |req|
-    %tr
-      %td= req.title
-      %td= req.description
-      %td= req.email
-      - if req.location.blank?
-        %td
-      - else
-        %td= req.location.address
-      %td= link_to 'Take it', new_service_path(:request_id => req.id)
-
+  - unless @request.blank?
+    - @request.each do |req|
+      %tr
+        %td= req.title
+        %td= req.description
+        %td= req.email
+        - if req.location.blank?
+          %td
+        - else
+          %td= req.location.address
+        %td= link_to 'Take it', new_service_path(:request_id => req.id)
+  - else
+    No pending request !!!

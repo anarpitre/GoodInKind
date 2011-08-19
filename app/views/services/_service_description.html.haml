@@ -5,11 +5,11 @@
     %span.add_right= @service.location.try(:address)
   %p
     %span.add_left Dates Available:
-    - if !@service.is_schedulelater
+    - if @service.is_schedulelater
       %span.add_right To be scheduled
     - else
       %span.add_right= @service.start_date 
-      To &nbsp;&nbsp;&nbsp&nbsp 
+      To &nbsp;&nbsp;&nbsp;&nbsp; 
       = @service.end_date 
       %p
         %span.add_left Time Available:

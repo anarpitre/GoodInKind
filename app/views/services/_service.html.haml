@@ -1,9 +1,24 @@
 %a{:href => service_path(service)}
   .fs_box
-    .tag_spots
+    - if service.booking_capacity > 0
+      - spots = service.booking_capacity - service.booked_seats
+      - if spots <= 3
+        - if spots == 1
+          .tag_spots #{spots} Spot Left
+        - else
+          .tag_spots #{spots} Spots Left
+    - unless service.is_schedulelater 
+      - days = (service.start_date - Date.today).to_i
+      - if days <= 3
+        - if days == 0
+          .tag_day Last Day
+        - if days == 1
+          .tag_day #{days} Day Left
+        - if days > 1
+          .tag_day #{days} Days Left
     = image_tag !service.images.first.blank? ? "#{service.images.first.image.url(:thumb)}" : "/images/pics-1.jpg", :class => 'fs_box_pic'     
     .fs_left
-      %span.fs_head= service.title
+      %span.fs_head= truncate(service.title, :lenght => 50)
       %span.fs_for for
       %span.fs_disc= service.nonprofit.try(:name)
     .fs_price
