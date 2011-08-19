@@ -64,7 +64,8 @@ class JoshForm < ActionView::Helpers::FormBuilder
     end
   end
 
-  helpers = %w[text_field text_area password_field select file_field collection_select ]
+  helpers = %w[text_field text_area password_field file_field collection_select ]
+  #helpers = %w[text_field text_area password_field select file_field collection_select ]
   helpers.each do |name|
     create_tagged_field(name)
   end

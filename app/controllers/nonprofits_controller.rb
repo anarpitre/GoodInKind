@@ -68,7 +68,17 @@ class NonprofitsController < ApplicationController
         end
       end
     end
+    category_id = params[:nonprofit][:category_ids]
+    params[:nonprofit].delete(:category_ids)
     if @nonprofit.update_attributes(params[:nonprofit])
+      nonprofit_category = @nonprofit.nonprofit_categories
+      if nonprofit_category.blank?
+        NonprofitCategory.create(:nonprofit_id => @nonprofit.id, :category_id => category_id)
+      else
+        nonprofit_category = nonprofit_category.first
+        nonprofit_category.category_id = category_id
+        nonprofit_category.save
+      end
       flash[:notice] = "User #{@nonprofit.username} updated"
       session[:referer] = nil # cleanup first!
       redirect_to  (referer == 'account' ? account_nonprofit_path(@nonprofit) : nonprofit_path(@nonprofit) )

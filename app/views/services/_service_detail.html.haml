@@ -8,22 +8,18 @@
     .logged_gallery
       .logged_pics
         = image_tag !@service.images.first.blank? ? "#{@service.images.first.image.url(:medium)}" : "/images/service_ph.jpeg"
-      .logged_pics_bottom
-        %ul
-          %li
-            %a{:href => "#"} &lt;
-          %li
-            %a.pic_active{:href => "#"} 1
-          %li
-            %a{:href => "#"} 2
-          %li
-            %a{:href => "#"} 3
-          %li
-            %a{:href => "#"} 4
-          %li
-            %a{:href => "#"} 5
-          %li
-            %a{:href => "#"} &gt;
+      - if @service.images.count > 1
+        .logged_pics_bottom
+          %ul
+            %li
+              %a{:href => "#"} &lt;
+            - i = 1
+            - @service.images.count.times do
+              %li
+                %a.pic_active{:href => "#"} #{i}
+              - i += 1
+            %li
+              %a{:href => "#"} &gt;
         %span.report_abuse
           %a{:href => "#"} Report Abuse
     .logged_right
