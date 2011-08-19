@@ -20,5 +20,6 @@ Factory.define :nonprofit do |c|
   c.photo_file_name "Rails.gif"
   c.photo_content_type "image/gif"
   c.photo_file_size "1000"
+  c.is_verified "verified"
 end
 

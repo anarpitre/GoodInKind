@@ -61,6 +61,7 @@ describe Service do
   context "should not be created if" do
     before(:each) do
       @services = Factory(:service)
+      @services.nonprofit
     end
 
     after(:each) do
@@ -110,8 +111,8 @@ describe Service do
       @services.start_date = nil
     end
 
-    it "end_date is not selected when is_shedule true" do
-      @services.is_schedulelater = true
+    it "end_date is not selected when is_shedulelater is false" do
+      @services.is_schedulelater = false
       @services.end_date = nil
     end
     

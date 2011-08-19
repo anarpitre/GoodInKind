@@ -9,13 +9,12 @@ Factory.define :service do |s|
   s.is_public true
   s.is_virtual true
   s.is_schedulelater false 
-  s.nonprofit_percentage '100'
   s.start_date Date.today
   s.end_date Date.today + 5.days
   s.start_time Time.now
   s.end_time Time.now + 5.minutes
   s.estimated_duration "10min"
   s.categories { |a| [a.association(:category)]}
-  s.association :nonprofit_id, :factory => 'nonprofit'
-  s.association :user_id, :factory => 'user'
+  s.association :nonprofit, :factory => 'nonprofit'
+  s.association :user, :factory => 'user'
 end
