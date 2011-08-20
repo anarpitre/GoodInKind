@@ -192,25 +192,25 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  aasm
-  aws-s3
-  devise
+  aasm (= 2.2.0)
+  aws-s3 (= 0.6.2)
+  devise (= 1.4.2)
   factory_girl_rails
   faker
-  geocoder
-  haml-rails
+  geocoder (= 1.0.2)
+  haml-rails (= 0.3.4)
   hpricot
-  indextank
-  jquery-rails
-  json
-  json_pure
+  indextank (= 1.0.12)
+  jquery-rails (= 1.0.13)
+  json (= 1.5.3)
+  json_pure (= 1.5.3)
   mysql2 (= 0.2.8)
-  oa-openid
+  oa-openid (= 0.2.6)
   omniauth (= 0.2.6)
-  paperclip
+  paperclip (= 2.3.16)
   railroady
   rails (= 3.0.7)
   rails3-jquery-autocomplete (= 0.9.0)
   rake (= 0.8.7)
-  rspec-rails
-  ruby_parser
+  rspec-rails (= 2.6.1)
+  ruby_parser (= 2.1.0)
