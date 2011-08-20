@@ -10,7 +10,6 @@ gem "geocoder"
 gem 'omniauth', '0.2.6'
 gem "oa-openid"
 gem 'aws-s3',               :require => 'aws/s3'
-gem 'right_aws'
 gem 'faker'
 gem 'indextank'
 gem 'json_pure'
