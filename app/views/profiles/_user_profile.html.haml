@@ -2,7 +2,7 @@
   .up_my_profile
     .up_my_profile_left
       .mypic
-        %img{:alt => "MyPic", :src => "images/mypic.jpg"}/
+        = image_tag(@profile.avatar.url(:medium))
       .my_stats
         %h2 GoodInKind Stats
         %ul
@@ -20,7 +20,7 @@
             %span= @profile.donated_time
           %li
             \% Positive Reviews:
-            %span -
+            %span= @profile.total_reviews == 0 ? "---" : (@profile.positive_reviews * 100 / @profile.total_reviews).to_i 
           %li
             Total Reviews:
             %span 0
@@ -28,10 +28,11 @@
       %h2.my_name
         = get_user_name
         %span
-          = link_to image_tag("/images/edit_icon.jpg"), edit_profile_path(current_user)
-          Edit Profile
+          - if (@profile.user.id == current_user.id)
+            = image_tag('edit_icon.jpg', :alt => "edit")
+            = link_to "Edit Profile", edit_profile_path(current_user)
       %p.my_pro_p
-        %label.my_pro_lbl Sex:
+        %label.my_pro_lbl Gender:
         %span.my_pro_spn= get_gender
       %p.my_pro_p
         %label.my_pro_lbl Location:

@@ -18,12 +18,8 @@
         = link_to "", "#", :target => "_blank", :title => "Twitter", :class => "pl_sn tw_pl"
         = link_to "", "#", :target => "_blank", :title => "Linkedin", :class => "pl_sn ln_pl"
     %p
-      - if @service.user.profile.try(:total_reviews) > 0
-        -positive = (@service.user.profile.try(:positive_reviews)* 100) / @service.user.profile.try(:total_reviews)
-      - else
-        -positive = @service.user.profile.try(:positive_reviews)
       %span.pl_left Reviews:
-      %span.pl_right= positive.to_i.to_s + " % Positive"
+      %span.pl_right= @service.user.profile.total_reviews == 0 ? "---" : (@service.user.profile.positive_reviews * 100 / @service.user.profile.total_reviews).to_i.to_s + " % Positive"
     %p
       %span.pl_left Transactions:
       %span.pl_right= @service.user.profile.try(:donated_transaction)
