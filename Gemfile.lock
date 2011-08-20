@@ -211,5 +211,6 @@ DEPENDENCIES
   railroady
   rails (= 3.0.7)
   rails3-jquery-autocomplete (= 0.9.0)
+  rake (= 0.8.7)
   rspec-rails
   ruby_parser
