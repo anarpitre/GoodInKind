@@ -2,7 +2,7 @@ class Service < ActiveRecord::Base
   
   include AASM
   
-  belongs_to  :user, :dependent => :destroy
+  belongs_to  :user
   belongs_to :nonprofit
   belongs_to :request
   has_one :location, :as => :resource,:dependent => :destroy
@@ -47,8 +47,8 @@ class Service < ActiveRecord::Base
 
   def check_date
     unless self.is_schedulelater
-      errors.add(:start_date,"Check Date") unless (self.start_date || self.end_date || (self.start_date < self.end_date))
-      errors.add(:start_time," Check time") unless (self.start_time || self.end_time || (self.start_time <= self.end_time))
+      errors.add(:start_date,"Check Date") unless (self.start_date.blank? || self.end_date.blank? || (self.start_date < self.end_date))
+      errors.add(:start_time," Check time") unless (self.start_time.blank? || self.end_time.blank? || (self.start_time <= self.end_time))
     end
   end
 

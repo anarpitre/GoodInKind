@@ -6,7 +6,7 @@
     %span
       %a{:href => requests_path} see requests
   .search_div
-    %form
-      = text_field "", nil, :placeholder => "\"Table Tennis Lessons\", or \"How to do beat-boxing\"",  :class =>'search_div_input'
+    = form_for :service, :url => newoffer_services_path, :html => {:method => :post} do
+      = text_field_tag :title,nil,:placeholder => "\"Table Tennis Lessons\", or \"How to do beat-boxing\"",  :class =>'search_div_input'
       = submit_tag "Offer", :class => "button btn_form"
 / End Search

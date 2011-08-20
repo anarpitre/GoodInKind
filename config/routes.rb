@@ -3,7 +3,7 @@ Gik::Application.routes.draw do
 
   match '/auth/:provider/callback' => 'authentications#create'
   match '/auth/failure' => 'dashboard#index'
-  
+
   devise_for :users, :controllers => {:sessions => :sessions, :registrations => :registrations, :confirmations => :confirmations} 
 
   resources :dashboard 
@@ -29,6 +29,7 @@ Gik::Application.routes.draw do
       get :thankyou
       get :browse_nonprofit
       post :review
+      post :newoffer
     end
   end
 

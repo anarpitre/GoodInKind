@@ -24,6 +24,12 @@ class ServicesController < ApplicationController
     requested_service unless params[:request_id].blank?
   end
 
+  def newoffer
+    @service = Service.new(:title => params[:title])
+    build_objects
+    render :action => 'new'
+  end
+
   def requested_service
     req = Request.find(params[:request_id])
     @service.attributes = {"title" => req.title, "description" => req.description} 
