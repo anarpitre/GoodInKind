@@ -35,7 +35,7 @@
       %span.pl_right
         = truncate(@service.user.profile.try(:about_me), :length => 100)
   %p.pl_view_more
-    = link_to "View Profile", "#"
+    = link_to "View Profile", profile_path(@service.user.profile)
     %br
     - if current_user
       %br= link_to "Message me" , new_message_path(:id => @service.user.id)

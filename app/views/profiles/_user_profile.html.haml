@@ -14,10 +14,10 @@
             %span 0
           %li
             Total Amount Raised:
-            %span $0
+            %span $#{@profile.donated_amount.to_i}
           %li
             Total Time Donated:
-            %span 0
+            %span= @profile.donated_time
           %li
             \% Positive Reviews:
             %span -

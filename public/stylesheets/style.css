@@ -886,6 +886,7 @@ h2.services_h2 em {
 }
 .logged_pics_bottom {
 	width:448px;
+    height:260px;
 	float:left;
 	margin-top:12px;
 }
@@ -1619,6 +1620,20 @@ h2.my_name span a {
 h2.my_name span a img {
 	margin-right:7px;
 }
+.my_pro_p {
+    width:100%;
+    float:left;
+    margin-bottom:10px;
+        }
+
+.my_pro_lbl {
+    width:85px;
+    float:left;
+    margin-right:25px;
+    font-size:15px;
+    font-weight:bold;
+}
+
 .up_my_profile_right_edit p {
 	width:100%;
 	float:left;

@@ -6,7 +6,7 @@
         %h2 Change Password
         %p.up_acc_p
           %label.up_acc_lbl User Name
-          %span.up_acc_lbl_span Steve Jobs
+          %span.up_acc_lbl_span= @profile.first_name
         %p.up_acc_p
           %label.up_acc_lbl Old Password
           %input.up_acc_inp{:type => "text"}/
@@ -25,13 +25,7 @@
             %span When someone buys my service
           %p.up_acc_p
             %input{:type => "checkbox"}/
-            %span When someone direct messages me
-          %p.up_acc_p
-            %input{:type => "checkbox"}/
-            %span When someone post a comment, review or question on my posted service
-          %p.up_acc_p
-            %input{:type => "checkbox"}/
-            %span When payment from me or buyer has been processed and sent to non-profit
+            %span When someone post a review on my posted service
           %p.up_acc_p
             %input{:type => "checkbox"}/
             %span When someone requests a cancel and refund
@@ -42,13 +36,15 @@
             %span When I purchase a service
           %p.up_acc_p
             %input{:type => "checkbox"}/
-            %span When I get a direct message reply
-          %p.up_acc_p
-            %input{:type => "checkbox"}/
-            %span When someone replies to my public question
-          %p.up_acc_p
-            %input{:type => "checkbox"}/
             %span 2 days before my payment will be processed and confirmed
+        .up_acc_email
+          %h4 I want to receive emails when:
+          %p.up_acc_p
+            %input{:type => "checkbox"}/
+            %span When someone direct messages me
+          %p.up_acc_p
+            %input{:type => "checkbox"}/
+            %span When payment from me or buyer has been processed and sent to non-profit 
       %p.up_acc_btns
         %input.button.btn_form.bu_right.up_acc_btns_c{:type => "reset", :value => "Cancel"}/
         %input.button.btn_form.bu_right{:type => "submit", :value => "Save"}/
