@@ -17,8 +17,7 @@ class ProfilesController < ApplicationController
       @profile.attributes = params[:profile]
       @profile.save!
       redirect_to :action => 'index'
-    rescue Exception =>  e
-      logger.info "######################{e}"
+    rescue 
       @profile.build_location if @profile.location.blank?
       redirect_to :action => 'edit'
     end
