@@ -28,6 +28,7 @@ Gik::Application.routes.draw do
       get :autocomplete_nonprofit_name
       get :thankyou
       get :browse_nonprofit
+      post :review
     end
   end
 
