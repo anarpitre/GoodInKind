@@ -13,6 +13,8 @@ class ServicesController < ApplicationController
 
   def show
     @head[:title] = "My Service"
+    @review = @service.reviews.build
+    @reviews = Review.get_reviews(@service.id)
   end
 
   def new
@@ -91,6 +93,17 @@ class ServicesController < ApplicationController
   def browse_nonprofit
     @nonprofit = Nonprofit.verified
     render :layout => nil
+  end
+
+  def review
+    review = Review.new(params[:review])
+    review.user_id = current_user.id
+    review.group_number = review.service.group_number
+    review.save(false)
+    @reviews = Review.get_reviews(review.service.id)
+    respond_to do |format|
+        format.js {render :layout=>false}
+    end
   end
 
   def set_seo_tags

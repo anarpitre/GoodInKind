@@ -1,0 +1,6 @@
+- unless @reviews.blank?
+  - 3.times do |i|
+    %div.address_text
+      %p
+        = @reviews[i].user.profile.first_name
+        %br= @reviews[i].review
