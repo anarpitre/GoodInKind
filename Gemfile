@@ -20,7 +20,7 @@ gem 'json'
 gem 'jquery-rails'
 gem 'rails3-jquery-autocomplete', '0.9.0'
 gem 'aasm'
-#gem 'rake', '0.8.7'
+gem 'rake', '0.8.7'
 
 group :development, :test do
  gem  'railroady'
