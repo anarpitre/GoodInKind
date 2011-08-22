@@ -1,50 +1,48 @@
 / End Tab3
 #tab3.tab_content
   .up_account
-    %form
+    = form_for @profile, :builder => JoshForm, :url => profile_path(@profile), :method => :put do |f|
       .up_acc_setp
         %h2 Change Password
-        %p.up_acc_p
-          %label.up_acc_lbl User Name
-          %span.up_acc_lbl_span= @profile.first_name
-        %p.up_acc_p
-          %label.up_acc_lbl Old Password
-          %input.up_acc_inp{:type => "text"}/
-        %p.up_acc_p
-          %label.up_acc_lbl New Password
-          %input.up_acc_inp{:type => "text"}/
-        %p.up_acc_p
-          %label.up_acc_lbl Confirm New Password
-          %input.up_acc_inp{:type => "text"}/
+        = f.fields_for :user do |user|
+          %p.up_acc_p
+            %label.up_acc_lbl User Name
+            %span.up_acc_lbl_span= @profile.first_name
+          %p.up_acc_p
+            = user.password_field :password, :class => "up_acc_inp", :label => "Old Password"
+          %p.up_acc_p
+            = user.password_field :password, :class => "up_acc_inp", :label => "New Password"
+          %p.up_acc_p
+            = user.password_field :password_confirmation, :class => "up_acc_inp", :label => "Confirm Password"
       .up_acc_setp
         %h2 Email Alert Preferences
         .up_acc_email
           %h4 When I offer a service, I want to receive emails when:
           %p.up_acc_p
-            %input{:type => "checkbox"}/
+            = f.check_box :email_takemyservice, {}, "true", "false"
             %span When someone buys my service
           %p.up_acc_p
-            %input{:type => "checkbox"}/
+            = f.check_box :email_addreview, {}, "true", "false"
             %span When someone post a review on my posted service
           %p.up_acc_p
-            %input{:type => "checkbox"}/
+            = f.check_box :email_cancel, {}, "true", "false"
             %span When someone requests a cancel and refund
         .up_acc_email
           %h4 When I buy a service, I want to receive emails when:
           %p.up_acc_p
-            %input{:type => "checkbox"}/
+            = f.check_box :email_itakeservice, {}, "true", "false"
             %span When I purchase a service
           %p.up_acc_p
-            %input{:type => "checkbox"}/
+            = f.check_box :email_paid, {}, "true", "false"
             %span 2 days before my payment will be processed and confirmed
         .up_acc_email
           %h4 I want to receive emails when:
           %p.up_acc_p
-            %input{:type => "checkbox"}/
+            = f.check_box :email_addmessage, {}, "true", "false"
             %span When someone direct messages me
           %p.up_acc_p
-            %input{:type => "checkbox"}/
+            = f.check_box :email_remindpayment, {}, "true", "false"
             %span When payment from me or buyer has been processed and sent to non-profit 
       %p.up_acc_btns
         %input.button.btn_form.bu_right.up_acc_btns_c{:type => "reset", :value => "Cancel"}/
-        %input.button.btn_form.bu_right{:type => "submit", :value => "Save"}/
+        = f.submit "Save", :class => "btn_form bu_right"

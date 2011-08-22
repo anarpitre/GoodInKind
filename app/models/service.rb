@@ -35,6 +35,7 @@ class Service < ActiveRecord::Base
 
   def verify_request
     self.request.offered! unless self.request.blank?
+    add_index
   end
 
   def to_param
@@ -55,6 +56,10 @@ class Service < ActiveRecord::Base
 
   def generate_permalink
     update_attribute(:permalink ,self.to_param)
+  end
+
+  def add_index
+    INDEX.document("Service:id:#{self.id}").add({ :text => "#{self.title} #{self.description} #{self.user.profile.first_name} #{self.user.profile.last_name} #{categories.collect(&:name).to_s} #{nonprofit.categories.collect(&:name).to_s} #{nonprofit.name}"})
   end
 
 end

@@ -870,6 +870,7 @@ h2.services_h2 em {
 }
 .logged_pics {
 	width:448px;
+    height:260px;
 	float:left;
 	border:1px solid #938b8b;
 }
@@ -2078,6 +2079,9 @@ span.ss_name {
 	float:left;
 	margin-bottom:7px;
 }
+.up_acc_p span{
+    display:inline !important;
+}
 .up_acc_lbl {
 	float:left;
 	width:170px;
@@ -2121,6 +2125,7 @@ span.ss_name {
 	float:left;
 	font-size:14px;
 	margin-left:10px;
+    display:inline !important;
 }
 .up_acc_email input {
 	float:left;

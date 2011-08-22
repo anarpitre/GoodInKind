@@ -14,3 +14,8 @@ Factory.define :nonprofit_location, :class => Location do |np|
   np.address 'baner'
   np.association :resource, :factory => 'nonprofit'
 end
+
+Factory.define :request_location, :class => Location do |np|
+  np.address 'nashik'
+  np.association :resource, :factory => 'request'
+end
