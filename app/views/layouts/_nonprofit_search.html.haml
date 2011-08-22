@@ -5,33 +5,16 @@
 .sidebar_left_find
   .sidebar_list
     %h3 Browse by Category
-    %ul
+    %ul{:id => 'category_list'}
       %li
-        %strong
-          New
-          %span.np_span_list 10
-      %li
-        Children &amp; Youth
-        %span.np_span_list 137
-      %li
-        Education
-        %span.np_span_list 125
-      %li
-        Healthcare
-        %span.np_span_list 60
-      %li
-        Poverty
-        %span.np_span_list 12
-      %li
-        Other
-        %span.np_span_list 160
-      %li
-        Community Services
-        %span.np_span_list 55
-      %li
-        Arts &amp; Culture
-        %span.np_span_list 30
-    %p
-      %a{:href => "#"}
-        show all
-        %img{:alt => "arrow", :src => "images/find_down_arrow.png"}/
+        %input{:type => "checkbox", :id => 'category_all'}/
+        &nbsp;&nbsp;All (#{Nonprofit.count})
+      - Category.by_nonprofits.order("name").each do |category|
+        %li
+          %input{:type => "checkbox"}/
+          &nbsp;
+          = "#{truncate(category.name, :length => 25)} (#{category.service_count})"
+/    %p
+/      %a{:href => "#"}
+/        show all
+/        %img{:alt => "arrow", :src => "images/find_down_arrow.png"}/
