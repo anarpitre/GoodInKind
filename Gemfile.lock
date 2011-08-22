@@ -196,7 +196,7 @@ DEPENDENCIES
   aws-s3 (= 0.6.2)
   devise (= 1.4.2)
   factory_girl_rails
-  faker
+  faker (= 0.9.5)
   geocoder (= 1.0.2)
   haml-rails (= 0.3.4)
   hpricot

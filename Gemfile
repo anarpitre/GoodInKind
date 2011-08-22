@@ -17,13 +17,13 @@ gem 'jquery-rails', '1.0.13'
 gem 'rails3-jquery-autocomplete', '0.9.0'
 gem 'aasm', '2.2.0'
 gem 'rake', '0.8.7'
+gem 'faker', '0.9.5'
 
 group :development, :test do
  gem  "hpricot"
  gem 'rspec-rails', '2.6.1'
  gem 'factory_girl_rails'
  gem  'railroady'
- gem 'faker'
  #gem 'pg'
 #gem 'mysql2', '= 0.2.8'
  gem 'mysql2', '= 0.2.8'
