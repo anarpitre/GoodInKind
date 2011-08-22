@@ -2,6 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.7'
 
+gem 'rake', '0.8.7'
 gem 'devise', '1.4.2'
 gem 'paperclip', '2.3.16'
 gem "geocoder", '1.0.2'
@@ -16,8 +17,8 @@ gem 'json', '1.5.3'
 gem 'jquery-rails', '1.0.13'
 gem 'rails3-jquery-autocomplete', '0.9.0'
 gem 'aasm', '2.2.0'
-gem 'rake', '0.8.7'
 gem 'faker', '0.9.5'
+gem 'httparty'
 
 group :development, :test do
  gem  "hpricot"
