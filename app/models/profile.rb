@@ -1,8 +1,6 @@
 class Profile < ActiveRecord::Base
   belongs_to  :user
   has_one :location, :as => :resource,:dependent => :destroy
-  has_many :profile_social_networks, :dependent => :destroy
-  has_many :social_networks, :through => :profile_social_networks
   
   accepts_nested_attributes_for :location, :allow_destroy => true
 
