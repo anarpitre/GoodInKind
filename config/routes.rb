@@ -30,6 +30,7 @@ Gik::Application.routes.draw do
       get :browse_nonprofit
       post :review
       post :newoffer
+      post :search
     end
   end
 
