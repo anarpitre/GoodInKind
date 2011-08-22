@@ -17,4 +17,7 @@
         = render 'layouts/nonprofit_search' 
     = content_for?(:tab_content) ? yield(:tab_content) : yield
 
-= render :file => 'layouts/service', :locals => {:find => false}
+- if nonprofit_logged_in?
+  = render :file => 'layouts/service', :locals => {:find => false}
+-else
+  = render :file => 'layouts/service', :locals => {:find =>true} 
