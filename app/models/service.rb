@@ -15,7 +15,7 @@ class Service < ActiveRecord::Base
   accepts_nested_attributes_for :images, :location, :allow_destroy => true
   
   
-  validates :title, :description, :user_id, :presence => true
+  validates :title, :description, :user_id, :nonprofit_id, :presence => true
   validates_inclusion_of :is_public, :in => [true, false]
   validates :amount, :numericality => true, :presence => true
   validates :start_date, :end_date, :start_time, :end_time, :if => Proc.new { |t| t.is_schedulelater == false}, :presence => true

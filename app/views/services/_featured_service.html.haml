@@ -2,7 +2,7 @@
   .featured_services
     %h2.fs_h2
       Featured Services
-      %a.button.bu_right.explore_btn{:href => "#"} Explore All
+      %a.button.bu_right.explore_btn{:href => services_path} Explore All
     .featured_list
       - @services.each do |service|
         %a{:href => service_path(service.id)}
@@ -32,5 +32,5 @@
               $#{service.amount}
             .clear
       %p.view_more
-        %a{:href => "#"} View More Services
+        %a{:href => services_path} View More Services
 / End Featured Services
