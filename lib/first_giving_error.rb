@@ -1,0 +1,2 @@
+class FirstGivingError < StandardError
+end

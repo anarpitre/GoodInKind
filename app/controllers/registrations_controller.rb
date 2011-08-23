@@ -10,8 +10,6 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     session[:thank_you] = "yes" unless session[:service_id].blank?
     super
-    profile = resource.build_profile
-    profile.save(false)
     session[:omniauth] = nil unless @user.new_record?
     change_service_offerer(session[:service_id],resource.id) unless session[:service_id].blank? 
   end

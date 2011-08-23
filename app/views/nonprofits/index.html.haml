@@ -17,10 +17,10 @@
               = np.location.try(:address)
             = truncate(np.description, :length => 300)
             = link_to "read more", nonprofit_path(np)
-          %p.np_rel_btns
-            %a.button{:href => "#"}> Browse Services (10)
+          %p.np_rel_btns{:style => "width:430px;"}
+            %a= link_to "Browse Services(#{get_service_count(np)})", service_search_path(:text => np.name), :class => "button"
             \&nbsp;&nbsp;&nbsp;
-            %a.button{:href => "#"} Offer a Service
+            %a= link_to 'Offer a Service', new_service_path(:id => np.id), :class => "button"
     :javascript
       $(".np_results_list").hover(function(){
         $(this).stop().animate({height:"160px"},{queue:false,duration:200});

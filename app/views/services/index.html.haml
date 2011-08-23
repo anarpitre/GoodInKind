@@ -1,12 +1,12 @@
 - content_for :header do
   = javascript_include_tag 'service'
 .sidebar_bar
-  = render :partial => "service_search"
+  = render "service_search"
   .sidebar_left_find
-    = render :partial => 'category_filter'
-    = render :partial => 'nonprofit_filter'
-    = render :partial => 'price_filter'
-    = render :partial => 'date_filter'
+    = render 'category_filter'
+    = render 'nonprofit_filter'
+    = render 'price_filter'
+    = render 'date_filter'
 .featured_services_find
   %h2.fs_find_h2
     Popular results

@@ -38,6 +38,7 @@ GEM
     bcrypt-ruby (2.1.4)
     builder (2.1.2)
     cocaine (0.2.0)
+    crack (0.1.8)
     devise (1.4.2)
       bcrypt-ruby (~> 2.1.2)
       orm_adapter (~> 0.0.3)
@@ -65,6 +66,8 @@ GEM
       haml (~> 3.0)
       railties (~> 3.0)
     hpricot (0.8.4)
+    httparty (0.7.8)
+      crack (= 0.1.8)
     i18n (0.5.0)
     indextank (1.0.12)
       faraday-stack
@@ -196,10 +199,11 @@ DEPENDENCIES
   aws-s3 (= 0.6.2)
   devise (= 1.4.2)
   factory_girl_rails
-  faker
+  faker (= 0.9.5)
   geocoder (= 1.0.2)
   haml-rails (= 0.3.4)
   hpricot
+  httparty
   indextank (= 1.0.12)
   jquery-rails (= 1.0.13)
   json (= 1.5.3)

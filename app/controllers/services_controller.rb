@@ -21,6 +21,7 @@ class ServicesController < ApplicationController
     @head[:title] = "New Service"
     @service = Service.new
     build_objects
+    @service.nonprofit_id = params[:id] unless params[:id].blank?
     requested_service unless params[:request_id].blank?
   end
 
@@ -82,6 +83,24 @@ class ServicesController < ApplicationController
     @service.images.build if @service.images.blank?
     @service.categories.build if @service.categories.blank?
   end
+  
+  def search
+    @services = []
+    unless params[:text].blank?
+      result = INDEX.search(params[:text]) 
+      unless result['matches'] == 0
+        result['matches'].times do |i|
+          arr = result['results'][i]['docid'].split(':')
+          if arr.first == "Service"
+            service = Service.find(arr.last.to_i)
+            @services << service if service.status == 'active'
+          end
+        end
+        @services.flatten!
+      end
+    end
+    render 'index'
+  end
 
   def destroy
     @service.destroy
@@ -108,7 +127,7 @@ class ServicesController < ApplicationController
     review.save(false)
     @reviews = Review.get_reviews(review.service.id)
     respond_to do |format|
-        format.js {render :layout=>false}
+      format.js {render :layout=>false}
     end
   end
 

@@ -4,7 +4,7 @@
       - if user_signed_in?
         = link_to image_tag("goodinkind-logo-small.png", :alt => "Goodinkind - Get Together. Do Good."), services_path
       - elsif nonprofit_logged_in?
-        = link_to image_tag("goodinkind-logo-small.png", :alt => "Goodinkind - Get Together. Do Good."), nonprofit_path(@nonprofit)
+        = link_to image_tag("goodinkind-logo-small.png", :alt => "Goodinkind - Get Together. Do Good."), nonprofit_path(current_nonprofit)
       - else
         = link_to image_tag("goodinkind-logo-small.png", :alt => "Goodinkind - Get Together. Do Good."), root_path
     = render 'layouts/header', :find => (defined?(find) ? find : true)
