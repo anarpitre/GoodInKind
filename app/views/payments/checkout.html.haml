@@ -1,0 +1,26 @@
+.offer_form
+  = form_for(@payment, :url => pay_service_path(@service, @payment.id), :builder => JoshForm) do |f|
+    - if @cc.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(@cc.errors.count, "error")
+          prohibited this post from being saved:
+        %ul
+          - @cc.errors.full_messages.each do |msg|
+            %li= msg
+    .setp_box
+      %h3 Booking Details
+      = f.text_field :seats, :label => "Seats to book"
+      = f.text_field :extra, :label => "Additional Donation Amount"
+    .setp_box
+      %h3 Credit Card Details
+      = fields_for :cc, @cc, :builder => JoshForm do |cc|
+        = cc.text_field :name
+        = cc.text_field :month
+        = cc.text_field :year
+        %p
+          = cc.label 'Card Type', :class => 'form_lbl'
+          = cc.select :type, ['Visa', 'MasterCard'], {}, :class => "form_input_full input_small"
+        = cc.text_field :number
+        = cc.text_field :verification_value
+      = f.submit 'Pay'

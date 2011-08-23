@@ -16,6 +16,11 @@ GEM
       rack-mount (~> 0.6.14)
       rack-test (~> 0.5.7)
       tzinfo (~> 0.3.23)
+    activemerchant (1.16.0)
+      activesupport (>= 2.3.11)
+      braintree (>= 2.0.0)
+      builder (>= 2.0.0)
+      json (>= 1.5.1)
     activemodel (3.0.7)
       activesupport (= 3.0.7)
       builder (~> 2.1.2)
@@ -36,6 +41,8 @@ GEM
       mime-types
       xml-simple
     bcrypt-ruby (2.1.4)
+    braintree (2.10.2)
+      builder (>= 2.0.0)
     builder (2.1.2)
     cocaine (0.2.0)
     crack (0.1.8)
@@ -196,6 +203,7 @@ PLATFORMS
 
 DEPENDENCIES
   aasm (= 2.2.0)
+  activemerchant (= 1.16.0)
   aws-s3 (= 0.6.2)
   devise (= 1.4.2)
   factory_girl_rails
@@ -203,12 +211,13 @@ DEPENDENCIES
   geocoder (= 1.0.2)
   haml-rails (= 0.3.4)
   hpricot
-  httparty
+  httparty (= 0.7.8)
   indextank (= 1.0.12)
   jquery-rails (= 1.0.13)
   json (= 1.5.3)
   json_pure (= 1.5.3)
   mysql2 (= 0.2.8)
+  nokogiri (= 1.4.7)
   oa-openid (= 0.2.6)
   omniauth (= 0.2.6)
   paperclip (= 2.3.16)

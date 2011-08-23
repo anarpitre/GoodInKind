@@ -12,11 +12,12 @@ class User < ActiveRecord::Base
   has_many :sent_messages, :class_name => 'Message', :foreign_key => :sender_id, :dependent => :destroy
   has_many :received_messages, :class_name => 'Message', :foreign_key => :receiver_id, :dependent => :destroy
 
-  
+  has_many :payments, :dependent => :destroy  
   has_many :services, :dependent => :destroy
   has_many :authentications, :dependent => :destroy
   has_one  :location, :as => :resource, :dependent => :destroy
   has_one  :profile, :dependent => :destroy
+  has_one :payment_token, :dependent => :destroy # currently 1-1 mapping for CC token
 
   after_create :generate_permalink
   

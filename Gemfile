@@ -18,7 +18,9 @@ gem 'jquery-rails', '1.0.13'
 gem 'rails3-jquery-autocomplete', '0.9.0'
 gem 'aasm', '2.2.0'
 gem 'faker', '0.9.5'
-gem 'httparty'
+gem 'httparty', '0.7.8'
+gem 'nokogiri', '1.4.7'
+gem 'activemerchant', '1.16.0'
 
 group :development, :test do
  gem  "hpricot"

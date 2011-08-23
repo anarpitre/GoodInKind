@@ -1,4 +1,7 @@
-staging:
+staging: &default
   :key: '43c8301e-bee1-11e0-8582-12313b003616'
   :token: '43c9127c-bee1-11e0-8582-12313b003616'
   :url: http://usapistaging.fgdev.net/
+
+development:
+  <<: *default

@@ -25,12 +25,13 @@ Gik::Application.routes.draw do
 
   resources :services do
     collection do
-      get :autocomplete_nonprofit_name
-      get :thankyou
-      get :browse_nonprofit
-      post :review
-      post :newoffer
-      post :search
+      get :autocomplete_nonprofit_name, :thankyou, :browse_nonprofit
+      post :review, :newoffer, :search
+    end
+
+    member do
+      get 'checkout' => 'payments#checkout'
+      post 'payments/:payment_id' => 'payments#pay', :as => :pay
     end
   end
 
