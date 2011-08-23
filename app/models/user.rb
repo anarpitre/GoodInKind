@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   has_one  :profile, :dependent => :destroy
 
   after_create :generate_permalink
+  after_create :create_profile
   
   scope :get_dummy_user, where("email = ?", DUMMY_EMAIL) 
 
@@ -41,6 +42,11 @@ class User < ActiveRecord::Base
 
   def generate_permalink
     update_attribute(:permalink ,self.to_param)
+  end
+
+  def create_profile
+    profile = self.build_profile
+    profile.save(false)
   end
 
 end
