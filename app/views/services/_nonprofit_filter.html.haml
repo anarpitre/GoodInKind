@@ -3,11 +3,12 @@
   %ul{:id => 'nonprofit_list'}
     %li
       %input{:type => "checkbox", :id => 'nonprofit_all'}/
-      %span All (#{Nonprofit.count})
-    - Category.by_nonprofits.each do |category|
+      &nbsp;&nbsp;All (#{Nonprofit.count})
+    - Category.by_nonprofits.order("name").each do |category|
       %li
         %input{:type => "checkbox"}/
-        %span= "#{category.name} (#{category.service_count})"
+        &nbsp;
+        = "#{truncate(category.name, :length => 25)} (#{category.service_count})"
   %p
     %a{:href => "#", :id => 'nonprofit_more'}
       show all

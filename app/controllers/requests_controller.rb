@@ -17,7 +17,7 @@ class RequestsController < ApplicationController
       @request = Request.new
       @request.attributes = params[:request]
       @request.save!
-      redirect_to request_path(@request.id)
+      redirect_to requests_path
     rescue
       @request.build_location if @request.location.blank?
       render :action => 'new'

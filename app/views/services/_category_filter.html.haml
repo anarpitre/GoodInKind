@@ -4,9 +4,10 @@
     %li
       %input{:type => "checkbox", :id => 'category_all'}/
       &nbsp;&nbsp;All (#{Service.count})
-    - Category.by_services.each do |category|
+    - Category.by_services.order("name").each do |category|
       %li
         %input{:type => "checkbox"}/
+        &nbsp;
         = "#{category.name} (#{category.service_count})"
   %p
     %a{:href => '#', :id => 'category_more'}
