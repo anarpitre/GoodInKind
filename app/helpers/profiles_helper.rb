@@ -5,11 +5,11 @@ module ProfilesHelper
   end
 
   def get_user_email
-    @profile.hide_email ? @profile.user.email : "--"
+    @profile.hide_email ? "---" : @profile.user.email
   end
 
   def get_gender
-    @profile.hide_gender ? @profile.gender : "--"
+    @profile.hide_gender ? "---" : @profile.gender
   end
 
 end

@@ -3,11 +3,11 @@
   %ul{:id => 'category_list'}
     %li
       %input{:type => "checkbox", :id => 'category_all'}/
-      %span All (#{Service.count})
+      &nbsp;&nbsp;All (#{Service.count})
     - Category.by_services.each do |category|
       %li
         %input{:type => "checkbox"}/
-        %span= "#{category.name} (#{category.service_count})"
+        = "#{category.name} (#{category.service_count})"
   %p
     %a{:href => '#', :id => 'category_more'}
       show all
