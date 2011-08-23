@@ -21,6 +21,7 @@ class ServicesController < ApplicationController
     @head[:title] = "New Service"
     @service = Service.new
     build_objects
+    @service.nonprofit_id = params[:id] unless params[:id].blank?
     requested_service unless params[:request_id].blank?
   end
 
@@ -84,14 +85,19 @@ class ServicesController < ApplicationController
   end
   
   def search
-    result = INDEX.search(params[:text]) unless params[:text].blank?
     @services = []
-    unless result['matches'] == 0
-      result['matches'].times do |i|
-        arr = result['results'][i]['docid'].split(':')
-        @services << Service.find(arr.last.to_i)
+    unless params[:text].blank?
+      result = INDEX.search(params[:text]) 
+      unless result['matches'] == 0
+        result['matches'].times do |i|
+          arr = result['results'][i]['docid'].split(':')
+          if arr.first == "Service"
+            service = Service.find(arr.last.to_i)
+            @services << service if service.status == 'active'
+          end
+        end
+        @services.flatten!
       end
-      @services.flatten!
     end
     render 'index'
   end

@@ -35,6 +35,7 @@ class Nonprofit < ActiveRecord::Base
 
   before_create :create_hash_password
   after_create :generate_permalink
+  after_create :add_index
 
   ###  AASM transition ###
   aasm_column :is_verified
@@ -51,7 +52,7 @@ class Nonprofit < ActiveRecord::Base
   aasm_event :reject! do
     transitions :to => :rejected, :from => [:verified, :created]
   end
-
+  
   def to_param
     permalink || "#{id}-#{name.parameterize}"
   end
@@ -104,4 +105,9 @@ class Nonprofit < ActiveRecord::Base
   def generate_permalink
     update_attribute(:permalink ,self.to_param)
   end
+  
+  def add_index
+    INDEX.document("Nonprofit:id:#{self.id}").add({ :text => "#{self.categories.collect(&:name).to_s} #{self.name} #{self.description}"})
+  end
+
 end

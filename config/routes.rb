@@ -1,5 +1,6 @@
 Gik::Application.routes.draw do
 
+  match 'service/search' => 'services#search'
 
   match '/auth/:provider/callback' => 'authentications#create'
   match '/auth/failure' => 'dashboard#index'
@@ -14,6 +15,7 @@ Gik::Application.routes.draw do
     collection do
       get :login, :logout
       post :create_session
+      post :search
     end
     member do
       match :change_password, :account
@@ -30,7 +32,6 @@ Gik::Application.routes.draw do
       get :browse_nonprofit
       post :review
       post :newoffer
-      post :search
     end
   end
 
