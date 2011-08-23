@@ -5,11 +5,12 @@ describe User do
   context "Email should be sent to user when "
   before(:each) do
     ActionMailer::Base.deliveries = []
-    let(:user) {Factory.create(:user)}
+      @user = Factory(:user)
+      @user.confirm!
   end
 
   it "activation mail should be sent after user is created" do
-    ActionMailer::Base.deliveries.first.to.should == [user.email]
+    ActionMailer::Base.deliveries.first.to.should == [@user.email]
   end
   it "new password should be sent through email if user with email exist"
 
