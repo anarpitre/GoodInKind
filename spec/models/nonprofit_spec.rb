@@ -86,10 +86,5 @@ describe Nonprofit do
     it "phone number is blank" do
       np.phone_number = ''
     end
-
-    it "if photo not is not uploaded" do
-      np.photo_file_name = ''
-      np.should_not be_valid
-    end
   end
 end
