@@ -1,8 +1,8 @@
 .sidebar_list
   %h3 Filter by Price
-  %ul
+  %ul{:id => 'price_list'}
     %li
-      %input{:type => "checkbox", :id => 'price_all'}/
+      %input{:type => "checkbox", :id => 'price_all', :value => 'all'}/
       %span All
     %li
       %input{:type => "checkbox", :value => '0-50'}/

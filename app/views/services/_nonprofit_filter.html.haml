@@ -2,11 +2,11 @@
   %h3 Filter by Non-Profit
   %ul{:id => 'nonprofit_list'}
     %li
-      %input{:type => "checkbox", :id => 'nonprofit_all'}/
+      %input{:type => "checkbox", :id => 'nonprofit_all', :value => 'all'}/
       %span All (#{Nonprofit.count})
     - Category.by_nonprofits.each do |category|
       %li
-        %input{:type => "checkbox"}/
+        %input{:type => "checkbox", :id => "nonprofit_#{category.id}", :value => category.id}/
         %span= "#{category.name} (#{category.service_count})"
   %p
     %a{:href => "#", :id => 'nonprofit_more'}

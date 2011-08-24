@@ -46,4 +46,16 @@ class Service < ActiveRecord::Base
     end
   end
 
+  def as_json(options = {})
+    options ||= {}
+    options[:except] = [:description, :created_at, :updated_at]
+    options[:methods] = [:to_param, :thumbnail]
+    options[:include] = {:nonprofit => {:only => :name}, :service_categories => {:only => :category_id}}
+    super
+  end
+
+  def thumbnail
+    self.images.any? ? self.images.first.image.url(:thumb) : '/images/missing/service.jpg'
+  end
+
 end

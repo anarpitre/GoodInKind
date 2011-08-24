@@ -1,5 +1,5 @@
 - content_for :header do
-  = javascript_include_tag 'service'
+  = javascript_include_tag 'service', 'filter'
 .sidebar_bar
   = render :partial => "service_search"
   .sidebar_left_find
@@ -14,7 +14,8 @@
     %span
       Don't find what you are looking for?
       %a{:href => "#"} Place your request here
-  .featured_list_find
-    = render @services
+  .featured_list_find{:id => 'service_list'}
 %p.view_more
   %a{:href => "#"} View More Services
+:javascript
+  var services = #{@services.to_json};
