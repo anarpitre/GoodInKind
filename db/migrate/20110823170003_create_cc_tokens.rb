@@ -1,6 +1,6 @@
-class CreatePaymentTokens < ActiveRecord::Migration
+class CreateCcTokens < ActiveRecord::Migration
   def self.up
-    create_table :payment_tokens do |t|
+    create_table :cc_tokens do |t|
       t.integer :user_id
       t.string :credit_card
       t.string :cardonfile_id
@@ -10,6 +10,6 @@ class CreatePaymentTokens < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :payment_tokens
+    drop_table :cc_tokens
   end
 end

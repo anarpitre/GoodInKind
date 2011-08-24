@@ -1,4 +1,4 @@
-class PaymentToken < ActiveRecord::Base
+class CcToken < ActiveRecord::Base
   belongs_to :user
 
   def process_payment

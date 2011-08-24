@@ -11,7 +11,7 @@ class Service < ActiveRecord::Base
   
   has_many :service_categories, :dependent => :destroy
   has_many :categories, :through => :service_categories 
-  has_many :payments, :dependent => :destroy
+  has_many :bookings, :dependent => :destroy
  
   accepts_nested_attributes_for :images, :location, :allow_destroy => true
   

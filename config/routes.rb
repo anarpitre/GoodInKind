@@ -28,11 +28,7 @@ Gik::Application.routes.draw do
       get :autocomplete_nonprofit_name, :thankyou, :browse_nonprofit
       post :review, :newoffer, :search
     end
-
-    member do
-      get 'checkout' => 'payments#checkout'
-      post 'payments/:payment_id' => 'payments#pay', :as => :pay
-    end
+    resources :bookings, :only => [:new, :create, :destroy]
   end
 
   resources :messages do
