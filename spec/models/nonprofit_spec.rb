@@ -30,8 +30,6 @@ describe Nonprofit do
       np.should be_valid
     end
 
-    it "logo is not selected"
-
     it "position is blank" do
       np.position = ""
     end
@@ -51,7 +49,6 @@ describe Nonprofit do
     it "Ein is already taken"
 
     it "organization name is blank" do
-      p np
       np.name = ""
     end
 
@@ -94,12 +91,5 @@ describe Nonprofit do
       np.photo_file_name = ''
       np.should_not be_valid
     end
-
-    it "if uuid is  blank"
-    it "if permalink is not set"
-    it "if uploaded photo is not in proper format e.g. txt"
-    it "if uploaded photo is not in proper format e.g. pdf"
-    it "if uploaded photo is not in proper format e.g. word"
-    it "if uploaded photo uploaded is more than 5 mb"
   end
 end
