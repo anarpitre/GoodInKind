@@ -18,9 +18,12 @@ class Service < ActiveRecord::Base
   validates :title, :description, :user_id, :nonprofit_id, :presence => true
   validates_inclusion_of :is_public, :in => [true, false]
   validates :amount, :numericality => true, :presence => true
+  validates_inclusion_of :amount, :in => 5..9999, :message => " should be between $5 to $9999" 
   validates :start_date, :end_date, :start_time, :end_time, :if => Proc.new { |t| t.is_schedulelater == false}, :presence => true
   validate :check_categories
   validate :check_date
+  validates_numericality_of :booking_capacity, :only_integer => true, :message => "can only be whole number."
+  validates_numericality_of :estimated_duration, :only_integer => true, :message => "can only be whole number."
   
   after_create :generate_permalink
 
