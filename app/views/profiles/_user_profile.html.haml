@@ -28,7 +28,7 @@
       %h2.my_name
         = get_user_name
         %span
-          - if user_signed_in?
+          - if is_owner(@profile.user)
             = image_tag('edit_icon.jpg', :alt => "edit")
             = link_to "Edit Profile", edit_profile_path(current_user)
       %p.my_pro_p
