@@ -18,13 +18,14 @@ class FirstGiving
   end
 
   def self.cardonfile(credit_card, payment)
-    #res = self.post('/cardonfile', :damn => "this works")
     res = "<?xml version='1.0' encoding='UTF-8'?>
     <firstGivingDonationApi>
     <firstGivingResponse acknowledgement='Success'>
     <cardOnFileId>3c5e29a0-b96e-11e0-a4dd-0800200c9a66</cardOnFileId>
     </firstGivingResponse>
     </firstGivingDonationApi>"
+
+    res = self.post('/cardonfile', :damn => "this works")
 
     doc = Nokogiri::XML(res);
     id = doc.xpath('/firstGivingDonationApi/firstGivingResponse[@acknowledgement="Success"]/cardOnFileId').text rescue ""
