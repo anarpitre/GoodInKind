@@ -13,7 +13,7 @@ Factory.define :service do |s|
   s.end_date Date.today + 5.days
   s.start_time Time.now
   s.end_time Time.now + 5.minutes
-  s.estimated_duration "10min"
+  s.estimated_duration 10
   s.categories { |a| [a.association(:category)]}
   s.association :nonprofit, :factory => 'nonprofit'
   s.association :user, :factory => 'user'

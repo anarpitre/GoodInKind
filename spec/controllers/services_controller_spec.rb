@@ -48,5 +48,56 @@ describe ServicesController do
     end
 
     it "delete a service"
+    
+    it "upload image" do
+      file = File.open('spec/taj.jpg')
+      cat = Category.all.map(&:id)
+      ser = Factory(:service)
+      post :update, :nonprofit_name => ser.nonprofit.name,
+                    :service => {:is_schedulelater => true, :images_attributes => {"0" => { :image => file }}}, 
+                    :id => ser.permalink
+      ser1 = Service.find_by_title(ser.title)
+      ser1.should_not == nil
+      ser1.images.should_not == nil
+      ser1.images.first.image_file_name.should == "taj.jpg"
+    end
+
+    it "uploaded logo is not in proper format e.g. txt" do
+      file = File.open('spec/test.txt')
+      cat = Category.all.map(&:id)
+      ser = Factory(:service)
+      post :update, :nonprofit_name => ser.nonprofit.name,
+                    :service => {:is_schedulelater => true, :images_attributes => {"0" => { :image => file }}}, 
+                    :id => ser.permalink
+      ser1 = Service.find_by_title(ser.title)
+      ser1.should_not == nil
+      ser1.images.should == []
+    end
+
+    it "uploaded logo is not in proper format e.g. pdf" do
+      file = File.open('spec/test.pdf')
+      cat = Category.all.map(&:id)
+      ser = Factory(:service)
+      post :update, :nonprofit_name => ser.nonprofit.name,
+                    :service => {:is_schedulelater => true, :images_attributes => {"0" => { :image => file }}}, 
+                    :id => ser.permalink
+      ser1 = Service.find_by_title(ser.title)
+      ser1.should_not == nil
+      ser1.images.should == []
+    end
+
+    it "uploaded logo is not in proper format e.g. word" do
+      file = File.open('spec/test.doc')
+      cat = Category.all.map(&:id)
+      ser = Factory(:service)
+      post :update, :nonprofit_name => ser.nonprofit.name,
+                    :service => {:is_schedulelater => true, :images_attributes => {"0" => { :image => file }}}, 
+                    :id => ser.permalink
+      ser1 = Service.find_by_title(ser.title)
+      ser1.should_not == nil
+      ser1.images.should == []
+    end
+
+    it "uploaded logo uploaded is more than 5 mb"
   end
 end
