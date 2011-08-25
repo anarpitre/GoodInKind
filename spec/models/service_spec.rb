@@ -64,10 +64,10 @@ describe Service do
       @services.nonprofit
     end
 
-    after(:each) do
-      @services.save
-      @services.should_not be_valid
-    end
+#    after(:each) do
+#      @services.save
+#      @services.should_not be_valid
+#    end
 
     it "title is blank" do 
       @services.title = nil
@@ -83,7 +83,11 @@ describe Service do
       ser_loc.save
     end
     
-    it "category ids is not selected"
+    it "category ids is not selected" do
+      @services.service_categories.first.destroy
+      @services.reload
+      @services.should_not be_valid
+    end
     
     it "start date is blank" do
       @services.start_date = ""
@@ -140,15 +144,5 @@ describe Service do
     it "if nonprofit_id is not selected" do
       @services.nonprofit_id = nil
     end
-
-    it "if logo not is not uploaded"
-
-    it "uploaded logo is not in proper format e.g. txt"
-
-    it "uploaded logo is not in proper format e.g. pdf"
-
-    it "uploaded logo is not in proper format e.g. word"
-
-    it "uploaded logo uploaded is more than 5 mb"
   end
 end

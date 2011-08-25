@@ -1,10 +1,54 @@
-%h3= @message.title
 
-%p= @message.message
+:javascript
+  $(document).ready(function(){
+  	$(".mail_reply_form").hide();
+  	$(".mail_reply_btn").click(function(){
+  		$(this).toggleClass("").next().slideToggle("fast");
+  		$(".mail_reply_btn").hide();
+  		return false;
+  	});
+  	$(".mail_reply_reset").click(function(){
+  		$(this).toggleClass("").next().slideToggle("fast");
+  		$(".mail_reply_form").hide();
+  		$(".mail_reply_btn").slideToggle("fast");
+  		return false;
+  	});
+   
+  });
+/ Tab 4
+#tab4.tab_content
+  .up_profile.mail_details
+    = link_to "Go back to mailbox", list_messages_path, :class => "bro_req_btn"
+    %ul.mail_details_list
+      %li
+        %span From:
+        %b.person_review= @message.sender.profile.first_name
+      %li
+        %span> Received:
+        10:40 am
+      %li
+        %span> Replied:
+        11:55 am
+    %h3.mail_subject_head
+      %span= @message.title
+    %p.mail_text= @message.message
+    = link_to "Reply", "#" , :class => "button mail_reply_btn"
+    .mail_reply_form
+      %form
+        %label.mail_reply_lbl
+          Subject
+          %span (100 characters max)
+        %input.mail_reply_int{:type => "text", :value => "Re:#{@message.title} "}/
+        %label.mail_reply_lbl
+          Description
+          %span (500 characters max)
+        %textarea.mail_reply_int.mail_reply_area
+        %input.button.btn_form.mail_reply_send{:type => "submit", :value => "Send"}/
+        %input.button.btn_form.mail_reply_reset{:type => "reset", :value => "Cancel"}/
+  / End Tab 4
 
-%br
-%p= link_to "reply", new_message_path(:msg_id => @message.id)
-%br
 
-= link_to "Back", list_messages_path
+
+
+
     

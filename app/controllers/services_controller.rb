@@ -1,14 +1,17 @@
 class ServicesController < ApplicationController
+  
+  before_filter :authenticate_user!, :only => [:edit, :thankyou]
   before_filter :set_seo_tags
   before_filter :get_service_by_id, :only => [:update, :destroy, :show, :edit]
-  
+  before_filter :is_owner, :only => [:edit]
+
   autocomplete :nonprofit, :name, :full => true, :scopes => [:verified]
 
   layout 'service'
 
   def index
     @head[:title] = "Service Home"
-    @services = Service.includes([:images, :nonprofit]).all
+    @services = Service.includes([:images, {:nonprofit => :nonprofit_categories}, :service_categories])
   end
 
   def show
@@ -21,6 +24,7 @@ class ServicesController < ApplicationController
     @head[:title] = "New Service"
     @service = Service.new
     build_objects
+    @service.nonprofit_id = params[:id] unless params[:id].blank?
     requested_service unless params[:request_id].blank?
   end
 
@@ -76,37 +80,27 @@ class ServicesController < ApplicationController
   def thankyou
     @service = @service.blank? ? @service : current_user.service 
   end
-
-  def build_objects
-    @service.build_location if @service.location.blank?
-    @service.images.build if @service.images.blank?
-    @service.categories.build if @service.categories.blank?
-  end
   
   def search
-    result = INDEX.search(params[:text]) unless params[:text].blank?
     @services = []
-    unless result['matches'] == 0
-      result['matches'].times do |i|
-        arr = result['results'][i]['docid'].split(':')
-        @services << Service.find(arr.last.to_i)
+    unless params[:text].blank?
+      result = INDEX.search(params[:text]) 
+      unless result['matches'] == 0
+        result['matches'].times do |i|
+          arr = result['results'][i]['docid'].split(':')
+          if arr.first == "Service"
+            service = Service.find(arr.last.to_i)
+            @services << service if service.status == 'active'
+          end
+        end
+        @services.flatten!
       end
-      @services.flatten!
     end
     render 'index'
   end
 
   def destroy
     @service.destroy
-  end
-
-  def get_service_by_id
-    @service = Service.find(params[:id])
-  end
-
-  #Add temporary_user_id if user is not siggned in  else add current_user_id 
-  def add_user_id
-    @service.user_id = !current_user.blank? ? current_user.id : User.get_dummy_user.first.id
   end
 
   def browse_nonprofit
@@ -124,6 +118,23 @@ class ServicesController < ApplicationController
       format.js {render :layout=>false}
     end
   end
+  
+  private
+
+  def build_objects
+    @service.build_location if @service.location.blank?
+    @service.images.build if @service.images.blank?
+    @service.categories.build if @service.categories.blank?
+  end
+
+  def get_service_by_id
+    @service = Service.find(params[:id])
+  end
+
+  #Add temporary_user_id if user is not siggned in  else add current_user_id 
+  def add_user_id
+    @service.user_id = !current_user.blank? ? current_user.id : User.get_dummy_user.first.id
+  end
 
   def set_seo_tags
     @head = {
@@ -132,4 +143,13 @@ class ServicesController < ApplicationController
       :description => 'Offer a service to support your favourite NonProfits'
     }
   end
+  
+  def is_owner
+    user = @service.user  
+    unless user == current_user
+      flash[:notice] = "You do not have sufficent privileges."
+      redirect_to service_path(@service) 
+    end    
+  end
+
 end

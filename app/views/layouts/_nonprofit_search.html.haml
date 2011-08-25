@@ -1,7 +1,7 @@
 .sidebar_search
-  %form
-    %input.sidebar_sarch_input{:name => "Search Non-Profits", :onblur => "if (this.value == '') {this.value = 'Search Non-Profits';}", :onfocus => "if(this.value == 'Search Non-Profits') {this.value = '';}", :value => "Search Non-Profits"}/
-    %input.button.btn_sidebar{:type => "button", :value => "Go"}/
+  = form_tag search_nonprofits_path, :builder => JoshForm, :html => {:method => :post} do
+    = text_field_tag :text, "", :class => "sidebar_sarch_input", :placeholder => 'Search Non-profits'
+    = submit_tag "Go", :class => "button btn_sidebar"
 .sidebar_left_find
   .sidebar_list
     %h3 Browse by Category
@@ -9,12 +9,8 @@
       %li
         %input{:type => "checkbox", :id => 'category_all'}/
         &nbsp;&nbsp;All (#{Nonprofit.count})
-      - Category.by_nonprofits.order("name").each do |category|
+      - Category.by_nonprofits.where("service_count > 0").order("name").each do |category|
         %li
           %input{:type => "checkbox"}/
           &nbsp;
           = "#{truncate(category.name, :length => 25)} (#{category.service_count})"
-/    %p
-/      %a{:href => "#"}
-/        show all
-/        %img{:alt => "arrow", :src => "images/find_down_arrow.png"}/

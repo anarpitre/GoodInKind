@@ -7,7 +7,7 @@ describe ProfilesController do
     sign_in @user
   end
 
-  context "User profile should be updated" do
+  context "User profile should get updated" do
     it "by post request" do
       post :update, :profile => {:about_me => "This is controller testing of profile", :gender => "male", :last_name => "kulkarni", :first_name => "amit"},
                     :id => @user.id  
@@ -26,6 +26,22 @@ describe ProfilesController do
       user.profile.location.address.should == "Pune, Maharashtra, India"
     end
 
-    it "by his image using post request"
+    it "if image is uploaded" do
+      file = File.open('spec/taj.jpg')
+      post :update,:profile => {:avatar => file, :about_me => "This is controller testing of image upload", :gender => "male", :last_name => "kulkarni", :first_name => "amit"},
+                   :id => @user.id
+      @user.reload
+      @user.profile.avatar_file_name.should == "taj.jpg"
+    end
+  end
+
+  context "User profile should not get updated" do
+    it "image uploaded is more than 2 mb" do
+      file = File.open('spec/4mb.JPG')
+      post :update,:profile => {:avatar => file, :about_me => "This is controller testing of image upload", :gender => "male", :last_name => "kulkarni", :first_name => "amit"},
+                   :id => @user.id
+      @user.reload
+      @user.profile.avatar_file_name.should == nil
+    end
   end
 end

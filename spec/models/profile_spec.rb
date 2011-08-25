@@ -41,7 +41,9 @@ describe Profile do
       pf.should_not be_valid
     end
 
-    it "website address is not in proper format"
+    it "website address is not in proper format" do
+      pf.website = "google"
+    end
 
     it "if avtar is not uploaded in proper format" do
       pf.avatar_content_type =  "/test.pdf"
@@ -54,8 +56,5 @@ describe Profile do
     it "if avtar is not uploaded in proper format" do
       pf.avatar_content_type =  "/test.txt"
     end
-
-    pending "if avatar uploaded has size more than 2Mb"
   end
-
 end

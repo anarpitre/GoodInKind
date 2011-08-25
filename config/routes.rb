@@ -1,6 +1,7 @@
 Gik::Application.routes.draw do
 
-
+  match 'service/search' => 'services#search'
+  match 'offer_virtual' => 'home#offer_virtual', :as => :offer_virtual, :method => :post
   match '/auth/:provider/callback' => 'authentications#create'
   match '/auth/failure' => 'dashboard#index'
 
@@ -14,6 +15,7 @@ Gik::Application.routes.draw do
     collection do
       get :login, :logout
       post :create_session
+      post :search
     end
     member do
       match :change_password, :account
@@ -26,7 +28,7 @@ Gik::Application.routes.draw do
   resources :services do
     collection do
       get :autocomplete_nonprofit_name, :thankyou, :browse_nonprofit
-      post :review, :newoffer, :search
+      post :review, :newoffer
     end
     resources :bookings, :only => [:new, :create, :destroy]
   end

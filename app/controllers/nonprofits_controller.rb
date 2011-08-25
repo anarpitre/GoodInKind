@@ -122,6 +122,24 @@ class NonprofitsController < ApplicationController
     redirect_to root_path
   end
   
+  def search
+    @nonprofits = []
+    unless params[:text].blank?
+      result = INDEX.search(params[:text]) 
+      unless result['matches'] == 0
+        result['matches'].times do |i|
+          arr = result['results'][i]['docid'].split(':')
+          if arr.first == "Nonprofit"
+            np = Nonprofit.find(arr.last.to_i) 
+            @nonprofits << np if np.is_verified == "verified"
+          end
+        end
+        @nonprofits.flatten!
+      end
+    end
+    render :action => 'index',:locals => { :search => true }
+  end
+
   private
 
   def get_nonprofit

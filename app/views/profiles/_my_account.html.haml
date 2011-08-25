@@ -44,5 +44,5 @@
             = f.check_box :email_remindpayment, {}, "true", "false"
             %span When payment from me or buyer has been processed and sent to non-profit 
       %p.up_acc_btns
-        %input.button.btn_form.bu_right.up_acc_btns_c{:type => "reset", :value => "Cancel"}/
+        = f.cancel :class => "btn_form bu_right up_acc_btns_c"
         = f.submit "Save", :class => "btn_form bu_right"

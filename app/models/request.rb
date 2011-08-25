@@ -2,6 +2,7 @@ class Request < ActiveRecord::Base
   include AASM
 
   has_one :service
+  belongs_to :category
   has_one :location, :as => :resource,:dependent => :destroy
 
   validates :title, :description, :email, :presence => true

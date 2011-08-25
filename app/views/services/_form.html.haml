@@ -23,10 +23,13 @@
     })
     $('#service_is_virtual').click(function(){
       is_virtual($("#service_is_virtual").is(':checked'))
+      $('.address').toggle();
     });
     
     $('#service_is_schedulelater').click(function(){
       is_schedulelater($("#service_is_schedulelater").is(':checked'))
+         
+      
     });
   
   });
@@ -45,17 +48,11 @@
   {
     if (flag){
       $('#service_is_schedulelater').val("true"); 
-      $('#dt_date_start').attr('disabled', 'disabled'); 
-      $('#dt_date_end').attr('disabled', 'disabled'); 
-      $('#dt_time_start').attr('disabled', 'disabled'); 
-      $('#dt_time_end').attr('disabled', 'disabled'); 
+      $('#datetime').hide(); 
     }
     else{
       $('#service_is_schedulelater').val("false");
-      $('#dt_date_start').removeAttr('disabled');
-      $('#dt_date_end').removeAttr('disabled');
-      $('#dt_time_start').removeAttr('disabled');
-      $('#dt_time_end').removeAttr('disabled');
+      $('#datetime').show(); 
     }
   }
 
@@ -106,7 +103,8 @@
         %span.setp_box_p_span (Check if this service will be offered virtually/online)
       %p
         = f.fields_for :location do |loc|
-          = loc.text_field :address, :class => "input_half"
+          .address
+            = loc.text_field :address, :class => "input_half"
     .setp_box
       %h3.setp_box_heading
         %span Step 4:
@@ -117,27 +115,28 @@
         %span.setp_box_p_span
           (Leave it checked if you would like to choose a date/time with the buyer after purchase)
           %a{:href => "#"} How it works?
+      #datetime    
+        %p
+          %span.setp_two_col
+            = f.text_field :start_date, :id => 'dt_date_start',:value => gik_formatted_date(@service.start_date), :class => "input_small"
+          %span.setp_two_col
+            = f.text_field :start_time, :id => 'dt_time_start', :value => gik_formatted_time(@service.start_time), :class => "input_small"
+        %p
+          %span.setp_two_col
+            = f.text_field :end_date, :id => 'dt_date_end', :value => gik_formatted_date(@service.end_date), :class => "input_small"
+          %span.setp_two_col
+            = f.text_field :end_time, :id => 'dt_time_end', :value => gik_formatted_time(@service.end_time), :class => "input_small"
       %p
         %span.setp_two_col
-          = f.text_field :start_date, :id => 'dt_date_start',:value => gik_formatted_date(@service.start_date), :class => "input_small"
+          = f.text_field :booking_capacity,  :class => "input_small", :hint => "0 indicates no limit"
         %span.setp_two_col
-          = f.text_field :start_time, :id => 'dt_time_start', :value => gik_formatted_time(@service.start_time), :class => "input_small"
-      %p
-        %span.setp_two_col
-          = f.text_field :end_date, :id => 'dt_date_end', :value => gik_formatted_date(@service.end_date), :class => "input_small"
-        %span.setp_two_col
-          = f.text_field :end_time, :id => 'dt_time_end', :value => gik_formatted_time(@service.end_time), :class => "input_small"
-      %p
-        %span.setp_two_col
-          = f.text_field :booking_capacity,  :class => "input_small"
-        %span.setp_two_col
-          = f.text_field :estimated_duration,  :label => "Estimated Duration (min)", :class => "input_small"
+          = f.text_field :estimated_duration,  :label => "Estimated Duration", :class => "input_small", :hint => "Duration should be in minutes"
     .setp_box
       %h3.setp_box_heading
         %span Step 5:
         What is the requested donation amount for this service?
       %p
-        = f.text_field :amount, :label => "Amount ($)", :class => "input_small"
+        = f.text_field :amount, :label => "Amount ($)", :class => "input_small", :hint => "Min donation amount $5"
     .setp_box
       %h3.setp_box_heading
         %span Step 6:
