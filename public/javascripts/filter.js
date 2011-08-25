@@ -94,25 +94,9 @@ tagJS.prototype.filter_event = function(settings){
 
               if(out.length) {
                   filter_out = parentObj.grep(filter_out, parentObj.get_view_object(s.name, out, s.type));
-              /*
-                 if(filter_out.length){
-                   filter_out = parentObj.grep(filter_out, parentObj.get_view_object(s.name, out, s.type));
-                 }
-                 else{
-                   filter_out = parentObj.grep(settings.all_object, parentObj.get_view_object(s.name, out, s.type));
-                 }
-              */
-              }
-              else{
-                if(!filter_out.length && index == 0){
-                 // filter_out = settings.all_object.slice();
-                }
               }
             });
             
-            console.log(filter_out);
-            console.log(filter_out.length);
-
             parentObj.hideShow((selected_count ? filter_out : []));
 
         });
