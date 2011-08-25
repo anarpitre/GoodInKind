@@ -2,8 +2,9 @@ class Service < ActiveRecord::Base
   
   include AASM
   
-  belongs_to  :user, :dependent => :destroy
+  belongs_to  :user
   belongs_to :nonprofit
+  belongs_to :request
   has_one :location, :as => :resource,:dependent => :destroy
   has_many :reviews
   has_many :images,:dependent => :destroy
@@ -14,25 +15,34 @@ class Service < ActiveRecord::Base
   accepts_nested_attributes_for :images, :location, :allow_destroy => true
   
   
-  validates :title, :description, :user_id, :presence => true
+  validates :title, :description, :user_id, :nonprofit_id, :presence => true
   validates_inclusion_of :is_public, :in => [true, false]
   validates :amount, :numericality => true, :presence => true
+  validates_inclusion_of :amount, :in => 5..9999, :message => " should be between $5 to $9999" 
   validates :start_date, :end_date, :start_time, :end_time, :if => Proc.new { |t| t.is_schedulelater == false}, :presence => true
   validate :check_categories
   validate :check_date
+  validates_numericality_of :booking_capacity, :only_integer => true, :message => "can only be whole number."
+  validates_numericality_of :estimated_duration, :only_integer => true, :message => "can only be whole number."
+  
+  after_create :generate_permalink
 
   aasm_column :status
   aasm_initial_state :pending
   aasm_state :pending
-  aasm_state :active
+  aasm_state :active, :enter => :verify_request
 
   aasm_event :activate do
     transitions :to => :active, :from => [ :pending, :active]
   end
 
+  def verify_request
+    self.request.offered! unless self.request.blank?
+    add_index
+  end
 
   def to_param
-    "#{id}-#{title.parameterize}"
+    permalink || "#{id}-#{title.parameterize}"
   end
 
   def check_categories
@@ -41,8 +51,8 @@ class Service < ActiveRecord::Base
 
   def check_date
     unless self.is_schedulelater
-      errors.add(:start_date,"Check Date") unless (self.start_date || self.end_date || (self.start_date < self.end_date))
-      errors.add(:start_time," Check time") unless (self.start_time || self.end_time || (self.start_time <= self.end_time))
+      errors.add(:start_date,"Check Date") unless (self.start_date.blank? || self.end_date.blank? || (self.start_date < self.end_date))
+      errors.add(:start_time," Check time") unless (self.start_time.blank? || self.end_time.blank? || (self.start_time <= self.end_time))
     end
   end
 
@@ -56,6 +66,14 @@ class Service < ActiveRecord::Base
 
   def thumbnail
     self.images.any? ? self.images.first.image.url(:thumb) : '/images/missing/service.jpg'
+  end
+
+  def generate_permalink
+    update_attribute(:permalink ,self.to_param)
+  end
+
+  def add_index
+    INDEX.document("Service:id:#{self.id}").add({ :text => "#{self.title} #{self.description} #{self.user.profile.first_name} #{self.user.profile.last_name} #{categories.collect(&:name).to_s} #{nonprofit.categories.collect(&:name).to_s} #{nonprofit.name}"})
   end
 
 end

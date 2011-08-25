@@ -1,27 +1,15 @@
-- content_for :layout_content do
-  %body
-    = content_for?(:layout_header) ? yield(:layout_header) : render('layouts/nonprofit_header')
-    .container
-      %h2.offer_form_h2
-        Non-Profit Partner Application
-      .np_page_top
-        %p
-          Thank you for your interest in becoming a nonprofit partner on GoodInKind. Becoming a partner organization will allow you to build and customize your profile, increase your organization's rankings in search results, and track causes that benefit your organization.
-        %p
-          You must be a representative or employee of the nonprofit organization to submit the partner application.
-        %p
-          Only U.S. nonprofits can be partners.
-          = succeed "." do
-            %a{:href => "#"} Learn more
-        %p
-          Submit your application by filling out the information below.
-      
-      = render 'form'
-      
-    = render "layouts/footer"
-
-= render :file => 'layouts/nonprofit'
-      
-      
-      
-      
+- content_for :tab_content do
+  %h2.offer_form_h2
+    Non-Profit Partner Application
+  .np_page_top
+    %p
+      Thank you for your interest in becoming a nonprofit partner on GoodInKind. Becoming a partner organization will allow you to build and customize your profile, increase your organization's rankings in search results, and track causes that benefit your organization.
+    %p
+      You must be a representative or employee of the nonprofit organization to submit the partner application.
+    %p
+      Only U.S. nonprofits can be partners.
+      = succeed "." do
+        %a{:href => "#"} Learn more
+    %p
+      Submit your application by filling out the information below.
+  = render 'form'

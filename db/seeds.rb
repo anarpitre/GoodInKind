@@ -1,6 +1,5 @@
 SERVICE = 1
 NON_PROFIT = 2
-=begin
 user = User.create(:email => "dummy@dummy.com", :password => "dummy123")
 user.save!
 user.confirm!
@@ -9,7 +8,6 @@ user.is_admin = true
 user.save!
 user.confirm!
 
-=end
 
 FIRSTGIVING_CATETORIES = {
   "A" => "Arts, Culture & Humanities",
@@ -62,6 +60,9 @@ SERVICE_CATEGORIES = [
 ]
 
 SERVICE_CATEGORIES.each do |name|
-  Category.create(:name => name, :category_type => SERVICE)
+  Category.create(:name => name, :category_type => SERVICE, :image_path => "cat_image")
 end
+
+# Create seed record for service area for city Ithaca
+ServiceArea.create(:city => "Ithaca", :radius => 100, :latitude => 42.4405556 , :longitude => -76.4969444)
 

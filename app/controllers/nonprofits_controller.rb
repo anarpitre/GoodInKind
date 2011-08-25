@@ -4,6 +4,7 @@ class NonprofitsController < ApplicationController
   before_filter :nonprofit_owner, :only => [:edit, :logout, :account, :transactions]
 
   layout 'nonprofit'
+  include NonprofitsHelper
   
   def index
     @head[:title] = "NonProfit Home"
@@ -20,6 +21,7 @@ class NonprofitsController < ApplicationController
   end
   
   def new
+    return redirect_to nonprofit_path(current_nonprofit) if nonprofit_logged_in?
     @head[:title] = "NonProfit"
     @nonprofit = Nonprofit.new
   end
@@ -66,7 +68,17 @@ class NonprofitsController < ApplicationController
         end
       end
     end
+    category_id = params[:nonprofit][:category_ids]
+    params[:nonprofit].delete(:category_ids)
     if @nonprofit.update_attributes(params[:nonprofit])
+      nonprofit_category = @nonprofit.nonprofit_categories
+      if nonprofit_category.blank?
+        NonprofitCategory.create(:nonprofit_id => @nonprofit.id, :category_id => category_id)
+      else
+        nonprofit_category = nonprofit_category.first
+        nonprofit_category.category_id = category_id
+        nonprofit_category.save
+      end
       flash[:notice] = "User #{@nonprofit.username} updated"
       session[:referer] = nil # cleanup first!
       redirect_to  (referer == 'account' ? account_nonprofit_path(@nonprofit) : nonprofit_path(@nonprofit) )
@@ -81,7 +93,9 @@ class NonprofitsController < ApplicationController
   end
 
   def transactions
-    @transactions = @nonprofit.services.collect(&:transactions)
+    # FIXME
+    @transactions = []
+    #@transactions = @nonprofit.services.collect(&:transactions)
   end
   
   def login
@@ -90,7 +104,7 @@ class NonprofitsController < ApplicationController
   
   def create_session 
     @nonprofit = Nonprofit.authenticate(params[:username],params[:password])
-    if @nonprofit
+    if @nonprofit && @nonprofit.is_verified == "verified"
       session[:nonprofit] = {}
       session[:nonprofit][:name] = @nonprofit.name
       session[:nonprofit][:id] = @nonprofit.id
@@ -108,6 +122,24 @@ class NonprofitsController < ApplicationController
     redirect_to root_path
   end
   
+  def search
+    @nonprofits = []
+    unless params[:text].blank?
+      result = INDEX.search(params[:text]) 
+      unless result['matches'] == 0
+        result['matches'].times do |i|
+          arr = result['results'][i]['docid'].split(':')
+          if arr.first == "Nonprofit"
+            np = Nonprofit.find(arr.last.to_i) 
+            @nonprofits << np if np.is_verified == "verified"
+          end
+        end
+        @nonprofits.flatten!
+      end
+    end
+    render :action => 'index',:locals => { :search => true }
+  end
+
   private
 
   def get_nonprofit

@@ -1,6 +1,46 @@
+:javascript
+  jQuery(document).ready(function(){
+      $(".all_review").hide();
+
+    $('.show_review').click(function(){
+      $(".review").hide();
+      $(".show_review").hide();
+      $(".all_review").show();
+    });
+    
+      $("#new_review").bind("ajax:complete", function() {
+        $("#review_review").val('');
+      });
+    
+  });
 %h3.comment_icon
   = image_tag('review_icon.png', :alt => "Review")
   %span Reviews
+- if user_signed_in?
+  %div.address_text
+    - form_for(@review, :url => review_services_path,:remote => true) do |f| 
+      %br= f.text_area :review, :rows => "5", :cols => "50" 
+      %div{:style => "margin:5px 0 5px 0;"}
+        = f.radio_button(:is_positive, true)
+        = f.label(:is_positive, "positive")
+        = f.radio_button(:is_positive, false)
+        = f.label(:is_positive, "Negative") 
+      = f.hidden_field :service_id
+      = f.submit
+%br
+%div.address_text
+  %div.review 
+    = render :partial => 'new_review'
+  %p.show_review{:style => "cursor:pointer;"} Click to see more review
+  %br
+  %div.all_review 
+    %br
+    %p ALL reviews
+    - @reviews.each do |review|
+      %div.address_text
+        %p
+          = review.user.profile.first_name
+          %br= review.review
 %p.review_content_disc= @service.reviews.first.try(:review) 
 %hr.add_hr/
 %h3.comment_icon

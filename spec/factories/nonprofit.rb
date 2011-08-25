@@ -5,7 +5,7 @@ Factory.define :nonprofit do |c|
   c.contact_name {Faker::Name.name}
   c.position "Manager"
   c.email {Faker::Internet.free_email}
-  c.sequence(:username) {Faker::Internet.user_name}
+  c.sequence(:username) {|a| "a123#{a}"}
   c.password "josh123"
   c.password_confirmation "josh123"
   c.EIN  "12345"
@@ -20,5 +20,6 @@ Factory.define :nonprofit do |c|
   c.photo_file_name "Rails.gif"
   c.photo_content_type "image/gif"
   c.photo_file_size "1000"
+  c.is_verified "verified"
 end
 

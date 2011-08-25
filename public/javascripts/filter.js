@@ -39,10 +39,10 @@ tagJS.prototype.render = function(parentNode){
 tagJS.prototype.content_tag = function(tag, attrs, content) {
   var el = document.createElement(tag);
 
-  if (attrs) $(el).attr(attrs);
+  if(attrs) $(el).attr(attrs);
   if(content){
-    if (content.constructor == Array) {
-      content.forEach(function(c) { $(el).append($(c)); });
+    if(content.constructor == Array) {
+      content.forEach(function(c) { if(c) $(el).append($(c)); });
     }
     else{
       $(el).html(content);

@@ -13,12 +13,29 @@ class ServicesController < ApplicationController
 
   def show
     @head[:title] = "My Service"
+    @review = @service.reviews.build
+    @reviews = Review.get_reviews(@service.id)
   end
 
   def new
     @head[:title] = "New Service"
     @service = Service.new
     build_objects
+    @service.nonprofit_id = params[:id] unless params[:id].blank?
+    requested_service unless params[:request_id].blank?
+  end
+
+  def newoffer
+    @service = Service.new(:title => params[:title])
+    build_objects
+    render :action => 'new'
+  end
+
+  def requested_service
+    req = Request.find(params[:request_id])
+    @service.attributes = {"title" => req.title, "description" => req.description} 
+    @service.location.address = req.location.address if req.location
+    @service.request_id = req.id
   end
 
   def edit
@@ -39,7 +56,7 @@ class ServicesController < ApplicationController
         @service.activate!
         redirect_to(thankyou_services_path, :notice => 'Service was successfully created.') 
       end
-    rescue
+    rescue 
       build_objects
       render :action => "new" 
     end
@@ -66,6 +83,24 @@ class ServicesController < ApplicationController
     @service.images.build if @service.images.blank?
     @service.categories.build if @service.categories.blank?
   end
+  
+  def search
+    @services = []
+    unless params[:text].blank?
+      result = INDEX.search(params[:text]) 
+      unless result['matches'] == 0
+        result['matches'].times do |i|
+          arr = result['results'][i]['docid'].split(':')
+          if arr.first == "Service"
+            service = Service.find(arr.last.to_i)
+            @services << service if service.status == 'active'
+          end
+        end
+        @services.flatten!
+      end
+    end
+    render 'index'
+  end
 
   def destroy
     @service.destroy
@@ -82,8 +117,18 @@ class ServicesController < ApplicationController
 
   def browse_nonprofit
     @nonprofit = Nonprofit.verified
-    #@nonprofit = Nonprofit.verifiedall
     render :layout => nil
+  end
+
+  def review
+    review = Review.new(params[:review])
+    review.user_id = current_user.id
+    review.group_number = review.service.group_number
+    review.save(false)
+    @reviews = Review.get_reviews(review.service.id)
+    respond_to do |format|
+      format.js {render :layout=>false}
+    end
   end
 
   def set_seo_tags

@@ -18,7 +18,14 @@ class User < ActiveRecord::Base
   has_one  :location, :as => :resource, :dependent => :destroy
   has_one  :profile, :dependent => :destroy
 
+  after_create :generate_permalink
+  after_create :create_profile
+  
   scope :get_dummy_user, where("email = ?", DUMMY_EMAIL) 
+
+  def to_param
+    permalink || "#{id}-#{email.split('@').first.parameterize}"
+  end
   
   def apply_omniauth(omniauth)
     self.email = omniauth['user_info']['email'] if email.blank?
@@ -31,6 +38,15 @@ class User < ActiveRecord::Base
   
   def confirmation_required?
     authentications.empty? && super
+  end
+
+  def generate_permalink
+    update_attribute(:permalink ,self.to_param)
+  end
+
+  def create_profile
+    profile = self.build_profile
+    profile.save(false)
   end
 
 end

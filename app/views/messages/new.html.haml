@@ -10,7 +10,7 @@
             %li= msg
     .setp_box
       = f.text_field :title, :label => "title"
-      = f.text_area :message, :label => "Message"
+      = f.text_area :message, :label => "Message", :class => "area_edit"
       = f.hidden_field :sender_id
       = f.hidden_field :receiver_id
       = f.hidden_field :parent_message_id

@@ -1,17 +1,30 @@
 class ProfilesController < ApplicationController
  
-  layout "home"
+  layout "service"
 
   def index
-    @profile = current_user.profile || current_user.build_profile
-    @authentications = current_user.authentications
+    @profile = current_user.profile
   end
 
-  def create
-    profile = current_user.profile || current_user.build_profile
-    profile.attributes = params[:profile]
-    profile.save
-    redirect_to :action => 'index'
+  def edit
+    @profile = current_user.profile
+    @profile.build_location if @profile.location.blank?
+  end
+
+  def update
+    begin 
+      @profile = current_user.profile
+      @profile.attributes = params[:profile]
+      @profile.save!
+      redirect_to :action => 'index'
+    rescue 
+      @profile.build_location if @profile.location.blank?
+      redirect_to :action => 'edit'
+    end
+  end
+
+  def show
+    @profile = Profile.find(params[:id])
   end
 
 end

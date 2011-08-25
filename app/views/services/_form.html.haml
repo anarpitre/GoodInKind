@@ -66,7 +66,7 @@
       Want to copy information from an offer you made previously?
       %a{:href => "#"} Click here
   - else
-%a.bro_req_btn{:href => "#"} Browse Requests
+%a.bro_req_btn{:href => requests_path} Browse Requests
 .offer_form
   = form_for @service, :builder => JoshForm, :html => {:multipart => true} do |f|
     - if @service.errors.any?
@@ -83,7 +83,7 @@
         Describe the service or experience you want to offer
       = f.text_field :title, :hint => "Give short and sweet Title to your Service"
       = f.text_area :description, :class => 'input_area', :hint => "Give detail Description of your Service"
-      = f.collection_select :category_ids, Category.by_services, :id, :name, {:selected => @service.service_categories.collect(&:category_id)}, { :multiple => true, :class => "input_select", :style => "height:100px;width:530px;", :hint => "Select one or more categories matching your service", :label => "Category *" }
+      = f.collection_select :category_ids, Category.by_services.order("name"), :id, :name, {:selected => @service.service_categories.collect(&:category_id)}, { :multiple => true, :class => "input_select", :style => "height:100px;width:530px;", :hint => "Select one or more categories matching your service", :label => "Category *" }
     .setp_box
       %h3.setp_box_heading
         %span Step 2:
@@ -129,26 +129,28 @@
           = f.text_field :end_time, :id => 'dt_time_end', :value => gik_formatted_time(@service.end_time), :class => "input_small"
       %p
         %span.setp_two_col
-          = f.text_field :booking_capacity,  :class => "input_small"
+          = f.text_field :booking_capacity,  :class => "input_small", :hint => "0 indicates no limit"
         %span.setp_two_col
-          = f.text_field :estimated_duration,  :label => "Estimated Duration (min)", :class => "input_small"
+          = f.text_field :estimated_duration,  :label => "Estimated Duration", :class => "input_small", :hint => "Duration should be in minutes"
     .setp_box
       %h3.setp_box_heading
         %span Step 5:
         What is the requested donation amount for this service?
       %p
-        = f.text_field :amount, :label => "Amount ($)", :class => "input_small"
+        = f.text_field :amount, :label => "Amount ($)", :class => "input_small", :hint => "Min donation amount $5"
     .setp_box
       %h3.setp_box_heading
         %span Step 6:
         Add Picture illustrating your service
       %p
         = f.fields_for :images do |photo|
-          - if photo.object.new_record?
-            = photo.file_field :image, :class => "input_browse"
-          - else
-            = link_to( image_tag(photo.object.image.url(:small_thumb)), photo.object.image.url(:original) )
+          = photo.file_field :image, :class => "input_browse", :type => "file", :label => "Select an Image"
+      %p
+        = f.fields_for :images do |photo|
+          - unless photo.object.new_record?
+            = link_to( image_tag(photo.object.image.url(:thumb)), photo.object.image.url(:medium) )
             = photo.check_box :_destroy
+            Remove Photo
     .setp_box
       %h3.setp_box_heading
         %span Step 7:
@@ -160,6 +162,7 @@
         %li
           = f.radio_button(:is_public, false)
           = f.label(:is_public, "Don't post this on the site. I will share it with and only those I share it with will be able to access it")
+          = f.hidden_field :request_id
     .input_post_div
       = f.submit "Post It", :class => "btn_form button form_post_btn"
       %p You will be able to share it afterwards

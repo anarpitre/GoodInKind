@@ -18,7 +18,7 @@
           %span.np_info_text= @nonprofit.EIN
         %p
           = f.label "Category"
-          = f.select :category_ids, Category.by_nonprofits.collect{|b| [ b[:name] , b[:id] ]}, :class => "edit_input"
+          = f.select :category_ids, Category.by_nonprofits.order("name").collect{|b| [ b[:name] , b[:id] ]}, :class => "edit_input"
         %p
           %label Website:
           = f.text_field :website, :class => "edit_input"

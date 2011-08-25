@@ -1,9 +1,10 @@
 Gik::Application.routes.draw do
 
+  match 'service/search' => 'services#search'
 
   match '/auth/:provider/callback' => 'authentications#create'
   match '/auth/failure' => 'dashboard#index'
-  
+
   devise_for :users, :controllers => {:sessions => :sessions, :registrations => :registrations, :confirmations => :confirmations} 
 
   resources :dashboard 
@@ -14,6 +15,7 @@ Gik::Application.routes.draw do
     collection do
       get :login, :logout
       post :create_session
+      post :search
     end
     member do
       match :change_password, :account
@@ -28,6 +30,8 @@ Gik::Application.routes.draw do
       get :autocomplete_nonprofit_name
       get :thankyou
       get :browse_nonprofit
+      post :review
+      post :newoffer
     end
   end
 
@@ -37,7 +41,7 @@ Gik::Application.routes.draw do
     end
   end
 
-
+  resources :requests
 
 
 

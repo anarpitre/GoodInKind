@@ -18,24 +18,20 @@
         = link_to "", "#", :target => "_blank", :title => "Twitter", :class => "pl_sn tw_pl"
         = link_to "", "#", :target => "_blank", :title => "Linkedin", :class => "pl_sn ln_pl"
     %p
-      - if @service.user.profile.try(:total_reviews) > 0
-        -positive = (@service.user.profile.try(:positive_reviews)* 100) / @service.user.profile.try(:total_reviews)
-      - else
-        -positive = @service.user.profile.try(:positive_reviews)
       %span.pl_left Reviews:
-      %span.pl_right= positive.to_i.to_s + "% Positive"
+      %span.pl_right= @service.user.profile.total_reviews == 0 ? "---" : (@service.user.profile.positive_reviews * 100 / @service.user.profile.total_reviews).to_i.to_s + " % Positive"
     %p
       %span.pl_left Transactions:
       %span.pl_right= @service.user.profile.try(:donated_transaction)
     %p
       %span.pl_left Raised:
-      %span.pl_right=  "$" + @service.user.profile.try(:donated_amount).to_i.to_s
+      %span.pl_right=  "$ " + @service.user.profile.try(:donated_amount).to_i.to_s
     %p
       %span.pl_left Description:
       %span.pl_right
-        = @service.user.profile.try(:about_me)
+        = truncate(@service.user.profile.try(:about_me), :length => 100)
   %p.pl_view_more
-    = link_to "View Profile", "#"
+    = link_to "View Profile", profile_path(@service.user.profile)
     %br
     - if current_user
       %br= link_to "Message me" , new_message_path(:id => @service.user.id)

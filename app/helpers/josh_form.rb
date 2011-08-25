@@ -11,12 +11,12 @@ class JoshForm < ActionView::Helpers::FormBuilder
 
   def cancel(options={})
     link = options.fetch(:return, "/")
-    @template.content_tag(:a, "Cancel", :href => link, :class => "btn_form button np_cancel_btn")
+    @template.content_tag(:a, "Cancel", :href => link, :class => "btn_form button np_cancel_btn #{options[:class]}")
   end
 
   def submit(value="Save", options={})
-    options[:class] = "btn_form button"
-    value = options.delete(:label) if options[:label] 
+    options[:class] = "btn_form button #{options[:class]}"
+    #value = options.delete(:label) if options[:label] 
     super
   end
 
@@ -27,7 +27,7 @@ class JoshForm < ActionView::Helpers::FormBuilder
     define_method(method_name) do |attribute, *args|
 
       #default args (an array with the hash as the last argument)
-      args = [{}] unless args
+      args = [{}] unless args.last
 
       # Bypass form-builder and do your own custome stuff!
       return super if args.last.is_a?(Hash) && args.last.delete(:skip)
@@ -39,11 +39,12 @@ class JoshForm < ActionView::Helpers::FormBuilder
         label_txt = args.last[:label]
       end
 
-      if ['password_field', 'text_field', 'text_area'].include?(method_name)
-        args.last[:class] = "form_input_full #{css_class}" 
+      if ['password_field', 'text_field', 'text_area', 'file_field'].include?(method_name)
+        args.last[:class] = "form_input_full #{css_class}"
       end
 
       base_tag = super(attribute, *args)
+      
       # Incase its a mandatory field, the '*' is added to the field.
       label_tag = label("#{label_txt or attribute.to_s.titleize} #{"*" if required(attribute)}", :class => CSS[:label]) 
 
@@ -58,12 +59,13 @@ class JoshForm < ActionView::Helpers::FormBuilder
         all_tags
       else
         # Wrap all the form fields inside a <p> tag and add a lable to them
-        @template.content_tag(:p, all_tags)
+        @template.content_tag(:p, all_tags) 
       end
     end
   end
 
-  helpers = %w[text_field text_area password_field select file_field collection_select ]
+  helpers = %w[text_field text_area password_field file_field collection_select ]
+  #helpers = %w[text_field text_area password_field select file_field collection_select ]
   helpers.each do |name|
     create_tagged_field(name)
   end
