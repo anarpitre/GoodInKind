@@ -41,6 +41,10 @@ class Booking < ActiveRecord::Base
     # Send email to user and service offerer about this
   end
 
+  def cardonfile
+    self.user.try(:cc_token)
+  end
+
   private
 
   # Mref is the merchant reference. It can be considered as the permalink

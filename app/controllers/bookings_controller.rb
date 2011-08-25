@@ -9,6 +9,19 @@ class BookingsController < ApplicationController
   def new
     @booking = @service.bookings.new
 
+    # If the user has some previous bookings, we can re-use the billing info
+    prev = current_user.bookings.last
+    if prev
+      @booking.accountName = prev.accountName
+      @booking.billToCity = prev.billToCity
+      @booking.billToState = prev.billToState
+      @booking.billToZip = prev.billToZip
+      @booking.billToCountry = prev.billToCountry
+      @booking.billToAddressLine1 = prev.billToAddressLine1
+      @booking.billToAddressLine2 = prev.billToAddressLine2
+      @booking.billToAddressLine3 = prev.billToAddressLine3
+    end
+
     @cardonfile = current_user.cc_token.credit_card if current_user.cc_token
 
     @cc = ActiveMerchant::Billing::CreditCard.new
@@ -17,12 +30,17 @@ class BookingsController < ApplicationController
 
   # POST /services/:service_id/bookings/:id
   def create
-    @booking = @service.bookings.new(params[:booking])
+    # remove the transient param :cardonfile
+    # Keep a copy, so that :new action will not get impacted
+    booking_params = params[:booking].dup
+    cardonfile = booking_params.delete(:cardonfile)
+
+    @booking = @service.bookings.new(booking_params)
     @booking.user = current_user #TODO: fix for non-logged in users?
 
     # If no params[:cc], check if the user already had a token 
     # and if the user does have one, process the payment.
-    if CARD_ON_FILE_SUPPORTED and params[:booking][:cardonfile] == true
+    if CARD_ON_FILE_SUPPORTED and cardonfile == "true"
       # Verify if user REALLY has card on file and use it
       if current_user.cc_token
         @booking.cc_captured
@@ -57,6 +75,8 @@ class BookingsController < ApplicationController
         #TODO: Process payment using standard donation API
       end
     end
+
+    render :text => "what the fuck - it worked!"
   end
 
 private

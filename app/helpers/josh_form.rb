@@ -15,7 +15,7 @@ class JoshForm < ActionView::Helpers::FormBuilder
   end
 
   def submit(value="Save", options={})
-    options[:class] = "btn_form button #{options[:class]}"
+    options[:class] = "btn_form button form_post_btn #{options[:class]}"
     #value = options.delete(:label) if options[:label] 
     super
   end
@@ -55,7 +55,7 @@ class JoshForm < ActionView::Helpers::FormBuilder
 
       all_tags = label_tag + base_tag + hint_tag
       
-      if css_class =~ /input_small/
+      if css_class =~ /input_small|input_tiny/
         all_tags
       else
         # Wrap all the form fields inside a <p> tag and add a lable to them

@@ -30,6 +30,7 @@ group :development, :test do
  #gem 'pg'
 #gem 'mysql2', '= 0.2.8'
  gem 'mysql2', '= 0.2.8'
+ gem 'mongrel', '1.2.0.pre2'
 end
 # Use unicorn as the web server
 # gem 'unicorn'
