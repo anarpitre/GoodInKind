@@ -1,5 +1,8 @@
 class ProfilesController < ApplicationController
- 
+  
+  before_filter :authenticate_user!, :only => [:edit, :index]
+  before_filter :is_owner, :only => [:edit]
+  
   layout "service"
 
   def index
@@ -24,7 +27,17 @@ class ProfilesController < ApplicationController
   end
 
   def show
-    @profile = Profile.find(params[:id])
+    @profile = User.find(params[:id]).profile
+  end
+
+  private
+
+  def is_owner
+    user = User.find(params[:id]) 
+    unless user == current_user
+      flash[:notice] = "You do not have sufficent privileges."
+      redirect_to profile_path(user) 
+    end    
   end
 
 end

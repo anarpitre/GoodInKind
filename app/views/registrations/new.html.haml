@@ -1,20 +1,47 @@
-%h2 Sign up GIk
-= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
-  = devise_error_messages!
-  %p
-    = f.label :email
-    %br/
-    = f.email_field :email
-  - if @user.password_required?
+
+:javascript
+  $(document).ready(function(){
+  	$(".sign_up_form").hide();
+  	$(".sign_reg_link").click(function(){
+  		$(this).toggleClass("").next().slideToggle("fast");
+  		return false;
+  	});
+   
+  });
+.sign_up_bg
+  .sing_up_fb
+    = link_to image_tag('fb_signup_btn.png'), "/auth/facebook"
     %p
-      = f.label :password
-      %br/
-      = f.password_field :password
-    %p
-      = f.label :password_confirmation
-      %br/
-      = f.password_field :password_confirmation
-  %p= f.submit "Sign up"
-= render :partial => "/layouts/shared/social_network"
-%br/
-= render :partial => "devise/shared/links"
+      We will
+      %strong
+        %em never
+      post to you wall without your permission. Signing up with facebook will allow you to access cool features like looking at activity from your friends.
+  %span.sign_up_form_t_c
+    By clicking Sign Up you agree to our user
+    %a{:href => "#"} terms and conditions
+  %a.sign_reg_link{:href => "#"} Or Sign up using our registration form
+  .sign_up_form
+    = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+      %p
+        = f.label :email,  :class => "sign_up_form_lbl"
+        = f.email_field :email, :class => "sign_up_form_inp"
+      = f.fields_for :profile do |profile|
+        %p
+          = profile.label :first_name, :class => "sign_up_form_lbl"
+          = profile.text_field :first_name, :class => "sign_up_form_inp"
+        %p
+          = profile.label :last_name, :class => "sign_up_form_lbl"
+          = profile.text_field :last_name, :class => "sign_up_form_inp"
+      - if @user.password_required?
+        %p
+          = f.label :password, :class => "sign_up_form_lbl"
+          = f.password_field :password, :class => "sign_up_form_inp"
+        %p
+          = f.label :password_confirmation, :class => "sign_up_form_lbl"
+          = f.password_field :password_confirmation, :class => "sign_up_form_inp"
+      %span.sign_up_form_t_c
+        By clicking Sign Up you agree to our user
+        %a{:href => "#"} terms and conditions
+      = f.submit "Sign Up", :class => "sign_up_form_btn btn_form button"
+
+
