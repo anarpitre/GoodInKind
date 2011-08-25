@@ -1,35 +1,65 @@
-%h3 Unread
-- counter = 0
-- unless @unread_message.blank?
-  - @unread_message.each do |msg|
-    %table
-      - if counter == 0
-        %tr
-          %th{:style => "width:40px;"} Replied
-          %th{:style => "width:40px;"} name
-          %th{:style => "width:40px;"} title
-          %th{:style => "width:40px;"} date
-      %tr
-        %td{:style => "width:40px;"}= msg.is_replied
-        %td{:style => "width:60px;"}= msg.sender.profile.first_name
-        %td{:style => "width:100px;"}= link_to msg.title, message_path(msg.id)
-        %td{:style => "width:40px;"}= msg.created_at.strftime("%m-%d-%y")
-      -  counter += 1
-%h3 Read
-- counter = 0
-- unless @read_message.blank?
-  - @read_message.each do |msg|
-    %table
-      - if counter == 0
-        %tr
-          %th Replied
-          %th name
-          %th title
-          %th date
-      %tr
-        %td{:style => "width:40px;"}= msg.is_replied
-        %td{:style => "width:60px;"}= msg.sender.profile.first_name
-        %td{:style => "width:100px;"}= link_to msg.title, message_path(msg.id)
-        %td{:style => "width:40px;"}= msg.created_at.strftime("%m-%d-%y")
-      - counter += 1
+
+#tab4.tab_content
+  .up_profile
+    %h2
+      Purchased by me:
+      %span.msg_status
+        (
+        %strong= @unread_message.size 
+        unread message, Showing
+        %strong= @read_message.size 
+        out of
+        - total_message = @unread_message.size + @read_message.size
+        %strong= total_message
+        )
+    %table.up_table.mail_box{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+      %tr.up_tab_top
+        %th
+          %span From
+        %th
+          %span Subject
+        %th Received
+        %th Replied?
+      - counter = 0
+      - unless @unread_message.blank?
+        - @unread_message.each do |msg|
+          %tr.mail_un_red
+            %td
+              %span= msg.sender.profile.first_name
+            %td
+              %span.mail_sub
+                = link_to msg.title, message_path(msg.id)
+            %td= msg.created_at.strftime("%m/%d/%y")
+            %td
+          - counter += 1
+      - counter = 0
+      - unless @read_message.blank?
+        - @read_message.each do |msg|
+          %tr.mail_red
+            %td
+              %span= msg.sender.profile.first_name 
+            %td
+              %span.mail_sub
+                = link_to msg.title, message_path(msg.id)
+            %td= msg.created_at.strftime("%m/%d/%y")
+            %td 08/18/2011
+          - counter += 1    
+    .mail_page.pagination
+      %span « Previous
+      %span{:style => "background:#134d7f; color:#FFF;"} 1
+      %a{:href => "#"} 2
+      %a{:href => "#"} 3
+      %a{:href => "#"} 4
+      %a{:href => "#"} 5
+      %a{:href => "#"} 6
+      %a{:href => "#"} 7
+      %a{:href => "#"} 8
+      %a{:href => "#"} 9
+      %strong ...
+      %a{:href => "#"} 50
+      %a{:href => "#"} Next »
+/ End Tab 4
+
+
+
 
