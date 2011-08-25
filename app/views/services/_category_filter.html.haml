@@ -3,8 +3,8 @@
   %ul{:id => 'category_list'}
     %li
       %input{:type => "checkbox", :id => 'category_all', :value => 'all'}/
-      %span All (#{Service.count})
-    - Category.by_services.each do |category|
+      %span All (#{@services.length})
+    - Category.by_services.where("service_count > 0").order("name").each do |category|
       %li
         %input{:type => "checkbox", :id => "category_#{category.id}", :value => category.id}/
         %span= "#{category.name} (#{category.service_count})"

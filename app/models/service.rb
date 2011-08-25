@@ -3,7 +3,7 @@ class Service < ActiveRecord::Base
   include AASM
   
   belongs_to  :user
-  belongs_to :nonprofit
+  belongs_to :nonprofit 
   belongs_to :request
   has_one :location, :as => :resource,:dependent => :destroy
   has_many :reviews
@@ -27,6 +27,20 @@ class Service < ActiveRecord::Base
   
   after_create :generate_permalink
 
+  after_save { |service|
+    change_nonprofit = service.nonprofit_id_change
+    if(change_nonprofit)
+       if(change_nonprofit[0])
+        nonprofit = Nonprofit.find(change_nonprofit[0]);
+        nonprofit.categories.collect{|c| Category.decrement_counter(:service_count, c.id) }
+       end
+       if(change_nonprofit[1])
+        nonprofit = Nonprofit.find(change_nonprofit[1]);
+        nonprofit.categories.collect{|c| Category.increment_counter(:service_count, c.id) }
+       end
+    end
+  }
+
   aasm_column :status
   aasm_initial_state :pending
   aasm_state :pending
@@ -42,7 +56,7 @@ class Service < ActiveRecord::Base
   end
 
   def to_param
-    permalink || "#{id}-#{title.parameterize}"
+    self.permalink || "#{id}-#{title.parameterize}"
   end
 
   def check_categories
@@ -60,7 +74,8 @@ class Service < ActiveRecord::Base
     options ||= {}
     options[:except] = [:description, :created_at, :updated_at]
     options[:methods] = [:to_param, :thumbnail]
-    options[:include] = {:nonprofit => {:only => :name}, :service_categories => {:only => :category_id}}
+    options[:include] = {:nonprofit => {:only => :name, :include => {:nonprofit_categories => {:only => :category_id}}},
+      :service_categories => {:only => :category_id}}
     super
   end
 

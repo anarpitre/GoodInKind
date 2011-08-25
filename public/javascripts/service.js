@@ -52,7 +52,7 @@ function serviceRenderInit(){
   var view = function(service){
     var spot_content = spots(service);
     var day_content = day_left(service);
-    var service_title = service.title.length < 22 ? service.title : service.title.substring(0,22) +'...';
+    var service_title = service.title.length < 21 ? service.title : service.title.substring(0,21) +'...';
     
     this.tags.clear     = this.div({'class': 'clear'});
     this.tags.s_image   = this.image(service.thumbnail, {'class': 'fs_box_pic' });
@@ -74,10 +74,11 @@ function serviceRenderInit(){
   var settings = {
       filter_criteria: {
           category: ['#category_list input:checkbox .EVENT.click .SELECT.:checked', 'service_categories.ARRAY.category_id'],
-          nonprofit: ['#nonprofit_list input:checkbox .EVENT.click .SELECT.:checked' , 'nonprofit_id'],
+          nonprofit: ['#nonprofit_list input:checkbox .EVENT.click .SELECT.:checked' , 'nonprofit.nonprofit_categories.ARRAY.category_id'],
           price: ['#price_list input:checkbox .EVENT.click .SELECT.:checked .TYPE.range', 'amount']
           }
       };
 
   var tJS = new tagJS(services, "#service_list", view, settings);
 }
+
