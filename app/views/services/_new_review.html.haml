@@ -1,6 +1,8 @@
-- 3.times do |i|
+- 10.times do |i|
   - unless @reviews[i].blank?
-    %div.address_text
+    %h3
+      %span.positive= @reviews[i].is_positive == true ? "Positive" : "Negative"
+      by
+      %span.ss_name=  @reviews[i].user.profile.first_name
       %p
-        = @reviews[i].user.profile.first_name
-        %br= @reviews[i].review
+        = @reviews[i].review
