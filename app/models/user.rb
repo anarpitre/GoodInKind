@@ -5,10 +5,10 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,:confirmable#, :omniauthable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
-
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :profile_attributes 
+  
   has_many :reviews
-
+  
   has_many :sent_messages, :class_name => 'Message', :foreign_key => :sender_id, :dependent => :destroy
   has_many :received_messages, :class_name => 'Message', :foreign_key => :receiver_id, :dependent => :destroy
 
@@ -18,8 +18,9 @@ class User < ActiveRecord::Base
   has_one  :location, :as => :resource, :dependent => :destroy
   has_one  :profile, :dependent => :destroy
 
+  accepts_nested_attributes_for :profile, :allow_destroy => true
+  
   after_create :generate_permalink
-  after_create :create_profile
   
   scope :get_dummy_user, where("email = ?", DUMMY_EMAIL) 
 
@@ -29,6 +30,10 @@ class User < ActiveRecord::Base
   
   def apply_omniauth(omniauth)
     self.email = omniauth['user_info']['email'] if email.blank?
+    if omniauth['provider'] == 'facebook'
+      self.profile.first_name = omniauth['user_info']['first_name'] 
+      self.profile.last_name = omniauth['user_info']['last_name'] 
+    end
     authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'])
   end
 
@@ -42,11 +47,6 @@ class User < ActiveRecord::Base
 
   def generate_permalink
     update_attribute(:permalink ,self.to_param)
-  end
-
-  def create_profile
-    profile = self.build_profile
-    profile.save(false)
   end
 
 end
