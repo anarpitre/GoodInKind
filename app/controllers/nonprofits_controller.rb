@@ -37,8 +37,8 @@ class NonprofitsController < ApplicationController
     logger.info(params[:nonprofit])
     @nonprofit = Nonprofit.new(params[:nonprofit])
     if @nonprofit.save
-      flash[:notice] = "User #{@nonprofit.username} created"
-      redirect_to  :action => 'login'
+      flash[:notice] = "Thank you for submitting your application to become a non-profit partner"
+      redirect_to  root_path
     else
       render :action => :new
     end
@@ -102,6 +102,7 @@ class NonprofitsController < ApplicationController
   
   def login
     @head[:title] = "non-profit partners login"
+    render :layout => "nonprofit_signin"
   end
   
   def create_session 

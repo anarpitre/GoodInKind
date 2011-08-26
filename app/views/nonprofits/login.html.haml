@@ -1,17 +1,16 @@
-.main_login_box
-  %h2 Non-Profit Partners Login
-  = form_tag(:action => 'create_session') do
-    %p
-      = label_tag "Username:"
-      = text_field_tag :username, nil, :class => "login_box_txt"
-    %p
-      = label_tag "Password:"
-      = password_field_tag :password, nil, :class => "login_box_txt"
-    %p.login_box_bottom
-      = link_to "Forgot Password?", "#"
-      %br/
-      = link_to "Forgot Username?", "#"
-      = submit_tag "Login", :class => "btn_form bu_right button"
-  %p.main_login_bottom
-    Don't have a GoodInKind partner account?
-    = link_to "Create one today", new_nonprofit_path
+%h2 Non-Profit Partners Login
+= form_tag(:action => 'create_session') do
+  %p
+    = label_tag "Username:"
+    = text_field_tag :username, nil, :class => "login_box_txt"
+  %p
+    = label_tag "Password:"
+    = password_field_tag :password, nil, :class => "login_box_txt"
+  %p.login_box_bottom
+    = link_to "Forgot Password?", "#"
+    %br/
+    = link_to "Forgot Username?", "#"
+    = submit_tag "Login", :class => "btn_form bu_right button"
+%p.main_login_bottom
+  Don't have a GoodInKind partner account?
+  = link_to "Create one today", new_nonprofit_path

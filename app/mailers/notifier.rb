@@ -9,4 +9,11 @@ class Notifier < ActionMailer::Base
          :subject => "A User form #{city}  wants to offer and purchase virtual services regardless of his location")
   end
 
+  def nonprofit_invitation(email, name)
+    @nonprofit_name = name
+    @nonprofit_email = email
+    mail(:from => "contact@goodinkind.com",
+         :to => email,
+         :subject => "Nonprofit Application")
+  end
 end

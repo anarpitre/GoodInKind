@@ -36,7 +36,7 @@ class Nonprofit < ActiveRecord::Base
   attr_protected :hashed_password, :salt
 
   before_create :create_hash_password
-  after_create :generate_permalink
+  after_create :generate_permalink, :send_invitation
   after_create :add_index
 
   ###  AASM transition ###
@@ -106,6 +106,10 @@ class Nonprofit < ActiveRecord::Base
 
   def generate_permalink
     update_attribute(:permalink ,self.to_param)
+  end
+
+  def send_invitation
+    Notifier.nonprofit_invitation(self.email, self.contact_name).deliver
   end
   
   def add_index

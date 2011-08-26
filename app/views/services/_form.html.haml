@@ -23,7 +23,6 @@
     })
     $('#service_is_virtual').click(function(){
       is_virtual($("#service_is_virtual").is(':checked'))
-      $('.address').toggle();
     });
     
     $('#service_is_schedulelater').click(function(){
@@ -38,9 +37,11 @@
   {
     if (flag){
       $('#service_location_attributes_address').attr('disabled', 'disabled');  
+      $('.address').hide();
       }
     else{
       $('#service_location_attributes_address').removeAttr('disabled');
+      $('.address').show();
     }
   }
 
