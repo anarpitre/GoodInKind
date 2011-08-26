@@ -146,7 +146,7 @@ class NonprofitsController < ApplicationController
 
   def forgot_password
     if request.post?
-      nonprofit = Nonprofit.find_by_email(params[:nonprofit][:email])
+      nonprofit = Nonprofit.find_by_username(params[:nonprofit][:username])
       if nonprofit
         nonprofit.reset_password_token = ActiveSupport::SecureRandom.hex(10)
         nonprofit.save(:validate => false)
