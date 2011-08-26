@@ -1,7 +1,11 @@
 - content_for :tab_content do
   .featured_services_find
-    - unless user_signed_in?
-      = link_to "I am a Non-Profit", login_nonprofits_path, :class => 'bro_req_btn'
+    - if nonprofit_logged_in?
+      = link_to "I am a Non-Profit", nonprofit_path(current_nonprofit), :class => 'bro_req_btn'
+    - else
+      - unless user_signed_in?
+        = link_to "I am a Non-Profit", login_nonprofits_path, :class => 'bro_req_btn'
+
     %h2.fs_find_h2
       Non-Profit Partners
       %br/

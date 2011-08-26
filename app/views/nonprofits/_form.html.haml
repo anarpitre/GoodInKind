@@ -2,22 +2,22 @@
 :javascript
   $(document).ready(function() {
       var term = $('#Accept').val();
-      is_schedulelater(term);
+      is_termandcondition(term);
 
   });
 
 
   jQuery(document).ready(function(){
-     $('#Accept').attr('checked',false) 
-      $('#nonprofit_submit').hide(); 
+    $('#Accept').attr('checked',false) 
+     $('#nonprofit_submit').hide(); 
     $('#Accept').click(function(){
-      is_schedulelater($("#Accept").is(':checked'))
+     is_termandcondition($("#Accept").is(':checked'))
          
     });
   
   });
 
-  function is_schedulelater(flag)
+  function is_termandcondition(flag)
   {
     if (flag){
       $('#nonprofit_submit').show(); 
@@ -61,13 +61,15 @@
       = f.text_field :phone_number, :class => "input_np"
       = f.text_field :cell_phone, :class => "input_np"
       %ul.input_radio_nav
+        %br/
         %li
           = check_box_tag "Accept",  "false", "true" 
           &nbsp;&nbsp;
           %span
-            I agree to the
-            = link_to('terms and conditions', '#')
-            on behalf of my organization
+            %strong
+              I agree to the
+              = link_to('terms and conditions', '#')
+              on behalf of my organization
 
     .input_post_div
       %p By clicking "Submit Application", you are confirming that you are an official representative of the organization for which you are applying.

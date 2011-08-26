@@ -8,7 +8,7 @@
     %ul{:id => 'category_list'}
       %li
         %input{:type => "checkbox", :id => 'category_all'}/
-        &nbsp;&nbsp;All (#{Nonprofit.count})
+        &nbsp;&nbsp;All (#{Nonprofit.verified.count})
       - Category.by_nonprofits.where("nonprofit_count > 0").order("name").each do |category|
         %li
           %input{:type => "checkbox"}/

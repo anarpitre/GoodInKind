@@ -109,7 +109,7 @@ class Nonprofit < ActiveRecord::Base
   end
 
   def send_invitation
-    Notifier.nonprofit_invitation(self.email, self.contact_name).deliver
+    Notifier.nonprofit_invitation(self.email, self.contact_name, self.name).deliver
   end
   
   def add_index
