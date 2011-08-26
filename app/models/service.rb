@@ -80,7 +80,7 @@ class Service < ActiveRecord::Base
   end
 
   def thumbnail
-    self.images.any? ? self.images.first.image.url(:thumb) : '/images/missing/service.jpg'
+    self.images.any? ? self.images.first.image.url(:thumb) : "/images/category/#{self.categories.first.image_path}_thumb.jpg"
   end
 
   def generate_permalink
