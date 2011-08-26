@@ -1,6 +1,6 @@
 class NonprofitsController < ApplicationController
   before_filter :set_seo_tags
-  before_filter :get_nonprofit, :except => [:new, :create, :login, :create_session]
+  before_filter :get_nonprofit, :except => [:new, :create, :login, :create_session, :forgot_password, :reset_password, :update_password]
   before_filter :nonprofit_owner, :only => [:edit, :logout, :account, :transactions]
 
   layout 'nonprofit'
@@ -143,6 +143,60 @@ class NonprofitsController < ApplicationController
     render :action => 'index',:locals => { :search => true }
   end
 
+
+  def forgot_password
+    if request.post?
+      nonprofit = Nonprofit.find_by_email(params[:nonprofit][:email])
+      if nonprofit
+        nonprofit.reset_password_token = ActiveSupport::SecureRandom.hex(10)
+        nonprofit.save(:validate => false)
+        Notifier.reset_password_instructions(nonprofit).deliver
+        flash[:notice] = "Email was sent successfully"
+        redirect_to '/'
+      else
+        flash[:notice] = "User not found"
+        render :action => 'forgot_password'
+      end
+    end
+  end
+
+  def reset_password
+    get_nonprofit_reset_token
+    #@nonprofit.clean_up_passwords
+    unless @nonprofit
+      flash[:notice] = "Password is already changed"
+      redirect_to :action => 'login'
+    end
+  end
+
+  def update_password
+    get_nonprofit_reset_token
+    if (params[:nonprofit][:password] == params[:nonprofit][:password_confirmation]) and !params[:nonprofit][:password].blank?
+      @nonprofit.send(:update_password, params[:nonprofit][:password])   
+      @nonprofit.reset_password_token = nil
+      @nonprofit.save(:validate => false)
+      flash[:notice] = "Your password was changed successfully."
+      redirect_to :action => 'login'
+    else
+      flash[:notice] = "Password didnot match"
+      render :action => 'reset_password'
+    end
+  end
+
+  def forgot_username
+    if request.post?
+      nonprofit = Nonprofit.find_by_email(params[:nonprofit][:email])
+      if nonprofit
+        Notifier.send_username(nonprofit).deliver
+        flash[:notice] = "Email was sent successfully"
+        redirect_to '/'
+      else
+        flash[:notice] = "User not found"
+        render :action => 'forgot_username'
+      end
+    end
+  end
+
   private
 
   def get_nonprofit
@@ -161,6 +215,10 @@ class NonprofitsController < ApplicationController
   def nonprofit_owner
     return true if session[:nonprofit] and (session[:nonprofit][:id] == @nonprofit.try(:id))
     redirect_to login_nonprofits_path
+  end
+
+  def get_nonprofit_reset_token
+    @nonprofit = Nonprofit.find_by_reset_password_token(params[:reset_password_token] || params[:nonprofit][:reset_password_token])
   end
 
 end

@@ -15,4 +15,18 @@ class Notifier < ActionMailer::Base
          :to => email,
          :subject => "Your GoodInKind partner application for #{name}")
   end
+  def reset_password_instructions(nonprofit)
+    @nonprofit = nonprofit
+    mail(:from => "emailalerts@goodinkind.com",
+         :to => nonprofit.email,
+         :subject => "Your GoodInKind Reset password instructions")
+  end
+  
+  def send_username(nonprofit)
+    @nonprofit = nonprofit
+    mail(:from => "emailalerts@goodinkind.com",
+         :to => nonprofit.email,
+         :subject => "Your GoodInKind username")
+  end
+
 end

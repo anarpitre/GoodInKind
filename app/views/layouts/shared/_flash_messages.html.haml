@@ -1,0 +1,6 @@
+- if flash[:notice]
+  :javascript
+    $(function() {
+      jQuery.facebox("#{flash[:notice]}");
+    });
+  - flash[:notice] = nil
