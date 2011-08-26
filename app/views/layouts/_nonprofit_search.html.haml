@@ -9,8 +9,8 @@
       %li
         %input{:type => "checkbox", :id => 'category_all'}/
         &nbsp;&nbsp;All (#{Nonprofit.count})
-      - Category.by_nonprofits.where("service_count > 0").order("name").each do |category|
+      - Category.by_nonprofits.where("nonprofit_count > 0").order("name").each do |category|
         %li
           %input{:type => "checkbox"}/
           &nbsp;
-          = "#{truncate(category.name, :length => 25)} (#{category.service_count})"
+          = "#{truncate(category.name, :length => 25)} (#{category.nonprofit_count})"
