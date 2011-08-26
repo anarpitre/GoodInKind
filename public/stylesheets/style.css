@@ -1122,6 +1122,7 @@ h2.offer_form_h2 span a {
 }
 .input_browse {
 	float:left;
+	height:25px;
 	margin-left:10px;
 }
 .input_radio_nav {
