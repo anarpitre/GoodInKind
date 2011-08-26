@@ -54,21 +54,18 @@ function serviceRenderInit(){
     var day_content = day_left(service);
     var service_title = service.title.length < 21 ? service.title : service.title.substring(0,21) +'...';
     
-    this.tags.clear     = this.div({'class': 'clear'});
-    this.tags.s_image   = this.image(service.thumbnail, {'class': 'fs_box_pic' });
-    this.tags.tag_spots = spot_content ? this.div({'class': 'tag_spots'}, spot_content) : null;
-    this.tags.tag_day   = day_content ? this.div({'class': 'tag_day'}, day_content) : null;
-    this.tags.fs_price  = this.div({'class': 'fs_price'}, '$' + service.amount );
-    this.tags.fs_head   = this.span({'class': 'fs_head'}, service_title);
-    this.tags.fs_for    = this.span({'class': 'fs_for'}, 'for');
-    this.tags.fs_disc   = this.span({'class': 'fs_disc'}, service.nonprofit.name);
-    this.tags.fs_left   = this.div({'class': 'fs_left'}, [this.tags.fs_head, this.tags.fs_for, this.tags.fs_disc]);
-    this.tags.fs_box    = this.div({'class': 'fs_box'}, [this.tags.tag_spots, this.tags.tag_day, this.tags.s_image,
-        this.tags.fs_left, this.tags.fs_price, this.tags.clear ] );
+    clear     = this.div({'class': 'clear'});
+    s_image   = this.image(service.thumbnail, {'class': 'fs_box_pic' });
+    tag_spots = spot_content ? this.div({'class': 'tag_spots'}, spot_content) : null;
+    tag_day   = day_content ? this.div({'class': 'tag_day'}, day_content) : null;
+    fs_price  = this.div({'class': 'fs_price'}, '$' + service.amount );
+    fs_head   = this.span({'class': 'fs_head'}, service_title);
+    fs_for    = this.span({'class': 'fs_for'}, 'for');
+    fs_disc   = this.span({'class': 'fs_disc'}, service.nonprofit.name);
+    fs_left   = this.div({'class': 'fs_left'}, [fs_head, fs_for, fs_disc]);
+    fs_box    = this.div({'class': 'fs_box'}, [tag_spots, tag_day, s_image, fs_left, fs_price, clear ] );
 
-    this.tags.service_view = this.link('/services/' + service.to_param ,{'title': service.title}, this.tags.fs_box);
-
-    return this.tags.service_view;
+    return this.link('/services/' + service.to_param ,{'title': service.title}, fs_box);
   };
 
   var settings = {
