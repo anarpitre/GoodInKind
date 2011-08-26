@@ -1,7 +1,7 @@
 Gik::Application.routes.draw do
 
   match 'service/search' => 'services#search'
-
+  match 'offer_virtual' => 'home#offer_virtual', :as => :offer_virtual, :method => :post
   match '/auth/:provider/callback' => 'authentications#create'
   match '/auth/failure' => 'dashboard#index'
 

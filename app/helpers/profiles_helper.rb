@@ -12,4 +12,11 @@ module ProfilesHelper
     @profile.hide_gender ? "---" : @profile.gender
   end
 
+  def is_owner(user)
+    if current_user
+      return true if user == current_user
+    end
+    return false
+  end
+
 end
