@@ -7,9 +7,9 @@
     = label_tag "Password:"
     = password_field_tag :password, nil, :class => "login_box_txt"
   %p.login_box_bottom
-    = link_to "Forgot Password?", "#"
+    = link_to "Forgot Password?", forgot_password_nonprofits_path
     %br/
-    = link_to "Forgot Username?", "#"
+    = link_to "Forgot Username?", forgot_username_nonprofits_path
     = submit_tag "Login", :class => "btn_form bu_right button"
 %p.main_login_bottom
   Don't have a GoodInKind partner account?

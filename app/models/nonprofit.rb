@@ -80,6 +80,11 @@ class Nonprofit < ActiveRecord::Base
     hashed_password == Nonprofit.hash_with_salt(password, salt)
   end
 
+  # Set password and password confirmation to nil
+  def clean_up_passwords
+    self.password = self.password_confirmation = ""
+  end
+  
   private
 
   def self.make_salt(username)
@@ -115,5 +120,6 @@ class Nonprofit < ActiveRecord::Base
   def add_index
     INDEX.document("Nonprofit:id:#{self.id}").add({ :text => "#{self.categories.collect(&:name).to_s} #{self.name} #{self.description}"})
   end
+
 
 end
