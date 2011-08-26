@@ -1,8 +1,8 @@
-
 :javascript
   $(document).ready(function(){
   	$(".sign_up_form").hide();
-  	$(".sign_reg_link").click(function(){
+    $(".sign_reg_link").click(function(){
+        $(".term").toggle();
   		$(this).toggleClass("").next().slideToggle("fast");
   		return false;
   	});
@@ -16,11 +16,13 @@
       %strong
         %em never
       post to you wall without your permission. Signing up with facebook will allow you to access cool features like looking at activity from your friends.
-  %span.sign_up_form_t_c
-    By clicking Sign Up you agree to our user
-    %a{:href => "#"} terms and conditions
+  .term
+    %span.sign_up_form_t_c
+      By clicking Sign Up you agree to our user
+      %a{:href => "#"} terms and conditions
   %a.sign_reg_link{:href => "#"} Or Sign up using our registration form
   .sign_up_form
+    - resource.build_profile if resource.profile.blank?
     = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
       %p
         = f.label :email,  :class => "sign_up_form_lbl"
@@ -43,5 +45,8 @@
         By clicking Sign Up you agree to our user
         %a{:href => "#"} terms and conditions
       = f.submit "Sign Up", :class => "sign_up_form_btn btn_form button"
+  %p.sign_up_bootm_p
+    If you're representing a non-profit,
+    = link_to "Click here", login_nonprofits_path
 
 

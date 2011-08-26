@@ -851,6 +851,7 @@ h2.services_h2 em {
 .profile_pic_nonpf {
 	float:left;
 	width:170px;
+    height:62px;
 }
 .profile_list {
 	float:left;
@@ -899,7 +900,7 @@ h2.services_h2 em {
 	font-weight:bold;
 	color:#004a80;
 }
-.pl_view_more a:hover{
+.pl_view_more a:hover {
 	text-decoration:none;
 }
 .logged_left {
@@ -917,6 +918,7 @@ h2.services_h2 em {
 }
 .logged_pics {
 	width:448px;
+    height: 260px;
 	float:left;
 	border:1px solid #938b8b;
 }
@@ -1168,6 +1170,7 @@ h2.offer_form_h2 span a {
 }
 .input_browse {
 	float:left;
+	height:25px;
 	margin-left:10px;
 }
 .input_radio_nav {
@@ -1575,7 +1578,9 @@ h2.offer_form_h2 span a {
 .np_cancel_btn {
 	background:#bebebe;
 	color:#3d3d3d !important;
-	padding:0 12px 3px !important;
+    margin-left:20px;
+	padding:0 17px 0 !important;
+    height:31px;
 }
 .np_account_form p {
 	float: left;
@@ -2534,6 +2539,17 @@ div.pagination strong {
 	font-weight:bold;
 	margin-bottom:5px;
 }
+.sign_up_bootm_p  {
+   float: left;
+   margin-top: 10px;
+   text-align: center;
+   width: 100%;
+}
+.sign_up_bootm_p a {
+  color: #004A80;
+  font-weight: bold;
+  text-decoration: underline;
+}
 .sign_reg_link:hover {
 	text-decoration:none;
 }
@@ -2565,8 +2581,8 @@ div.pagination strong {
 .sign_up_form_t_c {
 	float:left;
 	width:100%;
-	text-align:right;
-	margin:44px 0px 20px 0px;
+	text-align:center;
+	margin:8px 0px 22px 0px;
 }
 .sign_up_form_t_c a {
 	color:#004a80;

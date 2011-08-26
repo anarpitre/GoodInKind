@@ -23,8 +23,8 @@ namespace :admin do
                                 :username => Faker::Internet.user_name,
                                 :password => "josh123",
                                 :password_confirmation => "josh123",
-                                :phone_number => 1234567890, 
-                                :mission_statement => Faker::Name.name)
+                                :phone_number => 1234567890 
+                                )
       nonprofit.categories << nonprofit_cat.rand
       nonprofit.save!
       nonprofits << nonprofit

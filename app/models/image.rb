@@ -8,7 +8,7 @@ class Image < ActiveRecord::Base
      }
   )
 
-  validates_attachment_content_type :image, :content_type => ['image/jpeg', 'image/png','image/gif', 'image/jpg'], :message=>:logo_format
+  validates_attachment_content_type :image, :content_type => ['image/jpeg', 'image/png','image/gif', 'image/jpg', 'image/bmp', 'image/tiff'], :message=>:logo_format
   validates_attachment_size :image, :less_than => 5.megabytes, :message => "Uploaded logo cannot be more than 5 MB"
 
 end

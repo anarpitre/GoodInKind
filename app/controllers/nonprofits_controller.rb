@@ -7,7 +7,7 @@ class NonprofitsController < ApplicationController
   include NonprofitsHelper
   
   def index
-    @head[:title] = "NonProfit Home"
+    @head[:title] = "Browse non-profit partners and support them"
     @nonprofits = Nonprofit.verified
 
     # FIXME: To add index-tank search on the following Nonprofit criteria:
@@ -17,12 +17,12 @@ class NonprofitsController < ApplicationController
   end
 
   def show
-    @head[:title] = @nonprofit.name
+    @head[:title] = @nonprofit.name + " profile"
   end
   
   def new
     return redirect_to nonprofit_path(current_nonprofit) if nonprofit_logged_in?
-    @head[:title] = "NonProfit"
+    @head[:title] = "Non-profit partner application"
     @nonprofit = Nonprofit.new
   end
 
@@ -89,17 +89,19 @@ class NonprofitsController < ApplicationController
 
   def account
     # Maintain a session variable, to identify the referrer in update action
+    @head[:title] = @nonprofit.name + " account information"
     session[:referer] = 'account'
   end
 
   def transactions
     # FIXME
+    @head[:title] = @nonprofit.name + " transactions"
     @transactions = []
     #@transactions = @nonprofit.services.collect(&:transactions)
   end
   
   def login
-    @head[:title] = "NonProfit Login"
+    @head[:title] = "non-profit partners login"
   end
   
   def create_session 

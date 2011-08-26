@@ -39,13 +39,10 @@
           %label Contact Email:
           %span.np_info_text= @nonprofit.email
         %p
-          = f.label "Mission"
-          = f.text_field :mission_statement, :class => "edit_input"
-        %p
           = f.label "Description:"
           = f.text_area :description, :class => "edit_area edit_input"
         %p
-          %label Guideline:
+          %label Guidelines:
           = f.text_area :guideline, :class => "edit_area edit_input"
         %p.edit_acc_btn
           = f.submit "Save", :class => "btn_form button"

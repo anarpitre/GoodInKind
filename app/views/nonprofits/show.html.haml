@@ -24,16 +24,17 @@
       %p
         %label Phone:
         %span.np_info_text= @nonprofit.phone_number
+      - if @nonprofit.show_contact_details
+        %p
+          %label Contact Name:
+          %span.np_info_text= @nonprofit.contact_name
+        %p
+          %label Contact Email:
+          %span.np_info_text= @nonprofit.email
       %p
-        %label Contact Name:
-        %span.np_info_text= @nonprofit.contact_name
+        %label Description:
+        %span.np_info_text= @nonprofit.description
       %p
-        %label Contact Email:
-        %span.np_info_text= @nonprofit.email
-      %p
-        %label Mission:
-        %span.np_info_text= @nonprofit.mission_statement
-      %p
-        %label Guideline:
+        %label Guidelines:
         %span.np_info_text= @nonprofit.guideline
   = render :partial => "gik_stats"

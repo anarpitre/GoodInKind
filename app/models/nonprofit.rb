@@ -11,13 +11,15 @@ class Nonprofit < ActiveRecord::Base
   has_one :location, :as => :resource, :dependent => :destroy
   belongs_to :gateway
 
+  validates_length_of :description, :maximum => 300
+  validates_length_of :guideline, :maximum => 75
   validates :username, :presence => true, :uniqueness => true
   validates :password, :password_confirmation, :presence => true, :on => :create
-  validates :contact_name, :name, :phone_number, :presence => true
+  validates :contact_name, :name, :phone_number, :EIN, :website, :photo_file_name, :position, :presence => true
 
   validates_confirmation_of :password, :on => :create
   validates :email,  :presence => true, :format => EMAIL_REGEX
-  validates_attachment_content_type :photo, :content_type => ["image/jpeg", "image/png", "image/gif", "image/jpg" ]
+  validates_attachment_content_type :photo, :content_type => ["image/jpeg", "image/png", "image/gif", "image/jpg", "image/bmp", "image/tiff" ]
   validates_attachment_size  :photo, :less_than => 2.megabytes
 
   has_attached_file :photo, S3_DEFAULTS.merge(
