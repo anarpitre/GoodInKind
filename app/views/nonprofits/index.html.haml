@@ -36,3 +36,8 @@
       function() {
         $(this).stop().animate({height:"70px"},{queue:false,duration:200});
       });
+
+- content_for :body_content do 
+  .sidebar_bar
+    = render 'layouts/nonprofit_search' 
+  = yield(:tab_content)

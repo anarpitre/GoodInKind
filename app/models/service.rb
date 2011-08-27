@@ -60,7 +60,7 @@ class Service < ActiveRecord::Base
   end
 
   def check_categories
-    errors.add(:base,"No category selected") if self.categories.blank?
+    errors.add(:category_ids, "No category selected") if self.categories.blank?
   end
 
   def check_date

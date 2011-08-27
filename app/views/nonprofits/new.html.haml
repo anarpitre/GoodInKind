@@ -1,4 +1,4 @@
-- content_for :tab_content do
+- content_for :body_content do
   %h2.offer_form_h2
     Non-Profit Partner Application
   .np_page_top
@@ -13,3 +13,9 @@
     %p
       Submit your application by filling out the information below.
   = render 'form'
+
+- content_for :header_links do
+  %p
+
+= render :file => 'layouts/service', :locals => { :find => false}
+

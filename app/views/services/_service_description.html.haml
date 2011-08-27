@@ -1,4 +1,4 @@
-%p.services_content_disc= @service.description
+%p.services_content_disc= h(@service.description).gsub("\n", "<br/>")
 .address_text
   %p
     %span.add_left Location:
