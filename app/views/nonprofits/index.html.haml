@@ -1,12 +1,18 @@
 - content_for :tab_content do
   .featured_services_find
-    - unless user_signed_in?
-      = link_to "I am a Non-Profit", login_nonprofits_path, :class => 'bro_req_btn'
+    - if nonprofit_logged_in?
+      = link_to "I am a Non-Profit", nonprofit_path(current_nonprofit), :class => 'bro_req_btn'
+    - else
+      - unless user_signed_in?
+        = link_to "I am a Non-Profit", login_nonprofits_path, :class => 'bro_req_btn'
+
     %h2.fs_find_h2
       Non-Profit Partners
       %br/
-      %span
-        Choose a non-profit organization below and support it by either purchasing posted service or offering a service yourself.
+    %span
+      Choose a non-profit organization below and support it by either purchasing a posted service or offering a service yourself.
+      %br/
+      %br/
     .np_results
       - @nonprofits.each do |np|
         .np_results_list
@@ -15,14 +21,14 @@
             %span
               %b= link_to np.name, nonprofit_path(np)
               = np.location.try(:address)
-            = truncate(np.description, :length => 300)
+            = truncate(np.description, :length => 250)
             = link_to "read more", nonprofit_path(np)
           %p.np_rel_btns{:style => "width:430px;"}
-            %a= link_to 'Offer a Service', new_service_path(:id => np.id), :class => "button"
-            \&nbsp;&nbsp;&nbsp;
             - service_count = get_service_count(np)
             - if service_count > 0
               %a= link_to "Browse Services(#{service_count})", service_search_path(:text => np.name), :class => "button"
+            \&nbsp;&nbsp;&nbsp;
+            %a= link_to 'Offer a Service', new_service_path(:id => np.id), :class => "button" 
     :javascript
       $(".np_results_list").hover(function(){
         $(this).stop().animate({height:"160px"},{queue:false,duration:200});
@@ -30,3 +36,8 @@
       function() {
         $(this).stop().animate({height:"70px"},{queue:false,duration:200});
       });
+
+- content_for :body_content do 
+  .sidebar_bar
+    = render 'layouts/nonprofit_search' 
+  = yield(:tab_content)

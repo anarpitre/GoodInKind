@@ -53,7 +53,8 @@ class ServicesController < ApplicationController
       add_user_id                                                             
       @service.save!
       if current_user.blank?               
-        session[:service_id] = @service.id                                      #if user is not siggned in than service id is stored in session  
+        session[:service_id] = @service.id 
+        #if user is not siggned in than service id is stored in session  
         redirect_to(new_user_registration_path, :notice => 'Service was successfully created.') 
       else 
         @service.activate!

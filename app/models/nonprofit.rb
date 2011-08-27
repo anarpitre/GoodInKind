@@ -11,14 +11,21 @@ class Nonprofit < ActiveRecord::Base
   has_one :location, :as => :resource, :dependent => :destroy
   belongs_to :gateway
 
+  validates_length_of :description, :maximum => 1500
+  validates_length_of :guideline, :maximum => 400 
   validates :username, :presence => true, :uniqueness => true
+  validates :EIN, :presence => true, :uniqueness => true
   validates :password, :password_confirmation, :presence => true, :on => :create
-  validates :contact_name, :name, :phone_number, :presence => true
+  validates :contact_name, :name, :website, :photo, :position, :presence => true
+  validates_attachment_presence :photo
 
   validates_confirmation_of :password, :on => :create
   validates :email,  :presence => true, :format => EMAIL_REGEX
-  validates_attachment_content_type :photo, :content_type => ["image/jpeg", "image/png", "image/gif", "image/jpg" ]
+  validates :cell_phone, :format => CELL_NO_REGEX, :unless =>  Proc.new {|nonprofit| nonprofit.cell_phone.blank? }
+  validates :phone_number, :presence => true, :format => CELL_NO_REGEX
+  validates_attachment_content_type :photo, :content_type => ["image/jpeg", "image/png", "image/gif", "image/jpg", "image/bmp", "image/tiff", "image/tif" ]
   validates_attachment_size  :photo, :less_than => 2.megabytes
+
 
   has_attached_file :photo, S3_DEFAULTS.merge(
     :styles => { 
@@ -34,7 +41,7 @@ class Nonprofit < ActiveRecord::Base
   attr_protected :hashed_password, :salt
 
   before_create :create_hash_password
-  after_create :generate_permalink
+  after_create :generate_permalink, :send_application
   after_create :add_index
 
   ###  AASM transition ###
@@ -78,6 +85,11 @@ class Nonprofit < ActiveRecord::Base
     hashed_password == Nonprofit.hash_with_salt(password, salt)
   end
 
+  # Set password and password confirmation to nil
+  def clean_up_passwords
+    self.password = self.password_confirmation = ""
+  end
+  
   private
 
   def self.make_salt(username)
@@ -104,6 +116,10 @@ class Nonprofit < ActiveRecord::Base
 
   def generate_permalink
     update_attribute(:permalink ,self.to_param)
+  end
+
+  def send_application
+    Notifier.nonprofit_application(self.email, self.contact_name, self.name).deliver
   end
   
   def add_index

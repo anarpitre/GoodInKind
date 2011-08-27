@@ -4,6 +4,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def new
     @head[:title] = 'Sign Up'
+    @class_name = 'sign_up'
     super
   end
 

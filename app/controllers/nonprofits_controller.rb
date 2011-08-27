@@ -1,13 +1,13 @@
 class NonprofitsController < ApplicationController
   before_filter :set_seo_tags
-  before_filter :get_nonprofit, :except => [:new, :create, :login, :create_session]
+  before_filter :get_nonprofit, :except => [:new, :create, :login, :create_session, :forgot_password, :reset_password, :update_password]
   before_filter :nonprofit_owner, :only => [:edit, :logout, :account, :transactions]
 
   layout 'nonprofit'
   include NonprofitsHelper
   
   def index
-    @head[:title] = "NonProfit Home"
+    @head[:title] = "Browse non-profit partners and support them"
     @nonprofits = Nonprofit.verified
 
     # FIXME: To add index-tank search on the following Nonprofit criteria:
@@ -17,17 +17,21 @@ class NonprofitsController < ApplicationController
   end
 
   def show
-    @head[:title] = @nonprofit.name
+    @head[:title] = @nonprofit.name + " profile"
   end
   
   def new
     return redirect_to nonprofit_path(current_nonprofit) if nonprofit_logged_in?
-    @head[:title] = "NonProfit"
+    @head[:title] = "Non-profit partner application"
     @nonprofit = Nonprofit.new
+
+    # We are explicitly rendering a layout in the view ;)
+    render :layout => false
   end
 
   def edit
     @nonprofit = Nonprofit.find(params[:id])
+    @head[:title] = @nonprofit.name + " - Edit profile information"
     # reset stagnant URL if any
     session[:referer] = 'edit'
     @nonprofit.build_location unless @nonprofit.location
@@ -37,10 +41,11 @@ class NonprofitsController < ApplicationController
     logger.info(params[:nonprofit])
     @nonprofit = Nonprofit.new(params[:nonprofit])
     if @nonprofit.save
-      flash[:notice] = "User #{@nonprofit.username} created"
-      redirect_to  :action => 'login'
+      flash[:notice] = "Thank you for submitting your application to become a non-profit partner"
+      redirect_to  root_path
     else
-      render :action => :new
+      # We are explicitly rendering a layout in the view ;)
+      render :action => :new, :layout => false
     end
   end
 
@@ -79,7 +84,11 @@ class NonprofitsController < ApplicationController
         nonprofit_category.category_id = category_id
         nonprofit_category.save
       end
-      flash[:notice] = "User #{@nonprofit.username} updated"
+      if referer == 'account'
+        flash[:notice] = "Account information for #{@nonprofit.name} has been updated"
+      else
+        flash[:notice] = "Profile information for #{@nonprofit.name} has been updated"
+      end
       session[:referer] = nil # cleanup first!
       redirect_to  (referer == 'account' ? account_nonprofit_path(@nonprofit) : nonprofit_path(@nonprofit) )
     else
@@ -89,17 +98,22 @@ class NonprofitsController < ApplicationController
 
   def account
     # Maintain a session variable, to identify the referrer in update action
+    @head[:title] = @nonprofit.name + " account information"
     session[:referer] = 'account'
   end
 
   def transactions
     # FIXME
+    @head[:title] = @nonprofit.name + " transactions"
     @transactions = []
     #@transactions = @nonprofit.services.collect(&:transactions)
   end
   
   def login
-    @head[:title] = "NonProfit Login"
+    return redirect_to nonprofit_path(current_nonprofit) if nonprofit_logged_in?
+    @head[:title] = "non-profit partners login"
+    @class_name = "main_login"
+    render :layout => 'signup'
   end
   
   def create_session 
@@ -108,7 +122,6 @@ class NonprofitsController < ApplicationController
       session[:nonprofit] = {}
       session[:nonprofit][:name] = @nonprofit.name
       session[:nonprofit][:id] = @nonprofit.id
-      flash[:notice] = "You are now Logged In"
       redirect_to nonprofit_path(@nonprofit)
     else
       flash[:notice] = "Invalid Username/Password"
@@ -118,7 +131,6 @@ class NonprofitsController < ApplicationController
 
   def logout
     session[:nonprofit] = nil
-    flash[:notice] = "You have been Logged Out"
     redirect_to root_path
   end
   
@@ -140,6 +152,66 @@ class NonprofitsController < ApplicationController
     render :action => 'index',:locals => { :search => true }
   end
 
+
+  def forgot_password
+    if request.post?
+      nonprofit = Nonprofit.find_by_username(params[:nonprofit][:username])
+      if nonprofit
+        nonprofit.reset_password_token = ActiveSupport::SecureRandom.hex(10)
+        nonprofit.save(:validate => false)
+        Notifier.reset_password_instructions(nonprofit).deliver
+        flash[:notice] = "Instructions to change your password have been sent to the email address on your profil"
+        redirect_to '/'
+      else
+        @class_name = "main_login"
+        render :action => 'forgot_password', :layout => "signup"
+      end
+    else
+      @class_name = "main_login"
+      render :action => 'forgot_password', :layout => "signup"
+    end
+  end
+
+  def reset_password
+    get_nonprofit_reset_token
+    #@nonprofit.clean_up_passwords
+    unless @nonprofit
+      flash[:notice] = "Password is already changed"
+      redirect_to :action => 'login'
+    end
+  end
+
+  def update_password
+    get_nonprofit_reset_token
+    if (params[:nonprofit][:password] == params[:nonprofit][:password_confirmation]) and !params[:nonprofit][:password].blank?
+      @nonprofit.send(:update_password, params[:nonprofit][:password])   
+      @nonprofit.reset_password_token = nil
+      @nonprofit.save(:validate => false)
+      flash[:notice] = "Your password was changed successfully."
+      redirect_to :action => 'login'
+    else
+      flash[:notice] = "Password didnot match"
+      render :action => 'reset_password'
+    end
+  end
+
+  def forgot_username
+    if request.post?
+      nonprofit = Nonprofit.find_by_EIN(params[:nonprofit][:ein])
+      if nonprofit
+        Notifier.send_username(nonprofit).deliver
+        flash[:notice] = "Email was sent successfully"
+        redirect_to '/'
+      else
+        @class_name = "main_login"
+        render :action => 'forgot_username', :layout => "signup"
+      end
+    else
+      @class_name = "main_login"
+      render :action => 'forgot_username', :layout => "signup"
+    end
+  end
+
   private
 
   def get_nonprofit
@@ -158,6 +230,10 @@ class NonprofitsController < ApplicationController
   def nonprofit_owner
     return true if session[:nonprofit] and (session[:nonprofit][:id] == @nonprofit.try(:id))
     redirect_to login_nonprofits_path
+  end
+
+  def get_nonprofit_reset_token
+    @nonprofit = Nonprofit.find_by_reset_password_token(params[:reset_password_token] || params[:nonprofit][:reset_password_token])
   end
 
 end

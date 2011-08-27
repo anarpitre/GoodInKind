@@ -1,15 +1,21 @@
-- content_for :tab_content do
+- content_for :body_content do
   %h2.offer_form_h2
     Non-Profit Partner Application
   .np_page_top
     %p
-      Thank you for your interest in becoming a nonprofit partner on GoodInKind. Becoming a partner organization will allow you to build and customize your profile, increase your organization's rankings in search results, and track causes that benefit your organization.
+      Thank you for your interest in becoming a nonprofit partner on GoodInKind. Becoming a partner organization will allow you to build and customize your profile, and allows users of GoodInKind to support you by raising funds for your organization. Learn more about being a partner 
+      = succeed "." do
+        %a{:href => "http://www.slideshare.net/goodinkind/goodinkind-for-nonprofits", :target => "_blank"} here 
     %p
       You must be a representative or employee of the nonprofit organization to submit the partner application.
     %p
-      Only U.S. nonprofits can be partners.
-      = succeed "." do
-        %a{:href => "#"} Learn more
+      Only U.S. non-profits with a valid 501(c)3 status can be partners.
     %p
       Submit your application by filling out the information below.
   = render 'form'
+
+- content_for :header_links do
+  %p
+
+= render :file => 'layouts/service', :locals => { :find => false}
+

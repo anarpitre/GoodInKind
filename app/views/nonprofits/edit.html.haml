@@ -1,53 +1,19 @@
 - content_for :tab_content do 
-  .np_profile_left
-    .np_profile_info
-      = form_for @nonprofit, :html => {:multipart => true} do |f|
-        - if @nonprofit.errors.any?
-          #error_explanation
-            %h2
-              = pluralize(@nonprofit.errors.count, "error")
-              prohibited this post from being saved:
-            %ul
-              - @nonprofit.errors.full_messages.each do |msg|
-                %li= msg
-        %p
-          = f.label "Name"
-          = f.text_field :name, :class => "edit_input"
-        %p
-          %label EIN:
-          %span.np_info_text= @nonprofit.EIN
-        %p
-          = f.label "Category"
-          = f.select :category_ids, Category.by_nonprofits.order("name").collect{|b| [ b[:name] , b[:id] ]}, :class => "edit_input"
-        %p
-          %label Website:
-          = f.text_field :website, :class => "edit_input"
-        %p
-          = f.fields_for :location do |loc|
-            = loc.label "Address"
-            = loc.text_field :address, :class => "edit_input"
-        %p
-          %label Logo:
-          = f.file_field :photo, :class => "edit_input"
-        %p
-          %label Phone:
-          %span.np_info_text= @nonprofit.phone_number
-        %p
-          %label Contact Name:
-          %span.np_info_text= @nonprofit.contact_name
-        %p
-          %label Contact Email:
-          %span.np_info_text= @nonprofit.email
-        %p
-          = f.label "Mission"
-          = f.text_field :mission_statement, :class => "edit_input"
-        %p
-          = f.label "Description:"
-          = f.text_area :description, :class => "edit_area edit_input"
-        %p
-          %label Guideline:
-          = f.text_area :guideline, :class => "edit_area edit_input"
-        %p.edit_acc_btn
-          = f.submit "Save", :class => "btn_form button"
-          %a.btn_form.button.np_cancel_btn{:href => nonprofit_path(@nonprofit)} Cancel
-  = render "gik_stats" 
+  = form_for @nonprofit, :builder => JoshForm, :html => {:multipart => true} do |f|
+    .setp_box
+      %h3.setp_box_heading
+        %span= "Edit '#{@nonprofit.name}' details"
+      = f.text_field :name, :class => 'input_half'
+      = f.text_field :EIN, :class => 'input_half', :label => "EIN", :disabled => true
+      = f.select :category_ids, Category.by_nonprofits.order("name").collect{|b| [ b[:name] , b[:id] ]}, {}, :class => "input_half input_select", :label => "Category"
+      = f.text_field :website, :class => "input_half"
+      = f.fields_for :location do |loc|
+        = loc.text_field :address, :class => "input_half"
+      = f.file_field :photo, :class => "input_half", :label => 'Logo'
+      = f.text_field :phone_number, :class => 'input_half', :disabled => true
+      = f.text_field :contact_name, :class => 'input_half', :disabled => true
+      = f.text_field :email, :class => 'input_half', :disabled => true, :label => 'Contact Email'
+      = f.text_area :description, :class => "input_area"
+      = f.text_area :guideline, :class => "input_area"
+    .input_post_div
+      = f.submit

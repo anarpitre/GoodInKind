@@ -11,13 +11,13 @@
 
 - unless content_for?(:header_links)
   - content_for :header_links do
-    %ul.nav.nav_inner
+    %ul.nav{:class => "#{'nav_inner' if root_path != request.fullpath}"}
       - unless user_signed_in?
         %li= link_to "Sign Up", new_user_registration_path
         %li#login= link_to "Login", "#"
       %li= link_to "How it works", "#"
       %li.nav_non= link_to "Non-Profits", nonprofits_path
-    .change_city.inner_city
+    .change_city{:class => "#{'inner_city' if root_path != request.fullpath}"}
       %span.city_name Ithaca, NY
       %br/
       %span.city_change_icon

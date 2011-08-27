@@ -61,7 +61,7 @@ class Service < ActiveRecord::Base
   end
 
   def check_categories
-    errors.add(:base,"No category selected") if self.categories.blank?
+    errors.add(:category_ids, "No category selected") if self.categories.blank?
   end
 
   def check_date
@@ -81,7 +81,7 @@ class Service < ActiveRecord::Base
   end
 
   def thumbnail
-    self.images.any? ? self.images.first.image.url(:thumb) : '/images/missing/service.jpg'
+    self.images.any? ? self.images.first.image.url(:thumb) : "/images/category/#{self.categories.first.image_path}_thumb.jpg"
   end
 
   def generate_permalink

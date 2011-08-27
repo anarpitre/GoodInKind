@@ -11,7 +11,6 @@ Factory.define :nonprofit do |c|
   c.EIN  "12345"
   c.website "www.test.com"
   c.is_active true
-  c.mission_statement {Faker::Name.name}
   c.guideline {Faker::Lorem.paragraph}
   c.description {Faker::Lorem.paragraph}
   c.phone_number {Faker::PhoneNumber.phone_number}

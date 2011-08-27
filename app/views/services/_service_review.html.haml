@@ -35,7 +35,6 @@
         %p
           = review.user.profile.first_name
           %br= review.review
-%p.review_content_disc= @service.reviews.first.try(:review) 
 %h3.comment_icon
   = image_tag('q_a_icon.png', :alt => "Reviews")
   %span Q&amp;A

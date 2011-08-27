@@ -1,17 +1,40 @@
+
+:javascript
+  $(document).ready(function() {
+      var term = $('#Accept').val();
+      is_termandcondition(term);
+
+  });
+
+
+  jQuery(document).ready(function(){
+    $('#Accept').attr('checked',false) 
+     $('#nonprofit_submit').hide(); 
+    $('#Accept').click(function(){
+     is_termandcondition($("#Accept").is(':checked'))
+         
+    });
+  
+  });
+
+  function is_termandcondition(flag)
+  {
+    if (flag){
+      $('#nonprofit_submit').show(); 
+    }
+    else {
+      $('#nonprofit_submit').hide(); 
+    }
+  }
+
+
+
 .offer_form
   = form_for @nonprofit, :builder => JoshForm, :html => {:multipart => true}  do |f| 
-    - if @nonprofit.errors.any?
-      #error_explanation
-        %h2
-          = pluralize(@nonprofit.errors.count, "error")
-          prohibited this post from being saved:
-        %ul
-          - @nonprofit.errors.full_messages.each do |msg|
-            %li= msg
     .setp_box
       %h3.setp_box_heading
         %span Organization Information
-      = f.text_field :EIN, :class => "input_np"
+      = f.text_field :EIN, :class => "input_np", :label => "EIN"
       = f.text_field :name, :class => "input_np", :label => 'Organization'
       = f.text_field :website, :class => "input_np"
       = f.file_field :photo, :class => "input_browse", :label => "Logo"
@@ -29,6 +52,17 @@
       = f.text_field :email, :class => "input_np", :label => "Work Email"
       = f.text_field :phone_number, :class => "input_np"
       = f.text_field :cell_phone, :class => "input_np"
+      %ul.input_radio_nav
+        %br/
+        %li
+          = check_box_tag "Accept",  "false", "true" 
+          &nbsp;&nbsp;
+          %span
+            %strong
+              I agree to the
+              = link_to('terms and conditions', '#')
+              on behalf of my organization
+
     .input_post_div
       %p By clicking "Submit Application", you are confirming that you are an official representative of the organization for which you are applying.
       %br/

@@ -236,7 +236,7 @@ a.login_close {
 	margin-bottom:20px;
 	text-align:center;
 }
-.main_login_box {
+.main_login_bg {
 	width:388px;
 	float:left;
 	background:#ffffe9;
@@ -244,7 +244,7 @@ a.login_close {
 	box-shadow:0px 2px 5px #333;
 	padding:35px 45px;
 }
-.main_login_box h2 {
+.main_login_bg h2 {
 	font-family: 'Crimson Text', serif;
 	font-weight: 400;
 	font-size:30px;
@@ -253,17 +253,17 @@ a.login_close {
 	width:100%;
 	text-align:center;
 }
-.main_login_box form {
+.main_login_bg form {
 	width:305px;
 	margin-left:41px;
 	float:left;
 }
-.main_login_box form p {
+.main_login_bg form p {
 	width:100%;
 	float:left;
 	margin-bottom:10px;
 }
-.main_login_box form label {
+.main_login_bg form label {
 	width:85px;
 	float:left;
 	margin:10px 15px 0px 0px;
@@ -620,6 +620,7 @@ h2.fs_find_h2 span a:hover {
 	float:right;
 	width:150px;
 	margin:2px 0px 0px 5px;
+	display:inline !important;
 }
 .sidebar_list p {
 	margin-top:5px;
@@ -666,7 +667,7 @@ h2.fs_find_h2 span a:hover {
 .sidebar_left_sugg ul li a:hover{
 	text-decoration:underline;
 }
-textarea.in_error, input.in_error {
+textarea.in_error, input.in_error, select.in_error {
 	background: #F8DBDB;
 	border-color: #E77776;
 	margin-bottom:10px;
@@ -1133,7 +1134,7 @@ h2.offer_form_h2 span a {
 }
 .form_lbl {
 	float:left;
-	width:130px;
+	width:134px;
 	margin-top:3px;
 	text-align:right;
 	font-weight:bold;
@@ -1148,9 +1149,6 @@ h2.offer_form_h2 span a {
 	margin-bottom:10px;
 	background:#FFF;
 	border:1px solid #dadada;
-}
-.input_half {
-	width:300px;
 }
 .input_small {
 	width:114px;
@@ -1173,6 +1171,10 @@ h2.offer_form_h2 span a {
 	background:#FFF;
 	border:1px solid #dadada;
 }
+
+.input_half {
+	width:300px;
+}
 .input_checkbox {
 	float:left;
 	margin-left:10px;
@@ -1180,6 +1182,7 @@ h2.offer_form_h2 span a {
 }
 .input_browse {
 	float:left;
+	height:25px;
 	margin-left:10px;
 }
 .input_radio_nav {
@@ -1588,7 +1591,7 @@ h2.offer_form_h2 span a {
 	background:#bebebe;
 	color:#3d3d3d !important;
     margin-left:20px;
-	padding:0 17px 0 !important;
+	padding:0 16px 0 !important;
     height:31px;
 }
 .np_account_form p {
@@ -1615,6 +1618,7 @@ h2.offer_form_h2 span a {
 }
 .edit_area {
 	height:150px;
+    max-width:430px;
 }
 .edit_acc_btn {
 	margin-left:250px !important;
@@ -1737,8 +1741,18 @@ h2.my_name span a img {
     width:85px;
     float:left;
     margin-right:25px;
-    font-size:15px;
+    font-size:14px;
     font-weight:bold;
+}
+
+.up_my_profile_right_edit label.error {
+    color: #FF0000;
+    float: left;
+    margin-bottom: 10px;
+    margin-left: 120px;
+    width: 100%;
+    font-weight:normal;
+    font-size:12px;
 }
 
 .my_pro_not_pl {
@@ -2326,7 +2340,7 @@ font-weight:bold;
 	margin-left:10px;
 	border: 1px solid #c93;
 	padding: 10px 12px;
-	background: #ffc url(../imfages/pointer.gif) no-repeat -10px 5px;
+	background: #ffc url(../images/pointer.gif) no-repeat -10px 5px;
 }
 .hint .hint-pointer {
 	position: absolute;
