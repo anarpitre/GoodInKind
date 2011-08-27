@@ -1143,9 +1143,6 @@ h2.offer_form_h2 span a {
 	background:#FFF;
 	border:1px solid #dadada;
 }
-.input_half {
-	width:300px;
-}
 .input_small {
 	width:114px;
 }
@@ -1163,6 +1160,10 @@ h2.offer_form_h2 span a {
 	margin-left:10px;
 	background:#FFF;
 	border:1px solid #dadada;
+}
+
+.input_half {
+	width:300px;
 }
 .input_checkbox {
 	float:left;

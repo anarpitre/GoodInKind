@@ -9,7 +9,7 @@
         = f.text_field :last_name, :class => "input_half"
         %p
           %label.form_lbl Gender
-          = f.select :gender, GENDER.collect{ |g| [ g, g] }, { }, :class => "my_edit_input sle_inp", :style => "float:left;margin-left:10px" 
+          = f.select :gender, GENDER.collect{ |g| [ g, g] }, { }, :class => "my_edit_input sle_inp", :style => "float:left;margin-left:10px", :skip => true
           = f.check_box :hide_gender, {:class => "my_edit_check"}, "true", "false"
           %text Don't display on my public profile
         = f.fields_for :location do |loc|
@@ -27,4 +27,3 @@
         = f.text_field :linkedin, :class => 'input_half'
         %p.my_edit_btns
           = f.submit 
-          = f.cancel  
