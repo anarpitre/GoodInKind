@@ -3,5 +3,6 @@
 =form_for :nonprofit, :url => forgot_username_nonprofits_path, :html => { :method => :post } do |f| 
   %p Give us your EIN 
   %p= f.text_field :ein 
+  %p= session[:error_ein]
   %p= f.submit "Send me username" 
 

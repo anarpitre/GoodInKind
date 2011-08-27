@@ -1,6 +1,8 @@
 %h2 Non-Profit Partners Login
 = form_tag(:action => 'create_session') do
   %p
+    = session[:error_login] 
+  %p
     = label_tag "Username:"
     = text_field_tag :username, nil, :class => "login_box_txt"
   %p

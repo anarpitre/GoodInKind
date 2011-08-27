@@ -7,6 +7,9 @@ class NonprofitsController < ApplicationController
   include NonprofitsHelper
   
   def index
+    session[:error_login] = ""
+    session[:error_username] = ""
+    session[:error_ein] = ""
     @head[:title] = "Browse non-profit partners and support them"
     @nonprofits = Nonprofit.verified
 
@@ -119,12 +122,13 @@ class NonprofitsController < ApplicationController
   def create_session 
     @nonprofit = Nonprofit.authenticate(params[:username],params[:password])
     if @nonprofit && @nonprofit.is_verified == "verified"
+      session[:error_login] = ""
       session[:nonprofit] = {}
       session[:nonprofit][:name] = @nonprofit.name
       session[:nonprofit][:id] = @nonprofit.id
       redirect_to nonprofit_path(@nonprofit)
     else
-      flash[:notice] = "Invalid Username/Password"
+      session[:error_login] = "Invalid Username / Password"
       redirect_to :action => 'login'
     end
   end
@@ -159,10 +163,12 @@ class NonprofitsController < ApplicationController
       if nonprofit
         nonprofit.reset_password_token = ActiveSupport::SecureRandom.hex(10)
         nonprofit.save(:validate => false)
+        session[:error_username] = ""
         Notifier.reset_password_instructions(nonprofit).deliver
         flash[:notice] = "Instructions to change your password have been sent to the email address on your profil"
         redirect_to '/'
       else
+        session[:error_username] = "Invalid Username"
         @class_name = "main_login"
         render :action => 'forgot_password', :layout => "signup"
       end
@@ -199,10 +205,12 @@ class NonprofitsController < ApplicationController
     if request.post?
       nonprofit = Nonprofit.find_by_EIN(params[:nonprofit][:ein])
       if nonprofit
+        session[:error_ein] = ""
         Notifier.send_username(nonprofit).deliver
         flash[:notice] = "Email was sent successfully"
         redirect_to '/'
       else
+        session[:error_ein] = "Invalid EIN"
         @class_name = "main_login"
         render :action => 'forgot_username', :layout => "signup"
       end

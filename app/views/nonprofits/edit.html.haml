@@ -8,12 +8,12 @@
       = f.select :category_ids, Category.by_nonprofits.order("name").collect{|b| [ b[:name] , b[:id] ]}, {}, :class => "input_half input_select", :label => "Category"
       = f.text_field :website, :class => "input_half"
       = f.fields_for :location do |loc|
-        = loc.text_field :address, :class => "input_half"
-      = f.file_field :photo, :class => "input_half", :label => 'Logo'
+        = loc.text_field :address, :class => "input_half", :hint => "Enter the actual address as you would enter on any maps website. Do not include P.O. Boxes and building names (such Wilkinson building, East Wing,e etc.)"
+      = f.file_field :photo, :class => "input_half", :label => 'Logo', :hint => "For best results, include an image that is 200X62 pixels. Only JPEG, JPG, PNG, GIF, BMP, TIFF, TIF allowed"
       = f.text_field :phone_number, :class => 'input_half', :disabled => true
       = f.text_field :contact_name, :class => 'input_half', :disabled => true
       = f.text_field :email, :class => 'input_half', :disabled => true, :label => 'Contact Email'
-      = f.text_area :description, :class => "input_area"
+      = f.text_area :description, :class => "input_area", :label => "Mission/Description"
       = f.text_area :guideline, :class => "input_area"
     .input_post_div
       = f.submit
