@@ -9,6 +9,10 @@ class BookingsController < ApplicationController
   def new
     @booking = @service.bookings.new
 
+    # set some defaults
+    @booking.seats_booked = 1
+    @booking.additional_donation_amount = 0
+
     # If the user has some previous bookings, we can re-use the billing info
     prev = current_user.bookings.last
     if prev
@@ -30,6 +34,8 @@ class BookingsController < ApplicationController
 
   # POST /services/:service_id/bookings/:id
   def create
+    @cardonfile = current_user.cc_token.credit_card if current_user.cc_token
+
     # remove the transient param :cardonfile
     # Keep a copy, so that :new action will not get impacted
     booking_params = params[:booking].dup
@@ -37,6 +43,10 @@ class BookingsController < ApplicationController
 
     @booking = @service.bookings.new(booking_params)
     @booking.user = current_user #TODO: fix for non-logged in users?
+    @booking.billToEmail = current_user.email #TODO
+    @booking.billToFirstName = @booking.accountName.split.first
+    @booking.billToLastName = @booking.accountName.split.last
+    @booking.remoteAddr = request.remote_ip 
 
     # If no params[:cc], check if the user already had a token 
     # and if the user does have one, process the payment.
@@ -76,7 +86,11 @@ class BookingsController < ApplicationController
       end
     end
 
-    render :text => "what the fuck - it worked!"
+    redirect_to service_path(@booking.service), :notice => "Booking successful"
+
+    rescue ActiveRecord::RecordInvalid
+      @cc = ActiveMerchant::Billing::CreditCard.new(params[:cc])
+      render :action => :new 
   end
 
 private

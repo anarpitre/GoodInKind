@@ -17,7 +17,7 @@ class ModifyBookings < ActiveRecord::Migration
     add_column :bookings, :billToCountry, :string
     add_column :bookings, :billToEmail, :string, :length => 50
     add_column :bookings, :billToPhone, :string, :length => 30
-    add_column :bookings, :billToAddr, :string, :length => 15
+    add_column :bookings, :remoteAddr, :string, :length => 15
   end
 
   def self.down
@@ -37,7 +37,7 @@ class ModifyBookings < ActiveRecord::Migration
     remove_column :bookings, :billToCountry
     remove_column :bookings, :billToEmail
     remove_column :bookings, :billToPhone
-    remove_column :bookings, :billToAddr
+    remove_column :bookings, :remoteAddr
   end
 
 end

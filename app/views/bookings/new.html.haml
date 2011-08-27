@@ -8,6 +8,14 @@
         %ul
           - @cc.errors.full_messages.each do |msg|
             %li= msg
+    - if @booking.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(@booking.errors.count, "error")
+          prohibited this post from being saved:
+        %ul
+          - @booking.errors.full_messages.each do |msg|
+            %li= msg
     .setp_box
       %h3.setp_box_heading{:style => 'width:300px'}
         %span Booking Details
@@ -28,15 +36,11 @@
         = f.hidden_field :donation_amount
       %hr.pay_page_hr
       %p{:style => 'width:340px'}
-        %span.payment_total Total amount to be paid
+        %span.payment_total You will be charged
         %span.payment_total_amt#total_donation= @booking.service.amount.to_i
         %span.payment_total_amt $
       :javascript
         var per_seat = #{@booking.service.amount.to_i}
-        $('#booking_additional_donation_amount, #booking_seats_booked').keyup(function() {
-            total = (parseInt($('#booking_seats_booked').val()) * per_seat.to_i) + $('#booking_additional_donation_amount').val().to_i;
-            $('#total_donation').html(total);
-        });
     .setp_box{:id => 'cc_fields'}
       %h3.setp_box_heading
         %span Credit Card Details

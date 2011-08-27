@@ -7,6 +7,18 @@ class Booking < ActiveRecord::Base
 
   before_create :generate_mref
 
+  validates :user, :service, :presence => true
+
+  validates :seats_booked, :numericality => { :greater_than_or_equal_to => 1}
+validates :donation_amount, :numericality => { :greater_than_or_equal_to => Proc.new {|booking| booking.service.amount.to_i } }
+
+  # first-giving validations
+  validates :billToFirstName, :billToLastName, :remoteAddr, :billToCity, 
+            :billToZip, :billToAddressLine1, :accountName, 
+            :billToCountry, :billToState, :presence => true
+  validates :billToCountry, :billToState, :format => { :with => /^\w{2}$/ }
+  validates :billToEmail, :presence => true
+
   aasm_column :charge_status
   aasm_initial_state :new
 
@@ -14,7 +26,6 @@ class Booking < ActiveRecord::Base
   aasm_state :processing, :do_enter => :do_processing # Credit Card details captured
   aasm_state :success, :do_enter => :do_success
   aasm_state :failure, :do_enter => :do_failure
-
 
   aasm_event :cc_captured do
     transitions :to => :processing, :from => :new
