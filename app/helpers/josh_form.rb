@@ -18,7 +18,6 @@ class JoshForm < ActionView::Helpers::FormBuilder
 
   def submit(value="Save", options={})
     options[:class] = "btn_form button #{options[:class]}"
-    #value = options.delete(:label) if options[:label] 
     super
   end
 
@@ -63,7 +62,7 @@ class JoshForm < ActionView::Helpers::FormBuilder
       base_tag = super(attribute, *args)
       
       # Incase its a mandatory field, the '*' is added to the field.
-      label_tag = label("#{label_txt or attribute.to_s.titleize} #{"*" if required(attribute)}", :class => CSS[:label]) 
+      label_tag = label(attribute, "#{label_txt or attribute.to_s.titleize} #{"*" if required(attribute)}", :class => CSS[:label]) 
 
       if hint
         hint_pointer = @template.content_tag(:span, '', :class => CSS[:hint_ptr])

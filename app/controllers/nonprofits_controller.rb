@@ -24,6 +24,9 @@ class NonprofitsController < ApplicationController
     return redirect_to nonprofit_path(current_nonprofit) if nonprofit_logged_in?
     @head[:title] = "Non-profit partner application"
     @nonprofit = Nonprofit.new
+
+    # We are explicitly rendering a layout in the view ;)
+    render :layout => false
   end
 
   def edit
@@ -106,6 +109,7 @@ class NonprofitsController < ApplicationController
   end
   
   def login
+    return redirect_to nonprofit_path(current_nonprofit) if nonprofit_logged_in?
     @head[:title] = "non-profit partners login"
     @class_name = "main_login"
     render :layout => 'signup'

@@ -1,10 +1,11 @@
 - if nonprofit_logged_in?
-  - content_for :header_links do
-    %ul.nav.np_nav_top
-      %li
-        = link_to current_nonprofit.name, nonprofit_path(current_nonprofit), :class => 'np_nav_active'
-      %li.nav_non
-        = link_to "Logout", logout_nonprofits_path
+  - unless content_for?(:header_links)
+    - content_for :header_links do
+      %ul.nav.np_nav_top
+        %li
+          = link_to current_nonprofit.name, nonprofit_path(current_nonprofit), :class => 'np_nav_active'
+        %li.nav_non
+          = link_to "Logout", logout_nonprofits_path
 
 - unless content_for?(:body_content)
   - content_for :body_content do 
