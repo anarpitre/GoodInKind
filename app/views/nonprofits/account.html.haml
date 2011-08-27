@@ -12,26 +12,7 @@
       .setp_box
         %h3.setp_box_heading
           %span Contact Information
-        %span.edit_info_left.edit_info
-          = image_tag('edit_icon.jpg', :alt => "edit")
-          = link_to "Edit Information", '#', :id => 'edit_info_link'
-        #contact_info
-          %p
-            %label.form_lbl.np_lbl Name
-            %span.np_account_span= @nonprofit.contact_name
-          %p
-            %label.form_lbl.np_lbl Title/Positon
-            %span.np_account_span= @nonprofit.position
-          %p
-            %label.form_lbl.np_lbl Work Email
-            %span.np_account_span= @nonprofit.email
-          %p
-            %label.form_lbl.np_lbl Work Phone
-            %span.np_account_span= @nonprofit.phone_number
-          %p
-            %label.form_lbl.np_lbl Cell Phone
-            %span.np_account_span= @nonprofit.cell_phone
-        #edit_contact_info{:style => 'display:none'}
+        #edit_contact_info
           = f.text_field :contact_name, :class => "input_np", :label => "Name"
           = f.text_field :position, :class => "input_np"
           = f.text_field :email, :class => "input_np", :label => "Work Email"
@@ -63,9 +44,3 @@
       .input_post_div
         %p.np_acc_btn
           = f.submit
-    :javascript
-      $('#edit_info_link').click( function() {
-          $('#contact_info').toggle();
-          $('#edit_contact_info').toggle();
-
-       });

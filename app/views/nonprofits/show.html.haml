@@ -33,8 +33,8 @@
           %span.np_info_text= @nonprofit.email
       %p
         %label Description:
-        %span.np_info_text= @nonprofit.description
+        %span.np_info_text= h(@nonprofit.description).gsub("\n", "<br/>")
       %p
         %label Guidelines:
-        %span.np_info_text= @nonprofit.guideline
+        %span.np_info_text= h(@nonprofit.guideline).gsub("\n", "<br/>")
   = render :partial => "gik_stats"
