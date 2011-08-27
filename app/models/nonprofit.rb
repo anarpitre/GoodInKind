@@ -11,11 +11,12 @@ class Nonprofit < ActiveRecord::Base
   has_one :location, :as => :resource, :dependent => :destroy
   belongs_to :gateway
 
-  validates_length_of :description, :maximum => 300
-  validates_length_of :guideline, :maximum => 75
+  validates_length_of :description, :maximum => 1500
+  validates_length_of :guideline, :maximum => 400 
   validates :username, :presence => true, :uniqueness => true
+  validates :EIN, :presence => true, :uniqueness => true
   validates :password, :password_confirmation, :presence => true, :on => :create
-  validates :contact_name, :name, :phone_number, :EIN, :website, :photo_file_name, :position, :presence => true
+  validates :contact_name, :name, :phone_number, :website, :photo_file_name, :position, :presence => true
 
   validates_confirmation_of :password, :on => :create
   validates :email,  :presence => true, :format => EMAIL_REGEX
@@ -36,7 +37,7 @@ class Nonprofit < ActiveRecord::Base
   attr_protected :hashed_password, :salt
 
   before_create :create_hash_password
-  after_create :generate_permalink, :send_invitation
+  after_create :generate_permalink, :send_application
   after_create :add_index
 
   ###  AASM transition ###
@@ -113,8 +114,8 @@ class Nonprofit < ActiveRecord::Base
     update_attribute(:permalink ,self.to_param)
   end
 
-  def send_invitation
-    Notifier.nonprofit_invitation(self.email, self.contact_name, self.name).deliver
+  def send_application
+    Notifier.nonprofit_application(self.email, self.contact_name, self.name).deliver
   end
   
   def add_index

@@ -28,6 +28,7 @@ class NonprofitsController < ApplicationController
 
   def edit
     @nonprofit = Nonprofit.find(params[:id])
+    @head[:title] = @nonprofit.name + " - Edit profile information"
     # reset stagnant URL if any
     session[:referer] = 'edit'
     @nonprofit.build_location unless @nonprofit.location
@@ -79,7 +80,11 @@ class NonprofitsController < ApplicationController
         nonprofit_category.category_id = category_id
         nonprofit_category.save
       end
-      flash[:notice] = "User #{@nonprofit.username} updated"
+      if referer == 'account'
+        flash[:notice] = "Account information for #{@nonprofit.name} has been updated"
+      else
+        flash[:notice] = "Profile information for #{@nonprofit.name} has been updated"
+      end
       session[:referer] = nil # cleanup first!
       redirect_to  (referer == 'account' ? account_nonprofit_path(@nonprofit) : nonprofit_path(@nonprofit) )
     else
@@ -111,7 +116,6 @@ class NonprofitsController < ApplicationController
       session[:nonprofit] = {}
       session[:nonprofit][:name] = @nonprofit.name
       session[:nonprofit][:id] = @nonprofit.id
-      flash[:notice] = "You are now Logged In"
       redirect_to nonprofit_path(@nonprofit)
     else
       flash[:notice] = "Invalid Username/Password"
@@ -121,7 +125,6 @@ class NonprofitsController < ApplicationController
 
   def logout
     session[:nonprofit] = nil
-    flash[:notice] = "You have been Logged Out"
     redirect_to root_path
   end
   
@@ -151,7 +154,7 @@ class NonprofitsController < ApplicationController
         nonprofit.reset_password_token = ActiveSupport::SecureRandom.hex(10)
         nonprofit.save(:validate => false)
         Notifier.reset_password_instructions(nonprofit).deliver
-        flash[:notice] = "Email was sent successfully"
+        flash[:notice] = "Instructions to change your password have been sent to the email address on your profil"
         redirect_to '/'
       else
         flash[:notice] = "User not found"
@@ -185,7 +188,7 @@ class NonprofitsController < ApplicationController
 
   def forgot_username
     if request.post?
-      nonprofit = Nonprofit.find_by_email(params[:nonprofit][:email])
+      nonprofit = Nonprofit.find_by_EIN(params[:nonprofit][:ein])
       if nonprofit
         Notifier.send_username(nonprofit).deliver
         flash[:notice] = "Email was sent successfully"

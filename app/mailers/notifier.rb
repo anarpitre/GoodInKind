@@ -9,22 +9,22 @@ class Notifier < ActionMailer::Base
          :subject => "A User form #{city}  wants to offer and purchase virtual services regardless of his location")
   end
 
-  def nonprofit_invitation(email, contactname, name)
+  def nonprofit_application(email, contactname, name)
     @nonprofit_name = contactname
-    mail(:from => "GoodInKind (emailalerts@goodinkind.com)",
+    mail(:from => "GoodInKind <emailalerts@goodinkind.com>",
          :to => email,
          :subject => "Your GoodInKind partner application for #{name}")
   end
   def reset_password_instructions(nonprofit)
     @nonprofit = nonprofit
-    mail(:from => "emailalerts@goodinkind.com",
+    mail(:from => "GoodInKind <emailalerts@goodinkind.com>",
          :to => nonprofit.email,
-         :subject => "Your GoodInKind Reset password instructions")
+         :subject => "Your GoodInKind password change instruction")
   end
   
   def send_username(nonprofit)
     @nonprofit = nonprofit
-    mail(:from => "emailalerts@goodinkind.com",
+    mail(:from => "GoodInKind <emailalerts@goodinkind.com>",
          :to => nonprofit.email,
          :subject => "Your GoodInKind username")
   end
