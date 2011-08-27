@@ -16,7 +16,8 @@ class Nonprofit < ActiveRecord::Base
   validates :username, :presence => true, :uniqueness => true
   validates :EIN, :presence => true, :uniqueness => true
   validates :password, :password_confirmation, :presence => true, :on => :create
-  validates :contact_name, :name, :website, :photo_file_name, :position, :presence => true
+  validates :contact_name, :name, :website, :photo, :position, :presence => true
+  validates_attachment_presence :photo
 
   validates_confirmation_of :password, :on => :create
   validates :email,  :presence => true, :format => EMAIL_REGEX

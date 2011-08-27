@@ -2,7 +2,9 @@ class JoshForm < ActionView::Helpers::FormBuilder
   CSS = {
     :label => 'form_lbl',
     :hint => 'hint',
-    :hint_ptr => 'hint-pointer'
+    :hint_ptr => 'hint-pointer',
+    :error => 'error',            # style for error text
+    :field_error => 'in_error'    # style for error field
   }
 
   def required(name)
@@ -43,6 +45,21 @@ class JoshForm < ActionView::Helpers::FormBuilder
         args.last[:class] = "form_input_full #{css_class}"
       end
 
+      if @object and @object.errors.any?
+
+        # special handling for file_field
+        if method_name == 'file_field'
+          error = @object.errors["#{attribute.to_s}_file_name"]
+        else
+          error = @object.errors[attribute]
+        end
+        if error.present?
+          error_tag = @template.content_tag(:label, error.join(',').humanize, {:class => CSS[:error]})
+
+          args.last[:class] = "#{args.last[:class]} in_error"
+        end
+      end
+
       base_tag = super(attribute, *args)
       
       # Incase its a mandatory field, the '*' is added to the field.
@@ -53,7 +70,7 @@ class JoshForm < ActionView::Helpers::FormBuilder
         hint_tag = @template.content_tag(:span, hint + hint_pointer, { :class => CSS[:hint] }, false) 
       end
 
-      all_tags = label_tag + base_tag + hint_tag
+      all_tags = label_tag + base_tag + hint_tag + error_tag
       
       if css_class =~ /input_small/
         all_tags

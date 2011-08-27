@@ -22,7 +22,7 @@ class ProfilesController < ApplicationController
       redirect_to :action => 'index'
     rescue 
       @profile.build_location if @profile.location.blank?
-      redirect_to :action => 'edit'
+      render :action => 'edit'
     end
   end
 

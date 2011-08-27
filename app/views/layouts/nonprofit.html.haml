@@ -6,18 +6,16 @@
       %li.nav_non
         = link_to "Logout", logout_nonprofits_path
 
-- content_for :body_content do 
-  - if nonprofit_logged_in?
-    = render "layouts/nonprofit_tabs"
-  #c1{:style => "float:left;"}
-    .np_tab_logo
-      = image_tag(@nonprofit.photo.url(:medium), :class => "np_logos") if @nonprofit and !@nonprofit.new_record?
-    - if defined?(search) and search
-      .sidebar_bar
-        = render 'layouts/nonprofit_search' 
-    = content_for?(:tab_content) ? yield(:tab_content) : yield
+- unless content_for?(:body_content)
+  - content_for :body_content do 
+    - if nonprofit_logged_in?
+      = render "layouts/nonprofit_tabs"
+    #c1{:style => "float:left;"}
+      .np_tab_logo
+        = image_tag(@nonprofit.photo.url(:medium), :class => "np_logos") if @nonprofit and !@nonprofit.new_record?
+      - if defined?(search) and search
+        .sidebar_bar
+          = render 'layouts/nonprofit_search' 
+      = content_for?(:tab_content) ? yield(:tab_content) : yield
 
-- if nonprofit_logged_in?
-  = render :file => 'layouts/service', :locals => {:find => false}
--else
-  = render :file => 'layouts/service', :locals => {:find =>true} 
+= render :file => 'layouts/service', :locals => {:find => nonprofit_logged_in? ? false : true }

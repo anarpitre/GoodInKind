@@ -67,14 +67,6 @@
 %a.bro_req_btn{:href => requests_path} Browse Requests
 .offer_form
   = form_for @service, :builder => JoshForm, :html => {:multipart => true} do |f|
-    - if @service.errors.any?
-      #error_explanation
-        %h2
-          = pluralize(@service.errors.count, "error")
-          prohibited this post from being saved:
-        %ul
-          - @service.errors.full_messages.each do |msg|
-            %li= msg
     .setp_box
       %h3.setp_box_heading
         %span Step 1:

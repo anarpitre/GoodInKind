@@ -667,7 +667,7 @@ h2.fs_find_h2 span a:hover {
 .sidebar_left_sugg ul li a:hover{
 	text-decoration:underline;
 }
-textarea.in_error, input.in_error {
+textarea.in_error, input.in_error, select.in_error {
 	background: #F8DBDB;
 	border-color: #E77776;
 	margin-bottom:10px;
@@ -1730,8 +1730,18 @@ h2.my_name span a img {
     width:85px;
     float:left;
     margin-right:25px;
-    font-size:15px;
+    font-size:14px;
     font-weight:bold;
+}
+
+.up_my_profile_right_edit label.error {
+    color: #FF0000;
+    float: left;
+    margin-bottom: 10px;
+    margin-left: 120px;
+    width: 100%;
+    font-weight:normal;
+    font-size:12px;
 }
 
 .my_pro_not_pl {
