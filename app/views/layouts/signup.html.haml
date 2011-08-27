@@ -1,4 +1,3 @@
-
 !!!
 %html{:xmlns => "http://www.w3.org/1999/xhtml"}
   %head
@@ -17,11 +16,12 @@
 
 
   %body
-    .sign_up
+    %div{:class => @class_name}
       %h1
         = link_to image_tag('goodinkind-logo.png', :alt => "Goodinkind - Get Together. Do Good."), root_path
 
-      .sign_up_bg
+      %div{:class => "#{@class_name}_bg"}
         = content_for?(:body_content) ? yield(:body_content) : yield
-      .sign_up_bg_gap
+      - if @class_name == 'sign_up'
+        .sign_up_bg_gap
 

@@ -107,7 +107,8 @@ class NonprofitsController < ApplicationController
   
   def login
     @head[:title] = "non-profit partners login"
-    render :layout => "nonprofit_signin"
+    @class_name = "main_login"
+    render :layout => 'signup'
   end
   
   def create_session 
