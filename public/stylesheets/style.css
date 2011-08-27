@@ -236,7 +236,7 @@ a.login_close {
 	margin-bottom:20px;
 	text-align:center;
 }
-.main_login_box {
+.main_login_bg {
 	width:388px;
 	float:left;
 	background:#ffffe9;
@@ -244,7 +244,7 @@ a.login_close {
 	box-shadow:0px 2px 5px #333;
 	padding:35px 45px;
 }
-.main_login_box h2 {
+.main_login_bg h2 {
 	font-family: 'Crimson Text', serif;
 	font-weight: 400;
 	font-size:30px;
@@ -253,17 +253,17 @@ a.login_close {
 	width:100%;
 	text-align:center;
 }
-.main_login_box form {
+.main_login_bg form {
 	width:305px;
 	margin-left:41px;
 	float:left;
 }
-.main_login_box form p {
+.main_login_bg form p {
 	width:100%;
 	float:left;
 	margin-bottom:10px;
 }
-.main_login_box form label {
+.main_login_bg form label {
 	width:85px;
 	float:left;
 	margin:10px 15px 0px 0px;
