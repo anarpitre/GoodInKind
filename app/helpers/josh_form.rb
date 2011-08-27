@@ -17,7 +17,7 @@ class JoshForm < ActionView::Helpers::FormBuilder
   end
 
   def submit(value="Save", options={})
-    options[:class] = "btn_form button #{options[:class]}"
+    options[:class] = "btn_form button form_post_btn #{options[:class]}"
     super
   end
 
@@ -80,8 +80,7 @@ class JoshForm < ActionView::Helpers::FormBuilder
     end
   end
 
-  helpers = %w[text_field text_area password_field file_field collection_select ]
-  #helpers = %w[text_field text_area password_field select file_field collection_select ]
+  helpers = %w[text_field text_area password_field select file_field collection_select ]
   helpers.each do |name|
     create_tagged_field(name)
   end

@@ -44,7 +44,8 @@ class NonprofitsController < ApplicationController
       flash[:notice] = "Thank you for submitting your application to become a non-profit partner"
       redirect_to  root_path
     else
-      render :action => :new
+      # We are explicitly rendering a layout in the view ;)
+      render :action => :new, :layout => false
     end
   end
 
