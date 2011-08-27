@@ -158,9 +158,12 @@ class NonprofitsController < ApplicationController
         flash[:notice] = "Instructions to change your password have been sent to the email address on your profil"
         redirect_to '/'
       else
-        flash[:notice] = "User not found"
-        render :action => 'forgot_password'
+        @class_name = "main_login"
+        render :action => 'forgot_password', :layout => "signup"
       end
+    else
+      @class_name = "main_login"
+      render :action => 'forgot_password', :layout => "signup"
     end
   end
 
@@ -195,9 +198,12 @@ class NonprofitsController < ApplicationController
         flash[:notice] = "Email was sent successfully"
         redirect_to '/'
       else
-        flash[:notice] = "User not found"
-        render :action => 'forgot_username'
+        @class_name = "main_login"
+        render :action => 'forgot_username', :layout => "signup"
       end
+    else
+      @class_name = "main_login"
+      render :action => 'forgot_username', :layout => "signup"
     end
   end
 
