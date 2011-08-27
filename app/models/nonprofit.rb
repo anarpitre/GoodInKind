@@ -16,12 +16,15 @@ class Nonprofit < ActiveRecord::Base
   validates :username, :presence => true, :uniqueness => true
   validates :EIN, :presence => true, :uniqueness => true
   validates :password, :password_confirmation, :presence => true, :on => :create
-  validates :contact_name, :name, :phone_number, :website, :photo_file_name, :position, :presence => true
+  validates :contact_name, :name, :website, :photo_file_name, :position, :presence => true
 
   validates_confirmation_of :password, :on => :create
   validates :email,  :presence => true, :format => EMAIL_REGEX
+  validates :cell_phone, :format => CELL_NO_REGEX, :unless =>  Proc.new {|nonprofit| nonprofit.cell_phone.blank? }
+  validates :phone_number, :presence => true, :format => CELL_NO_REGEX
   validates_attachment_content_type :photo, :content_type => ["image/jpeg", "image/png", "image/gif", "image/jpg", "image/bmp", "image/tiff", "image/tif" ]
   validates_attachment_size  :photo, :less_than => 2.megabytes
+
 
   has_attached_file :photo, S3_DEFAULTS.merge(
     :styles => { 
@@ -121,6 +124,5 @@ class Nonprofit < ActiveRecord::Base
   def add_index
     INDEX.document("Nonprofit:id:#{self.id}").add({ :text => "#{self.categories.collect(&:name).to_s} #{self.name} #{self.description}"})
   end
-
 
 end
