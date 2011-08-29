@@ -2,7 +2,7 @@ Gik::Application.routes.draw do
 
   ##### START- SPECIAL PRODUCTION ROUTING CHECK
   if Rails.env == 'production'
-    root => "nonprofits#new"
+    root :to => "nonprofits#new"
     resources :nonprofits, :only => [:new, :create]
   else
   ##### ALL THESE ARE OPEN FOR envs other than production
