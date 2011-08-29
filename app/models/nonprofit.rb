@@ -11,6 +11,7 @@ class Nonprofit < ActiveRecord::Base
   has_one :location, :as => :resource, :dependent => :destroy
   belongs_to :gateway
 
+  validates_acceptance_of :tos
   validates_length_of :description, :maximum => 1500
   validates_length_of :guideline, :maximum => 400 
   validates :username, :presence => true, :uniqueness => true

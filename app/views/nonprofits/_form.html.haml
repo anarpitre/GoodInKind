@@ -1,34 +1,3 @@
-
-:javascript
-  $(document).ready(function() {
-      var term = $('#Accept').val();
-      is_termandcondition(term);
-
-  });
-
-
-  jQuery(document).ready(function(){
-    $('#Accept').attr('checked',false) 
-     $('#submit_app_div').hide(); 
-    $('#Accept').click(function(){
-     is_termandcondition($("#Accept").is(':checked'))
-         
-    });
-  
-  });
-
-  function is_termandcondition(flag)
-  {
-    if (flag){
-      $('#submit_app_div').show(); 
-    }
-    else {
-      $('#submit_app_div').hide(); 
-    }
-  }
-
-
-
 .offer_form
   = form_for @nonprofit, :builder => JoshForm, :html => {:multipart => true}  do |f| 
     .setp_box
@@ -55,12 +24,13 @@
       %ul.input_radio_nav
         %br/
         %li
-          = check_box_tag "Accept",  "false", "true" 
-          &nbsp;&nbsp;
-          %strong
-            I agree to the
-            = link_to('terms and conditions', '/docs/GoodInKind 501 Terms and Conditions.html', :target=>"_blank")
-            on behalf of my organization
+          %span
+            = f.check_box :tos, {}, "1", "0"
+            %strong 
+              I agree to the
+              = link_to('terms and conditions', '/docs/GoodInKind 501 Terms and Conditions.html', :target=>"_blank")
+              on behalf of my organization
+            %label.error= @nonprofit.errors[:tos].join(',').humanize if @nonprofit.errors[:tos].present?
     #submit_app_div
       .input_post_div
         %p By clicking "Submit Application", you are confirming that you are an official representative of the organization for which you are applying.
