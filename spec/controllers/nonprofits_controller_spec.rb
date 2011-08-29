@@ -24,7 +24,6 @@ describe NonprofitsController do
 
     it "update his guildeline and mission fields only if the status of nonprofit is verified"
 
-
     it "update his name and other profile fields only if the status of nonprofit is verified"
 
     it "update his password" do
@@ -59,5 +58,4 @@ describe NonprofitsController do
     it "if uploaded photo is not in proper format e.g. pdf"
     it "if uploaded photo is not in proper format e.g. word"
   end
-
 end

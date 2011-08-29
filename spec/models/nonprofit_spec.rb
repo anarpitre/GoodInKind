@@ -9,6 +9,10 @@ describe Nonprofit do
       np.save
       np.should be_valid
     end
+    
+    it "EIN format is valid i.e. 11-1111111" do
+      np.EIN = "11-1111111"
+    end
 
     it "all the details entered are valid" do
       np.should be_valid
@@ -16,7 +20,7 @@ describe Nonprofit do
 
     it "Organization name is already taken" do
       non = Factory.build(:nonprofit)
-      non.EIN = "22111"
+      non.EIN = "11-2211145"
       non.name = np.name
       non.save
       non.should be_valid
@@ -84,6 +88,18 @@ describe Nonprofit do
     
     it "Ein is blank" do
       np.EIN = ''
+    end
+    
+    it "Ein is format is invalid i.e.12345678" do
+      np.EIN = '12345678'
+    end
+    
+    it "Ein is format is invalid i.e.12-3456789" do
+      np.EIN = '12-3456789'
+    end
+
+    it "Ein is format is invalid i.e.12.345678" do
+      np.EIN = '12.345678'
     end
 
     it "Ein is already taken" do

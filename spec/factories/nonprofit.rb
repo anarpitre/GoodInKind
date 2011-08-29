@@ -8,7 +8,7 @@ Factory.define :nonprofit do |c|
   c.sequence(:username) {|a| "a123#{a}"}
   c.password "josh123"
   c.password_confirmation "josh123"
-  c.EIN  "12345"
+  c.EIN  "12-1234567"
   c.website "www.test.com"
   c.is_active true
   c.guideline {Faker::Lorem.paragraph}
