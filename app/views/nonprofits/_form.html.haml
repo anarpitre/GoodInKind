@@ -33,7 +33,7 @@
             %label.error= @nonprofit.errors[:tos].join(',').humanize if @nonprofit.errors[:tos].present?
     #submit_app_div
       .input_post_div
-        %p By clicking "Submit Application", you are confirming that you are an official representative of the organization for which you are applying.
+        %p By clicking "Submit", you are confirming that you are an official representative of the organization for which you are applying.
         %br/
         = f.submit "Submit", :class => "btn_form button form_post_btn"
 
