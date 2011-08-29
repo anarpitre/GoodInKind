@@ -55,7 +55,7 @@ function serviceRenderInit(){
     var service_title = service.title.length < 21 ? service.title : service.title.substring(0,21) +'...';
     
     clear     = this.div({'class': 'clear'});
-    s_image   = this.image(service.thumbnail, {'class': 'fs_box_pic' });
+    s_image   = this.div({'class': 'fs_box_pic'}, this.image(service.thumbnail));
     tag_spots = spot_content ? this.div({'class': 'tag_spots'}, spot_content) : null;
     tag_day   = day_content ? this.div({'class': 'tag_day'}, day_content) : null;
     fs_price  = this.div({'class': 'fs_price'}, '$' + service.amount );

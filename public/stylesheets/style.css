@@ -403,6 +403,7 @@ h2.fs_h2 {
 	width:200px;
 	height:100px;
 	border:1px solid #cbcbcb;
+  text-align: center;
 }
 .fs_left {
 	width:150px;
@@ -919,9 +920,10 @@ h2.services_h2 em {
 }
 .logged_pics {
 	width:448px;
-    height: 260px;
+  height: 260px;
 	float:left;
 	border:1px solid #938b8b;
+  text-align:center;
 }
 .tag_spots_logged {
 	background:url(../images/left_logged.png) no-repeat;
@@ -1268,6 +1270,7 @@ h2.offer_form_h2 span a {
 	float:left;
 	width:200px;
 	margin-top:2px;
+  text-align:center;
 }
 .np_rel_heading {
 	float:left;
@@ -1645,11 +1648,9 @@ h2.offer_form_h2 span a {
 	width:200px;
 	padding:10px;
 	background:#efefef;
+  text-align:center;
 }
-.mypic img {
-	width:200px;
-	height:200px;
-}
+
 .my_stats {
 	float:left;
 	width:178px;
