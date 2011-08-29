@@ -1,8 +1,8 @@
 %h2 Forgot your username?
 
 =form_for :nonprofit, :url => forgot_username_nonprofits_path, :html => { :method => :post } do |f| 
-  %p Give us your EIN 
+  %p Please provide your EIN and we will email you your username 
   %p= f.text_field :ein 
   %p= session[:error_ein]
-  %p= f.submit "Send me username" 
+  %p= f.submit "Submit" 
 

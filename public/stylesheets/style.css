@@ -1154,10 +1154,11 @@ h2.offer_form_h2 span a {
 }
 .input_select {
 	float:left;
-	width:144px;
+	width:308px;
 	padding:3px;
 	height:25px;
 	margin-left:10px;
+	margin-bottom:10px;
 	background:#FFF;
 	border:1px solid #dadada;
 }
@@ -1503,6 +1504,7 @@ h2.offer_form_h2 span a {
 	font-weight:bold;
 	font-size:20px;
 	margin-bottom:35px;
+	text-align: center;
 }
 .stats p {
 	width:100%;

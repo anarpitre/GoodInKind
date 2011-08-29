@@ -44,7 +44,7 @@ class NonprofitsController < ApplicationController
     logger.info(params[:nonprofit])
     @nonprofit = Nonprofit.new(params[:nonprofit])
     if @nonprofit.save
-      flash[:notice] = "Thank you for submitting your application to become a non-profit partner"
+      flash[:notice] = "Thank you for submitting your application to become a GoodInKind non-profit partner. We will be in touch with you shortly"
       redirect_to  root_path
     else
       # We are explicitly rendering a layout in the view ;)
@@ -184,6 +184,9 @@ class NonprofitsController < ApplicationController
     unless @nonprofit
       flash[:notice] = "Password is already changed"
       redirect_to :action => 'login'
+    else
+      @class_name = "main_login"
+      render :action => 'reset_password', :layout => "signup"
     end
   end
 
@@ -197,7 +200,8 @@ class NonprofitsController < ApplicationController
       redirect_to :action => 'login'
     else
       flash[:notice] = "Password didnot match"
-      render :action => 'reset_password'
+      @class_name = "main_login"
+      render :action => 'reset_password', :layout => "signup"
     end
   end
 
