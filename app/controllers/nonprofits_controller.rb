@@ -44,8 +44,11 @@ class NonprofitsController < ApplicationController
     logger.info(params[:nonprofit])
     @nonprofit = Nonprofit.new(params[:nonprofit])
     if @nonprofit.save
-      flash[:notice] = "Thank you for submitting your application to become a GoodInKind non-profit partner. We will be in touch with you shortly"
-      redirect_to  root_path
+      #flash[:notice] = "Thank you for submitting your application to become a GoodInKind non-profit partner. We will be in touch with you shortly"
+      #redirect_to  root_path
+      #Temporarily after Non-profit creation it has been redirected to www.goodinkind.com 
+      @class_name = "main_login"
+      render :action => :thankyou, :layout => 'signup'
     else
       # We are explicitly rendering a layout in the view ;)
       render :action => :new, :layout => false
