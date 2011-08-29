@@ -1,5 +1,7 @@
 Gik::Application.routes.draw do
 
+  devise_for :users, :controllers => {:sessions => :sessions, :registrations => :registrations, :confirmations => :confirmations}
+
   ##### START- SPECIAL PRODUCTION ROUTING CHECK
   if Rails.env == 'production'
     root :to => "nonprofits#new"
@@ -12,7 +14,6 @@ Gik::Application.routes.draw do
   match '/auth/:provider/callback' => 'authentications#create'
   match '/auth/failure' => 'dashboard#index'
 
-  devise_for :users, :controllers => {:sessions => :sessions, :registrations => :registrations, :confirmations => :confirmations}
 
   resources :dashboard 
   
