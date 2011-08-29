@@ -1,26 +1,115 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <title>We're sorry, but something went wrong (500)</title>
-  <style type="text/css">
-    body { background-color: #fff; color: #666; text-align: center; font-family: arial, sans-serif; }
-    div.dialog {
-      width: 25em;
-      padding: 0 4em;
-      margin: 4em auto 0 auto;
-      border: 1px solid #ccc;
-      border-right-color: #999;
-      border-bottom-color: #999;
-    }
-    h1 { font-size: 100%; color: #f00; line-height: 1.5em; }
-  </style>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Goodinkind</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Crimson+Text&v2' rel='stylesheet' type='text/css'>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
+<script>  
+	$(document).ready(
+		function(){ 
+			$("#login").click(function () {       $("#slidingDiv2").slideToggle("fast");     
+			return false;
+			});
+			$("#login_close").click(function () {       $("#slidingDiv2").slideToggle("fast");     
+			return false;
+			});
+			$("#change_city").click(function () {       $("#slidingDiv").slideToggle("fast");     
+			return false;
+			}); 
+		}
+	);
+ </script>
 </head>
 
 <body>
-  <!-- This file lives in public/500.html -->
-  <div class="dialog">
-    <h1>We're sorry, but something went wrong.</h1>
-    <p>We've been notified about this issue and we'll take a look at it shortly.</p>
+
+<!--Header-->
+<div class="header header_inner">
+  <h1 class="logo_inner"><a href="#"><img src="images/goodinkind-logo-small.png" alt="Goodinkind - Get Together. Do Good." /></a></h1>
+  
+  <!--Services Top-->
+  <div class="header_services_find"><div class="head_serve_box">Find<span>a service</span></div></div>
+  <div class="header_services_offer"><div class="head_serve_box serve_box_right">Offer<span>a service</span></div></div>
+  <!--End Services Top-->
+  
+<ul class="nav nav_inner">
+    <li><a href="#">Sign Up</a></li>
+    <li><a href="#" id="login">Login</a></li>
+    <li><a href="#">How it works</a></li>
+    <li class="nav_non"><a href="#">Non-Profits</a></li>
+  </ul>
+  <div class="change_city inner_city"> <span class="city_name">Ithaca, NY</span><br />
+    <span class="city_change_icon">change <a href="#" id="change_city"><img src="images/city_arrow.png" /></a></span> </div>
+</div>
+<!--End Header-->
+
+<div id="slidingDiv"></div>
+
+<!--Top Login-->
+<div id="slidingDiv2"> <a href="#" class="login_close" id="login_close"></a>
+  <div class="register_top">
+    <h4>Are you new? <span>Register <a href="#">here</a></span></h4>
   </div>
+  <div class="login_divider"></div>
+  <div class="login">
+    <form>
+      <p>
+        <input type="text" value="Name" name="cname"
+                     onblur="if(this.value=='')this.value='Name';" onfocus="if(this.value=='Name')this.value='';" class="login_input" />
+      </p>
+      <p>
+        <input type="text" value="Password" name="cemail" 
+                    onblur="if(this.value=='')this.value='Password';" onfocus="if(this.value=='Password')this.value='';"  class="login_input" />
+      </p>
+      <p>
+        <input type="button" value="Login" class="button bu_right btn_form" />
+      </p>
+    </form>
+    <div class="forgot_pwd"><a href="#">Forgot your password?</a></div>
+  </div>
+  <div class="login_divider"></div>
+  <div class="login_with"> <a href="#"><img src="images/facebook_sign.png" alt="Facebook" /></a> </div>
+</div>
+<!--END Top Login--> 
+
+
+<!--Main Container-->
+<div class="container"> 
+
+	<h2 class="heading_404"><span>Oops!</span> <br />
+Bad, bad server. No muffin for you!</h2>
+
+<h3 class="bottom_404">
+We've taken note of the error though,<br />
+and are working to resolve it. In the meantime, continue doing good <a href="#">here.</a></h3>
+    <img src="images/500.jpg" alt="404" class="img_404" />
+  <div class="clear"></div>
+</div>
+<!--End Main Container--> 
+
+<!--Footer-->
+<div class="footer">
+  <div class="footer_video"><img src="images/video-pic.jpg" alt="video" /></div>
+  <ul class="footer_nav">
+    <li><a href="#">About</a></li>
+    <li><a href="#">Blog</a></li>
+    <li><a href="#">FAQ</a></li>
+    <li><a href="#">Contact</a></li>
+    <li><a href="#">Terms</a></li>
+    <li><a href="#">Privacy Policy</a></li>
+    <li><a href="#">Jobs</a></li>
+  </ul>
+  <div class="footer_divider"></div>
+  <ul class="footer_social_media">
+    <li><a title="Facebook" target="_blank" href="#"></a></li>
+    <li><a title="Twitter" target="_blank" class="fot_tw" href="#"></a></li>
+    <li><a title="Youtube" target="_blank" class="fot_yt" href="#"></a></li>
+  </ul>
+  <div class="footer_divider"></div>
+  <span class="copyr">&copy;2011, GoodInKind, All Rights Reserved</span> </div>
+<!--End Footer-->
+
 </body>
 </html>

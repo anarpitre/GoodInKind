@@ -2736,6 +2736,51 @@ div.pagination strong {
 	margin-bottom:15px;
 }
 
+/*_____ 404 _____*/
+.heading_404{
+	float:left;
+	width:100%;
+	text-align:left;
+	font-size:26px;
+	font-weight:bold;
+	z-index:100;
+	position:relative;
+	margin:50px 0px 45px 60px;
+	font-family:"Times New Roman", Times, serif;
+}
+.heading_404 span{
+    float: left;
+    font-size: 46px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+.bottom_404{
+	float:left;
+	width:100%;
+	text-align:left;
+	font-size:16px;
+	font-weight:normal;
+	line-height:1.5;
+	margin:0px 0px 45px 60px;
+	z-index:100;
+	position:relative;
+}
+.bottom_404 a{
+	font-weight:bold;
+	color:#004a80;
+}
+.bottom_404 a:hover{
+	text-decoration:none;
+}
+.img_404{
+    float: right;
+    margin-right: 100px;
+    margin-top: -280px;
+    position: relative;
+    z-index: 2;
+}
+
+
 /*_____ Footer _____*/
 
 .footer {
