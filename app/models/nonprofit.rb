@@ -15,7 +15,7 @@ class Nonprofit < ActiveRecord::Base
   validates_length_of :description, :maximum => 1500
   validates_length_of :guideline, :maximum => 400 
   validates :username, :presence => true, :uniqueness => true
-  validates :EIN, :presence => true, :uniqueness => true
+  validates :EIN, :presence => true, :uniqueness => true, :format => EIN_REGEX
   validates :password, :password_confirmation, :presence => true, :on => :create
   validates :contact_name, :name, :website, :photo, :position, :presence => true
   validates_attachment_presence :photo

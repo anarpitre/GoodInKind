@@ -11,7 +11,9 @@ else
 end
 
 EMAIL_REGEX = /^[a-z]+([+\.\w]+)*\w@[a-z0-9]+(\.\w+)+$/i
-CELL_NO_REGEX = /^(((1(\-|))|)(\s|\.|)(\(|)(\d{3})(\)|)(\-|\s|\.|)(\d{3})(\-|\s|\.|)(\d{4}))$/i
+CELL_NO_REGEX = /^(1\-?)?\s?\(?\d{3}\)?(\-|\s)?\d{3}(\-|\s)?\d{4}$/i
+
+EIN_REGEX = /^\d{2}-\d{7}$/i
 
 API_URL = 'http://:5XxQ4mHBV7BV8w@iej.api.indextank.com'
 
