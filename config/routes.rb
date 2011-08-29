@@ -13,6 +13,7 @@ Gik::Application.routes.draw do
   match 'service/search' => 'services#search'
   match '/auth/:provider/callback' => 'authentications#create'
   match '/auth/failure' => 'dashboard#index'
+  match '/nonprofits/:id/change_password' => 'nonprofits#change_password'
 
 
   resources :dashboard 
@@ -30,7 +31,7 @@ Gik::Application.routes.draw do
       post :update_password
     end
     member do
-      match :change_password, :account
+      match :account
       get :transactions
     end
   end

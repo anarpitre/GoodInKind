@@ -36,7 +36,15 @@
       .input_post_div
         = f.submit
   .np_account_form
-    = form_for @nonprofit, :builder => JoshForm, :url => nonprofit_path(@nonprofit), :method => :put do |f|
+    = form_for @nonprofit, :builder => JoshForm, :url => change_password_nonprofit_path(@nonprofit) do |f|
+      - if @nonprofit.errors{:password}.any?
+        #error_explanation
+          %h2
+            = pluralize(@nonprofit.errors.count, "error")
+            prohibited this post from being saved:
+          %ul
+            - @nonprofit.errors.full_messages.each do |msg|
+              %li= msg
       .setp_box
         %h3.setp_box_heading
           %span Change Password

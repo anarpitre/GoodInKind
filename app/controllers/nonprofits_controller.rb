@@ -1,7 +1,7 @@
 class NonprofitsController < ApplicationController
   before_filter :set_seo_tags
   before_filter :get_nonprofit, :except => [:new, :create, :login, :create_session, :forgot_password, :reset_password, :update_password]
-  before_filter :nonprofit_owner, :only => [:edit, :logout, :account, :transactions]
+  before_filter :nonprofit_owner, :only => [:edit, :logout, :account, :transactions, :change_password]
 
   layout 'nonprofit'
   include NonprofitsHelper
@@ -56,26 +56,6 @@ class NonprofitsController < ApplicationController
   def update
     referer = session[:referer]
 
-    if referer == 'account'
-      # If old_password and password are not blank validate the old
-      # password and if its correct, change it to the new one!
-      unless (params[:old_password].blank? and params[:nonprofit][:password].blank?)
-        if Nonprofit.authenticate(@nonprofit.username, params[:old_password]) and
-           (params[:nonprofit][:password] == params[:nonprofit][:password_confirmation])
-
-          # invoke private method!
-          @nonprofit.send(:update_password, params[:nonprofit][:password]) 
-
-          # remove these parameters from the params
-          params.delete(:old_password)
-          params[:nonprofit].delete(:password)
-          params[:nonprofit].delete(:password_confirmation)
-        else
-            @nonprofit.errors.add(:password, "is incorrect or does not match")
-            render :action => :account and return
-        end
-      end
-    end
     category_id = params[:nonprofit][:category_ids]
     params[:nonprofit].delete(:category_ids)
     if @nonprofit.update_attributes(params[:nonprofit])
@@ -99,6 +79,30 @@ class NonprofitsController < ApplicationController
     end
   end
 
+  def change_password
+    # If old_password and password are not blank validate the old
+    # password and if its correct, change it to the new one!
+    if Nonprofit.authenticate(@nonprofit.username, params[:old_password]) 
+      unless (params[:nonprofit][:password] != params[:nonprofit][:password_confirmation] || params[:nonprofit][:password].blank?) 
+        # invoke private method!
+        @nonprofit.send(:update_password, params[:nonprofit][:password]) 
+
+        # remove these parameters from the params
+        params.delete(:old_password)
+        params[:nonprofit].delete(:password)
+        params[:nonprofit].delete(:password_confirmation)
+        flash[:notice] = "Password updated successfully"
+        redirect_to :action => 'account'
+      else
+        @nonprofit.errors.add(:password, "invalid or mismatch password")
+        render :action => :account
+      end
+    else
+      @nonprofit.errors.add(:password, "invalid or mismatch password")
+      render :action => 'account'
+    end
+  end
+
   def account
     # Maintain a session variable, to identify the referrer in update action
     @head[:title] = @nonprofit.name + " account information"
@@ -111,14 +115,14 @@ class NonprofitsController < ApplicationController
     @transactions = []
     #@transactions = @nonprofit.services.collect(&:transactions)
   end
-  
+
   def login
     return redirect_to nonprofit_path(current_nonprofit) if nonprofit_logged_in?
     @head[:title] = "non-profit partners login"
     @class_name = "main_login"
     render :layout => 'signup'
   end
-  
+
   def create_session 
     @nonprofit = Nonprofit.authenticate(params[:username],params[:password])
     if @nonprofit && @nonprofit.is_verified == "verified"
@@ -137,7 +141,7 @@ class NonprofitsController < ApplicationController
     session[:nonprofit] = nil
     redirect_to root_path
   end
-  
+
   def search
     @nonprofits = []
     unless params[:text].blank?
