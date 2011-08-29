@@ -13,7 +13,7 @@ Factory.define :nonprofit do |c|
   c.is_active true
   c.guideline {Faker::Lorem.paragraph}
   c.description {Faker::Lorem.paragraph}
-  c.phone_number {Faker::PhoneNumber.phone_number}
+  c.phone_number "1-222-333-4444"
   c.cell_phone "1234567890"
   c.association :gateway_id, :factory => 'gateway'
   c.photo_file_name "Rails.gif"
