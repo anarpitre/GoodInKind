@@ -16,8 +16,8 @@
           = f.text_field :contact_name, :class => "input_np", :label => "Name"
           = f.text_field :position, :class => "input_np"
           = f.text_field :email, :class => "input_np", :label => "Work Email"
-          = f.text_field :phone_number, :class => "input_np", :hint => "Valid Format: XXX-XXX-XXXX / (XXX)-XXX-XXXX / 1-(XXX)-XXX-XXX"
-          = f.text_field :cell_phone, :class => "input_np", :hint => "Valid Format: XXX-XXX-XXXX / (XXX)-XXX-XXXX / 1-(XXX)-XXX-XXX"
+          = f.text_field :phone_number, :class => "input_np", :hint => "Valid Formats: XXX-XXX-XXXX / (XXX)-XXX-XXXX / 1-(XXX)-XXX-XXX"
+          = f.text_field :cell_phone, :class => "input_np", :hint => "Valid Formats: XXX-XXX-XXXX / (XXX)-XXX-XXXX / 1-(XXX)-XXX-XXX"
         %p.np_bot_p
           = f.check_box :show_contact_details, {:class => 'input_checkbox'}, "true", "false"
           %span.setp_box_p_span Show this contact name and contact email to users viewing my organization profile

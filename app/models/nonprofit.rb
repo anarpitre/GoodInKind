@@ -17,13 +17,14 @@ class Nonprofit < ActiveRecord::Base
   validates :username, :presence => true, :uniqueness => true
   validates :EIN, :presence => true, :uniqueness => true, :format => EIN_REGEX
   validates :password, :password_confirmation, :presence => true, :on => :create
-  validates :contact_name, :name, :website, :photo, :position, :presence => true
+  validates :contact_name, :name, :photo, :position, :presence => true
   validates_attachment_presence :photo
 
   validates_confirmation_of :password, :on => :create
   validates :email,  :presence => true, :format => EMAIL_REGEX
   validates :cell_phone, :format => CELL_NO_REGEX, :unless =>  Proc.new {|nonprofit| nonprofit.cell_phone.blank? }
   validates :phone_number, :presence => true, :format => CELL_NO_REGEX
+  validates :website, :presence => true, :format => WEBSITE_REGEX
   validates_attachment_content_type :photo, :content_type => ["image/jpeg", "image/png", "image/gif", "image/jpg", "image/bmp", "image/tiff", "image/tif" ]
   validates_attachment_size  :photo, :less_than => 2.megabytes
 

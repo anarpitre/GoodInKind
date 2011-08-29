@@ -7,9 +7,6 @@ class NonprofitsController < ApplicationController
   include NonprofitsHelper
   
   def index
-    session[:error_login] = ""
-    session[:error_username] = ""
-    session[:error_ein] = ""
     @head[:title] = "Browse non-profit partners and support them"
     @nonprofits = Nonprofit.verified
 
@@ -121,22 +118,24 @@ class NonprofitsController < ApplicationController
 
   def login
     return redirect_to nonprofit_path(current_nonprofit) if nonprofit_logged_in?
+    @nonprofit = Nonprofit.new
     @head[:title] = "non-profit partners login"
     @class_name = "main_login"
     render :layout => 'signup'
   end
 
   def create_session 
-    @nonprofit = Nonprofit.authenticate(params[:username],params[:password])
+    @nonprofit = Nonprofit.authenticate(params[:nonprofit][:username],params[:nonprofit][:password])
     if @nonprofit && @nonprofit.is_verified == "verified"
-      session[:error_login] = ""
       session[:nonprofit] = {}
       session[:nonprofit][:name] = @nonprofit.name
       session[:nonprofit][:id] = @nonprofit.id
       redirect_to nonprofit_path(@nonprofit)
     else
-      session[:error_login] = "Invalid Username / Password"
-      redirect_to :action => 'login'
+      @nonprofit = Nonprofit.new
+      @nonprofit.errors.add(:base, "Invalid Username / Password" )
+      @class_name = "main_login"
+      render :action => 'login', :layout => 'signup'
     end
   end
 
