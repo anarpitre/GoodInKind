@@ -2,6 +2,7 @@ Gik::Application.routes.draw do
 
   devise_for :users, :controllers => {:sessions => :sessions, :registrations => :registrations, :confirmations => :confirmations}
 
+  match 'offer_virtual' => 'home#offer_virtual', :as => :offer_virtual, :method => :post
   ##### START- SPECIAL PRODUCTION ROUTING CHECK
   if Rails.env == 'production'
     root :to => "nonprofits#new"
@@ -10,7 +11,6 @@ Gik::Application.routes.draw do
   ##### ALL THESE ARE OPEN FOR envs other than production
 
   match 'service/search' => 'services#search'
-  match 'offer_virtual' => 'home#offer_virtual', :as => :offer_virtual, :method => :post
   match '/auth/:provider/callback' => 'authentications#create'
   match '/auth/failure' => 'dashboard#index'
 
