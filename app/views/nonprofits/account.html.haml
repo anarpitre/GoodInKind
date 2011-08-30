@@ -10,7 +10,6 @@
         %h3.setp_box_heading
           %span Contact Information
         #edit_contact_info
-          = f.text_field :name, :class => 'input_half', :disabled => true
           = f.text_field :contact_name, :class => "input_np", :label => "Contact Name"
           = f.text_field :position, :class => "input_np"
           = f.text_field :email, :class => "input_np", :label => "Work Email"
@@ -42,6 +41,7 @@
           - if @nonprofit.errors[:base].any?
             - @nonprofit.errors[:base].each do |msg|
               = msg
+        = f.text_field :username, :class => 'input_half', :disabled => true
         %p 
           = f.label "Old Password *", :class =>'form_lbl'
           = password_field_tag :old_password, '', :class => "form_input_full input_np #{ @nonprofit.errors[:base].any? ? 'in_error' : "" }"
