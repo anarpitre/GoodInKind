@@ -5,15 +5,13 @@
         #error_explanation
           %h2
             = pluralize(@nonprofit.errors.count, "error")
-            prohibited this post from being saved:
-          %ul
-            - @nonprofit.errors.full_messages.each do |msg|
-              %li= msg
+            below prevented a successful save.
       .setp_box
         %h3.setp_box_heading
           %span Contact Information
         #edit_contact_info
-          = f.text_field :contact_name, :class => "input_np", :label => "Name"
+          = f.text_field :name, :class => 'input_half', :disabled => true
+          = f.text_field :contact_name, :class => "input_np", :label => "Contact Name"
           = f.text_field :position, :class => "input_np"
           = f.text_field :email, :class => "input_np", :label => "Work Email"
           = f.text_field :phone_number, :class => "input_np", :hint => "Valid Formats: XXX-XXX-XXXX / (XXX)-XXX-XXXX / 1-(XXX)-XXX-XXX"
@@ -37,22 +35,18 @@
         = f.submit
   .np_account_form
     = form_for @nonprofit, :builder => JoshForm, :url => change_password_nonprofit_path(@nonprofit) do |f|
-      - if @nonprofit.errors{:password}.any?
-        #error_explanation
-          %h2
-            = pluralize(@nonprofit.errors.count, "error")
-            prohibited this post from being saved:
-          %ul
-            - @nonprofit.errors.full_messages.each do |msg|
-              %li= msg
       .setp_box
         %h3.setp_box_heading
           %span Change Password
         %p
+          - if @nonprofit.errors[:base].any?
+            - @nonprofit.errors[:base].each do |msg|
+              = msg
+        %p 
           = f.label "Old Password *", :class =>'form_lbl'
-          = password_field_tag :old_password, '', :class => 'form_input_full input_np '
-        = f.password_field :password, :class => 'input_np', :label => "New password"
-        = f.password_field :password_confirmation, :class => "input_np", :label => "Confirm Password"
+          = password_field_tag :old_password, '', :class => "form_input_full input_np #{ @nonprofit.errors[:base].any? ? 'in_error' : "" }"
+        = f.password_field :password, :class => "input_np #{ @nonprofit.errors[:base].any? ? 'in_error' : "" }", :label => "New password"
+        = f.password_field :password_confirmation, :class => "input_np #{ @nonprofit.errors[:base].any? ? 'in_error' : "" }", :label => "Confirm Password"
       .input_post_div
         = f.submit
 

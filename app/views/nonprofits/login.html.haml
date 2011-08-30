@@ -5,8 +5,6 @@
       - @nonprofit.errors.full_messages.each do |msg|
         %b= msg
   %p
-    = session[:error_login] 
-  %p
     = label_tag "Username:"
     = f.text_field :username, :class => "login_box_txt"
   %p

@@ -32,6 +32,7 @@ Gik::Application.routes.draw do
     end
     member do
       match :account
+      post :change_password
       get :transactions
     end
   end
