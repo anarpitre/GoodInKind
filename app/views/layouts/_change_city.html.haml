@@ -1,12 +1,13 @@
 #slidingDiv
-  %h4 We are only available in the Ithaca, NY region right now, but you will still be able to offer and purchase virtual services regardless of your location. Please tell us in which city you'd like us to rollout next
+  %a#city_close.city_close{:href => "#"}
+  %h4
+    We are only available in the Ithaca, NY region right now, but you will still be able to offer and purchase virtual services regardless of your location.
+    %br/
+    Please tell us in which city you'd like us to rollout next
   
   = form_tag offer_virtual_path do 
-    %p
-      = label_tag "invite", "Your City", :class => "form_lbl"
-      = text_field "invite", "city", :placeholder => "City Name", :class => "form_input_full input_small"
-    %p
-      = label_tag "invite", "Your Email", :class => "form_lbl"
-      = text_field "invite", "email", :placeholder => "Your E-mail", :class => "form_input_full input_small"
-    %p
-      = submit_tag "Submit", :class => "button bu_right btn_form"
+    = label_tag "invite", "Your City", :class => "change_city_lbl"
+    = text_field "invite", "city", :placeholder => "City Name", :class => "change_city_inpt"
+    = label_tag "invite", "Your Email", :class => "change_city_lbl"
+    = text_field "invite", "email", :placeholder => "Your E-mail", :class => "change_city_inpt"
+    = submit_tag "Submit", :class => "button bu_right btn_form c_c_submit"
