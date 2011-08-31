@@ -6,7 +6,7 @@ class Request < ActiveRecord::Base
   has_one :location, :as => :resource,:dependent => :destroy
 
   validates :title, :description, :email, :presence => true
-  validates :email,  :presence => true, :format => EMAIL_REGEX
+  validates :email,  :presence => true, :format => Devise.email_regexp
   
   accepts_nested_attributes_for :location, :reject_if => :all_blank, :allow_destroy => true
   

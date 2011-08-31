@@ -40,7 +40,6 @@ class NonprofitsController < ApplicationController
   def create
     logger.info(params[:nonprofit])
     @nonprofit = Nonprofit.new(params[:nonprofit])
-    @nonprofit.description = " "
     if @nonprofit.save
       #flash[:notice] = "Thank you for submitting your application to become a GoodInKind non-profit partner. We will be in touch with you shortly"
       #redirect_to  root_path
@@ -59,9 +58,6 @@ class NonprofitsController < ApplicationController
 
     category_id = params[:nonprofit][:category_ids]
     params[:nonprofit].delete(:category_ids)
-    if referer == 'edit'
-      params[:nonprofit][:description] = params[:nonprofit][:description].strip
-    end
     if @nonprofit.update_attributes(params[:nonprofit])
       nonprofit_category = @nonprofit.nonprofit_categories
       if nonprofit_category.blank?

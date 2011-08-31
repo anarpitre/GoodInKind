@@ -12,7 +12,7 @@ class Nonprofit < ActiveRecord::Base
   belongs_to :gateway
 
   validates_acceptance_of :tos
-  validates_length_of :description, :minimum => 1, :maximum => 1500, :message => "Cannot be blank and maximum 1500 characters"
+  validates :description, :length => {:in => 1..1500}, :on => :update 
   validates_length_of :guideline, :maximum => 400 
   validates :username, :presence => true, :uniqueness => true
   validates :EIN, :presence => true, :uniqueness => true, :format => EIN_REGEX
