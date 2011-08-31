@@ -21,7 +21,7 @@ class Nonprofit < ActiveRecord::Base
   validates_attachment_presence :photo
 
   validates_confirmation_of :password, :on => :create
-  validates :email,  :presence => true, :format => EMAIL_REGEX
+  validates :email,  :presence => true, :format => Devise.email_regexp
   validates :cell_phone, :format => CELL_NO_REGEX, :unless =>  Proc.new {|nonprofit| nonprofit.cell_phone.blank? }
   validates :phone_number, :presence => true, :format => CELL_NO_REGEX
   validates :website, :presence => true, :format => WEBSITE_REGEX
