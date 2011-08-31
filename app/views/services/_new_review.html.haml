@@ -1,7 +1,10 @@
 - 2.times do |i|
   - unless @reviews[i].blank?
     %h3
-      %span.positive= @reviews[i].is_positive == true ? "Positive" : "Negative"
+      - if @reviews[i].is_positive == true
+        %span.positive Positive
+      - else
+        %span.negative Negative
       by
       %span.ss_name=  @reviews[i].user.profile.first_name
       %p

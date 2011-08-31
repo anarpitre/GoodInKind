@@ -24,9 +24,10 @@ class MessagesController < ApplicationController
   end
 
   def show
-    @message = Message.find(params[:id])
-    @message.is_read = true
-    @message.save
+    @msg = Message.find(params[:id])
+    @msg.is_read = true
+    @msg.save
+    @message = Message.new(:receiver_id => @msg.sender_id, :sender_id => @msg.receiver_id, :parent_message_id => @msg.id)
   end
 
   def list
