@@ -18,7 +18,7 @@ class FirstGiving
   end
 
   def self.cardonfile(credit_card, booking)
-    params = prepare_params(credit_card, booking)
+    params = prepare_cardonfile_params(credit_card, booking)
     res = self.post('/cardonfile', :query => params)
 
     code = res['firstGivingDonationApi']['firstGivingResponse']['acknowledgement'] rescue "Unknown"
@@ -28,15 +28,38 @@ class FirstGiving
       id = res['firstGivingDonationApi']['firstGivingResponse']['cardOnFileId']
     end
 
-    # TODO: handle error
-
     # Return a hash of for code and id.
     [code, id ]
   end
 
+  def self.donation(booking)
+    params = prepare_donation_params(booking)
+    res = self.post('/donation/creditcard', :query => params)
+
+    code = res['firstGivingDonationApi']['firstGivingResponse']['acknowledgement'] rescue "Unknown"
+    if code == 'Success'
+      id = res['firstGivingDonationApi']['firstGivingResponse']['trasactionId']
+    else
+      id = res['firstGivingDonationApi']['firstGivingResponse']['verboseErrorMessage']
+    end
+
+    [code, id]
+  end
 
   protected
-  def self.prepare_params(credit_card, booking)
+  def self.prepare_donation_params(booking)
+    params = {}
+    params[:cardOnFileId] = booking.user.cc_token
+    params[:amount] = booking.donation_amount
+    params[:currencyCode] = "USD"
+    params[:charityId] = booking.service.nonprofit.uuid
+    params[:orderId] = booking.mref
+    params[:description] = booking.service.title
+    params[:remoteAddr] = booking.remoteAddr
+    
+  end
+
+  def self.prepare_cardonfile_params(credit_card, booking)
     params = {}
     params[:ccNumber] = credit_card.number
     params[:ccType] = FIRST_GIVING_TYPEMAP[credit_card.type]
