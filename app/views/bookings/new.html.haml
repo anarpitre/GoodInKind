@@ -41,8 +41,9 @@
         
       = fields_for :cc, @cc, :builder => JoshForm do |cc|
         = cc.text_field :name, :class => "input_half"
-        = cc.select :month, (1..12), {}, :class => 'input_select'
-        = cc.select :year, (Date.today.year..Date.today.year+5), {}, :class => 'input_select'
+        %p
+          = cc.select :month, (1..12), {}, :class => 'input_select input_tiny'
+          = cc.select :year, (Date.today.year..Date.today.year+5), {}, :class => 'input_select input_tiny'
         = cc.select :type, [['Visa', 'visa'], ['MasterCard', 'master'], ['Discover', 'discover'], ['American Express', 'american_express']], {}, :class => "input_select"
         = cc.text_field :number, :class => "input_half"
         = cc.text_field :verification_value, :class => "input_half"

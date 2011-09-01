@@ -35,7 +35,7 @@
       .services_price
         %span.req_text Requested Donation
         %span.price_text= "$"  + @service.amount.to_i.to_s 
-      %a.button.take_it{:href => "#"} Take It
+      = link_to "Take It", new_service_booking_path(@service), :class => 'button take_it'
   .services_content
     = render :partial => "service_description"
     = render :partial => "service_review"

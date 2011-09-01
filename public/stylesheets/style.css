@@ -1266,9 +1266,6 @@ h2.offer_form_h2 span a {
 .input_small {
 	width:114px;
 }
-.input_tiny {
-	width:76px;
-}
 .input_area {
 	height:122px;
 }
@@ -1284,6 +1281,9 @@ h2.offer_form_h2 span a {
 	margin-bottom:10px;
 	background:#FFF;
 	border:1px solid #dadada;
+}
+.input_tiny {
+	width:76px;
 }
 
 .input_half {
