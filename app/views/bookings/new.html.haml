@@ -10,7 +10,8 @@
         %span Booking Details
       .booking
         .fs_box
-          = image_tag(@booking.service.images.first.image.url(:thumb))
+          .fs_box_pic
+            = image_tag(@booking.service.images.first.image.url(:thumb))
           .fs_left
             %span.fs_head= @booking.service.title
             %span.fs_for for
