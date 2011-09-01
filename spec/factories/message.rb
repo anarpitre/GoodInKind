@@ -4,4 +4,6 @@ Factory.define :message do |m|
   m.message {Faker::Lorem.paragraph}
   m.is_read false
   m.parent_message_id 0
+  m.association :receiver, :factory => :user
+  m.association :sender, :factory => :user
 end
