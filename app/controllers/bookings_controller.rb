@@ -12,6 +12,7 @@ class BookingsController < ApplicationController
     # set some defaults
     @booking.seats_booked = 1
     @booking.additional_donation_amount = 0
+    @booking.donation_amount = @booking.service.amount.to_i # default 1 seat
 
     # If the user has some previous bookings, we can re-use the billing info
     prev = current_user.bookings.last
@@ -47,6 +48,7 @@ class BookingsController < ApplicationController
     @booking.billToFirstName = @booking.accountName.split.first
     @booking.billToLastName = @booking.accountName.split.last
     @booking.remoteAddr = request.remote_ip 
+    @booking.save!
 
     # If no params[:cc], check if the user already had a token 
     # and if the user does have one, process the payment.
@@ -75,8 +77,8 @@ class BookingsController < ApplicationController
           @booking.cc_captured
           @booking.save! #TODO: Exception handling
         else
-          # TODO: populate errors
           # TODO: Does this mean that the cardonfile is wrong, so we remove it?
+          @booking.errors.add(:base, "#{id}"); # id would be verboseErrorMessage on erroe
           render(:action => :new) and return
         end
       else

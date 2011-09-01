@@ -1,18 +1,7 @@
 .offer_form
   = form_for(@booking, :url => service_bookings_path(@service), :builder => JoshForm) do |f|
-    - if @cc.errors.any?
+    - if @booking.errors.any? and @booking.errors[:base].any?
       #error_explanation
-        %h2
-          = pluralize(@cc.errors.count, "error")
-          prohibited this post from being saved:
-        %ul
-          - @cc.errors.full_messages.each do |msg|
-            %li= msg
-    - if @booking.errors.any?
-      #error_explanation
-        %h2
-          = pluralize(@booking.errors.count, "error")
-          prohibited this post from being saved:
         %ul
           - @booking.errors.full_messages.each do |msg|
             %li= msg
@@ -37,14 +26,14 @@
       %hr.pay_page_hr
       %p{:style => 'width:340px'}
         %span.payment_total You will be charged
-        %span.payment_total_amt#total_donation= @booking.service.amount.to_i
+        %span.payment_total_amt#total_donation= @booking.donation_amount.to_i
         %span.payment_total_amt $
       :javascript
         var per_seat = #{@booking.service.amount.to_i}
     .setp_box{:id => 'cc_fields'}
       %h3.setp_box_heading
         %span Credit Card Details
-      - if @cardonfile
+      - if @cardonfile and !@cc.errors.any?
         %p{:id => 'card_on_file'}
           = f.label "Card on file", :class => 'form_lbl'
           = f.check_box :cardonfile, {:class => 'input_checkbox', :checked => true}, "true", "false"
@@ -52,13 +41,9 @@
         
       = fields_for :cc, @cc, :builder => JoshForm do |cc|
         = cc.text_field :name, :class => "input_half"
-        %p
-          = f.label "Expiry Date", :class => 'form_lbl'
-          = cc.select :month, (1..12), {}, :class => 'input_select'
-          = cc.select :year, (Date.today.year..Date.today.year+5), {}, :class => 'input_select'
-        %p
-          = cc.label 'Card Type', :class => 'form_lbl'
-          = cc.select :type, ['Visa', 'MasterCard', 'Discover', ['American Express', 'american_express']], {}, :class => "input_select"
+        = cc.select :month, (1..12), {}, :class => 'input_select'
+        = cc.select :year, (Date.today.year..Date.today.year+5), {}, :class => 'input_select'
+        = cc.select :type, [['Visa', 'visa'], ['MasterCard', 'master'], ['Discover', 'discover'], ['American Express', 'american_express']], {}, :class => "input_select"
         = cc.text_field :number, :class => "input_half"
         = cc.text_field :verification_value, :class => "input_half"
         :javascript
