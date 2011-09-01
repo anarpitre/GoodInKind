@@ -11,26 +11,28 @@ class Nonprofit < ActiveRecord::Base
   has_one :location, :as => :resource, :dependent => :destroy
   belongs_to :gateway
 
-  validates_length_of :description, :maximum => 1500
+  validates_acceptance_of :tos
+  validates :description, :length => {:in => 1..1500}, :on => :update 
   validates_length_of :guideline, :maximum => 400 
   validates :username, :presence => true, :uniqueness => true
-  validates :EIN, :presence => true, :uniqueness => true
+  validates :EIN, :presence => true, :uniqueness => true, :format => EIN_REGEX
   validates :password, :password_confirmation, :presence => true, :on => :create
-  validates :contact_name, :name, :website, :photo, :position, :presence => true
+  validates :contact_name, :name, :photo, :position, :presence => true
   validates_attachment_presence :photo
 
   validates_confirmation_of :password, :on => :create
-  validates :email,  :presence => true, :format => EMAIL_REGEX
+  validates :email,  :presence => true, :format => Devise.email_regexp
   validates :cell_phone, :format => CELL_NO_REGEX, :unless =>  Proc.new {|nonprofit| nonprofit.cell_phone.blank? }
   validates :phone_number, :presence => true, :format => CELL_NO_REGEX
+  validates :website, :presence => true, :format => WEBSITE_REGEX
   validates_attachment_content_type :photo, :content_type => ["image/jpeg", "image/png", "image/gif", "image/jpg", "image/bmp", "image/tiff", "image/tif" ]
   validates_attachment_size  :photo, :less_than => 2.megabytes
 
 
   has_attached_file :photo, S3_DEFAULTS.merge(
     :styles => { 
-      :thumb => "172x62!", 
-      :medium => "200x61!"
+      :thumb => "172x62>", 
+      :medium => "200x61>"
     },
     :default_url => "/images/missing/nonprofit_:style.jpg"
   )

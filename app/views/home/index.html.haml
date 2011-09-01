@@ -1,3 +1,38 @@
-.home_top
+= javascript_include_tag 'jquery.innerfade'
+
+:javascript
+  $(document).ready(
+  function(){
+  $('#slide_text').innerfade({
+  animationtype: 'fade',
+  speed: 1000,
+  timeout: 5000,
+  containerheight: ''
+  });
+  });
+
+
+%ul#slide_text.slide_text_db
+  %li
+    GoodInKind allows
+    %span everyone
+    to give back, while having fun and meeting other great people
+  %li GoodInKind converts your skills &amp; talents into cash for your favorite non-profit
+  %li
+    GoodInKind is a
+    %span marketplace
+    for cool services, from real people who care
+.home_banner
+  %a#in.watch_video{:href => "#"} Watch Video
+  %ul
+    %li
+      %strong> Offer a Service
+      Think of a service Pick your fave Non-Profit Offer on GoodInKind
+    %li
+      %strong> Get Together. Do Good.
+      Offerer delivers service to buyer We send the proceeds to the non-profit chosen by offerer
+    %li
+      %strong> Buy a Service
+      Explore offered services,or request a service Buy securely
 = render :partial => '/services/offer_search'
 = render :partial => '/services/featured_service'

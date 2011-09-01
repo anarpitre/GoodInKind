@@ -1,11 +1,20 @@
 Gik::Application.routes.draw do
 
-  match 'service/search' => 'services#search'
+  devise_for :users, :controllers => {:sessions => :sessions, :registrations => :registrations, :confirmations => :confirmations}
+
   match 'offer_virtual' => 'home#offer_virtual', :as => :offer_virtual, :method => :post
+  ##### START- SPECIAL PRODUCTION ROUTING CHECK
+  if Rails.env == 'production'
+    root :to => "nonprofits#new"
+    resources :nonprofits, :only => [:new, :create]
+  else
+  ##### ALL THESE ARE OPEN FOR envs other than production
+
+  match 'service/search' => 'services#search'
   match '/auth/:provider/callback' => 'authentications#create'
   match '/auth/failure' => 'dashboard#index'
+  match '/nonprofits/:id/change_password' => 'nonprofits#change_password'
 
-  devise_for :users, :controllers => {:sessions => :sessions, :registrations => :registrations, :confirmations => :confirmations}
 
   resources :dashboard 
   
@@ -22,7 +31,8 @@ Gik::Application.routes.draw do
       post :update_password
     end
     member do
-      match :change_password, :account
+      match :account
+      post :change_password
       get :transactions
     end
   end
@@ -105,4 +115,7 @@ Gik::Application.routes.draw do
   # match ':controller(/:action(/:id(.:format)))'
 
   root :to => "home#index"
+
+  end
+  ##### END- SPECIAL PRODUCTION ROUTING CHECK
 end

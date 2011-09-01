@@ -13,7 +13,8 @@
       = render "layouts/nonprofit_tabs"
     #c1{:style => "float:left;"}
       .np_tab_logo
-        = image_tag(@nonprofit.photo.url(:medium), :class => "np_logos") if @nonprofit and !@nonprofit.new_record?
+        .np_logos
+          = image_tag(@nonprofit.photo.url(:medium)) if @nonprofit and !@nonprofit.new_record?
       - if defined?(search) and search
         .sidebar_bar
           = render 'layouts/nonprofit_search' 

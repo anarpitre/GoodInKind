@@ -1,12 +1,7 @@
-%p= "Hello #{@nonprofit.contact_name}"
 %br
 %span 
-  = "We received a request to send you your username. Your GoodInKind username is #{@nonprofit.username}.  You can now login by clicking" 
-  = link_to 'here', 'http://nonprofits.goodinkind.com/signup' 
-%br
-%p If you didn't request this, please ignore this email.
-%br
-%p Your friends at GoodInKind
+  = "We received a request to send you your username. Your GoodInKind username is #{@nonprofit.username}. You may login to access your profile at" 
+  = link_to "#{login_nonprofits_url}", login_nonprofits_url 
 %br
 %br
 %p Cheers,

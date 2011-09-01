@@ -1,11 +1,15 @@
 %h2 Non-Profit Partners Login
-= form_tag(:action => 'create_session') do
+= form_for @nonprofit, :url => create_session_nonprofits_path, :method => :post do |f|
+  - if @nonprofit.errors[:base].any?
+    #error_explanation
+      - @nonprofit.errors.full_messages.each do |msg|
+        %b= msg
   %p
     = label_tag "Username:"
-    = text_field_tag :username, nil, :class => "login_box_txt"
+    = f.text_field :username, :class => "login_box_txt"
   %p
     = label_tag "Password:"
-    = password_field_tag :password, nil, :class => "login_box_txt"
+    = f.password_field :password, :class => "login_box_txt"
   %p.login_box_bottom
     = link_to "Forgot Password?", forgot_password_nonprofits_path
     %br/

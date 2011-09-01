@@ -1,7 +1,7 @@
 class NonprofitsController < ApplicationController
   before_filter :set_seo_tags
   before_filter :get_nonprofit, :except => [:new, :create, :login, :create_session, :forgot_password, :reset_password, :update_password]
-  before_filter :nonprofit_owner, :only => [:edit, :logout, :account, :transactions]
+  before_filter :nonprofit_owner, :only => [:edit, :logout, :account, :transactions, :change_password]
 
   layout 'nonprofit'
   include NonprofitsHelper
@@ -41,8 +41,11 @@ class NonprofitsController < ApplicationController
     logger.info(params[:nonprofit])
     @nonprofit = Nonprofit.new(params[:nonprofit])
     if @nonprofit.save
-      flash[:notice] = "Thank you for submitting your application to become a non-profit partner"
-      redirect_to  root_path
+      #flash[:notice] = "Thank you for submitting your application to become a GoodInKind non-profit partner. We will be in touch with you shortly"
+      #redirect_to  root_path
+      #Temporarily after Non-profit creation it has been redirected to www.goodinkind.com 
+      @class_name = "main_login"
+      render :action => :thankyou, :layout => 'signup'
     else
       # We are explicitly rendering a layout in the view ;)
       render :action => :new, :layout => false
@@ -53,26 +56,6 @@ class NonprofitsController < ApplicationController
   def update
     referer = session[:referer]
 
-    if referer == 'account'
-      # If old_password and password are not blank validate the old
-      # password and if its correct, change it to the new one!
-      unless (params[:old_password].blank? and params[:nonprofit][:password].blank?)
-        if Nonprofit.authenticate(@nonprofit.username, params[:old_password]) and
-           (params[:nonprofit][:password] == params[:nonprofit][:password_confirmation])
-
-          # invoke private method!
-          @nonprofit.send(:update_password, params[:nonprofit][:password]) 
-
-          # remove these parameters from the params
-          params.delete(:old_password)
-          params[:nonprofit].delete(:password)
-          params[:nonprofit].delete(:password_confirmation)
-        else
-            @nonprofit.errors.add(:password, "is incorrect or does not match")
-            render :action => :account and return
-        end
-      end
-    end
     category_id = params[:nonprofit][:category_ids]
     params[:nonprofit].delete(:category_ids)
     if @nonprofit.update_attributes(params[:nonprofit])
@@ -96,6 +79,30 @@ class NonprofitsController < ApplicationController
     end
   end
 
+  def change_password
+    # If old_password and password are not blank validate the old
+    # password and if its correct, change it to the new one!
+    if Nonprofit.authenticate(@nonprofit.username, params[:old_password]) 
+      unless (params[:nonprofit][:password] != params[:nonprofit][:password_confirmation] || params[:nonprofit][:password].blank?) 
+        # invoke private method!
+        @nonprofit.send(:update_password, params[:nonprofit][:password]) 
+
+        # remove these parameters from the params
+        params.delete(:old_password)
+        params[:nonprofit].delete(:password)
+        params[:nonprofit].delete(:password_confirmation)
+        flash[:notice] = "Password has been successfully changed"
+        redirect_to :action => 'account'
+      else
+        @nonprofit.errors.add(:base, "Invalid or mismatch password")
+        render :action => :account
+      end
+    else
+      @nonprofit.errors.add(:base, "Invalid or mismatch password")
+      render :action => 'account'
+    end
+  end
+
   def account
     # Maintain a session variable, to identify the referrer in update action
     @head[:title] = @nonprofit.name + " account information"
@@ -108,24 +115,27 @@ class NonprofitsController < ApplicationController
     @transactions = []
     #@transactions = @nonprofit.services.collect(&:transactions)
   end
-  
+
   def login
     return redirect_to nonprofit_path(current_nonprofit) if nonprofit_logged_in?
+    @nonprofit = Nonprofit.new
     @head[:title] = "non-profit partners login"
     @class_name = "main_login"
     render :layout => 'signup'
   end
-  
+
   def create_session 
-    @nonprofit = Nonprofit.authenticate(params[:username],params[:password])
+    @nonprofit = Nonprofit.authenticate(params[:nonprofit][:username],params[:nonprofit][:password])
     if @nonprofit && @nonprofit.is_verified == "verified"
       session[:nonprofit] = {}
       session[:nonprofit][:name] = @nonprofit.name
       session[:nonprofit][:id] = @nonprofit.id
       redirect_to nonprofit_path(@nonprofit)
     else
-      flash[:notice] = "Invalid Username/Password"
-      redirect_to :action => 'login'
+      @nonprofit = Nonprofit.new
+      @nonprofit.errors.add(:base, "Invalid Username / Password" )
+      @class_name = "main_login"
+      render :action => 'login', :layout => 'signup'
     end
   end
 
@@ -133,7 +143,7 @@ class NonprofitsController < ApplicationController
     session[:nonprofit] = nil
     redirect_to root_path
   end
-  
+
   def search
     @nonprofits = []
     unless params[:text].blank?
@@ -154,6 +164,7 @@ class NonprofitsController < ApplicationController
 
 
   def forgot_password
+    @nonprofit = Nonprofit.new
     if request.post?
       nonprofit = Nonprofit.find_by_username(params[:nonprofit][:username])
       if nonprofit
@@ -163,6 +174,7 @@ class NonprofitsController < ApplicationController
         flash[:notice] = "Instructions to change your password have been sent to the email address on your profil"
         redirect_to '/'
       else
+        @nonprofit.errors.add(:base, "Invalid Username" )
         @class_name = "main_login"
         render :action => 'forgot_password', :layout => "signup"
       end
@@ -178,6 +190,9 @@ class NonprofitsController < ApplicationController
     unless @nonprofit
       flash[:notice] = "Password is already changed"
       redirect_to :action => 'login'
+    else
+      @class_name = "main_login"
+      render :action => 'reset_password', :layout => "signup"
     end
   end
 
@@ -191,18 +206,21 @@ class NonprofitsController < ApplicationController
       redirect_to :action => 'login'
     else
       flash[:notice] = "Password didnot match"
-      render :action => 'reset_password'
+      @class_name = "main_login"
+      render :action => 'reset_password', :layout => "signup"
     end
   end
 
   def forgot_username
+    @nonprofit = Nonprofit.new
     if request.post?
-      nonprofit = Nonprofit.find_by_EIN(params[:nonprofit][:ein])
+      nonprofit = Nonprofit.find_by_EIN(params[:nonprofit][:EIN])
       if nonprofit
         Notifier.send_username(nonprofit).deliver
         flash[:notice] = "Email was sent successfully"
         redirect_to '/'
       else
+        @nonprofit.errors.add(:base, "Invalid EIN" )
         @class_name = "main_login"
         render :action => 'forgot_username', :layout => "signup"
       end

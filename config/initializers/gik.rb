@@ -10,10 +10,15 @@ else
   }
 end
 
-EMAIL_REGEX = /^[a-z]+([+\.\w]+)*\w@[a-z0-9]+(\.\w+)+$/i
-CELL_NO_REGEX = /^(((1(\-|))|)(\s|\.|)(\(|)(\d{3})(\)|)(\-|\s|\.|)(\d{3})(\-|\s|\.|)(\d{4}))$/i
+CELL_NO_REGEX = /^(1\-?)?\s?\(?\d{3}\)?(\-|\s)?\d{3}(\-|\s)?\d{4}$/i
+EIN_REGEX = /^\d{2}-\d{7}$/i
+WEBSITE_REGEX= /^((http|https):\/\/)?[a-z0-9]+(\.[a-z0-9]+)?.[a-z]{2,5}$/i
 
-API_URL = 'http://:5XxQ4mHBV7BV8w@iej.api.indextank.com'
+if Rails.env == 'production'
+  API_URL = 'http://:6f7erxzTpsDkDU@frae.api.indextank.com'
+else
+  API_URL = 'http://:5XxQ4mHBV7BV8w@iej.api.indextank.com'
+end
 
 
 # facebook

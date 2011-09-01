@@ -16,7 +16,8 @@
     .np_results
       - @nonprofits.each do |np|
         .np_results_list
-          = image_tag(np.photo.url(:medium), :alt => np.name, :class => 'np_logos')
+          .np_logos
+            = image_tag(np.photo.url(:medium), :alt => np.name)
           %p.np_rel_text
             %span
               %b= link_to np.name, nonprofit_path(np)

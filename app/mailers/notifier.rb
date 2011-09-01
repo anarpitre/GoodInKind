@@ -29,4 +29,19 @@ class Notifier < ActionMailer::Base
          :subject => "Your GoodInKind username")
   end
 
+
+  def nonprofit_approved(email, contactname, permalink)
+    @nonprofit_name = contactname
+    @nonprofit_perm = permalink
+    mail(:from => "GoodInKind <emailalerts@goodinkind.com>",
+         :to => email,
+         :subject => "Your GoodInKind partner application has been approved")
+  end
+
+  def nonprofit_rejected(email)
+    mail(:from => "GoodInKind <emailalerts@goodinkind.com>",
+         :to => email,
+         :subject => "Update on status of your GoodInKind application")
+  end
+
 end

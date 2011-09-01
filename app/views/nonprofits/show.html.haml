@@ -1,10 +1,11 @@
 - content_for :tab_content do
   .np_profile_left
     .np_profile_info
-      - if current_nonprofit == @nonprofit
-        %span.edit_info
-          = image_tag('edit_icon.jpg', :alt => "edit")
-          = link_to "Edit Information", edit_nonprofit_path(@nonprofit)
+      %p
+        - if current_nonprofit == @nonprofit
+          %span.edit_info
+            = image_tag('edit_icon.jpg', :alt => "edit")
+            = link_to "Edit Information", edit_nonprofit_path(@nonprofit)
       %p
         %label Name:
         %span.np_info_text= @nonprofit.name

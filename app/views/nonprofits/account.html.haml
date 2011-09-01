@@ -5,19 +5,16 @@
         #error_explanation
           %h2
             = pluralize(@nonprofit.errors.count, "error")
-            prohibited this post from being saved:
-          %ul
-            - @nonprofit.errors.full_messages.each do |msg|
-              %li= msg
+            below prevented a successful save.
       .setp_box
         %h3.setp_box_heading
           %span Contact Information
         #edit_contact_info
-          = f.text_field :contact_name, :class => "input_np", :label => "Name"
+          = f.text_field :contact_name, :class => "input_np", :label => "Contact Name"
           = f.text_field :position, :class => "input_np"
           = f.text_field :email, :class => "input_np", :label => "Work Email"
-          = f.text_field :phone_number, :class => "input_np", :hint => "Phone Number Format: 1-(XXX)-XXX-XXXX / XXX-XXX-XXXX / (XXX)-XXX-XXXX"
-          = f.text_field :cell_phone, :class => "input_np", :hint => "Cell Number Format: 1-(XXX)-XXX-XXXX / XXX-XXX-XXXX / (XXX)-XXX-XXXX"
+          = f.text_field :phone_number, :class => "input_np", :hint => "Valid Formats: XXX-XXX-XXXX / (XXX)-XXX-XXXX / 1-(XXX)-XXX-XXX"
+          = f.text_field :cell_phone, :class => "input_np", :hint => "Valid Formats: XXX-XXX-XXXX / (XXX)-XXX-XXXX / 1-(XXX)-XXX-XXX"
         %p.np_bot_p
           = f.check_box :show_contact_details, {:class => 'input_checkbox'}, "true", "false"
           %span.setp_box_p_span Show this contact name and contact email to users viewing my organization profile
@@ -34,18 +31,22 @@
           = f.check_box :email_process, {}, "true", "false"
           %span When payment is actually processed by GoodInKind in support of your non-profit
       .input_post_div
-        %p.np_acc_btn
-          = f.submit
+        = f.submit
   .np_account_form
-    = form_for @nonprofit, :builder => JoshForm, :url => nonprofit_path(@nonprofit), :method => :put do |f|
+    = form_for @nonprofit, :builder => JoshForm, :url => change_password_nonprofit_path(@nonprofit) do |f|
       .setp_box
         %h3.setp_box_heading
           %span Change Password
         %p
+          - if @nonprofit.errors[:base].any?
+            - @nonprofit.errors[:base].each do |msg|
+              = msg
+        = f.text_field :username, :class => 'input_half', :disabled => true
+        %p 
           = f.label "Old Password *", :class =>'form_lbl'
-          = password_field_tag :old_password, '', :class => 'form_input_full input_np '
-        = f.password_field :password, :class => 'input_np', :label => "New password"
-        = f.password_field :password_confirmation, :class => "input_np", :label => "Confirm Password"
+          = password_field_tag :old_password, '', :class => "form_input_full input_np #{ @nonprofit.errors[:base].any? ? 'in_error' : "" }"
+        = f.password_field :password, :class => "input_np #{ @nonprofit.errors[:base].any? ? 'in_error' : "" }", :label => "New password"
+        = f.password_field :password_confirmation, :class => "input_np #{ @nonprofit.errors[:base].any? ? 'in_error' : "" }", :label => "Confirm Password"
       .input_post_div
-        %p.np_acc_btn
-          = f.submit
+        = f.submit
+

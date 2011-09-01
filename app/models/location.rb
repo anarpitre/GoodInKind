@@ -1,6 +1,6 @@
 class Location < ActiveRecord::Base
   belongs_to :resource, :polymorphic => true
-
+  validates :address, :presence => true
   before_validation :full_address
 
   def full_address

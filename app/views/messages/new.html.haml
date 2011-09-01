@@ -1,5 +1,5 @@
 .offer_form
-  - form_for @message, :builder => JoshForm do |f| 
+  - form_for @message, :url => messages_path, :html => {:method => :post}, :builder => JoshForm do |f| 
     - if @message.errors.any?
       #error_explanation
         %h2
@@ -9,7 +9,7 @@
           - @message.errors.full_messages.each do |msg|
             %li= msg
     .setp_box
-      = f.text_field :title, :label => "title"
+      = f.text_field :title, :label => "Subject"
       = f.text_area :message, :label => "Message", :class => "area_edit"
       = f.hidden_field :sender_id
       = f.hidden_field :receiver_id
