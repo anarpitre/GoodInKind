@@ -210,7 +210,7 @@
         
         var ul = $('<ul />');
         for (var hour = 0; hour < 24; hour++) {
-            for (var minute = 0; minute < 60; minute += 30) {
+            for (var minute = 0; minute < 60; minute += 15) {
                 if (startTime && startTime > (hour * 60 + minute)) continue;
                 
                 (function() {

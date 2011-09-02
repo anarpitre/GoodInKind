@@ -19,11 +19,13 @@ class Service < ActiveRecord::Base
   validates_inclusion_of :is_public, :in => [true, false]
   validates :amount, :numericality => true, :presence => true
   validates_inclusion_of :amount, :in => 5..9999, :message => " should be between $5 to $9999" 
-  validates :start_date, :end_date, :start_time, :end_time, :if => Proc.new { |t| t.is_schedulelater == false}, :presence => true
+  validates :start_date, :end_date, :if => Proc.new { |t| t.is_schedulelater == false}, :presence => true
   validate :check_categories
   validate :check_date
   validates_numericality_of :booking_capacity, :only_integer => true, :message => "can only be whole number."
   validates_numericality_of :estimated_duration, :only_integer => true, :message => "can only be whole number."
+  
+  scope :by_public, where(:is_public => true)
   
   after_create :generate_permalink
 
@@ -66,7 +68,7 @@ class Service < ActiveRecord::Base
   def check_date
     unless self.is_schedulelater
       errors.add(:start_date,"Check Date") unless (self.start_date.blank? || self.end_date.blank? || (self.start_date < self.end_date))
-      errors.add(:start_time," Check time") unless (self.start_time.blank? || self.end_time.blank? || (self.start_time <= self.end_time))
+      errors.add(:start_time," Start time cannot be greater than End time") unless (self.start_time <= self.end_time)
     end
   end
 

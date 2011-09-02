@@ -52,7 +52,8 @@ function serviceRenderInit(){
   var view = function(service){
     var spot_content = spots(service);
     var day_content = day_left(service);
-    var service_title = service.title.length < 21 ? service.title : service.title.substring(0,21) +'...';
+    var service_title = service.title.length < 27 ? service.title : service.title.substring(0,27) +'...';
+    var nonprofit_name = service.nonprofit.name.length < 27 ? service.nonprofit.name : service.nonprofit.name.substring(0,27) +'...';
     
     clear     = this.div({'class': 'clear'});
     s_image   = this.div({'class': 'fs_box_pic'}, this.image(service.thumbnail));
@@ -61,7 +62,7 @@ function serviceRenderInit(){
     fs_price  = this.div({'class': 'fs_price'}, '$' + service.amount );
     fs_head   = this.span({'class': 'fs_head'}, service_title);
     fs_for    = this.span({'class': 'fs_for'}, 'for');
-    fs_disc   = this.span({'class': 'fs_disc'}, service.nonprofit.name);
+    fs_disc   = this.span({'class': 'fs_disc'}, nonprofit_name);
     fs_left   = this.div({'class': 'fs_left'}, [fs_head, fs_for, fs_disc]);
     fs_box    = this.div({'class': 'fs_box'}, [tag_spots, tag_day, s_image, fs_left, fs_price, clear ] );
 

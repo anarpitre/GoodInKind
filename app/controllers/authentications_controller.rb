@@ -11,7 +11,7 @@ class AuthenticationsController < ApplicationController
     session[:thank_you] = "yes" unless session[:service_id].blank?
     if authentication
       change_service_offerer(session[:service_id],authentication.user.id) unless session[:service_id].blank? 
-      flash[:notice] = "Signed in successfully."
+      #flash[:notice] = "Signed in successfully."
       sign_in_and_redirect(:user, authentication.user)
     elsif current_user
       current_user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'])

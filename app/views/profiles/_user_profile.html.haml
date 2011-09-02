@@ -53,9 +53,12 @@
       .my_pro_sm
         %label.my_pro_lbl Follow Me:
         %ul
-          %li
-            %a{:href => "http://www.twitter.com/#!/#{@profile.twitter}"}
-          %li
-            %a.my_sm_facebook{:href => "http://www.facebook.com/#{@profile.facebook}"}
-          %li
-            %a.my_sm_linked{:href => "http://www.linkedin.com/#{@profile.linkedin}"}
+          - unless @profile.twitter.blank?
+            %li
+              %a{:href => "http://www.twitter.com/#!/#{@profile.twitter}"}
+          - unless @profile.facebook.blank?
+            %li
+              %a.my_sm_facebook{:href => "http://www.facebook.com/#{@profile.facebook}"}
+          - unless @profile.linkedin.blank?
+            %li
+              %a.my_sm_linked{:href => "http://www.linkedin.com/#{@profile.linkedin}"}

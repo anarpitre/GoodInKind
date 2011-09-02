@@ -1,6 +1,9 @@
-%h2 Sign in GIk
+%h2 Login 
 .sign_up_form
   = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+    %h3 
+      You need to signin / signup before posting the service
+    %br/
     %p
       = f.label :email, :class => "sign_up_form_lbl"
       = f.email_field :email, :class => "sign_up_form_inp"

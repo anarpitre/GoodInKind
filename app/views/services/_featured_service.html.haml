@@ -10,25 +10,20 @@
             - if service.booking_capacity > 0
               - spots = service.booking_capacity - service.booked_seats
               - if spots <= 3
-                - if spots == 1
-                  .tag_spots #{spots} Spot Left
-                - else
-                  .tag_spots #{spots} Spots Left
+                .tag_day #{pluralize(days, 'Spot')} Left
             - unless service.is_schedulelater 
               - days = (service.start_date - Date.today).to_i
               - if days <= 3
                 - if days == 0
                   .tag_day Last Day
-                - if days == 1
-                  .tag_day #{days} Day Left
-                - if days > 1
-                  .tag_day #{days} Days Left
+                - else
+                  .tag_day #{pluralize(days, 'Day')} Left
             .fs_box_pic
               = image_tag !service.images.first.blank? ? "#{service.images.first.image.url(:thumb)}" : "/images/pics-1.jpg"
             .fs_left
               %span.fs_head= truncate(service.title, :length => 50)
               %span.fs_for for
-              %span.fs_disc= service.nonprofit.try(:name)
+              %span.fs_disc= truncate(service.nonprofit.try(:name), :length =>30)
             .fs_price
               $#{service.amount}
             .clear

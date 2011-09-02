@@ -67,13 +67,18 @@
 %a.bro_req_btn{:href => requests_path} Browse Requests
 .offer_form
   = form_for @service, :builder => JoshForm, :html => {:multipart => true} do |f|
+    - if @service.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(@service.errors.count, "error")
+          below prevented a successful save.
     .setp_box
       %h3.setp_box_heading
         %span Step 1:
         Describe the service or experience you want to offer
       = f.text_field :title, :hint => "Make it good and short! Don’t worry about mentioning the non-profit here - we’ll include that in the title for you"
       = f.text_area :description, :class => 'input_area', :hint => "More details the better! Let buyers know all that’s cool about your service and what level they should expect it at (example Beginner Guitar lesson or Intermediate Chinese)"
-      = f.collection_select :category_ids, Category.by_services.order("name"), :id, :name, {:selected => @service.service_categories.collect(&:category_id)}, { :multiple => true, :class => "input_select", :style => "height:100px;width:530px;", :hint => "Select one or more categories that your service would fall under", :label => "Category *" }
+      = f.collection_select :category_ids, Category.by_services, :id, :name, {:selected => @service.service_categories.collect(&:category_id)}, { :multiple => true, :class => "input_select", :style => "height:100px;width:530px;", :hint => "Select one or more categories that your service would fall under", :label => "Category *" }
     .setp_box
       %h3.setp_box_heading
         %span Step 2:

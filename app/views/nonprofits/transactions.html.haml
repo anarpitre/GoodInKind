@@ -1,20 +1,24 @@
 - content_for :tab_content do 
   .transactions_bord
-    %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
-      %tr.table_top_color
-        %th Offerer
-        %th Email
-        %th Buyer
-        %th Email
-        %th Date
-        %th Service
-        %th.td_amount Amount
-      - @transactions.each do |transaction|
-        %tr
-          %td.td_name= transaction
-          %td
-          %td
-          %td
-          %td
-          %td
-          %td.td_price
+    - if @transactions.count == 0
+      %p
+      You have no completed transactions yet. When someone buys a service on GoodInKind to support your organization, this page will show the details of the transactions.
+    - else
+      %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+        %tr.table_top_color
+          %th Offerer
+          %th Email
+          %th Buyer
+          %th Email
+          %th Date
+          %th Service
+          %th.td_amount Amount
+        - @transactions.each do |transaction|
+          %tr
+            %td.td_name= transaction
+            %td
+            %td
+            %td
+            %td
+            %td
+            %td.td_price

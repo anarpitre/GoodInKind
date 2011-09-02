@@ -21,8 +21,8 @@ class SessionsController < Devise::SessionsController
   def set_seo_tags
     @head = {
       :title => "SignIn",
-      :keywords => "x y z",
-      :description => 'This really works'
+      #:keywords => "x y z",
+      #:description => 'This really works'
     }
   end
 

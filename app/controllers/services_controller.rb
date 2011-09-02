@@ -11,7 +11,7 @@ class ServicesController < ApplicationController
 
   def index
     @head[:title] = "Service Home"
-    @services = Service.includes([:images, {:nonprofit => :nonprofit_categories}, :service_categories])
+    @services = Service.by_public.includes([:images, {:nonprofit => :nonprofit_categories}, :service_categories])
   end
 
   def show
@@ -50,12 +50,13 @@ class ServicesController < ApplicationController
     begin
       @head[:title] = "Create Service"
       @service = Service.new(params[:service])
+      @service.title = @service.title.humanize
       add_user_id                                                             
       @service.save!
       if current_user.blank?               
         session[:service_id] = @service.id 
         #if user is not siggned in than service id is stored in session  
-        redirect_to(new_user_registration_path, :notice => 'Service was successfully created.') 
+        redirect_to(new_user_session_path, :notice => 'You need to signin/signup before posting the service') 
       else 
         @service.activate!
         redirect_to(thankyou_services_path, :notice => 'Service was successfully created.') 
@@ -91,7 +92,7 @@ class ServicesController < ApplicationController
           arr = result['results'][i]['docid'].split(':')
           if arr.first == "Service"
             service = Service.find(arr.last.to_i)
-            @services << service if service.status == 'active'
+            @services << service if service.status == 'active' && service.is_public == true
           end
         end
         @services.flatten!

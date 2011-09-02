@@ -3,7 +3,7 @@ class HomeController < ApplicationController
   layout 'home'
 
   def index
-    @services = Service.all
+    @services = Service.by_public
   end
 
   def offer_virtual
@@ -21,8 +21,8 @@ class HomeController < ApplicationController
   def set_seo_tags
     @head = {
       :title => "Home",
-      :keywords => "a b c d",
-      :description => 'this is awesome'
+      #:keywords => "a b c d",
+      #:description => 'this is awesome'
     }
   end
 end

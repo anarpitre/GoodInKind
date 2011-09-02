@@ -544,6 +544,7 @@ h2.fs_h2 {
 .fs_left span.fs_disc {
 	color:#000;
 	font-style:italic;
+	width:195px;
 }
 .featured_list a {
 	text-decoration:none;
@@ -853,7 +854,7 @@ label.error {
 	float:right;
 }
 .dm_mail {
-	margin-top:10px;
+	margin-top:7px;
 	float:right;
 }
 .dm_st {
