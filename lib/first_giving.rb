@@ -8,6 +8,10 @@ class FirstGiving
     handle_response(super)
   end
 
+  def self.get(*args)
+    handle_response(super)
+  end
+
   def self.handle_response(response)
     case response.code
     when 500
@@ -15,6 +19,10 @@ class FirstGiving
     else 
       response
     end
+  end
+
+  def self.search(org_id)
+    res = self.get(CHARITY_SEARCH, :query => { :q => "government_id:#{org_id}"})
   end
 
   def self.cardonfile(credit_card, booking)

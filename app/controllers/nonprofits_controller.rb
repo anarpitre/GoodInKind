@@ -228,6 +228,15 @@ class NonprofitsController < ApplicationController
     end
   end
 
+  def search_nonprofit
+    response = FirstGiving.search(params[:ein].gsub('-',''))
+    @response = response['payload']['payload']['key_0']
+    @category_id = NONPROFIT_CATEGORY[@response['category_code'][0].to_s]
+    respond_to do |format|
+      format.js 
+    end
+  end
+
   private
 
   def get_nonprofit

@@ -27,8 +27,7 @@ group :development, :test do
  gem 'rspec-rails', '2.6.1'
  gem 'factory_girl_rails'
  gem  'railroady'
- #gem 'pg'
-#gem 'mysql2', '= 0.2.8'
+#gem 'pg'
  gem 'mysql2', '= 0.2.8'
  gem 'mongrel', '1.2.0.pre2'
 end

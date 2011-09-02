@@ -1,0 +1,3 @@
+$("#nonprofit_uuid").val("#{@response['organization_uuid']}")
+$("#nonprofit_location_attributes_address").val("#{@response['address_full']}")
+$("#nonprofit_category_ids option[value='#{@category_id}']").attr('selected', 'selected');
