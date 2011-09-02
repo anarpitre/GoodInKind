@@ -19,6 +19,8 @@ gem 'rails3-jquery-autocomplete', '0.9.0'
 gem 'aasm', '2.2.0'
 gem 'faker', '0.9.5'
 gem 'httparty', '0.7.8'
+gem 'nokogiri', '1.4.7'
+gem 'activemerchant', '1.16.0'
 
 group :development, :test do
  gem  "hpricot"
@@ -28,6 +30,7 @@ group :development, :test do
  #gem 'pg'
 #gem 'mysql2', '= 0.2.8'
  gem 'mysql2', '= 0.2.8'
+ gem 'mongrel', '1.2.0.pre2'
 end
 # Use unicorn as the web server
 # gem 'unicorn'

@@ -12,11 +12,12 @@ class User < ActiveRecord::Base
   has_many :sent_messages, :class_name => 'Message', :foreign_key => :sender_id, :dependent => :destroy
   has_many :received_messages, :class_name => 'Message', :foreign_key => :receiver_id, :dependent => :destroy
 
-  
+  has_many :bookings, :dependent => :destroy  
   has_many :services, :dependent => :destroy
   has_many :authentications, :dependent => :destroy
   has_one  :location, :as => :resource, :dependent => :destroy
   has_one  :profile, :dependent => :destroy
+  has_one :cc_token, :dependent => :destroy # currently 1-1 mapping for CC token
 
   accepts_nested_attributes_for :profile, :allow_destroy => true
   

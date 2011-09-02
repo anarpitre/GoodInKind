@@ -71,7 +71,7 @@ class JoshForm < ActionView::Helpers::FormBuilder
 
       all_tags = label_tag + base_tag + hint_tag + error_tag
       
-      if css_class =~ /input_small/
+      if css_class =~ /input_small|input_tiny/
         all_tags
       else
         # Wrap all the form fields inside a <p> tag and add a lable to them

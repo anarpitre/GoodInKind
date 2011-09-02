@@ -1,0 +1,71 @@
+.offer_form
+  = form_for(@booking, :url => service_bookings_path(@service), :builder => JoshForm) do |f|
+    - if @booking.errors.any? and @booking.errors[:base].any?
+      #error_explanation
+        %ul
+          - @booking.errors.full_messages.each do |msg|
+            %li= msg
+    .setp_box
+      %h3.setp_box_heading{:style => 'width:300px'}
+        %span Booking Details
+      .booking
+        .fs_box
+          .fs_box_pic
+            = image_tag(@booking.service.images.first.image.url(:thumb))
+          .fs_left
+            %span.fs_head= @booking.service.title
+            %span.fs_for for
+            %span.fs_disc= @booking.service.nonprofit.name
+          .fs_price{:style => 'font-size:35px'}
+            = "#{@booking.service.amount.to_i}$"
+          .clear
+      %p{:style => 'width:300px'}
+        = f.text_field :seats_booked, :label => "Seats to book", :class => "input_small"
+      %p{:style => 'width:300px'}
+        = f.text_field :additional_donation_amount, :label => "Extra Donation ($)", :class => "input_small"
+        = f.hidden_field :donation_amount
+      %hr.pay_page_hr
+      %p{:style => 'width:340px'}
+        %span.payment_total You will be charged
+        %span.payment_total_amt#total_donation= @booking.donation_amount.to_i
+        %span.payment_total_amt $
+      :javascript
+        var per_seat = #{@booking.service.amount.to_i}
+    .setp_box{:id => 'cc_fields'}
+      %h3.setp_box_heading
+        %span Credit Card Details
+      - if @cardonfile and !@cc.errors.any?
+        %p{:id => 'card_on_file'}
+          = f.label "Card on file", :class => 'form_lbl'
+          = f.check_box :cardonfile, {:class => 'input_checkbox', :checked => true}, "true", "false"
+          %span.setp_box_p_span= "Use Card #{@cardonfile}"
+        
+      = fields_for :cc, @cc, :builder => JoshForm do |cc|
+        = cc.text_field :name, :class => "input_half"
+        %p
+          = cc.select :month, (1..12), {}, :class => 'input_select input_tiny'
+          = cc.select :year, (Date.today.year..Date.today.year+5), {}, :class => 'input_select input_tiny'
+        = cc.select :type, [['Visa', 'visa'], ['MasterCard', 'master'], ['Discover', 'discover'], ['American Express', 'american_express']], {}, :class => "input_select"
+        = cc.text_field :number, :class => "input_half"
+        = cc.text_field :verification_value, :class => "input_half"
+        :javascript
+          if ($('#cc_fields :checkbox').is(':checked')) $('#cc_fields p:gt(0)').hide();
+          $('#cc_fields :checkbox').click( function() {
+              $('#cc_fields p:gt(0)').toggle();
+          });
+
+    .setp_box
+      %h3.setp_box_heading
+        %span Billing Details
+      = f.text_field :accountName, :label => "Bill to", :class => "input_half"
+      = f.text_field :billToAddressLine1, :label => "Address Line1", :class => "input_half"
+      = f.text_field :billToAddressLine2, :label => "Address Line2", :class => "input_half"
+      = f.text_field :billToAddressLine3, :label => "Address Line3", :class => "input_half"
+      %p
+        = f.text_field :billToCity, :label => "City", :class => "input_tiny"
+        = f.text_field :billToState, :label => "State", :class => "input_tiny"
+      %p
+        = f.text_field :billToZip, :label => "Zipcode", :class => "input_tiny"
+        = f.text_field :billToCountry, :label => "Country", :class => "input_tiny"
+    .input_post_div
+      = f.submit 'Pay'

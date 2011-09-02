@@ -41,12 +41,10 @@ Gik::Application.routes.draw do
 
   resources :services do
     collection do
-      get :autocomplete_nonprofit_name
-      get :thankyou
-      get :browse_nonprofit
-      post :review
-      post :newoffer
+      get :autocomplete_nonprofit_name, :thankyou, :browse_nonprofit
+      post :review, :newoffer
     end
+    resources :bookings, :only => [:new, :create, :destroy]
   end
 
   resources :messages do

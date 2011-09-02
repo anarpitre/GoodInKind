@@ -15,4 +15,9 @@ class Profile < ActiveRecord::Base
     },
     :default_url => "/images/missing/user_:style.jpg"
 
+
+  def full_name
+    "#{self.first_name} #{self.last_name}"
+  end
+
 end

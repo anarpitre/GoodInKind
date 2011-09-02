@@ -1,0 +1,106 @@
+class BookingsController < ApplicationController
+  before_filter :authenticate_user! # TODO: Anonymous buyers?
+  before_filter :get_service
+  before_filter :update_profile
+
+  layout 'service'
+
+  # GET /services/:service_id/bookings/new
+  def new
+    @booking = @service.bookings.new
+
+    # set some defaults
+    @booking.seats_booked = 1
+    @booking.additional_donation_amount = 0
+    @booking.donation_amount = @booking.service.amount.to_i # default 1 seat
+
+    # If the user has some previous bookings, we can re-use the billing info
+    prev = current_user.bookings.last
+    if prev
+      @booking.accountName = prev.accountName
+      @booking.billToCity = prev.billToCity
+      @booking.billToState = prev.billToState
+      @booking.billToZip = prev.billToZip
+      @booking.billToCountry = prev.billToCountry
+      @booking.billToAddressLine1 = prev.billToAddressLine1
+      @booking.billToAddressLine2 = prev.billToAddressLine2
+      @booking.billToAddressLine3 = prev.billToAddressLine3
+    end
+
+    @cardonfile = current_user.cc_token.credit_card if current_user.cc_token
+
+    @cc = ActiveMerchant::Billing::CreditCard.new
+    @cc.name = current_user.profile.full_name
+  end
+
+  # POST /services/:service_id/bookings/:id
+  def create
+    @cardonfile = current_user.cc_token.credit_card if current_user.cc_token
+
+    # remove the transient param :cardonfile
+    # Keep a copy, so that :new action will not get impacted
+    booking_params = params[:booking].dup
+    cardonfile = booking_params.delete(:cardonfile)
+
+    @booking = @service.bookings.new(booking_params)
+    @booking.user = current_user #TODO: fix for non-logged in users?
+    @booking.billToEmail = current_user.email #TODO
+    @booking.billToFirstName = @booking.accountName.split.first
+    @booking.billToLastName = @booking.accountName.split.last
+    @booking.remoteAddr = request.remote_ip 
+    @booking.save!
+
+    # If no params[:cc], check if the user already had a token 
+    # and if the user does have one, process the payment.
+    if CARD_ON_FILE_SUPPORTED and cardonfile == "true"
+      # Verify if user REALLY has card on file and use it
+      if current_user.cc_token
+        @booking.cc_captured
+        @booking.save!
+      else
+        @cc = ActiveMerchant::Billing::CreditCard.new
+        render(:action => :new) and return
+      end
+    else
+      @cc = ActiveMerchant::Billing::CreditCard.new(params[:cc])
+      render(:action => :new) and return unless @cc.valid?
+
+      if CARD_ON_FILE_SUPPORTED
+        code, id = FirstGiving.cardonfile(@cc, @booking)
+
+        # Save Credit Card details
+        if code == 'Success'
+          current_user.build_cc_token unless current_user.cc_token
+          current_user.cc_token.cardonfile_id = id
+          current_user.cc_token.credit_card = @cc.display_number
+          current_user.cc_token.save! #TODO: Exception handling
+          @booking.cc_captured
+          @booking.save! #TODO: Exception handling
+        else
+          # TODO: Does this mean that the cardonfile is wrong, so we remove it?
+          @booking.errors.add(:base, "#{id}"); # id would be verboseErrorMessage on erroe
+          render(:action => :new) and return
+        end
+      else
+        @booking.cc_captured
+        @booking.save!
+        #TODO: Process payment using standard donation API
+      end
+    end
+
+    redirect_to service_path(@booking.service), :notice => "Booking successful"
+
+    rescue ActiveRecord::RecordInvalid
+      @cc = ActiveMerchant::Billing::CreditCard.new(params[:cc])
+      render :action => :new 
+  end
+
+private
+  def get_service
+    @service = Service.find(params[:service_id])
+  end
+
+  def update_profile
+    # Check for mandatory profile fields.
+  end
+end

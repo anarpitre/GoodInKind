@@ -1100,6 +1100,12 @@ h2.services_h2 em {
 	width:100%;
 	margin-bottom:15px;
 }
+
+.booking {
+	float:right;
+	width:500px;
+  height: 200px;
+}
 .req_text {
 	float:left;
 	width:60px;
@@ -1212,6 +1218,7 @@ h2.offer_form_h2 span a {
 	color:#9e0b0f;
 	margin-left:20px;
 	margin-bottom:15px;
+  width: 100%;
 }
 .setp_box_heading span {
 	font-size:24px;
@@ -1275,6 +1282,9 @@ h2.offer_form_h2 span a {
 	margin-bottom:10px;
 	background:#FFF;
 	border:1px solid #dadada;
+}
+.input_tiny {
+	width:76px;
 }
 
 .input_half {
@@ -2952,6 +2962,25 @@ div.pagination strong {
 	color:#414e52;
 	margin:30px 20px 0 0;
 }
-
-
-
+.pay_page_hr {
+  background: none repeat scroll 0 0 #000000;
+  border: medium none;
+  float: left;
+  height: 1px;
+  margin: 10px 0 10px 70px;
+  width: 250px;
+}
+.payment_total {
+  float: left;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 17px;
+  width: 203px;
+}
+.payment_total_amt {
+  color: #9E0B0F;
+  float: left;
+  font-size: 45px;
+  font-weight: bold;
+  margin-left: 4px;
+}
