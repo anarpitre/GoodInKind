@@ -28,6 +28,7 @@ class ProfilesController < ApplicationController
 
   def show
     @profile = User.find(params[:id]).profile
+    @services = Service.by_public.by_user(@profile.user_id)
   end
 
   private

@@ -2,18 +2,19 @@
 #tab3.tab_content
   .up_account
     = form_for @profile, :builder => JoshForm, :url => profile_path(@profile), :method => :put do |f|
-      .up_acc_setp
-        %h2 Change Password
-        = f.fields_for :user do |user|
-          %p.up_acc_p
-            %label.up_acc_lbl User Name
-            %span.up_acc_lbl_span= @profile.first_name
-          %p.up_acc_p
-            = user.password_field :password, :class => "up_acc_inp", :label => "Old Password"
-          %p.up_acc_p
-            = user.password_field :password, :class => "up_acc_inp", :label => "New Password"
-          %p.up_acc_p
-            = user.password_field :password_confirmation, :class => "up_acc_inp", :label => "Confirm Password"
+      - if @profile.user.authentications.blank?
+        .up_acc_setp
+          %h2 Change Password
+          = f.fields_for :user do |user|
+            %p.up_acc_p
+              %label.up_acc_lbl User Name
+              %span.up_acc_lbl_span= @profile.first_name
+            %p.up_acc_p
+              = user.password_field :password, :class => "up_acc_inp", :label => "Old Password"
+            %p.up_acc_p
+              = user.password_field :password, :class => "up_acc_inp", :label => "New Password"
+            %p.up_acc_p
+              = user.password_field :password_confirmation, :class => "up_acc_inp", :label => "Confirm Password"
       .up_acc_setp
         %h2 Email Alert Preferences
         .up_acc_email

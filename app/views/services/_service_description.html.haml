@@ -12,14 +12,15 @@
       To &nbsp;&nbsp;&nbsp;&nbsp; 
       = @service.end_date 
       %p
-        %span.add_left Time Available:
+        %span.add_left Time (in EST):
         - if !@service.start_time.blank? 
           %span.add_right= @service.start_time 
           To 
           = @service.end_time 
         - else
           %span.add_right Any 
-  %p
-    %span.add_left Spots Available:
-    %span.add_right= @service.booking_capacity - @service.booked_seats 
+  - if @service.booking_capacity > 0 
+    %p
+      %span.add_left Spots Available:
+      %span.add_right= @service.booking_capacity - @service.booked_seats 
 %hr.add_hr/

@@ -27,6 +27,7 @@ class Service < ActiveRecord::Base
   validates_numericality_of :estimated_duration, :only_integer => true, :message => "can only be whole number."
   
   scope :by_public, where(:is_public => true)
+  scope :by_user, lambda {|user_id| where(:user_id => user_id)}
   
   after_create :generate_permalink
 
