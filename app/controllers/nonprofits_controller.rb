@@ -8,11 +8,9 @@ class NonprofitsController < ApplicationController
   
   def index
     @head[:title] = "Browse non-profit partners and support them"
-    @nonprofits = Nonprofit.verified
-
+    @nonprofits = is_admin? ? Nonprofit.all : Nonprofit.verified
     # FIXME: To add index-tank search on the following Nonprofit criteria:
     # name, EIN, category, mission, guideline, description, website
-
     render :locals => { :search => true }
   end
 
@@ -246,7 +244,7 @@ class NonprofitsController < ApplicationController
   end
 
   def nonprofit_owner
-    return true if session[:nonprofit] and (session[:nonprofit][:id] == @nonprofit.try(:id))
+    return true if is_nonprofit_owner? || is_admin?
     redirect_to login_nonprofits_path
   end
 
