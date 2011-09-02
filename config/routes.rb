@@ -29,6 +29,7 @@ Gik::Application.routes.draw do
       match :forgot_username
       get :reset_password
       post :update_password
+      get :search_nonprofit
     end
     member do
       match :account

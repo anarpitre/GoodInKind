@@ -21,6 +21,10 @@ else
 end
 
 
+ADMIN_EMAIL = "admin@goodinkind.com"
+
+NONPROFIT_STATE = ['Pending to verify','Verified','Rejected'] 
+
 # facebook
 
 FB_STAGING_API_ID = "203402889721350" 

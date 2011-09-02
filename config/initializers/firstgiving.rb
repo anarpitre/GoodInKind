@@ -3,6 +3,8 @@ FIRST_GIVING = YAML.load_file( config_file )[Rails.env]
 
 CARD_ON_FILE_SUPPORTED = true
 
+CHARITY_SEARCH = "http://graphapi.firstgiving.com/v1/list/organization"
+
 FIRST_GIVING_TYPEMAP = {
   'visa' => 'VI',
   'master' => 'MC',

@@ -8,11 +8,9 @@ class NonprofitsController < ApplicationController
   
   def index
     @head[:title] = "Browse non-profit partners and support them"
-    @nonprofits = Nonprofit.verified
-
+    @nonprofits = is_admin? ? Nonprofit.all : Nonprofit.verified
     # FIXME: To add index-tank search on the following Nonprofit criteria:
     # name, EIN, category, mission, guideline, description, website
-
     render :locals => { :search => true }
   end
 
@@ -230,6 +228,15 @@ class NonprofitsController < ApplicationController
     end
   end
 
+  def search_nonprofit
+    response = FirstGiving.search(params[:ein].gsub('-',''))
+    @response = response['payload']['payload']['key_0']
+    @category_id = NONPROFIT_CATEGORY[@response['category_code'][0].to_s]
+    respond_to do |format|
+      format.js 
+    end
+  end
+
   private
 
   def get_nonprofit
@@ -246,7 +253,7 @@ class NonprofitsController < ApplicationController
   end
 
   def nonprofit_owner
-    return true if session[:nonprofit] and (session[:nonprofit][:id] == @nonprofit.try(:id))
+    return true if is_nonprofit_owner? || is_admin?
     redirect_to login_nonprofits_path
   end
 

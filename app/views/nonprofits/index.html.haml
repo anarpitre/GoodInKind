@@ -15,10 +15,13 @@
       %br/
     .np_results
       - @nonprofits.each do |np|
-        .np_results_list
+        .np_results_list{:style => "height: 70px;"}
           .np_logos
             = image_tag(np.photo.url(:medium), :alt => np.name)
           %p.np_rel_text
+            - if is_admin?
+              %span
+                %a= link_to "Update", edit_nonprofit_path(np.permalink), :class => "button", :style => "margin-left:300px;"
             %span
               %b= link_to np.name, nonprofit_path(np)
               = np.location.try(:address)

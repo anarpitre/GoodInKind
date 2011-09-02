@@ -48,7 +48,7 @@ class BookingsController < ApplicationController
     @booking.billToFirstName = @booking.accountName.split.first
     @booking.billToLastName = @booking.accountName.split.last
     @booking.remoteAddr = request.remote_ip 
-    @booking.save!
+    @booking.valid?
 
     # If no params[:cc], check if the user already had a token 
     # and if the user does have one, process the payment.
