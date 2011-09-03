@@ -1,0 +1,3 @@
+:plain
+  $('#reviews').html("#{escape_javascript(render :partial => 'review', :collection => @reviews)}");
+  $('#more_review').hide();

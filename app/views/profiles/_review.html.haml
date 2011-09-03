@@ -1,0 +1,12 @@
+.review_text
+  %h3
+    - class_name =  review.is_positive == true ? "positive" : "negative"
+    %span{:class => class_name}= class_name.titleize
+    for
+    %span.ss_name #{review.service.title} 
+  %h4
+    by
+    %span.ss_name #{review.user.profile.first_name}
+    on #{review.created_at.strftime('%B %d, %Y')} 
+  %p 
+    = review.review_remark
