@@ -49,6 +49,7 @@ class ServicesController < ApplicationController
   def create
     begin
       @head[:title] = "Create Service"
+      params[:service].delete(:nonprofit_name)
       @service = Service.new(params[:service])
       @service.title = @service.title.humanize
       add_user_id                                                             
@@ -70,6 +71,7 @@ class ServicesController < ApplicationController
   def update
     begin
       @head[:title] = "Update Service"
+      params[:service].delete(:nonprofit_name)
       @service.update_attributes!(params[:service])
       redirect_to(@service, :notice => 'Service was successfully updated.') 
     rescue 

@@ -2984,3 +2984,9 @@ div.pagination strong {
   font-weight: bold;
   margin-left: 4px;
 }
+
+/* Style for Spinner
+ .spinner {
+ padding-left:5px;
+ display:none;
+ }
