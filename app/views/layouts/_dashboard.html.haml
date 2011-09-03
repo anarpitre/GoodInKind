@@ -12,8 +12,8 @@
   %ul.dm_nav
     %li
       = link_to "Profile", profile_path(current_user)
-    /%li
-    /  = link_to "My Services", "#"
+    %li
+      = link_to "My Services", services_profile_path(current_user) 
     %li
       = link_to "Logout", destroy_user_session_path, :method => :get
   / Network Functionality posted on 7-SEP-11    
