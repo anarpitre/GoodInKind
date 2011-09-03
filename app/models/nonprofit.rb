@@ -17,6 +17,7 @@ class Nonprofit < ActiveRecord::Base
   validates :EIN, :presence => true, :uniqueness => true
   validates :password, :password_confirmation, :presence => true, :on => :create
   validates :contact_name, :name, :position, :presence => true
+  validates :uuid, :presence => true, :if => Proc.new {|nonprofit| nonprofit.is_verified? == 'Verified'}
   #validates_attachment_presence :photo
 
   validates_confirmation_of :password, :on => :create
@@ -50,14 +51,14 @@ class Nonprofit < ActiveRecord::Base
 
   
   after_update { |nonprofit|
-    change_status = nonprofit.is_verified_id_change
+    change_status = nonprofit.is_verified_change
     if(change_status)
       if(change_status[1] == "Verified")
-        puts "+++++++++++++++++++++++++++++++++++++++++++++++++++"
-        #Notifier.nonprofit_approved(@nonprofit).deliver
+        Notifier.nonprofit_approved(self.email,self.contact_name,self.permalink).deliver
+        self.nonprofit_categories.each {|npc| Category.increment_counter(:nonprofit_count, npc.id) }
        elsif (change_status[1] == "Rejected")
-        puts "**************************************************"
-        #Notifier.nonprofit_reject(@nonprofit).deliver
+        Notifier.nonprofit_rejected(self.email).deliver
+        self.nonprofit_categories.each {|npc| Category.decrement_counter(:nonprofit_count, npc.id) }
        end
     end
   }
@@ -119,17 +120,6 @@ class Nonprofit < ActiveRecord::Base
   
   def add_index
     INDEX.document("Nonprofit:id:#{self.id}").add({ :text => "#{self.categories.collect(&:name).to_s} #{self.name} #{self.description}"})
-  end
-
-  # Send email if status is changed
-  def check_status
-    if self.changed?
-      if self.is_verified == "Verified"
-        #Notifier.nonprofit_approved(@nonprofit).deliver
-      elsif self.is_verified == "Rejected"
-        #Notifier.nonprofit_reject(@nonprofit).deliver
-      end
-    end
   end
 
 end
