@@ -4,7 +4,7 @@
     = form_for @profile, :url => profile_path(@user), :builder => JoshForm, :html => {:multipart => true, :method => :put} do |f| 
       .up_my_profile_left
         .mypic
-          = image_tag(f.object.avatar.url(:medium))
+          = image_tag(@profile.avatar.url(:medium))
       .up_my_profile_right_edit
         = f.text_field :first_name, :class => "input_half"
         = f.text_field :last_name, :class => "input_half"
