@@ -48,5 +48,27 @@ namespace :admin do
 
     end
   end
+
+  # TODO: Remove duplication. Call this task before fake_service
+  desc "create Fake Nonprofits"
+  task :fake_nonprofits => :environment do
+    nonprofit_cat = Category.where(:category_type => 2)
+    100.times do
+      nonprofit = Nonprofit.new(:name => Faker::Name.name, 
+                                :EIN => rand(9999999),
+                                :position => Faker::Name.name,
+                                :website => Faker::Internet.domain_name,
+                                :contact_name => Faker::Name.name, 
+                                :email => Faker::Internet.free_email, 
+                                :username => Faker::Internet.user_name,
+                                :password => "josh123",
+                                :password_confirmation => "josh123",
+                                :phone_number => 1234567890 
+                                )
+      nonprofit.categories << nonprofit_cat.rand
+      nonprofit.save!
+    end
+  end
+
 end
 

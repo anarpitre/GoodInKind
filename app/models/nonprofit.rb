@@ -84,6 +84,10 @@ class Nonprofit < ActiveRecord::Base
   def clean_up_passwords
     self.password = self.password_confirmation = ""
   end
+
+  def is_verified?
+    self.is_verified == "Verified"
+  end
   
   private
 
