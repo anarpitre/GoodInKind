@@ -24,7 +24,9 @@ class Service < ActiveRecord::Base
   validate :check_categories
   validate :check_date
   validates_numericality_of :booking_capacity, :only_integer => true, :message => "can only be whole number."
-  validates_numericality_of :estimated_duration, :only_integer => true, :message => "can only be whole number."
+  validates :estimated_duration, :numericality => true 
+  validate :check_duration
+  
   
   scope :by_public, where(:is_public => true)
   scope :by_user, lambda {|user_id| where(:user_id => user_id)}
@@ -70,8 +72,12 @@ class Service < ActiveRecord::Base
   def check_date
     unless self.is_schedulelater
       errors.add(:start_date,"Check Date") unless (self.start_date.blank? || self.end_date.blank? || (self.start_date < self.end_date))
-      errors.add(:start_time," Start time cannot be greater than End time") unless (self.start_time <= self.end_time)
+      errors.add(:start_time," Start time cannot be greater than or equal to End time") if (self.start_time >= self.end_time)
     end
+  end
+
+  def check_duration
+    errors.add(:estimated_duration,"duration must be in .5 hrs increament") unless ((self.estimated_duration*10) % 5 == 0)
   end
 
   def as_json(options = {})

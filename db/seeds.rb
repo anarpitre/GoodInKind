@@ -3,10 +3,12 @@ NON_PROFIT = 2
 user = User.create(:email => "dummy@dummy.com", :password => "dummy123")
 user.save!
 user.confirm!
+profile = Profile.create(:user_id => user.id, :first_name => "dummy", :last_name => "123")
 user = User.create(:email => "admin@goodinkind.com", :password => "admin123")
 user.is_admin = true
 user.save!
 user.confirm!
+profile = Profile.create(:user_id => user.id, :first_name => "admin", :last_name => "user")
 
 
 FIRSTGIVING_CATETORIES = {

@@ -46,7 +46,7 @@ class Nonprofit < ActiveRecord::Base
   after_update :check_status
 
   default_scope order('created_at DESC')
-  scope :verified, lambda{where("is_verified = 'Verified'")}
+  scope :verified, where(:is_verified => 'Verified')
 
   
   def to_param
