@@ -31,7 +31,8 @@ class Service < ActiveRecord::Base
   
   scope :by_public, where(:is_public => true)
   scope :by_user, lambda {|user_id| where(:user_id => user_id)}
-  
+  scope :active, where(:status => "active")
+
   after_create :generate_permalink
 
   after_save { |service|

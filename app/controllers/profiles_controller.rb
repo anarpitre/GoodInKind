@@ -39,6 +39,15 @@ class ProfilesController < ApplicationController
   end
 
   def services
+    @services = @user.services.active 
+  end
+
+  def cancel_service
+    service = Service.find(params[:id])
+    service.update_attributes!(:status => "cancel")
+    respond_to do |format|
+      format.js {render :js => "$('#service_#{service.id}').remove();"}
+    end
   end
 
   private

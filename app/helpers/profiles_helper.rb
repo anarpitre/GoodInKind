@@ -25,4 +25,8 @@ module ProfilesHelper
       '%span{:class => :negative }Negative'
     end
   end
+
+  def is_expired?(service)
+    service.end_date < Date.today
+  end
 end
