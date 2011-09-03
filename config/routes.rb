@@ -2,6 +2,13 @@ Gik::Application.routes.draw do
 
   devise_for :users, :controllers => {:sessions => :sessions, :registrations => :registrations, :confirmations => :confirmations}
 
+  scope '/users/:user_id' do
+    resource :profile do
+      get 'reviews'
+    end
+    resources :messages
+  end
+
   match 'offer_virtual' => 'home#offer_virtual', :as => :offer_virtual, :method => :post
   ##### START- SPECIAL PRODUCTION ROUTING CHECK
   if Rails.env == 'production'
@@ -18,7 +25,6 @@ Gik::Application.routes.draw do
 
   resources :dashboard 
   
-  resources :profiles
   
   resources :nonprofits do
     collection do

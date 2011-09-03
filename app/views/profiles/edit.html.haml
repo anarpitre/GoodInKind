@@ -1,4 +1,5 @@
-#tab1.tab_content
+= render :partial => "layouts/profile_tabs"
+.tab_container
   .up_my_profile
     = form_for @profile, :builder => JoshForm, :html => {:multipart => true} do |f| 
       .up_my_profile_left

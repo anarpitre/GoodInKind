@@ -1,43 +1,48 @@
 class ProfilesController < ApplicationController
-  
   before_filter :authenticate_user!, :only => [:edit, :index]
+  before_filter :get_user
   before_filter :is_owner, :only => [:edit]
   
   layout "service"
 
   def index
-    @profile = current_user.profile
+    @profile = @user.profile
   end
 
   def edit
-    @profile = current_user.profile
+    @profile = @user.profile
     @profile.build_location if @profile.location.blank?
   end
 
   def update
-    begin 
-      @profile = current_user.profile
-      @profile.attributes = params[:profile]
-      @profile.save!
-      redirect_to :action => 'index'
-    rescue 
-      @profile.build_location if @profile.location.blank?
-      render :action => 'edit'
+    @profile = @user.profile
+    @profile.attributes = params[:profile]
+    if @profile.save 
+      redirect_to profile_path(@user) 
+    else
+      render :action => :edit
     end
   end
 
   def show
-    @profile = User.find(params[:id]).profile
+    @profile = @user.profile 
     @services = Service.by_public.by_user(@profile.user_id)
+    @reviews = Review.for_user(@user.id).limit(3)
+  end
+
+  def reviews
+    @reviews = Review.for_user(@user.id)
+    respond_to do |format|
+      format.js {render :partial => 'reviews'}
+    end
   end
 
   private
 
   def is_owner
-    user = User.find(params[:id]) 
-    unless user == current_user
+    unless @user == current_user
       flash[:notice] = "You do not have sufficent privileges."
-      redirect_to profile_path(user) 
+      redirect_to profile_path(@user) 
     end    
   end
 

@@ -19,4 +19,10 @@ module ProfilesHelper
     return false
   end
 
+  def review_context(review)
+    if review.is_positive
+    else
+      '%span{:class => :negative }Negative'
+    end
+  end
 end

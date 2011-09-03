@@ -45,15 +45,15 @@ class JoshForm < ActionView::Helpers::FormBuilder
       end
 
       if @object and @object.errors.any?
-
         # special handling for file_field
         if method_name == 'file_field'
-          error = @object.errors["#{attribute.to_s}_file_name"]
+          error = @object.errors["#{attribute.to_s}_file_name"] | @object.errors["#{attribute.to_s}_file_size"]
         else
           error = @object.errors[attribute]
         end
+
         if error.present?
-          error_tag = @template.content_tag(:label, error.join(',').humanize, {:class => CSS[:error]})
+          error_tag = @template.content_tag(:label, error.first.humanize, {:class => CSS[:error]})
 
           args.last[:class] = "#{args.last[:class]} in_error"
         end

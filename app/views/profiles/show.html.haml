@@ -1,5 +1,81 @@
-
+= render :partial => "layouts/profile_tabs"
 .tab_container
-  = render :partial => "user_profile"
+  #tab1.tab_content
+    .up_my_profile
+      .up_my_profile_left
+        .mypic
+          = image_tag(@profile.avatar.url(:medium))
+        .my_stats
+          %h2 GoodInKind Stats
+          %ul
+            %li
+              Total Services Offered:
+              %span= @profile.user.services.size
+            %li
+              Total Purchased:
+              %span 0
+            %li
+              Total Amount Raised:
+              %span $#{@profile.donated_amount.to_i}
+            %li
+              Total Time Donated:
+              %span= @profile.donated_time
+            %li
+              \% Positive Reviews:
+              %span= @profile.total_reviews == 0 ? "---" : (@profile.positive_reviews * 100 / @profile.total_reviews).to_i 
+            %li
+              Total Reviews:
+              %span 0
+      .up_my_profile_right
+        %h2.my_name
+          = get_user_name
+          %span
+            - if is_owner(@profile.user)
+              = image_tag('edit_icon.jpg', :alt => "edit")
+              = link_to "Edit Profile", edit_profile_path(current_user)
+        %p.my_pro_p
+          %label.my_pro_lbl Gender:
+          %span.my_pro_spn
+            - if is_owner(@profile.user)
+              = @profile.gender
+              %span.my_pro_not_pl
+                = @profile.hide_gender ? "Not-Public" : ""
+            - else
+              = @profile.hide_gender ? "---" : @profile.gender
+        %p.my_pro_p
+          %label.my_pro_lbl Location:
+          %span.my_pro_spn= !@profile.location.blank? ? @profile.location.address : "--"
+        %p.my_pro_p
+          %label.my_pro_lbl Email:
+          %span.my_pro_spn
+            - if is_owner(@profile.user)
+              = @profile.user.email
+              %span.my_pro_not_pl
+                = @profile.hide_email ? "Not-Public" : ""
+            - else
+              = @profile.hide_email ? "---" : @profile.user.email
+        %p.my_pro_p
+          %label.my_pro_lbl Website:
+          %span.my_pro_spn= @profile.website
+        %p.my_pro_p
+          %label.my_pro_lbl About Me:
+          %span.my_pro_spn= @profile.about_me
+        .my_pro_sm
+          %label.my_pro_lbl Follow Me:
+          %ul
+            - unless @profile.twitter.blank?
+              %li
+                %a{:href => "http://www.twitter.com/#!/#{@profile.twitter}"}
+            - unless @profile.facebook.blank?
+              %li
+                %a.my_sm_facebook{:href => "http://www.facebook.com/#{@profile.facebook}"}
+            - unless @profile.linkedin.blank?
+              %li
+                %a.my_sm_linked{:href => "http://www.linkedin.com/#{@profile.linkedin}"}
 = render :partial => 'services/featured_service'
-= render :partial => "profile_review"
+.profile_reviews
+  %h2.pp_h2 Reviews written for #{@user.profile.first_name}
+  #reviews
+    = render :partial => "review", :collection => @reviews 
+  %p.view_more{:id => 'more_review'}
+    = link_to "View All Reviews", reviews_profile_path(@user), :remote => true

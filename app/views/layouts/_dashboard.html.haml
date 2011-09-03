@@ -11,7 +11,7 @@
     %b #{current_user.profile.blank? ? 0 : current_user.profile.donated_time}
   %ul.dm_nav
     %li
-      = link_to "Profile", profiles_path
+      = link_to "Profile", profile_path(current_user)
     /%li
     /  = link_to "My Services", "#"
     %li
