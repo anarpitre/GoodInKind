@@ -38,6 +38,8 @@ class JoshForm < ActionView::Helpers::FormBuilder
         hint = args.last[:hint]
         css_class = args.last[:class]
         label_txt = args.last[:label]
+        spinner = args.last[:spinner]  # a spinner class gets added 
+        pre = args.last[:pre]          # container is ignored
       end
 
       if ['password_field', 'text_field', 'text_area', 'file_field', 'email_field'].include?(method_name)
@@ -69,10 +71,15 @@ class JoshForm < ActionView::Helpers::FormBuilder
         hint_tag = @template.content_tag(:span, hint + hint_pointer, { :class => CSS[:hint] }, false) 
       end
 
-      all_tags = label_tag + base_tag + hint_tag + error_tag
-      all_tags += @template.image_tag('spinner.gif', :class => 'spinner',:id => 'spinner') if args.last[:spinner]
+      if spinner
+        # TODO: add the spinner image in the class spinner in CSS
+        spinner_tag = @template.image_tag('spinner.gif', :class => 'spinner',:id => 'spinner') if args.last[:spinner]
+      end
 
-      if css_class =~ /input_small|input_tiny/
+      all_tags = label_tag + base_tag + spinner_tag + hint_tag + error_tag
+
+      # TODO: Remove the css_class special fix -- use :pre instead
+      if css_class =~ /input_small|input_tiny/ or pre
         all_tags
       else
         # Wrap all the form fields inside a <p> tag and add a lable to them
