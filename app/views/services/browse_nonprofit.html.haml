@@ -1,10 +1,10 @@
 :javascript
   jQuery(document).ready(function(){
     $('.same').click(function(){
-      $('#nonprofit_name').val();
+      $('#service_nonprofit_name').val();
       var name = $(this).text();
       var id = $(this).attr('id');
-      $('#nonprofit_name').val(name); 
+      $('#service_nonprofit_name').val(name); 
       $('#service_nonprofit_id').val(id); 
       window.parent.tb_remove(); return false;
     });
