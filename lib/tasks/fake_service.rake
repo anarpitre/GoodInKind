@@ -61,6 +61,8 @@ namespace :admin do
                                 :contact_name => Faker::Name.name, 
                                 :email => Faker::Internet.free_email, 
                                 :username => Faker::Internet.user_name,
+                                :description => Faker::Lorem.paragraph,
+                                :uuid => SecureRandom.hex,
                                 :password => "josh123",
                                 :password_confirmation => "josh123",
                                 :phone_number => 1234567890 

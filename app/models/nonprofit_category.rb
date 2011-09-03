@@ -1,5 +1,5 @@
 class NonprofitCategory < ActiveRecord::Base
-  belongs_to :category, :counter_cache => :nonprofit_count
+  belongs_to :category
   belongs_to :nonprofit
 
   validates :nonprofit_id , :presence => true
