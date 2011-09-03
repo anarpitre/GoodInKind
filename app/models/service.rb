@@ -16,15 +16,18 @@ class Service < ActiveRecord::Base
   accepts_nested_attributes_for :images, :location, :allow_destroy => true
   
   
-  validates :title, :description, :user_id, :nonprofit_id, :presence => true
+  validates :title, :description, :user_id, :presence => true
   validates_inclusion_of :is_public, :in => [true, false]
   validates :amount, :numericality => true, :presence => true
   validates_inclusion_of :amount, :in => 5..9999, :message => " should be between $5 to $9999" 
   validates :start_date, :end_date, :if => Proc.new { |t| t.is_schedulelater == false}, :presence => true
   validate :check_categories
   validate :check_date
+  validate :check_nonprofit
   validates_numericality_of :booking_capacity, :only_integer => true, :message => "can only be whole number."
-  validates_numericality_of :estimated_duration, :only_integer => true, :message => "can only be whole number."
+  validates :estimated_duration, :numericality => true 
+  validate :check_duration
+  
   
   scope :by_public, where(:is_public => true)
   scope :by_user, lambda {|user_id| where(:user_id => user_id)}
@@ -70,8 +73,16 @@ class Service < ActiveRecord::Base
   def check_date
     unless self.is_schedulelater
       errors.add(:start_date,"Check Date") unless (self.start_date.blank? || self.end_date.blank? || (self.start_date < self.end_date))
-      errors.add(:start_time," Start time cannot be greater than End time") unless (self.start_time <= self.end_time)
+      errors.add(:start_time," Start time cannot be greater than or equal to End time") if (self.start_time >= self.end_time)
     end
+  end
+
+  def check_duration
+    errors.add(:estimated_duration,"duration must be in .5 hrs increament") unless ((self.estimated_duration*10) % 5 == 0)
+  end
+
+  def check_nonprofit
+    errors.add(:nonprofit_name, "Nonprofit with given name was not found.Please click on above link to see all of nonprofit") if self.nonprofit.blank?
   end
 
   def as_json(options = {})

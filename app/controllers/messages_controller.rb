@@ -16,7 +16,9 @@ class MessagesController < ApplicationController
   def create
     @message = Message.new(params[:message])
     if @message.save
-      #redirect_to(new_message_path, :notice => 'Message was successfully sent.') 
+      if @message.parent_message_id.to_i != 0
+        mark_replied
+      end
       redirect_to(services_path, :notice => 'Message was successfully sent.') 
     else
       render :action => 'new'

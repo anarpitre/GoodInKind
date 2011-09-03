@@ -13,15 +13,6 @@ describe Service do
       @services.should be_valid
     end
 
-    it "booking capacity blank" do
-      @services.booking_capacity = ""
-      @services.save
-    end
-
-    it "estimated duration is blank" do
-      @services.estimated_duration = ""
-      @services.save
-    end
 
     it "schedule later is true and date and time is not entered" do
       @services.is_schedulelater = true
@@ -64,10 +55,10 @@ describe Service do
       @services.nonprofit
     end
 
-#    after(:each) do
-#      @services.save
-#      @services.should_not be_valid
-#    end
+    after(:each) do
+      @services.save
+      @services.should_not be_valid
+    end
 
     it "title is blank" do 
       @services.title = nil
@@ -87,6 +78,16 @@ describe Service do
       @services.service_categories.first.destroy
       @services.reload
       @services.should_not be_valid
+    end
+    
+    it "booking capacity blank" do
+      @services.booking_capacity = ""
+      @services.save
+    end
+
+    it "estimated duration is blank" do
+      @services.estimated_duration = ""
+      @services.save
     end
     
     it "start date is blank" do
@@ -131,6 +132,11 @@ describe Service do
     it "start time is greater than end time" do
       @services.start_time = "2:00pm"
       @services.end_time = "1:30am"
+    end
+    
+    it "start time is equal to end time" do
+      @services.start_time = "2:00pm"
+      @services.end_time = "2:00am"
     end
 
     it "amount is blank" do 

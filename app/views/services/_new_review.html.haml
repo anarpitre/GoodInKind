@@ -1,11 +1,8 @@
-- 2.times do |i|
-  - unless @reviews[i].blank?
-    %h3
-      - if @reviews[i].is_positive == true
-        %span.positive Positive
-      - else
-        %span.negative Negative
-      by
-      %span.ss_name=  @reviews[i].user.profile.first_name
-      %p
-        = @reviews[i].review
+- @reviews[0..3].each do |review|
+  %h3
+    - class_name =  review.is_positive == true ? "positive" : "negative"
+    %span{:class => class_name}= class_name.titleize
+    by
+    %span.ss_name=  review.user.profile.first_name
+    %p
+      = review.review_remark

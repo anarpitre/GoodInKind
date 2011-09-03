@@ -9,7 +9,7 @@ $(document).ready(function() {
   });
 
   // City change slider
-  $('.city_change_icon').click(function() { 
+  $('.city_change_icon, #city_close').click(function() { 
     $("#slidingDiv").slideToggle(500);
   });
 

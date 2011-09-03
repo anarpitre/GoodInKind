@@ -77,6 +77,11 @@ describe Nonprofit do
     it "cell phone having format i.e.1(123)3334444" do
       np.cell_phone = '1(123)3334444'
     end
+    
+    it "website is not in correct format i.e. google" do
+      np.website = 'google'
+    end
+
   end
 
   context "should not be created if" do
@@ -105,6 +110,7 @@ describe Nonprofit do
     it "Ein is already taken" do
       non = Factory.build(:nonprofit)
       non.EIN = np.EIN
+      non.save
     end
 
     it "organization name is blank" do
@@ -113,10 +119,6 @@ describe Nonprofit do
 
     it "if Website is blank" do
       np.website = ''
-    end
-
-    it "website is not in correct format i.e. google" do
-      np.website = 'google'
     end
 
     it "username is blank" do

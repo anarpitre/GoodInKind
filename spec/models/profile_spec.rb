@@ -3,17 +3,11 @@ require 'spec_helper'
 describe Profile do
 
   let(:pf) {Factory(:profile)}
+
   context "of user should be created if" do
     after(:each) do
       pf.save
       pf.should be_valid
-    end
-    it "first_name is blank" do
-      pf.first_name = nil
-    end
-
-    it "last_name is blank" do
-      pf.last_name = nil
     end
 
     it "if gender is not entered" do
@@ -39,6 +33,14 @@ describe Profile do
     after(:each) do
       pf.save
       pf.should_not be_valid
+    end
+    
+    it "first_name is blank" do
+      pf.first_name = nil
+    end
+
+    it "last_name is blank" do
+      pf.last_name = nil
     end
 
     it "website address is not in proper format" do

@@ -70,7 +70,8 @@ class JoshForm < ActionView::Helpers::FormBuilder
       end
 
       all_tags = label_tag + base_tag + hint_tag + error_tag
-      
+      all_tags += @template.image_tag('spinner.gif', :class => 'spinner',:id => 'spinner') if args.last[:spinner]
+
       if css_class =~ /input_small|input_tiny/
         all_tags
       else
@@ -80,7 +81,7 @@ class JoshForm < ActionView::Helpers::FormBuilder
     end
   end
 
-  helpers = %w[text_field text_area password_field select file_field collection_select email_field ]
+  helpers = %w[text_field text_area password_field select file_field collection_select email_field autocomplete_field ]
   helpers.each do |name|
     create_tagged_field(name)
   end

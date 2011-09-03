@@ -793,19 +793,18 @@ label.error {
 	margin-bottom:10px;
 }
 /*_____ Mini Dashboard _____*/
-
 .dashboard_mini {
 	width:980px;
 	height:28px;
 	float:left;
 	margin:-20px 0px 17px -30px;
-	font-family: 'Crimson Text', serif;
 	background:url(../images/userback_st.jpg) repeat-x;
 }
 .dm_user {
 	font-size:14px;
-	margin:2px 15px 0px 22px;
+	margin:4px 15px 0px 22px;
 	float:left;
+	font-family:"Times New Roman", Times, serif;
 }
 .dm_user b {
 	font-size:15px;
@@ -822,15 +821,15 @@ label.error {
 .dm_price b {
 	color:#9c2024;
 	font-weight:bold;
-	font-size:16px;
-	margin-top:-6px;
-	margin-left:3px;
+	font-size:13px;
+	margin-top:-2px;
+	margin-left:5px;
 }
 .dm_time {
 	margin-top:6px;
 }
 .dm_time b {
-	margin-top:-5px;
+	margin-top:-0px;
 }
 .dm_nav {
 	float:right;
@@ -849,13 +848,22 @@ label.error {
 	color:#636363;
 }
 .dm_network {
-	margin-top:6px;
+	margin-top:3px;
 	margin-left:7px;
 	float:right;
+}
+.dm_network img {
+	float:left;
+	margin-top:2px;
 }
 .dm_mail {
 	margin-top:7px;
 	float:right;
+	margin-top:3px;
+}
+.dm_mail img {
+	float:left;
+	margin-top:4px;
 }
 .dm_st {
 	width:1px;
@@ -867,7 +875,6 @@ label.error {
 	box-shadow:1px 0px 1px #FFF;
 }
 .count {
-	float:right;
 	font-family:Arial, Helvetica, sans-serif;
 	font-weight:bold;
 	background: #af2827;
@@ -897,6 +904,7 @@ label.error {
 	margin-top:-5px;
 	margin-left:17px;
 }
+
 /*_____ Services _____*/
 
 .services_main {
@@ -2740,7 +2748,9 @@ div.pagination strong {
 	height:100%;
 	display:none;
 	background:url(../images/light_box_bg.png);
-	z-index:500
+	z-index:1100;
+    left:0;
+    top:0;
 }
 #box {
 	position:absolute;
@@ -2759,7 +2769,7 @@ div.pagination strong {
 	height:470px !important;
 }
 .light_sent{
-	width:320px;
+	width:340px;
 	margin:auto;
 	font-weight:normal;
 	font-size:19px;
@@ -2984,3 +2994,9 @@ div.pagination strong {
   font-weight: bold;
   margin-left: 4px;
 }
+
+/* Style for Spinner
+ .spinner {
+ padding-left:5px;
+ display:none;
+ }

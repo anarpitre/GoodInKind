@@ -31,7 +31,7 @@
         11:55 am
     %h3.mail_subject_head
       %span= @msg.title
-    %p.mail_text= @msg.message
+    %p.mail_text= h(@msg.message).gsub("\n", "<br/>")
     = link_to "Reply", "#" , :class => "button mail_reply_btn"
     .mail_reply_form
       = render :file => new_message_path
