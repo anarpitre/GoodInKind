@@ -19,7 +19,6 @@ class AuthenticationsController < ApplicationController
       redirect_to authentications_url
     else
       user = User.new
-      user.build_profile
       user.apply_omniauth(omniauth)
       if user.save
         change_service_offerer(session[:service_id],user.id) unless session[:service_id].blank? 
