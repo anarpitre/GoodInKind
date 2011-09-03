@@ -2,14 +2,6 @@
   Request
 .offer_form
   = form_for @request, :builder => JoshForm, :html => {:multipart => true} do |f|
-    - if @request.errors.any?
-      #error_explanation
-        %h2
-          = pluralize(@request.errors.count, "error")
-          prohibited this post from being saved:
-        %ul
-          - @request.errors.full_messages.each do |msg|
-            %li= msg
     .setp_box
       %h3.setp_box_heading
         %span Step 1:
