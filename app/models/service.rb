@@ -76,7 +76,7 @@ class Service < ActiveRecord::Base
   end
 
   def check_nonprofit
-    errors.add(:nonprofit_name, "Nonprofit with given name was not found.Please click on above link to see new of nonprofit") if self.nonprofit.blank?
+    errors.add(:nonprofit_name, "Nonprofit with given name was not found.Please click on above link to see all of nonprofit") if self.nonprofit.blank?
   end
 
   def as_json(options = {})
