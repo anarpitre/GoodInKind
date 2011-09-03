@@ -10,6 +10,33 @@
   containerheight: ''
   });
   });
+:javascript
+  $(document).ready(function(){
+
+  	$("#in").click(function(event){
+  		$("#overlay").fadeIn("fast");
+  		return false;
+    });
+
+    $("#close,#overlay").click(function(event){
+        $("#overlay").fadeOut("fast");
+        return false;
+    });
+
+    $(document).keyup(function(e) {
+       if (e.keyCode == 27) { $('#overlay').hide(); }   // esc
+    });
+
+  	$("#box").click(function(event){
+  		$("#overlay").show();
+  		return false;
+  	});
+
+  });
+
+#overlay
+  #box
+    %embed{:allowfullscreen => "true", :allowscriptaccess => "always", :flashvars => "playerVars=autoPlay=no", :height => "338", :name => "Metacafe_7050517", :pluginspage => "http://www.macromedia.com/go/getflashplayer", :src => "http://www.metacafe.com/fplayer/7050517/real_steel_featurette.swf", :type => "application/x-shockwave-flash", :width => "600", :wmode => "transparent"}
 
 
 %ul#slide_text.slide_text_db
