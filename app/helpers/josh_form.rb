@@ -40,7 +40,7 @@ class JoshForm < ActionView::Helpers::FormBuilder
         label_txt = args.last[:label]
       end
 
-      if ['password_field', 'text_field', 'text_area', 'file_field'].include?(method_name)
+      if ['password_field', 'text_field', 'text_area', 'file_field', 'email_field'].include?(method_name)
         args.last[:class] = "form_input_full #{css_class}"
       end
 
@@ -81,7 +81,7 @@ class JoshForm < ActionView::Helpers::FormBuilder
     end
   end
 
-  helpers = %w[text_field text_area password_field select file_field collection_select autocomplete_field ]
+  helpers = %w[text_field text_area password_field select file_field collection_select email_field autocomplete_field ]
   helpers.each do |name|
     create_tagged_field(name)
   end

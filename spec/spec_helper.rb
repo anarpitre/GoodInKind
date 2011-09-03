@@ -29,3 +29,13 @@ end
 RSpec.configure do |config|
     config.include Devise::TestHelpers, :type => :controller
 end
+
+def login_as( name )
+  controller.stub!( :logged_in? ).and_return( true )
+  controller.stub!( :set_seo_tags ).and_return( true )
+  controller.stub!( :get_nonprofit ).and_return( true )
+  controller.stub!( :login_required ).and_return( true )
+#  current_user = users(name)
+#  controller.stub!( :current_user ).and_return( current_user )
+end
+

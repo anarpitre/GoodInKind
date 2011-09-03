@@ -7,6 +7,36 @@ describe User do
     it "if email and password are provided in valid format" do 
       user.should be_valid
     end
+    
+    it "if provided email is in valid format i.e. a-a@aa.com" do
+      user.email = 'a-a@aa.com'
+      user.save
+      user.should be_valid
+    end
+    
+    it "if provided email is in valid format i.e. a-a.a@aa.com" do
+      user.email = 'a-a.a@aa.com'
+      user.save
+      user.should be_valid
+    end
+    
+    it "if provided email is in valid format i.e. a@a.com" do
+      user.email = 'a@a.com'
+      user.save
+      user.should be_valid
+    end
+    
+    it "if provided email is in valid format i.e. a@a.in" do
+      user.email = 'a@a.in'
+      user.save
+      user.should be_valid
+    end
+    
+    it "if provided email is in valid format i.e. a@a.org" do
+      user.email = 'a@a.in'
+      user.save
+      user.should be_valid
+    end
   end
 
   context "Should not be registered" do
@@ -20,6 +50,12 @@ describe User do
 
     it "if provided email is not in valid format" do
       user.email = 'xxxx.com'
+      user.save
+      user.should_not be_valid
+    end
+    
+    it "if provided email is not in valid format i.e. a-aa@.com" do
+      user.email = 'a-aa@.com'
       user.save
       user.should_not be_valid
     end

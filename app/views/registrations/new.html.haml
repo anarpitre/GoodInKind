@@ -1,10 +1,8 @@
 :javascript
   $(document).ready(function(){
-  	$(".sign_up_form").hide();
     $(".sign_reg_link").click(function(){
+        $("#sign_up_form").toggle();
         $(".term").toggle();
-  		$(this).toggleClass("").next().slideToggle("fast");
-  		return false;
   	});
    
   });
@@ -18,34 +16,27 @@
 .term
   %span.sign_up_form_t_c
     By clicking Sign Up you agree to our user
-    %a{:href => "#"} terms and conditions
+    %a{:href => "/docs/GoodInKind_501_Terms_and_Conditions.html"} terms and conditions
 .sing_up_fb
   %span
 %a.sign_reg_link{:href => "#"} Or Sign up using our registration form
-.sign_up_form
+.sign_up_form#sign_up_form{:style => "display: #{resource.errors.any? ? 'block':'none'} "}
   - resource.build_profile if resource.profile.blank?
-  = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
-    %p
-      = f.label :email,  :class => "sign_up_form_lbl"
-      = f.email_field :email, :class => "sign_up_form_inp"
+  = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :builder => JoshForm) do |f|
+    
+    = f.email_field :email, :class => "sign_up_form_inp"
     = f.fields_for :profile do |profile|
-      %p
-        = profile.label :first_name, :class => "sign_up_form_lbl"
-        = profile.text_field :first_name, :class => "sign_up_form_inp"
-      %p
-        = profile.label :last_name, :class => "sign_up_form_lbl"
-        = profile.text_field :last_name, :class => "sign_up_form_inp"
+  
+      = profile.text_field :first_name, :class => "sign_up_form_inp"
+      = profile.text_field :last_name, :class => "sign_up_form_inp"
     - if @user.password_required?
-      %p
-        = f.label :password, :class => "sign_up_form_lbl"
-        = f.password_field :password, :class => "sign_up_form_inp"
-      %p
-        = f.label :password_confirmation, :class => "sign_up_form_lbl"
-        = f.password_field :password_confirmation, :class => "sign_up_form_inp"
+      = f.password_field :password, :class => "sign_up_form_inp"
+      = f.password_field :password_confirmation, :class => "sign_up_form_inp"
     %span.sign_up_form_t_c
       By clicking Sign Up you agree to our user
-      %a{:href => "#"} terms and conditions
-    = f.submit "Sign Up", :class => "sign_up_form_btn btn_form button"
+      = link_to('terms and conditions', '/docs/GoodInKind_501_Terms_and_Conditions.html', :target=>"_blank")
+    .input_post_div{:style => "margin-left:50px;"}
+      = f.submit "Sign Up", :class => "sign_up_form_btn btn_form button"
 %p.sign_up_bootm_p
   If you're representing a non-profit,
   = link_to "Click here", login_nonprofits_path

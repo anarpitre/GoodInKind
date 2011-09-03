@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe PaymentsController do
+#describe PaymentsController do
 
-end
+#end
