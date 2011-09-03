@@ -17,7 +17,7 @@ class Nonprofit < ActiveRecord::Base
   validates :EIN, :presence => true, :uniqueness => true
   validates :password, :password_confirmation, :presence => true, :on => :create
   validates :contact_name, :name, :position, :presence => true
-  validates :uuid, :presence => true, :if => Proc.new {|nonprofit| nonprofit.is_verified == 'Verified'}
+  validates :uuid, :presence => true, :if => Proc.new {|nonprofit| nonprofit.is_verified? }
   #validates_attachment_presence :photo
 
   validates_confirmation_of :password, :on => :create
