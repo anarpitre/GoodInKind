@@ -1,7 +1,7 @@
 = render :partial => "layouts/profile_tabs"
 .tab_container
   .up_my_profile
-    = form_for @profile, :builder => JoshForm, :html => {:multipart => true} do |f| 
+    = form_for @profile, :url => profile_path(@user), :builder => JoshForm, :html => {:multipart => true, :method => :put} do |f| 
       .up_my_profile_left
         .mypic
           = image_tag(f.object.avatar.url(:medium))
