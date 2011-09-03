@@ -17,7 +17,7 @@ class Nonprofit < ActiveRecord::Base
   validates :EIN, :presence => true, :uniqueness => true
   validates :password, :password_confirmation, :presence => true, :on => :create
   validates :contact_name, :name, :position, :presence => true
-  validates :uuid, :presence => true, :if => Proc.new {|nonprofit| nonprofit.is_verified? == 'Verified'}
+  validates :uuid, :presence => true, :if => Proc.new {|nonprofit| nonprofit.is_verified == 'Verified'}
   #validates_attachment_presence :photo
 
   validates_confirmation_of :password, :on => :create
@@ -25,8 +25,8 @@ class Nonprofit < ActiveRecord::Base
   validates :cell_phone, :format => CELL_NO_REGEX, :unless =>  Proc.new {|nonprofit| nonprofit.cell_phone.blank? }
   validates :phone_number, :presence => true, :format => CELL_NO_REGEX
   validates :website, :presence => true
-  validates_attachment_content_type :photo, :content_type => ["image/jpeg", "image/png", "image/gif", "image/jpg", "image/bmp", "image/tiff", "image/tif" ]
-  validates_attachment_size  :photo, :less_than => 2.megabytes
+  validates_attachment_content_type :photo, :content_type => ["image/jpeg", "image/png", "image/gif", "image/jpg", "image/bmp", "image/tiff", "image/tif" ], :message => "Valid formats are jpeg, jpg, png, gif, bmp, tiff, tif"
+  validates_attachment_size  :photo, :less_than => 2.megabytes, :message => "Maximum image size 2 MB"
 
 
   has_attached_file :photo, S3_DEFAULTS.merge(
