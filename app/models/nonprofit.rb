@@ -1,7 +1,6 @@
 require 'digest/sha1'
 
 class Nonprofit < ActiveRecord::Base
-  include AASM
 
   has_many :nonprofit_categories
   has_many :categories, :through => :nonprofit_categories
@@ -15,16 +14,16 @@ class Nonprofit < ActiveRecord::Base
   validates :description, :length => {:in => 1..1500}, :on => :update 
   validates_length_of :guideline, :maximum => 400 
   validates :username, :presence => true, :uniqueness => true
-  validates :EIN, :presence => true, :uniqueness => true, :format => EIN_REGEX
+  validates :EIN, :presence => true, :uniqueness => true
   validates :password, :password_confirmation, :presence => true, :on => :create
-  validates :contact_name, :name, :photo, :position, :presence => true
-  validates_attachment_presence :photo
+  validates :contact_name, :name, :position, :presence => true
+  #validates_attachment_presence :photo
 
   validates_confirmation_of :password, :on => :create
   validates :email,  :presence => true, :format => Devise.email_regexp
   validates :cell_phone, :format => CELL_NO_REGEX, :unless =>  Proc.new {|nonprofit| nonprofit.cell_phone.blank? }
   validates :phone_number, :presence => true, :format => CELL_NO_REGEX
-  validates :website, :presence => true, :format => WEBSITE_REGEX
+  validates :website, :presence => true
   validates_attachment_content_type :photo, :content_type => ["image/jpeg", "image/png", "image/gif", "image/jpg", "image/bmp", "image/tiff", "image/tif" ]
   validates_attachment_size  :photo, :less_than => 2.megabytes
 
@@ -43,35 +42,15 @@ class Nonprofit < ActiveRecord::Base
   attr_protected :hashed_password, :salt
 
   before_create :create_hash_password
-  after_create :generate_permalink, :send_application
-  after_create :add_index
+  after_create :generate_permalink, :send_application, :add_index
+  after_update :check_status
 
-  ###  AASM transition ###
-  aasm_column :is_verified
-  aasm_initial_state :created
+  default_scope order('created_at DESC')
+  scope :verified, lambda{where("is_verified = 'Verified'")}
 
-  aasm_state :created
-  aasm_state :verified, :enter => :confirm_nonprofit
-  aasm_state :rejected, :enter => :reject_nonprofit
-
-  aasm_event :confirm! do
-    transitions :to => :verified, :from => [:created, :rejected]
-  end
-
-  aasm_event :reject! do
-    transitions :to => :rejected, :from => [:verified, :created]
-  end
   
   def to_param
     permalink || "#{id}-#{name.parameterize}"
-  end
-
-  def confirm_nonprofit
-    # FIXME: Deliver confirmation email notification
-  end
-
-  def reject_nonprofit
-    # FIXME: Deliver rejection email notification
   end
 
   def self.authenticate(username, password)
@@ -121,11 +100,23 @@ class Nonprofit < ActiveRecord::Base
   end
 
   def send_application
+    update_attribute(:is_verified, NONPROFIT_STATE[0])
     Notifier.nonprofit_application(self.email, self.contact_name, self.name).deliver
   end
   
   def add_index
     INDEX.document("Nonprofit:id:#{self.id}").add({ :text => "#{self.categories.collect(&:name).to_s} #{self.name} #{self.description}"})
+  end
+
+  # Send email if status is changed
+  def check_status
+    if self.changed?
+      if self.is_verified == "Verified"
+        #Notifier.nonprofit_approved(@nonprofit).deliver
+      elsif self.is_verified == "Rejected"
+        #Notifier.nonprofit_reject(@nonprofit).deliver
+      end
+    end
   end
 
 end

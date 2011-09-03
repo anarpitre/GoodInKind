@@ -15,9 +15,12 @@
     %p
       %span.pl_left Social Network:
       %span.pl_right
-        = link_to "", "#", :target => "_blank", :title => "Facebook", :class => "pl_sn"
-        = link_to "", "#", :target => "_blank", :title => "Twitter", :class => "pl_sn tw_pl"
-        = link_to "", "#", :target => "_blank", :title => "Linkedin", :class => "pl_sn ln_pl"
+        - unless @service.user.profile.facebook.blank?
+          = link_to "", "http://www.facebook.com/#{@service.user.profile.facebook}", :target => "_blank", :title => "Facebook", :class => "pl_sn"
+        - unless @service.user.profile.twitter.blank?
+          = link_to "", "http://www.twitter.com/#!/#{@service.user.profile.twitter}", :target => "_blank", :title => "Twitter", :class => "pl_sn tw_pl"
+        - unless @service.user.profile.linkedin.blank?
+          = link_to "", "http://www.linkedin.com/#{@service.user.profile.linkedin}", :target => "_blank", :title => "Linkedin", :class => "pl_sn ln_pl"
     %p
       %span.pl_left Reviews:
       %span.pl_right= @service.user.profile.total_reviews == 0 ? "---" : (@service.user.profile.positive_reviews * 100 / @service.user.profile.total_reviews).to_i.to_s + " % Positive"
@@ -32,7 +35,7 @@
       %span.pl_right
         = truncate(@service.user.profile.try(:about_me), :length => 100)
   %p.pl_view_more
-    = link_to "View Profile", profile_path(@service.user.profile)
+    = link_to "View Profile", profile_path(@service.user.id)
     %br
     - if current_user
       %br= link_to "Message me" , new_message_path(:id => @service.user.id)

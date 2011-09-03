@@ -10,7 +10,7 @@
             - if service.booking_capacity > 0
               - spots = service.booking_capacity - service.booked_seats
               - if spots <= 3
-                .tag_day #{pluralize(days, 'Spot')} Left
+                .tag_day #{pluralize(spots, 'Spot')} Left
             - unless service.is_schedulelater 
               - days = (service.start_date - Date.today).to_i
               - if days <= 3

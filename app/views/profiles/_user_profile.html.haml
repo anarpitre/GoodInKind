@@ -33,17 +33,25 @@
             = link_to "Edit Profile", edit_profile_path(current_user)
       %p.my_pro_p
         %label.my_pro_lbl Gender:
-        %span.my_pro_spn= get_gender
+        %span.my_pro_spn
+          - if is_owner(@profile.user)
+            = @profile.gender
+            %span.my_pro_not_pl
+              = @profile.hide_gender ? "Not-Public" : ""
+          - else
+            = @profile.hide_gender ? "---" : @profile.gender
       %p.my_pro_p
         %label.my_pro_lbl Location:
         %span.my_pro_spn= !@profile.location.blank? ? @profile.location.address : "--"
       %p.my_pro_p
         %label.my_pro_lbl Email:
         %span.my_pro_spn
-          = get_user_email
-          %span.my_pro_not_pl
-            Not-Public
-            %b (?)
+          - if is_owner(@profile.user)
+            = @profile.user.email
+            %span.my_pro_not_pl
+              = @profile.hide_email ? "Not-Public" : ""
+          - else
+            = @profile.hide_email ? "---" : @profile.user.email
       %p.my_pro_p
         %label.my_pro_lbl Website:
         %span.my_pro_spn= @profile.website
