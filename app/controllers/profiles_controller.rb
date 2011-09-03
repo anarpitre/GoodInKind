@@ -5,10 +5,6 @@ class ProfilesController < ApplicationController
   
   layout "service"
 
-  def index
-    @profile = @user.profile
-  end
-
   def edit
     @profile = @user.profile
     @profile.build_location if @profile.location.blank?
@@ -20,6 +16,11 @@ class ProfilesController < ApplicationController
     if @profile.save 
       redirect_to profile_path(@user) 
     else
+      if @profile.avatar_file_name_changed?
+        @profile.avatar.instance_write(:file_name, @profile.avatar_file_name_change[0])
+        @profile.avatar.instance_write(:file_size, @profile.avatar_file_size_change[0])
+        @profile.avatar.instance_write(:content_type, @profile.avatar_content_type_change[0])
+      end
       render :action => :edit
     end
   end
@@ -34,6 +35,18 @@ class ProfilesController < ApplicationController
     @reviews = Review.for_user(@user.id)
     respond_to do |format|
       format.js {render :partial => 'reviews'}
+    end
+  end
+
+  def services
+    @services = @user.services.active 
+  end
+
+  def cancel_service
+    service = Service.find(params[:id])
+    service.update_attributes!(:status => "cancel")
+    respond_to do |format|
+      format.js {render :js => "$('#service_#{service.id}').remove();"}
     end
   end
 

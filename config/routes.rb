@@ -5,6 +5,8 @@ Gik::Application.routes.draw do
   scope '/users/:user_id' do
     resource :profile do
       get 'reviews'
+      get 'services'
+      post 'cancel_service'
     end
     #resources :messages
   end

@@ -13,6 +13,19 @@ describe Nonprofit do
     it "EIN format is valid i.e. 11-1111111" do
       np.EIN = "11-1111111"
     end
+    
+    it "Ein is format is invalid i.e.12345678" do
+      np.EIN = '12345678'
+    end
+    
+    it "Ein is format is invalid i.e.12-3456789" do
+      np.EIN = '12-3456789'
+    end
+
+    it "Ein is format is invalid i.e.12.345678" do
+      np.EIN = '12.345678'
+    end
+
 
     it "all the details entered are valid" do
       np.should be_valid
@@ -46,10 +59,6 @@ describe Nonprofit do
       np.phone_number = '1-(222)-333-4444'
     end
 
-    it "phone number having format i.e.1.222.333.4444" do
-      np.phone_number = '1.222.333.4444'
-    end
-
     it "phone number having format i.e.1(123)3334444" do
       np.phone_number = '1(123)3334444'
     end
@@ -68,10 +77,6 @@ describe Nonprofit do
 
     it "cell phonr having format i.e.1-(222)-333-4444" do
       np.cell_phone = '1-(222)-333-4444'
-    end
-
-    it "cell phone having format i.e.1.222.333.4444" do
-      np.cell_phone = '1.222.333.4444'
     end
 
     it "cell phone having format i.e.1(123)3334444" do
@@ -95,24 +100,6 @@ describe Nonprofit do
       np.EIN = ''
     end
     
-    it "Ein is format is invalid i.e.12345678" do
-      np.EIN = '12345678'
-    end
-    
-    it "Ein is format is invalid i.e.12-3456789" do
-      np.EIN = '12-3456789'
-    end
-
-    it "Ein is format is invalid i.e.12.345678" do
-      np.EIN = '12.345678'
-    end
-
-    it "Ein is already taken" do
-      non = Factory.build(:nonprofit)
-      non.EIN = np.EIN
-      non.save
-    end
-
     it "organization name is blank" do
       np.name = ""
     end
@@ -123,17 +110,6 @@ describe Nonprofit do
 
     it "username is blank" do
       np.username = ''
-    end
-
-    it "username is already taken" do
-      non1 = Factory(:nonprofit)
-      np.username = non1.username
-    end
-
-    it "confirm password is not matching with password" do
-      np.password = 'josh123'
-      np.password_confirmation = '123josh'
-      np.update_attributes(np)
     end
 
     it "contact_name is blank" do
@@ -158,6 +134,10 @@ describe Nonprofit do
 
     it "phone number is in wrong format i.e. 1222(333)4444" do
       np.phone_number = "1222(333)4444"
+    end
+    
+    it "phone number having format i.e.1.222.333.4444" do
+      np.phone_number = '1.222.333.4444'
     end
 
     it "phone number is in wrong format i.e. 1222333(4444)" do
@@ -222,6 +202,38 @@ describe Nonprofit do
     
     it "cell phone is in wrong format i.e. 1-222- (333)-  4444" do
       np.cell_phone = "1-222-  (333)-   4444"
+    end
+    
+    it "cell phone having format i.e.1.222.333.4444" do
+      np.cell_phone = '1.222.333.4444'
+    end
+
+  end
+    
+  context "Nonprofit user should not be created if" do
+    it "EIN is already taken" do
+      np = Factory(:nonprofit)
+      non = Factory.build(:nonprofit)
+      non.EIN = np.EIN
+      non.save
+      non.should_not be_valid
+    end
+    
+    it "username is already taken" do
+      np = Factory(:nonprofit)
+      non1 = Factory.build(:nonprofit)
+      non1.EIN = "33-3322112"
+      non1.username = np.username
+      non1.save
+      non1.should_not be_valid
+    end
+    
+    it "confirm password is not matching with password" do
+      np = Factory(:nonprofit)
+      np.password = "josh123"
+      np.password_confirmation = "123josh"
+      np.save
+      np.should_not be_valid
     end
   end
 end

@@ -1,8 +1,10 @@
 
 :javascript
   $(document).ready(function() {
-    $('#dt_date_start, #dt_time_start,' +
-    '#dt_date_end,   #dt_time_end').calendricalDateTimeRange({usa:true});
+    $('#dt_date_start').calendricalDate({usa:true}); 
+    $('#dt_date_end').calendricalDate({usa:true}); 
+    $('#dt_time_start').calendricalTime({usa:true});
+    $('#dt_time_end').calendricalTime({usa:true});
       var virtual_flag = #{@service.is_virtual}
       var scheduled_flag = #{@service.is_schedulelater}
       is_virtual(virtual_flag);

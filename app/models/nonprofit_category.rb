@@ -1,11 +1,14 @@
 class NonprofitCategory < ActiveRecord::Base
-  belongs_to :category, :counter_cache => :nonprofit_count
+  belongs_to :category
   belongs_to :nonprofit
 
   validates :nonprofit_id , :presence => true
   validates :category_id, :presence => true
 
   after_update { |nonprofit_categories|
+    # Ignore this is nonprofit is not verified
+    return unless nonprofit_categories.nonprofit.is_verified?
+
     change_category = nonprofit_categories.category_id_change
     if(change_category)
       if(change_category[0])
