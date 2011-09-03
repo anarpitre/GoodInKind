@@ -9,6 +9,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def create
+    @class_name = 'sign_up'
     session[:thank_you] = "yes" unless session[:service_id].blank?
     super
     session[:omniauth] = nil unless @user.new_record?
