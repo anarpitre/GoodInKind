@@ -43,12 +43,25 @@ class Nonprofit < ActiveRecord::Base
 
   before_create :create_hash_password
   after_create :generate_permalink, :send_application, :add_index
-  after_update :check_status
+  #after_update :check_status
 
   default_scope order('created_at DESC')
   scope :verified, where(:is_verified => 'Verified')
 
   
+  after_update { |nonprofit|
+    change_status = nonprofit.is_verified_id_change
+    if(change_status)
+      if(change_status[1] == "Verified")
+        puts "+++++++++++++++++++++++++++++++++++++++++++++++++++"
+        #Notifier.nonprofit_approved(@nonprofit).deliver
+       elsif (change_status[1] == "Rejected")
+        puts "**************************************************"
+        #Notifier.nonprofit_reject(@nonprofit).deliver
+       end
+    end
+  }
+
   def to_param
     permalink || "#{id}-#{name.parameterize}"
   end
