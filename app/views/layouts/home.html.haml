@@ -11,4 +11,4 @@
         .clear
       = render 'layouts/footer'
 
-= render :file => 'layouts/base'
+= render :file => 'layouts/base', :locals => {:dashboard => (defined?(dashboard) ? dashboard : true)}

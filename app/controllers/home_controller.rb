@@ -4,6 +4,7 @@ class HomeController < ApplicationController
 
   def index
     @services = Service.by_public
+    render :dashboard => (user_signed_in? ? true : false)
   end
 
   def offer_virtual

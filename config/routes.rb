@@ -6,7 +6,7 @@ Gik::Application.routes.draw do
     resource :profile do
       get 'reviews'
     end
-    resources :messages
+    #resources :messages
   end
 
   match 'offer_virtual' => 'home#offer_virtual', :as => :offer_virtual, :method => :post

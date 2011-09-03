@@ -4,11 +4,11 @@
 %br
 %p Your profile on GoodInKind has been pre-populated with information you submitted in your application as well as with any information available via First Giving, our payment partner. We recommend you login to your profile with the username and password you created while submitting your application, and update your profile information.
 
-%p You can access your profile at
-= link_to "", "http://nonprofits.goodinkind.com/signup"
+%p You can access your profile 
+= link_to "here", new_user_registration_url
 %br
 %p The unique link where your donors will be able to browse services posted to benefit your organization, or offer a service is at:
-= link_to("#{@nonprofit_perm}", "#{@nonprofit_perm}")
+= link_to(nonprofit_url(@nonprofit_perm), nonprofit_url(@nonprofit_perm))
 %span Feel free to share this link on your website or other communications to your donors.
 %br
 

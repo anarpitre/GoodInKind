@@ -2,18 +2,19 @@
   %span.dm_user
     - usr_email =  current_user.email.split("@")
     Welcome #{current_user.profile.first_name.blank? ? usr_email[0] : current_user.profile.first_name}   you are an
-    %b Agent of Change
+    %b Agent of Change. 
+    Your "Good-In-Kindness" is:
   %span.dm_price
     = image_tag('dot_dash.png', :alt => "dot")
-    %b $#{current_user.profile.blank? ? 0 : current_user.profile.donated_amount}
+    %b $#{current_user.profile.blank? ? 0 : current_user.profile.donated_amount.to_i}
   %span.dm_price.dm_time
     = image_tag('dash_time.png', :alt => "time")
-    %b #{current_user.profile.blank? ? 0 : current_user.profile.donated_time}
+    %b #{current_user.profile.blank? ? "0h" : current_user.profile.donated_time.to_s}h
   %ul.dm_nav
     %li
       = link_to "Profile", profile_path(current_user)
-    /%li
-    /  = link_to "My Services", "#"
+    %li
+      = link_to "My Services", "#"
     %li
       = link_to "Logout", destroy_user_session_path, :method => :get
   / Network Functionality posted on 7-SEP-11    

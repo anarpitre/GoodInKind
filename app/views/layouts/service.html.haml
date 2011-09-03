@@ -2,7 +2,7 @@
   .header.header_inner
     %h1.logo_inner
       - if user_signed_in?
-        = link_to image_tag("goodinkind-logo-small.png", :alt => "Goodinkind - Get Together. Do Good."), services_path
+        = link_to image_tag("goodinkind-logo-small.png", :alt => "Goodinkind - Get Together. Do Good."), root_path
       - elsif nonprofit_logged_in?
         = link_to image_tag("goodinkind-logo-small.png", :alt => "Goodinkind - Get Together. Do Good."), nonprofit_path(current_nonprofit)
       - else

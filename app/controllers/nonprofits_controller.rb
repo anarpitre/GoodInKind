@@ -71,7 +71,11 @@ class NonprofitsController < ApplicationController
         flash[:notice] = "Profile information for #{@nonprofit.name} has been updated"
       end
       session[:referer] = nil # cleanup first!
-      redirect_to  (referer == 'account' ? account_nonprofit_path(@nonprofit) : nonprofit_path(@nonprofit) )
+      if is_admin? 
+        redirect_to  nonprofits_path 
+      else
+        redirect_to  (referer == 'account' ? account_nonprofit_path(@nonprofit) : nonprofit_path(@nonprofit) )
+      end
     else
       render :action => referer
     end
