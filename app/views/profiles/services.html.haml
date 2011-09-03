@@ -23,10 +23,10 @@
           %td #{service.total_transactions.to_i} 
           %td $#{service.donated_amount.to_i}
           %td
-            %b #{is_expired?(service) ? 'Expired' : service.start_date.strftime('%m-%d-%Y')}
+            %b #{is_expired?(service) ? 'Expired' : service.start_date.trystrftime('%m-%d-%Y') unless service.is_schedulelater?}
           %td.empty_col
           %td.bg_white
-            = link_to '', cancel_service_profile_path(@user, :id => service), :class => "set_icons refund", :remote => true, :method => :post, :confirm => "Are you sure you want to cancel the service?" 
+            /= link_to '', cancel_service_profile_path(@user, :id => service), :class => "set_icons refund", :remote => true, :method => :post, :confirm => "Are you sure you want to cancel the service?" 
           %td.bg_white
             = link_to '', service_path(service), :class => "set_icons viewpost"
           /%td.bg_white

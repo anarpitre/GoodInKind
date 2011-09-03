@@ -27,6 +27,6 @@ module ProfilesHelper
   end
 
   def is_expired?(service)
-    service.end_date < Date.today
+    service.is_schedulelater? ? false : service.end_date < Date.today
   end
 end
