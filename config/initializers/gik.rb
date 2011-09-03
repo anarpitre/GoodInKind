@@ -16,6 +16,8 @@ WEBSITE_REGEX= /^((http|https):\/\/)?[a-z0-9]+(\.[a-z0-9]+)?.[a-z]{2,5}$/i
 
 if Rails.env == 'production'
   API_URL = 'http://:6f7erxzTpsDkDU@frae.api.indextank.com'
+elsif Rails.env == 'staging'
+  API_URL = 'http://:xqEq4bS77bRW47@7fjk.api.indextank.com'  
 else
   API_URL = 'http://:5XxQ4mHBV7BV8w@iej.api.indextank.com'
 end
