@@ -124,7 +124,7 @@ class NonprofitsController < ApplicationController
 
   def create_session 
     @nonprofit = Nonprofit.authenticate(params[:nonprofit][:username],params[:nonprofit][:password])
-    if @nonprofit && @nonprofit.is_verified == "verified"
+    if @nonprofit && @nonprofit.is_verified == NONPROFIT_STATE[1] 
       session[:nonprofit] = {}
       session[:nonprofit][:name] = @nonprofit.name
       session[:nonprofit][:id] = @nonprofit.id
@@ -151,7 +151,7 @@ class NonprofitsController < ApplicationController
           arr = result['results'][i]['docid'].split(':')
           if arr.first == "Nonprofit"
             np = Nonprofit.find(arr.last.to_i) 
-            @nonprofits << np if np.is_verified == "verified"
+            @nonprofits << np if np.is_verified == NONPROFIT_STATE[1] 
           end
         end
         @nonprofits.flatten!
@@ -230,10 +230,12 @@ class NonprofitsController < ApplicationController
 
   def search_nonprofit
     response = FirstGiving.search(params[:ein].gsub('-',''))
-    @response = response['payload']['payload']['key_0']
-    @category_id = NONPROFIT_CATEGORY[@response['category_code'][0].to_s]
-    respond_to do |format|
-      format.js 
+    @response  = {}
+    unless response['payload']['payload'].blank?
+      @response = response['payload']['payload']['key_0']
+      @category_id = NONPROFIT_CATEGORY[@response['category_code'][0].to_s]
+    else
+      render :status => 204
     end
   end
 
