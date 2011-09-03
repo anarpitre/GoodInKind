@@ -6,7 +6,7 @@ class Notifier < ActionMailer::Base
     @invite_city = city
     mail(:from => email,
          :to => "admin@goodinkind.com",
-         :subject => "A User form #{city}  wants to offer and purchase virtual services regardless of his location")
+         :subject => "Request to rollout in #{city}")
   end
 
   def nonprofit_application(email, contactname, name)
