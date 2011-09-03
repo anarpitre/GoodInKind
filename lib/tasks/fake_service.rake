@@ -48,5 +48,32 @@ namespace :admin do
 
     end
   end
+
+
+  desc "create Fake Services for existing non-profits"
+  task :fake_service_for_non_profit => :environment do
+    service_cat = Category.where(:category_type => 1)
+#    user = User.create(:email => Faker::Internet.free_email, :password => "josh123", :confirmed_at =>  Time.now)
+ #   user.confirmed_at = Time.now
+  #  user.save
+    user = User.all.collect(&:id)
+    nonprofits = Nonprofit.all.collect(&:id)
+    100.times do
+
+      start_date = Date.today - rand(30)
+      end_date = start_date + rand(15)
+
+      service = Service.new(:title => Faker::Name.name,
+                            :description => Faker::Lorem.paragraph,
+                            :amount => rand(600),
+                            :start_date => start_date,
+                            :end_date => end_date,
+                            :nonprofit_id => nonprofits.rand,
+                            :user_id => user.rand)
+      
+      service.categories << service_cat.rand
+      service.save!
+    end
+  end
 end
 
