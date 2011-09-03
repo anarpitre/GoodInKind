@@ -17,7 +17,7 @@ class Nonprofit < ActiveRecord::Base
   validates :EIN, :presence => true, :uniqueness => true
   validates :password, :password_confirmation, :presence => true, :on => :create
   validates :contact_name, :name, :position, :presence => true
-  validates :uuid, :presence => true, :if => Proc.new {|nonprofit| nonprofit.is_verified == 'Verified'}
+  validates :uuid, :presence => true, :if => Proc.new {|nonprofit| nonprofit.is_verified? }
   #validates_attachment_presence :photo
 
   validates_confirmation_of :password, :on => :create
@@ -44,7 +44,6 @@ class Nonprofit < ActiveRecord::Base
 
   before_create :create_hash_password
   after_create :generate_permalink, :send_application, :add_index
-  #after_update :check_status
 
   default_scope order('created_at DESC')
   scope :verified, where(:is_verified => 'Verified')
@@ -55,10 +54,10 @@ class Nonprofit < ActiveRecord::Base
     if(change_status)
       if(change_status[1] == "Verified")
         Notifier.nonprofit_approved(self.email,self.contact_name,self.permalink).deliver
-        self.nonprofit_categories.each {|npc| Category.increment_counter(:nonprofit_count, npc.id) }
+        self.categories.each {|c| Category.increment_counter(:nonprofit_count, c.id) }
        elsif (change_status[1] == "Rejected")
         Notifier.nonprofit_rejected(self.email).deliver
-        self.nonprofit_categories.each {|npc| Category.decrement_counter(:nonprofit_count, npc.id) }
+        self.categories.each {|c| Category.decrement_counter(:nonprofit_count, c.id) }
        end
     end
   }
@@ -83,6 +82,10 @@ class Nonprofit < ActiveRecord::Base
   # Set password and password confirmation to nil
   def clean_up_passwords
     self.password = self.password_confirmation = ""
+  end
+
+  def is_verified?
+    self.is_verified == "Verified"
   end
   
   private

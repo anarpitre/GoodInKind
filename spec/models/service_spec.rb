@@ -148,7 +148,8 @@ describe Service do
     end
 
     it "if nonprofit_id is not selected" do
-      @services.nonprofit_id = nil
+      ser = Factory.build(:service)
+      ser.nonprofit_id = ""
     end
   end
 end

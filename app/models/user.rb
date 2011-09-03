@@ -26,14 +26,17 @@ class User < ActiveRecord::Base
   scope :get_dummy_user, where("email = ?", DUMMY_EMAIL) 
 
   def to_param
-    permalink || "#{id}-#{email.split('@').first.parameterize}"
+    permalink || "#{id}-#{self.profile.first_name.parameterize}"
   end
   
   def apply_omniauth(omniauth)
     self.email = omniauth['user_info']['email'] if email.blank?
+    #Create user profile and profile location if provider is facebook
     if omniauth['provider'] == 'facebook'
-      self.profile.first_name = omniauth['user_info']['first_name'] 
-      self.profile.last_name = omniauth['user_info']['last_name'] 
+      user_info = omniauth['user_info']
+      user_hash = omniauth['extra']['user_hash']
+      self.build_profile(:first_name => user_info['first_name'], :last_name => user_info['last_name'], :facebook => user_info['urls']['Facebook'], :avatar => user_info['image'], :gender => user_hash['gender'] )
+      self.profile.build_location(:address => user_hash['location']['name'])
     end
     authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'])
   end
