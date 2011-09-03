@@ -49,7 +49,7 @@ class JoshForm < ActionView::Helpers::FormBuilder
       if @object and @object.errors.any?
         # special handling for file_field
         if method_name == 'file_field'
-          error = @object.errors["#{attribute.to_s}_file_name"] | @object.errors["#{attribute.to_s}_file_size"]
+          error = @object.errors["#{attribute.to_s}_file_name"] | @object.errors["#{attribute.to_s}_file_size"] | @object.errors["#{attribute.to_s}_content_type"]
         else
           error = @object.errors[attribute]
         end
