@@ -2,14 +2,14 @@
 #tab4.tab_content
   .up_profile
     %h2
-      Purchased by me:
+      Inbox 
       %span.msg_status
         (
+        - total_message = @unread_message.size + @read_message.size
         %strong= @unread_message.size 
         unread message, Showing
-        %strong= @read_message.size 
+        %strong= total_message 
         out of
-        - total_message = @unread_message.size + @read_message.size
         %strong= total_message
         )
     %table.up_table.mail_box{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
@@ -42,7 +42,7 @@
               %span.mail_sub
                 = link_to msg.title, message_path(msg.id)
             %td= msg.created_at.strftime("%m/%d/%y")
-            %td 08/18/2011
+            %td= msg.is_replied ? "Yes" : ''
           - counter += 1    
 / End Tab 4
 
