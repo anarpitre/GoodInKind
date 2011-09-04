@@ -16,6 +16,7 @@
    
   });
 / Tab 4
+= render :partial => "layouts/profile_tabs"
 #tab4.tab_content
   .up_profile.mail_details
     = link_to "Go back to mailbox", messages_path, :class => "bro_req_btn"
@@ -25,10 +26,7 @@
         %b.person_review= @msg.sender.profile.first_name
       %li
         %span> Received:
-        10:40 am
-      %li
-        %span> Replied:
-        11:55 am
+        = @msg.created_at.strftime('%b %d, %Y %I:%M %p') 
     %h3.mail_subject_head
       %span= @msg.title
     %p.mail_text= h(@msg.message).gsub("\n", "<br/>")
