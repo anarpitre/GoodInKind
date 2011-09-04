@@ -2393,6 +2393,8 @@ font-weight:bold;
 	float:left;
 	margin-bottom:7px;
 }
+.up_acc_p span { display: inline !important;}
+
 .up_acc_lbl {
 	float:left;
 	width:170px;
@@ -2994,6 +2996,11 @@ div.pagination strong {
   font-size: 45px;
   font-weight: bold;
   margin-left: 4px;
+}
+
+.lbl_field {
+  height: 25px; 
+  margin-left: 10px;
 }
 
 /* Style for Spinner

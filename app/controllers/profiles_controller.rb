@@ -1,7 +1,7 @@
 class ProfilesController < ApplicationController
   before_filter :authenticate_user!, :only => [:edit, :index]
   before_filter :get_user
-  before_filter :is_owner, :only => [:edit]
+  before_filter :is_owner, :only => [:edit, :account, :services]
   
   layout "service"
 
@@ -49,6 +49,16 @@ class ProfilesController < ApplicationController
     service.update_attributes!(:status => "cancel")
     respond_to do |format|
       format.js {render :js => "$('#service_#{service.id}').remove();"}
+    end
+  end
+
+  def account
+    @profile = @user.profile
+    if request.put?
+      if @profile.update_attributes(params[:profile])
+        flash[:notice] = "Account Updated Successfuly"
+        redirect_to account_profile_path(@user) 
+      end
     end
   end
 

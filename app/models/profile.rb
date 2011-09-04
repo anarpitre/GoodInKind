@@ -3,6 +3,7 @@ class Profile < ActiveRecord::Base
   has_one :location, :as => :resource,:dependent => :destroy
   
   accepts_nested_attributes_for :location, :allow_destroy => true
+  accepts_nested_attributes_for :user, :reject_if => proc { |attributes| attributes['password'].blank? }
 
   validates :first_name, :last_name, :presence => true
 
