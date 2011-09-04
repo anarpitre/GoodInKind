@@ -72,10 +72,12 @@
             - unless @profile.linkedin.blank?
               %li
                 %a.my_sm_linked{:href => "http://www.linkedin.com/#{@profile.linkedin}"}
-= render :partial => 'services/featured_service'
-.profile_reviews
-  %h2.pp_h2 Reviews written for #{@user.profile.first_name}
-  #reviews
-    = render :partial => "review", :collection => @reviews 
-  %p.view_more{:id => 'more_review'}
-    = link_to "View All Reviews", reviews_profile_path(@user), :remote => true
+= render :partial => 'services/featured_service' if @services
+- if @reviews
+  .profile_reviews
+    %h2.pp_h2 Reviews written for #{@user.profile.first_name}
+    #reviews
+      = render :partial => "review", :collection => @reviews 
+    %p.view_more{:id => 'more_review'}
+      = link_to "View All Reviews", reviews_profile_path(@user), :remote => true
+
