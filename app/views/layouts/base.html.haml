@@ -31,6 +31,7 @@
     .container
       - if user_signed_in? and defined?(dashboard) and dashboard
         = render 'layouts/dashboard' 
+      #dashboard
       = content_for?(:body_content) ? yield(:body_content) : yield
       .clear
     = render 'layouts/footer'
