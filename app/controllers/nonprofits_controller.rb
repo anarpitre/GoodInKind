@@ -190,7 +190,7 @@ class NonprofitsController < ApplicationController
     get_nonprofit_reset_token
     #@nonprofit.clean_up_passwords
     unless @nonprofit
-      flash[:notice] = "Password is already changed"
+      flash[:notice] = "The link has already been used!!!. Please click on forgot password link to reset your password again."
       redirect_to :action => 'login'
     else
       @class_name = "main_login"
@@ -207,7 +207,7 @@ class NonprofitsController < ApplicationController
       flash[:notice] = "Your password was changed successfully."
       redirect_to :action => 'login'
     else
-      flash[:notice] = "Password didnot match"
+      flash[:notice] = "Password did not match"
       @class_name = "main_login"
       render :action => 'reset_password', :layout => "signup"
     end
