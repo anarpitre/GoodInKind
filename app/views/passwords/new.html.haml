@@ -1,0 +1,6 @@
+%h2 Forgot your password?
+.sign_up_form
+  = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }, :builder => JoshForm) do |f|
+    = f.email_field :email, :class => "sign_up_form_inp"
+    .input_post_div{:style => "margin-left:50px;"}
+      = f.submit "Reset password "

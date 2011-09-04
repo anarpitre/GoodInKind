@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
     if session[:thank_you] == "yes"
       session[:thank_you] = nil
       thankyou_services_path
+    elsif is_admin?
+      nonprofits_path
     else
       services_path(current_user)
     end

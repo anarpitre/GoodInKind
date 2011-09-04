@@ -55,7 +55,7 @@ class JoshForm < ActionView::Helpers::FormBuilder
         end
 
         if error.present?
-          error_tag = @template.content_tag(:label, error.first.humanize, {:class => CSS[:error]})
+          error_tag = @template.content_tag(:label, error.first, {:class => CSS[:error]})
 
           args.last[:class] = "#{args.last[:class]} in_error"
         end

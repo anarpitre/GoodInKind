@@ -53,7 +53,7 @@ class Nonprofit < ActiveRecord::Base
     change_status = nonprofit.is_verified_change
     if(change_status)
       if(change_status[1] == "Verified")
-        Notifier.nonprofit_approved(self.email,self.contact_name,self.permalink).deliver
+        Notifier.nonprofit_approved(self.email,self.name,self.permalink).deliver
         self.categories.each {|c| Category.increment_counter(:nonprofit_count, c.id) }
        elsif (change_status[1] == "Rejected")
         Notifier.nonprofit_rejected(self.email).deliver
@@ -65,6 +65,31 @@ class Nonprofit < ActiveRecord::Base
   def to_param
     permalink || "#{id}-#{name.parameterize}"
   end
+
+  def as_json(options = {})
+    options ||= {}
+    options[:only] = [:id, :name] 
+    options[:methods] = [:to_param, :full_address, :thumbnail, :short_description, :service_count]
+    options[:include] = {:nonprofit_categories => {:only => :category_id}}
+    super
+  end
+
+  ## JSON helpers
+  def service_count
+    self.services.count
+  end
+
+  def short_description
+    self.description[0..250] rescue ""
+  end
+  def full_address
+    self.location.address rescue ""
+  end
+
+  def thumbnail
+    self.photo ? self.photo.url(:medium) : "/images/missing/nonprofit_medium.jpg"
+  end
+
 
   def self.authenticate(username, password)
     nonprofit_user = Nonprofit.find_by_username(username)
@@ -124,5 +149,6 @@ class Nonprofit < ActiveRecord::Base
   def add_index
     INDEX.document("Nonprofit:id:#{self.id}").add({ :text => "#{self.categories.collect(&:name).to_s} #{self.name} #{self.description}"})
   end
+
 
 end
