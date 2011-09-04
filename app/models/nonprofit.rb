@@ -66,6 +66,15 @@ class Nonprofit < ActiveRecord::Base
     permalink || "#{id}-#{name.parameterize}"
   end
 
+  def as_json(options = {})
+    options ||= {}
+    options[:only] = [:id, :name] 
+    options[:methods] = [:to_param, :full_address, :thumbnail, :short_description, :service_count]
+    options[:include] = {:nonprofit_categories => {:only => :category_id}}
+    super
+  end
+
+
   def self.authenticate(username, password)
     nonprofit_user = Nonprofit.find_by_username(username)
     if nonprofit_user && nonprofit_user.password_match?(password)
@@ -123,6 +132,22 @@ class Nonprofit < ActiveRecord::Base
   
   def add_index
     INDEX.document("Nonprofit:id:#{self.id}").add({ :text => "#{self.categories.collect(&:name).to_s} #{self.name} #{self.description}"})
+  end
+
+  ## JSON helpers
+  def service_count
+    self.services.count
+  end
+
+  def short_description
+    self.description[0..250]
+  end
+  def full_address
+    self.location.address rescue ""
+  end
+
+  def thumbnail
+    self.photo ? self.photo.url(:medium) : "/images/missing/nonprofit_medium.jpg"
   end
 
 end

@@ -8,4 +8,7 @@
       %li{:class => "#{'ui-tabs-selected' if action_name == 'account'}"}
         = link_to content_tag(:span, "My Account"), account_profile_path(@user) 
       %li{:class => "#{'ui-tabs-selected' if action_name == nil}"}
-        = link_to content_tag(:span, "My Mailbox"), "#" 
+        = link_to content_tag(:span, "My Mailbox"), messages_path(@user)
+        - message_count = get_unread_message_size
+        - unless message_count == 0
+          %strong.count.mail_c= message_count

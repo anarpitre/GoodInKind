@@ -1,4 +1,4 @@
-
+= render :partial => "layouts/profile_tabs"
 #tab4.tab_content
   .up_profile
     %h2
@@ -28,7 +28,7 @@
               %span= msg.sender.profile.first_name
             %td
               %span.mail_sub
-                = link_to msg.title, message_path(msg.id)
+                = link_to msg.title, message_path(@user, msg.id)
             %td= msg.created_at.strftime("%m/%d/%y")
             %td
           - counter += 1
@@ -40,7 +40,7 @@
               %span= msg.sender.profile.first_name 
             %td
               %span.mail_sub
-                = link_to msg.title, message_path(msg.id)
+                = link_to msg.title, message_path(@user, msg.id)
             %td= msg.created_at.strftime("%m/%d/%y")
             %td= msg.is_replied ? "Yes" : ''
           - counter += 1    
