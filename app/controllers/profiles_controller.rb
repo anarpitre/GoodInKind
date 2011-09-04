@@ -27,8 +27,10 @@ class ProfilesController < ApplicationController
 
   def show
     @profile = @user.profile 
-    @services = Service.by_public.by_user(@profile.user_id)
-    @reviews = Review.for_user(@user.id).limit(3)
+    unless @user == current_user
+      @services = Service.by_public.by_user(@profile.user_id)
+      @reviews = Review.for_user(@user.id).limit(3)
+    end
   end
 
   def reviews
