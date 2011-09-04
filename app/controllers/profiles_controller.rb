@@ -1,5 +1,5 @@
 class ProfilesController < ApplicationController
-  before_filter :authenticate_user!, :only => [:edit, :index]
+  before_filter :authenticate_user!, :only => [:edit, :account, :services]
   before_filter :get_user
   before_filter :is_owner, :only => [:edit, :account, :services]
   
@@ -56,8 +56,8 @@ class ProfilesController < ApplicationController
     @profile = @user.profile
     if request.put?
       if @profile.update_attributes(params[:profile])
-        flash[:notice] = "Account Updated Successfuly"
-        redirect_to account_profile_path(@user) 
+          flash[:notice] = "Account Updated Successfuly"
+          redirect_to account_profile_path(@user) 
       end
     end
   end

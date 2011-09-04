@@ -3003,6 +3003,16 @@ div.pagination strong {
   margin-left: 10px;
 }
 
+.account_btn {
+    float: right !important;
+    height: 30px !important;
+    width: 90px;
+}
+
+.account_btn_wrap {
+    width:550px !important;
+}
+
 /* Style for Spinner
  .spinner {
  padding-left:5px;
