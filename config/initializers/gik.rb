@@ -25,7 +25,7 @@ end
 
 ADMIN_EMAIL = "admin@goodinkind.com"
 
-NONPROFIT_STATE = ['Pending to verify','Verified','Rejected'] 
+NONPROFIT_STATE = ['Pending','Verified','Rejected'] 
 
 # facebook
 

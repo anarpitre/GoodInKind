@@ -1,7 +1,7 @@
 class Notifier < ActionMailer::Base
 
 
-  def service_offer(email, city)
+  def service_city_request(email, city)
     @invite_email = email
     @invite_city = city
     mail(:from => email,
@@ -30,8 +30,8 @@ class Notifier < ActionMailer::Base
   end
 
 
-  def nonprofit_approved(email, contactname, permalink)
-    @nonprofit_name = contactname
+  def nonprofit_approved(email, name, permalink)
+    @nonprofit_name = name
     @nonprofit_perm = permalink
     mail(:from => "GoodInKind <emailalerts@goodinkind.com>",
          :to => email,

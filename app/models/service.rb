@@ -79,7 +79,7 @@ class Service < ActiveRecord::Base
   end
 
   def check_duration
-    errors.add(:estimated_duration,"duration must be in .5 hrs increament") unless ((self.estimated_duration*10) % 5 == 0)
+    errors.add(:estimated_duration,"Duration must be in 0.5 hr increments") unless ((self.estimated_duration*10) % 5 == 0)
   end
 
   def check_nonprofit

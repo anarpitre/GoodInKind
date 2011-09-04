@@ -9,7 +9,7 @@ class HomeController < ApplicationController
 
   def offer_virtual
     if not params[:invite][:email].blank? || params[:invite][:city].blank?
-      Notifier.service_offer(params[:invite][:email], params[:invite][:city]).deliver
+      Notifier.service_city_request(params[:invite][:email], params[:invite][:city]).deliver
       flash[:notice] = "Invitation sent sucessfully."
     else
       flash[:notice] = "Please enter valid city or email address."
