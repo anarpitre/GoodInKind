@@ -33,7 +33,8 @@
         :javascript
           stLight.options({publisher:'d7205d3e-dbdd-455c-a856-b25ec435dd41'});
       .services_price
-        %span.req_text Requested Donation
+        %span.req_text 
+          %b Price 
         %span.price_text= "$"  + @service.amount.to_i.to_s 
       = link_to "Take It", new_service_booking_path(@service), :class => 'button take_it'
   .services_content

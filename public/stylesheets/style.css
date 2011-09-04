@@ -1118,6 +1118,8 @@ h2.services_h2 em {
 	float:left;
 	width:60px;
 	color:#4b4b4b;
+        font-size: 14px;
+        margin-top: 5px;
 }
 .price_text {
 	float:right;
@@ -1237,6 +1239,11 @@ h2.offer_form_h2 span a {
 	width:700px;
 	margin-left:60px;
 	margin-bottom:7px;
+}
+.setp_box a {
+      color: #004A80;
+      font-weight: bold;
+      text-decoration: none;
 }
 .setp_box_p_span {
 	float:left;

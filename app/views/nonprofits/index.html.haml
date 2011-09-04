@@ -21,7 +21,8 @@
           %p.np_rel_text
             - if is_admin?
               %span
-                %a= link_to "Update", edit_nonprofit_path(np.permalink), :style => "margin-left:300px;"
+                %a= link_to "Update", edit_nonprofit_path(np.permalink), :style => "margin-left:250px; margin-right:30px"
+                %b= np.is_verified
             %span
               %b= link_to np.name, nonprofit_path(np)
               = np.location.try(:address)
