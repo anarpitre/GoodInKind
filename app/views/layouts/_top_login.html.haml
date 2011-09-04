@@ -8,7 +8,7 @@
         = link_to "here" ,new_user_registration_path
   .login_divider
   .login
-    = form_for "user", :url => user_session_path, :as => :post do
+    = form_for "user", :url => user_session_path, :as => :post, :remote => true do
       %p
         = text_field "user", "email", :placeholder => "E-Mail", :class => "login_input"
       %p

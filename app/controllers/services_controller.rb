@@ -11,7 +11,7 @@ class ServicesController < ApplicationController
 
   def index
     @head[:title] = "Service Home"
-    @services = Service.by_public.includes([:images, {:nonprofit => :nonprofit_categories}, :service_categories])
+    @services = Service.active.by_public.includes([:images, {:nonprofit => :nonprofit_categories}, :service_categories])
   end
 
   def show
