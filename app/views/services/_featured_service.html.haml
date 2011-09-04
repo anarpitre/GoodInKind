@@ -21,7 +21,7 @@
             .fs_box_pic
               = image_tag !service.images.first.blank? ? "#{service.images.first.image.url(:thumb)}" : "/images/pics-1.jpg"
             .fs_left
-              %span.fs_head= truncate(service.title, :length => 50)
+              %span.fs_head= truncate(service.title, :length => 30)
               %span.fs_for for
               %span.fs_disc= truncate(service.nonprofit.try(:name), :length =>30)
             .fs_price
