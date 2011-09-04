@@ -7,8 +7,8 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     provider :facebook, FB_API_ID, FB_SECRET_KEY, {:client_options => {:ssl => {:ca_path => "/etc/ssl/certs"}}}
   elsif Rails.env == 'staging'
     provider :facebook, FB_STAGING_API_ID, FB_STAGING_SECRET_KEY, {:client_options => {:ssl => {:ca_path => "/etc/ssl/certs"}}}
-  else
-    #Production
+  elsif Rails.env == 'production'
+    provider :facebook, FB_PRODUCTION_API_ID, FB_PRODUCTION_SECRET_KEY, {:client_options => {:ssl => {:ca_path => "/etc/ssl/certs"}}}
   end
 
 
