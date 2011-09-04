@@ -74,6 +74,22 @@ class Nonprofit < ActiveRecord::Base
     super
   end
 
+  ## JSON helpers
+  def service_count
+    self.services.count
+  end
+
+  def short_description
+    self.description[0..250] rescue ""
+  end
+  def full_address
+    self.location.address rescue ""
+  end
+
+  def thumbnail
+    self.photo ? self.photo.url(:medium) : "/images/missing/nonprofit_medium.jpg"
+  end
+
 
   def self.authenticate(username, password)
     nonprofit_user = Nonprofit.find_by_username(username)
@@ -134,20 +150,5 @@ class Nonprofit < ActiveRecord::Base
     INDEX.document("Nonprofit:id:#{self.id}").add({ :text => "#{self.categories.collect(&:name).to_s} #{self.name} #{self.description}"})
   end
 
-  ## JSON helpers
-  def service_count
-    self.services.count
-  end
-
-  def short_description
-    self.description[0..250]
-  end
-  def full_address
-    self.location.address rescue ""
-  end
-
-  def thumbnail
-    self.photo ? self.photo.url(:medium) : "/images/missing/nonprofit_medium.jpg"
-  end
 
 end

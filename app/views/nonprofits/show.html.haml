@@ -2,7 +2,7 @@
   .np_profile_left
     .np_profile_info
       %p
-        - if current_nonprofit == @nonprofit
+        - if current_nonprofit == @nonprofit || is_admin?
           %span.edit_info
             = image_tag('edit_icon.jpg', :alt => "edit")
             = link_to "Edit Information", edit_nonprofit_path(@nonprofit)
