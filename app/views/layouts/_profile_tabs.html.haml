@@ -7,7 +7,7 @@
         = link_to content_tag(:span, "My Services"), services_profile_path(@user) 
       %li{:class => "#{'ui-tabs-selected' if action_name == 'account'}"}
         = link_to content_tag(:span, "My Account"), account_profile_path(@user) 
-      %li{:class => "#{'ui-tabs-selected' if action_name == nil}"}
+      %li{:class => "#{'ui-tabs-selected' if action_name == 'index'}"}
         = link_to content_tag(:span, "My Mailbox"), messages_path(@user)
         - message_count = get_unread_message_size
         - unless message_count == 0
