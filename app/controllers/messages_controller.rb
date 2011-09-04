@@ -1,6 +1,12 @@
 class MessagesController < ApplicationController
+  before_filter :get_user
   
   layout 'service'
+
+  def index
+    @unread_message = Message.get_unread_message(@user.id)
+    @read_message = Message.get_read_message(@user.id)
+  end
 
   #Create message
   def new
@@ -30,11 +36,6 @@ class MessagesController < ApplicationController
     @msg.is_read = true
     @msg.save
     @message = Message.new(:receiver_id => @msg.sender_id, :sender_id => @msg.receiver_id, :parent_message_id => @msg.id)
-  end
-
-  def list
-    @unread_message = Message.get_unread_message(current_user.id)
-    @read_message = Message.get_read_message(current_user.id)
   end
 
   def mark_replied

@@ -10,7 +10,7 @@ Gik::Application.routes.draw do
       get 'account'
       put 'account'
     end
-    #resources :messages
+    resources :messages, :except => [:new, :create]
   end
 
   match 'offer_virtual' => 'home#offer_virtual', :as => :offer_virtual, :method => :post
@@ -25,6 +25,8 @@ Gik::Application.routes.draw do
   match '/auth/:provider/callback' => 'authentications#create'
   match '/auth/failure' => 'dashboard#index'
   match '/nonprofits/:id/change_password' => 'nonprofits#change_password'
+  match '/messages/new' => 'messages#new', :as => :new_message
+  match '/messages' => 'messages#create', :as => :create_message, :via => :post
 
 
   resources :dashboard 
@@ -58,15 +60,7 @@ Gik::Application.routes.draw do
     resources :bookings, :only => [:new, :create, :destroy]
   end
 
-  resources :messages do
-    collection do
-      get :list
-    end
-  end
-
   resources :requests
-
-
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
