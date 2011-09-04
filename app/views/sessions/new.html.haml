@@ -1,16 +1,16 @@
 %h2 Login 
+.sing_up_fb
+  = link_to image_tag('facebook_sign.png', :alt => "Facebook"), "/auth/facebook"
+  %span
 .sign_up_form
-  = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+  = form_for(resource, :as => resource_name, :url => session_path(resource_name), :builder => JoshForm) do |f|
     %h3 
       You need to signin / signup before posting the service
     %br/
-    %p
-      = f.label :email, :class => "sign_up_form_lbl"
-      = f.email_field :email, :class => "sign_up_form_inp"
-    %p
-      = f.label :password, :class => "sign_up_form_lbl"
-      = f.password_field :password, :class => "sign_up_form_inp"
-    %p= f.submit "Sign in", :class => "sign_up_form_btn btn_form button"
+    = f.email_field :email, :class => "sign_up_form_inp"
+    = f.password_field :password, :class => "sign_up_form_inp"
+    .input_post_div{:style => "margin-left:50px;"}
+      = f.submit "Sign in"
   %br/
   %p.sign_up_bootm_p
     If you're not Registred User,

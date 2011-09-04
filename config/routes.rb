@@ -7,6 +7,8 @@ Gik::Application.routes.draw do
       get 'reviews'
       get 'services'
       post 'cancel_service'
+      get 'account'
+      put 'account'
     end
     #resources :messages
   end

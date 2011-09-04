@@ -13,7 +13,7 @@
   - content_for :header_links do
     %ul.nav{:class => "#{'nav_inner' if root_path != request.fullpath}"}
       - unless user_signed_in?
-        %li= link_to "Sign Up", new_user_registration_path
+        %li#sign_up= link_to "Sign Up", new_user_registration_path
         %li#login= link_to "Login", "#"
       %li= link_to "How it works", "#"
       %li.nav_non= link_to "Non-Profits", nonprofits_path
