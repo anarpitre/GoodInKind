@@ -8,7 +8,7 @@ var tagJS = function(dataModel, parentNode, view, settings){
   for(name in this.dataModel[0]) { this.settings.root = name;}
 
   if(this.parentNode) this.render();
-  this.category_map(services, this.settings);
+  this.category_map(dataModel, this.settings);
   this.filter_event(this.settings);
 };
 

@@ -1,3 +1,5 @@
+- content_for :header do
+  = javascript_include_tag 'nonprofits', 'filter'
 - content_for :tab_content do
   .featured_services_find
     - if nonprofit_logged_in?
@@ -13,33 +15,9 @@
       Choose a non-profit organization below and support it by either purchasing a posted service or offering a service yourself.
       %br/
       %br/
-    .np_results
-      - @nonprofits.each do |np|
-        .np_results_list{:style => "height: 70px;"}
-          .np_logos
-            = image_tag(np.photo.url(:medium), :alt => np.name)
-          %p.np_rel_text
-            - if is_admin?
-              %span
-                %a= link_to "Update", edit_nonprofit_path(np.permalink), :style => "margin-left:300px;"
-            %span
-              %b= link_to np.name, nonprofit_path(np)
-              = np.location.try(:address)
-            = truncate(np.description, :length => 250)
-            = link_to "read more", nonprofit_path(np)
-          %p.np_rel_btns{:style => "width:430px;"}
-            - service_count = get_service_count(np)
-            - if service_count > 0
-              %a= link_to "Browse Services(#{service_count})", service_search_path(:text => np.name), :class => "button"
-            \&nbsp;&nbsp;&nbsp;
-            %a= link_to 'Offer a Service', new_service_path(:id => np.id), :class => "button" 
-    :javascript
-      $(".np_results_list").hover(function(){
-        $(this).stop().animate({height:"160px"},{queue:false,duration:200});
-      },
-      function() {
-        $(this).stop().animate({height:"70px"},{queue:false,duration:200});
-      });
+    .np_results#np_results
+  :javascript
+    var nonprofits = #{@nonprofits.to_json};
 
 - content_for :body_content do 
   .sidebar_bar
