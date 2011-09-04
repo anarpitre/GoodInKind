@@ -10,7 +10,7 @@ describe NonprofitsController do
       post :create, :nonprofit => {:name => "cry", :photo => file, :EIN => "12-1223456", :website => "www.cry.com", :username => "non-cry", :password => "cry123", :password_confirmation => "cry123", :contact_name => "cry-user", :position => "manager", :email => "user@yser.com", :phone_number => "123-456-1178", :cell_phone => "123-456-7890"}
       non_pro = Nonprofit.find_by_name("cry")
       non_pro.should_not == nil
-      non_pro.is_verified.should == "created"
+      non_pro.is_verified.should == "Pending to verify"
     end
 
     it "created if photo is uploaded along with other attributes" do
@@ -19,7 +19,7 @@ describe NonprofitsController do
       non_pro = Nonprofit.find_by_name("cry")
       p non_pro
       non_pro.should_not == nil
-      non_pro.is_verified.should == "created"
+      non_pro.is_verified.should == "Pending to verify"
       non_pro.photo_file_name.should == "taj.jpg"
     end
 
@@ -44,7 +44,7 @@ describe NonprofitsController do
 
     it "able to get change password instructions by clicking on forgot password link" do
       post :forgot_password, :nonprofit => {:username => @non_pro.username}
-      flash[:notice].should == "Instructions to change your password have been sent to the email address on your profil"
+      flash[:notice].should == "Instructions to change your password have been sent to the email address on your profile"
     end
 
     it "able to get his username by clicking on forgot username link" do
