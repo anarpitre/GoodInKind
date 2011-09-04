@@ -1,6 +1,7 @@
 Gik::Application.routes.draw do
 
-  devise_for :users, :controllers => {:sessions => :sessions, :registrations => :registrations, :confirmations => :confirmations}
+
+  devise_for :users, :controllers => {:sessions => :sessions, :registrations => :registrations, :confirmations => :confirmations, :passwords => :passwords}
 
   scope '/users/:user_id' do
     resource :profile do
