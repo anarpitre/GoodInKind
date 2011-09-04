@@ -19,7 +19,7 @@
           },
           complete: function(data,status,xhr) {
             if(data.status == 204){
-              alert('Nonprift not found with given EIN');
+              alert('Nonprofit not found with given EIN');
             }
             $('#spinner').hide();
           }
@@ -54,6 +54,6 @@
       = f.text_area :guideline, :class => "input_area", :label => "Guidelines"
       - if is_admin?
         %p
-          = f.select :is_verified, NONPROFIT_STATE.collect{ |g| [ g, g] }, { }, :class => "my_edit_input sle_inp", :style => "float:left;margin-left:10px;width:150px;", :label => 'Noprofit State'
+          = f.select :is_verified, NONPROFIT_STATE.collect{ |g| [ g, g] }, { }, :class => "my_edit_input sle_inp", :style => "float:left;margin-left:10px;width:150px;", :label => 'Nonprofit State'
     .input_post_div
       = f.submit 

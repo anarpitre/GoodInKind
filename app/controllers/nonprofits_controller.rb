@@ -173,7 +173,7 @@ class NonprofitsController < ApplicationController
         nonprofit.reset_password_token = ActiveSupport::SecureRandom.hex(10)
         nonprofit.save(:validate => false)
         Notifier.reset_password_instructions(nonprofit).deliver
-        flash[:notice] = "Instructions to change your password have been sent to the email address on your profil"
+        flash[:notice] = "Instructions to change your password have been sent to the email address on your profile"
         redirect_to '/'
       else
         @nonprofit.errors.add(:base, "Invalid Username" )
