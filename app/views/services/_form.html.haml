@@ -92,7 +92,7 @@
       %p
         = f.fields_for :location do |loc|
           .address
-            = loc.text_field :address, :class => "input_half"
+            = loc.text_field :address, :class => "input_half", :hint => "Address will be shared with everyone. If you wish to not share your address, just enter the city and state"
     .setp_box
       %h3.setp_box_heading
         %span Step 4:

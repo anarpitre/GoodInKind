@@ -9,7 +9,7 @@
       %li
         %input{:type => "checkbox", :id => 'category_all'}/
         All (#{Nonprofit.verified.count})
-      - Category.by_nonprofits.order("name").each do |category|
+      - Category.by_nonprofits.by_nonprofits_category_count.each do |category|
         %li
           = check_box_tag category.name, category.id
           ="#{truncate(category.name, :length => 22)} (#{category.nonprofit_count})"

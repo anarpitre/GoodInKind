@@ -64,7 +64,7 @@ class ServicesController < ApplicationController
         redirect_to(new_user_session_path, :notice => 'You need to signin/signup before posting the service') 
       else 
         @service.activate!
-        redirect_to(thankyou_services_path, :notice => 'Service was successfully created.') 
+        redirect_to thankyou_services_path 
       end
     rescue 
       build_objects

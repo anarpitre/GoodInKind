@@ -18,13 +18,13 @@ class Service < ActiveRecord::Base
   
   validates :title, :description, :user_id, :presence => true
   validates_inclusion_of :is_public, :in => [true, false]
-  validates_numericality_of :amount, :presence => true, :message => "Show me the money! Enter your price here. Min $5"
+  validates_numericality_of :amount, :presence => true, :message => "Enter your price here. Min $5"
   validates_inclusion_of :amount, :in => 5..9999, :message => " should be between $5 to $9999" 
   validates :start_date, :end_date, :start_time, :end_time, :if => Proc.new { |t| t.is_schedulelater == false}, :presence => true
   validate :check_categories
   validate :check_date
   validate :check_nonprofit
-  validates_numericality_of :booking_capacity, :only_integer => true, :message => "Geek..oops GIK alert! Please use a positive whole number such as 5"
+  validates_numericality_of :booking_capacity, :only_integer => true, :message => "Please use a positive whole number such as 5"
   validates :estimated_duration, :numericality => true 
   validate :check_duration
   

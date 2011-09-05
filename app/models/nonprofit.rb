@@ -144,6 +144,7 @@ class Nonprofit < ActiveRecord::Base
   def send_application
     update_attribute(:is_verified, NONPROFIT_STATE[0])
     Notifier.nonprofit_application(self.email, self.contact_name, self.name).deliver
+    Notifier.nonprofit_application_admin(self.name).deliver
   end
   
   def add_index
