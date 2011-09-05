@@ -62,13 +62,5 @@ class ProfilesController < ApplicationController
     end
   end
 
-  private
-
-  def is_owner
-    unless @user == current_user
-      flash[:notice] = "You do not have sufficent privileges."
-      redirect_to profile_path(@user) 
-    end    
-  end
 
 end

@@ -31,4 +31,11 @@ class ApplicationController < ActionController::Base
       @user = current_user
     end
   end
+
+  def is_owner
+    unless @user == current_user
+      flash[:notice] = "You do not have sufficent privileges."
+      redirect_to profile_path(@user) 
+    end    
+  end
 end

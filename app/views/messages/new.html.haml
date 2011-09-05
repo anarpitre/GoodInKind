@@ -1,17 +1,2 @@
 .offer_form
-  - form_for @message, :url => create_message_path, :html => {:method => :post}, :builder => JoshForm do |f| 
-    - if @message.errors.any?
-      #error_explanation
-        %h2
-          = pluralize(@message.errors.count, "error")
-          prohibited this post from being saved:
-        %ul
-          - @message.errors.full_messages.each do |msg|
-            %li= msg
-    .setp_box
-      = f.text_field :title, :label => "Subject"
-      = f.text_area :message, :label => "Message", :class => "area_edit"
-      = f.hidden_field :sender_id
-      = f.hidden_field :receiver_id
-      = f.hidden_field :parent_message_id
-      = f.submit "Send" 
+  = render 'form'

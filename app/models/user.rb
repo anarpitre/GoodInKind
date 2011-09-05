@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
     if omniauth['provider'] == 'facebook'
       user_info = omniauth['user_info']
       user_hash = omniauth['extra']['user_hash']
-      self.build_profile(:first_name => user_info['first_name'], :last_name => user_info['last_name'], :facebook => user_info['urls']['Facebook'], :avatar => user_info['image'], :gender => user_hash['gender'] )
+      self.build_profile(:first_name => user_info['first_name'], :last_name => user_info['last_name'], :facebook => user_hash['username'], :gender => user_hash['gender'] )
       self.profile.build_location(:address => user_hash['location']['name'])
     end
     authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'])

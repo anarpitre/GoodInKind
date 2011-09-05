@@ -18,7 +18,8 @@
       - @services.each do |service|
         %tr{:class => "#{'expired_row' if is_expired?(service)}", :id => "service_#{service.id}"}
           %td
-            %span #{service.title} 
+            %span 
+              = link_to service.title, edit_service_path(service)
           %td #{service.nonprofit.name} 
           %td #{service.total_transactions.to_i} 
           %td $#{service.donated_amount.to_i}

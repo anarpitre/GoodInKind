@@ -1,5 +1,7 @@
 class MessagesController < ApplicationController
+  before_filter :authenticate_user!, :except => [:new, :create]
   before_filter :get_user
+  before_filter :is_owner, :except => [:new, :create]
   
   layout 'service'
 
@@ -21,13 +23,15 @@ class MessagesController < ApplicationController
 
   def create
     @message = Message.new(params[:message])
-    if @message.save
-      if @message.parent_message_id.to_i != 0
-        mark_replied
+    reply = true if @message.parent_message_id.to_i != 0
+    respond_to do |format|
+      if @message.save
+        mark_replied if reply 
+        flash[:notice] = 'Message was successfully sent.'
+        format.js   { render :js => "window.location='#{reply ? messages_path(current_user) : services_path}'" }
+      else
+        format.js   { render :partial => 'new'  }
       end
-      redirect_to(services_path, :notice => 'Message was successfully sent.') 
-    else
-      render :action => 'new'
     end
   end
 
