@@ -24,6 +24,7 @@ end
 
 
 ADMIN_EMAIL = "admin@goodinkind.com"
+GIK_EMAIL = "GoodInKind <emailalerts@goodinkind.com>"
 
 NONPROFIT_STATE = ['Pending','Verified','Rejected'] 
 

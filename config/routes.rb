@@ -35,14 +35,10 @@ Gik::Application.routes.draw do
   
   resources :nonprofits do
     collection do
-      get :login, :logout
-      post :create_session
-      post :search
+      get :login, :logout, :reset_password, :search_nonprofit
+      post :create_session, :search, :update_password
       match :forgot_password
       match :forgot_username
-      get :reset_password
-      post :update_password
-      get :search_nonprofit
     end
     member do
       match :account
@@ -56,7 +52,7 @@ Gik::Application.routes.draw do
   resources :services do
     collection do
       get :autocomplete_nonprofit_name, :thankyou, :browse_nonprofit
-      post :review, :newoffer
+      post :review, :newoffer, :send_invitation
     end
     resources :bookings, :only => [:new, :create, :destroy]
   end
