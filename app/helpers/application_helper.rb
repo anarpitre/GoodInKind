@@ -19,4 +19,13 @@ module ApplicationHelper
     return false
   end
 
+  def service_suggest(count)
+      if ActiveRecord::Base.connection.adapter_name == "PostgreSQL" 
+         suggestion = Suggestion.order("RANDOM()")
+      else
+         suggestion = Suggestion.order("RAND()")
+      end
+      suggestion.limit(count)
+  end
+
 end

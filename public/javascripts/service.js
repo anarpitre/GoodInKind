@@ -1,8 +1,6 @@
 
 jQuery(document).ready(function($) {
 
-    $('#category_list li:gt(4)').hide();
-    $('#nonprofit_list li:gt(4)').hide();
 
     $('#category_more, #nonprofit_more').click(function(e){
 
@@ -20,6 +18,9 @@ jQuery(document).ready(function($) {
    });
 
    serviceRenderInit();
+
+   $('#category_list li:gt(5)').hide();
+   $('#nonprofit_list li:gt(5)').hide();
 
 });
 
@@ -78,5 +79,24 @@ function serviceRenderInit(){
       };
 
   var tJS = new tagJS(services, "#service_list", view, settings);
+
+  obj_map = tJS.settings.object_map
+  for (name in obj_map) {
+      if (name != 'price') {
+        $('#' + name + '_list li:gt(0)').hide();
+
+        $.each(obj_map[name], function(el) {
+          $('#' + name + "_" + el).next().append(" (" + obj_map[name][el].length +")"); 
+          $('#' + name + "_" + el).parent().show();
+          $('#' + name + "_" + el).parent().attr('count', obj_map[name][el].length);
+        });
+
+        $('#' + name + '_list li:gt(0)').each(function() { 
+          if(!$(this).attr('count')) $(this).remove();
+        });
+
+        if ($('#' + name + '_list li').length > 6) $('#' + name + '_more').show();
+      }
+  }
 }
 

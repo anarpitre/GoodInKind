@@ -8,9 +8,9 @@
     %ul{:id => 'category_list'}
       %li
         %input{:type => "checkbox", :id => 'category_all'}/
-        All (#{Nonprofit.verified.count})
-      - Category.by_nonprofits.by_nonprofits_category_count.each do |category|
+        %span All (#{@nonprofits.length})
+      - Category.by_nonprofits.each do |category|
         %li
-          = check_box_tag category.name, category.id
-          ="#{truncate(category.name, :length => 22)} (#{category.nonprofit_count})"
+          = check_box_tag category.name, category.id, {}, :id => "category_#{category.id}"
+          %span="#{truncate(category.name, :length => 22)}"
          

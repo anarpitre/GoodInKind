@@ -7,9 +7,8 @@
     - Category.by_services.by_category_count.each do |category|
       %li
         %input{:type => "checkbox", :id => "category_#{category.id}", :value => category.id}/
-        %span= "#{category.name} (#{category.service_count})"
+        %span= "#{category.name}"
   %p
-    - if Category.by_services.by_category_count.count > 4
-      %a{:href => '#', :id => 'category_more'}
-        show all
-        %img{:alt => "arrow", :src => "images/find_down_arrow.png"}/
+    %a{:href => '#', :id => 'category_more', :style => 'display:none'}
+      show all
+      %img{:alt => "arrow", :src => "images/find_down_arrow.png"}/
