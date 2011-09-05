@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
     elsif is_admin?
       nonprofits_path
     else
-      services_path(current_user)
+      services_path
     end
   end
 
