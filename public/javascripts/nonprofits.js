@@ -51,5 +51,11 @@ function serviceRenderInit(){
       };
 
   var tJS = new tagJS(nonprofits, "#np_results", view, settings);
-}
 
+  obj_map = tJS.settings.object_map
+  for (name in obj_map) {
+      $.each(obj_map[name], function(el) {
+          $('#' + name + "_" + el).next().append(" (" + obj_map[name][el].length +")"); 
+      });
+  }
+}
