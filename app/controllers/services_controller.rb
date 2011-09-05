@@ -64,6 +64,9 @@ class ServicesController < ApplicationController
         redirect_to(new_user_session_path, :notice => 'You need to signin/signup before posting the service') 
       else 
         @service.activate!
+        Notifier.new_service_admin(nonprofit).deliver
+        Notifier.new_service_offerer(nonprofit).deliver
+        Notifier.new_service_nonprofit(nonprofit).deliver
         redirect_to thankyou_services_path 
       end
     rescue 
