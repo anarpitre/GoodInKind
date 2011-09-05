@@ -1,11 +1,6 @@
 .sidebar_left_sugg
   %h3 GoodInKind's Suggestions:
   %ul
-    %li
-      %a{:href => "#"} Dance lessons
-    %li
-      %a{:href => "#"} Cooking class
-    %li
-      %a{:href => "#"} Photography tour
-    %li
-      %a{:href => "#"} Wine Appreciation
+    - service_suggest(5).each do |suggest|
+      %li
+        %span= suggest.title
