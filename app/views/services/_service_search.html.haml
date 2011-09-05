@@ -1,5 +1,5 @@
 .sidebar_search
   = form_tag service_search_path, :builder => JoshForm, :html => {:method => :post} do
-    = text_field_tag :text, "", :class => "sidebar_sarch_input", :placeholder => 'Search'
+    = text_field_tag :text, "", :class => "sidebar_sarch_input", :placeholder => 'Search', :value => params[:text]
     = submit_tag "Go", :class => "button btn_sidebar"
 
