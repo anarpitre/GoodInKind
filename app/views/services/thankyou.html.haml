@@ -1,1 +1,65 @@
-Thank you for offering service
+:javascript
+  $(document).ready(function(){
+  	$(".invite_mail").hide();
+  	$(".in_mail").click(function(){
+  		$(this).toggleClass("").next().slideToggle("fast");
+  		$(".in_mail").toggleClass("in_mail_act");
+  		return false;
+  	});
+  	$(".up_acc_btns_c").click(function(){
+  		$(this).toggleClass("").next().slideToggle("fast");
+  		$(".invite_mail").hide();
+  		$(".in_mail").removeClass("in_mail_act");
+  		return false;
+  	});
+  });
+
+
+#fb-root
+  %script{:src => "http://connect.facebook.net/en_US/all.js"}
+  // Facebook invite friends
+  // To-do -> Change the api id according to environment
+  :javascript
+    $(function(){
+      $(".fb_send").click(function(){
+        FB.init({
+          appId: '190285970988638',
+          filters :'app_non_users',
+          status: true,
+          cookie: false,
+          // xfbml: true
+        });
+
+        FB.ui({
+          method: 'apprequests',
+          title :'GoodInKind',
+          message:"#{current_user.profile.first_name}  has invite you to join GoodInKind"});
+        });
+    });
+.posting
+  .posting_top
+    %h2 Thank you for posting your offer!
+    %p.posting_shar_txt Share it with your social network now!
+    %p.posting_shar_icons
+      %a{:href => "#"}
+        %img{:alt => "Facebook Shar", :src => "images/fb_shar.png"}/
+      %a{:href => "#"}
+        %img{:alt => "Tweets", :src => "images/tweet.png"}/
+    %span.dotted
+    %p.posting_shar_txt Invite your friends privately
+  .invite_mail_empty
+  %a.fb_send{:href => "#"}
+    %img{:alt => "Facebook Shar", :src => "images/fb_send.png"}/
+  %a.in_mail{:href => "#"}
+    %img{:alt => "Invite by Email", :src => "images/by_mail.png"}/
+  .invite_mail
+    = form_for :user, :url => send_invitation_services_path, :html => {:method => :post} do
+      %p
+        %label.invite_mail_lbl Email Addresses
+        = text_field "user", "email", :placeholder => "(Separate email by comma)", :class => "form_input_full"
+      %p
+        %label.invite_mail_lbl Invitation Text
+        = text_area "user", "message", :class => "form_input_full input_area"
+      %p.invite_mail_btns
+        = submit_tag "Send", :class => "btn_form button"
+        %input.btn_form.button.up_acc_btns_c{:type => "reset", :value => "Cancel"}/

@@ -50,11 +50,7 @@ class ServicesController < ApplicationController
     begin
       @head[:title] = "Create Service"
       params[:service].delete(:nonprofit_name)
-      start_date = params[:service].delete(:start_date)
-      end_date = params[:service].delete(:end_date)
       @service = Service.new(params[:service])
-      @service.start_date = DateTime.strptime(start_date, "%m/%d/%Y") unless start_date.blank?
-      @service.end_date = DateTime.strptime(end_date, "%m/%d/%Y") unless end_date.blank?
       @service.title = @service.title.humanize
       add_user_id                                                             
       @service.save!
@@ -127,6 +123,15 @@ class ServicesController < ApplicationController
     @reviews = Review.get_reviews(review.service.id)
     respond_to do |format|
       format.js {render :layout=>false}
+    end
+  end
+
+  def send_invitation
+    emails = params[:email]
+    message = params[:message]
+    emails = emails.split(',')
+    emails.each do |email|
+      Notifier.service_invitation(email,message).deliver
     end
   end
   
