@@ -10,18 +10,18 @@ class ServicesController < ApplicationController
   layout 'service'
 
   def index
-    @head[:title] = "Service Home"
+    @head[:title] = "Find services to buy in Ithaca, NY and support a non-profit cause"
     @services = Service.active.by_public.includes([:images, {:nonprofit => :nonprofit_categories}, :service_categories])
   end
 
   def show
-    @head[:title] = "My Service"
+    @head[:title] = @service.title + " for " + @service.nonprofit.name 
     @review = @service.reviews.build
     @reviews = Review.get_reviews(@service.id)
   end
 
   def new
-    @head[:title] = "New Service"
+    @head[:title] = "offer a service to support your non-profit cause"
     @service = Service.new
     build_objects
     @service.nonprofit_id = params[:id] unless params[:id].blank?

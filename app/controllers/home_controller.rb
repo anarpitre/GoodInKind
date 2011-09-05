@@ -21,7 +21,7 @@ class HomeController < ApplicationController
 
   def set_seo_tags
     @head = {
-      :title => "Home",
+      :title => "Support a non-profit cause by simply buying or offering great services",
       #:keywords => "a b c d",
       #:description => 'this is awesome'
     }

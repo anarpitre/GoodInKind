@@ -2,6 +2,7 @@
   = javascript_include_tag 'nonprofits', 'filter'
 - content_for :tab_content do
   .featured_services_find
+    = link_to "See All", nonprofits_path, :class => 'bro_req_btn'
     - if nonprofit_logged_in?
       = link_to "I am a Non-Profit", nonprofit_path(current_nonprofit), :class => 'bro_req_btn'
     - else

@@ -12,7 +12,7 @@ class Profile < ActiveRecord::Base
     :thumb => "101x95>",
     :medium => "200x200>"
     },
-    :default_url => "/images/missing/user_:style.jpg"
+    :default_url => "/images/missing/user_:style.png"
 
   validates_attachment_size :avatar, :less_than => 2.megabytes, :message => "file size should be less than 2MB"
 

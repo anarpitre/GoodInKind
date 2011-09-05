@@ -1207,6 +1207,7 @@ h2.offer_form_h2 span a {
 	color:#004a80;
 	font-weight:bold;
 	text-decoration:none;
+        margin-right:10px;
 }
 .offer_form {
 	float:left;
