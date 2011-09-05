@@ -54,8 +54,16 @@ function serviceRenderInit(){
 
   obj_map = tJS.settings.object_map
   for (name in obj_map) {
+      $('#' + name + '_list li:gt(0)').hide();
+
       $.each(obj_map[name], function(el) {
-          $('#' + name + "_" + el).next().append(" (" + obj_map[name][el].length +")"); 
+         $('#' + name + "_" + el).next().append(" (" + obj_map[name][el].length +")"); 
+         $('#' + name + "_" + el).parent().show();
+         $('#' + name + "_" + el).parent().attr('count', obj_map[name][el].length);
+      });
+
+      $('#' + name + '_list li:gt(0)').each(function() { 
+        if(!$(this).attr('count')) $(this).remove();
       });
   }
 }
