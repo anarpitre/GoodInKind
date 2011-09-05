@@ -8,7 +8,7 @@
           = f.fields_for :user do |user|
             %p
               %label.form_lbl User Name
-              %span.up_acc_lbl_span.lbl_field  #{@profile.first_name}
+              %span.up_acc_lbl_span.lbl_field  #{@user.email}
             %p.up_acc_p
               = user.password_field :password, :class => "up_acc_inp", :label => "New Password"
             %p.up_acc_p

@@ -2684,7 +2684,7 @@ div.pagination strong {
 	float:left;
 	width:383px;
 	height:15px;
-	margin:0px 0px 30px 115px;
+	margin:20px 0px 0px 115px;
 	background:url(../images/hr.png) no-repeat;
 	border:none medium;
 }
@@ -2695,6 +2695,7 @@ div.pagination strong {
 	margin-left:183px;
 	font-weight:bold;
 	margin-bottom:5px;
+	margin-top:15px;
 }
 .sign_up_bootm_p  {
    float: left;
@@ -2739,7 +2740,7 @@ div.pagination strong {
 	float:left;
 	width:100%;
 	text-align:center;
-	margin:8px 0px 22px 0px;
+	margin:8px 0px 0px 0px;
 }
 .sign_up_form_t_c a {
 	color:#004a80;

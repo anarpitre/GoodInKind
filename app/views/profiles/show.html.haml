@@ -65,13 +65,13 @@
           %ul
             - unless @profile.twitter.blank?
               %li
-                %a{:href => "http://www.twitter.com/#!/#{@profile.twitter}"}
+                %a{:href => "#{format_link(@profile.twitter)}", :target => "_blank"}
             - unless @profile.facebook.blank?
               %li
-                %a.my_sm_facebook{:href => "http://www.facebook.com/#{@profile.facebook}"}
+                %a.my_sm_facebook{:href => "#{format_link(@profile.facebook)}", :target => "_blank"}
             - unless @profile.linkedin.blank?
               %li
-                %a.my_sm_linked{:href => "http://www.linkedin.com/#{@profile.linkedin}"}
+                %a.my_sm_linked{:href => "#{format_link(@profile.linkedin)}", :target => "_blank"}
 = render :partial => 'services/featured_service' if @services
 - if @reviews
   .profile_reviews

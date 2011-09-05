@@ -1,12 +1,11 @@
-%h2 Login 
 .sing_up_fb
+  %h3 
+    You need to signin / signup before posting the service
+  %br/
   = link_to image_tag('facebook_sign.png', :alt => "Facebook"), "/auth/facebook"
   %span
 .sign_up_form
   = form_for(resource, :as => resource_name, :url => session_path(resource_name), :builder => JoshForm) do |f|
-    %h3 
-      You need to signin / signup before posting the service
-    %br/
     = f.email_field :email, :class => "sign_up_form_inp"
     = f.password_field :password, :class => "sign_up_form_inp"
     .input_post_div{:style => "margin-left:50px;"}

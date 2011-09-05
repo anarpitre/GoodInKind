@@ -45,7 +45,7 @@ class Nonprofit < ActiveRecord::Base
   before_create :create_hash_password
   after_create :generate_permalink, :send_application, :add_index
 
-  default_scope order('created_at DESC')
+  default_scope order('name')
   scope :verified, where(:is_verified => 'Verified')
 
   

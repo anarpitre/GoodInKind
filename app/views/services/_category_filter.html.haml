@@ -9,6 +9,7 @@
         %input{:type => "checkbox", :id => "category_#{category.id}", :value => category.id}/
         %span= "#{category.name} (#{category.service_count})"
   %p
-    %a{:href => '#', :id => 'category_more'}
-      show all
-      %img{:alt => "arrow", :src => "images/find_down_arrow.png"}/
+    - if Category.by_services.by_category_count.count > 4
+      %a{:href => '#', :id => 'category_more'}
+        show all
+        %img{:alt => "arrow", :src => "images/find_down_arrow.png"}/
