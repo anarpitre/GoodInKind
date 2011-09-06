@@ -107,14 +107,14 @@
       #datetime    
         %p
           %span.setp_two_col
-            = f.text_field :start_date, :id => 'dt_date_start', :class => "input_small"
+            = f.text_field :start_date, :id => 'dt_date_start', :class => "input_small", :value => "#{gik_formatted_date(@service.start_date)}"
           %span.setp_two_col
-            = f.text_field :start_time, :id => 'dt_time_start', :class => "input_small"
+            = f.text_field :start_time, :id => 'dt_time_start', :class => "input_small", :value => "#{gik_formatted_time(@service.start_time)}"
         %p
           %span.setp_two_col
-            = f.text_field :end_date, :id => 'dt_date_end', :class => "input_small"
+            = f.text_field :end_date, :id => 'dt_date_end', :class => "input_small", :value => "#{gik_formatted_date(@service.end_date)}"
           %span.setp_two_col
-            = f.text_field :end_time, :id => 'dt_time_end', :class => "input_small", :label => "End time in EST"
+            = f.text_field :end_time, :id => 'dt_time_end', :class => "input_small", :label => "End time in EST", :value => "#{gik_formatted_time(@service.end_time)}"
       %p
         %span.setp_two_col
           = f.text_field :booking_capacity, :value => @service.booking_capacity == 0 ? "" : @service.booking_capacity, :class => "input_small", :label => "Max. Group size*", :hint => "Max. number of people you can serve at a time"
