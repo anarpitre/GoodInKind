@@ -72,23 +72,19 @@ class Notifier < ActionMailer::Base
   end
 
   #Send service invitation
-  def service_invitation(user,email,message)
+  def service_invitation(email,message)
     @message = message
+    subject = "GoodinKind"
     setup_email(GIK_EMAIL, subject, email)
   end
 
   private
 
   def setup_email(sent_to, subject, sent_by=nil)
-    begin
-      sent_by = sent_by == nil ? GIK_EMAIL : sent_by
-      mail(:from => sent_by,
-           :to => sent_to,
-           :subject => subject)
-    rescue  Exception => e
-     puts "*********************"
-      puts e
-    end
+    sent_by = sent_by == nil ? GIK_EMAIL : sent_by
+    mail(:from => sent_by,
+         :to => sent_to,
+         :subject => subject)
   end
 
 end
