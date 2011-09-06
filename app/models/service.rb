@@ -25,7 +25,8 @@ class Service < ActiveRecord::Base
   validate :check_date
   validate :check_nonprofit
   validates_numericality_of :booking_capacity, :only_integer => true, :message => "Please use a positive whole number such as 5"
-  validates :estimated_duration, :numericality => true 
+  #validates :estimated_duration, :numericality => true, :message => "Please enter a valid number"  
+  validates_numericality_of :estimated_duration, :message => "Please enter a valid number"  
   validate :check_duration
   
   scope :by_public, where(:is_public => true)

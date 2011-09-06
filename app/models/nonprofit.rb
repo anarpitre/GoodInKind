@@ -34,7 +34,7 @@ class Nonprofit < ActiveRecord::Base
       :thumb => "172x62>", 
       :medium => "200x61>"
     },
-    :default_url => "/images/missing/nonprofit_:style.png"
+    :default_url => "/images/missing/nonprofit_:style.jpg"
   )
 
   accepts_nested_attributes_for :location, :allow_destroy => true

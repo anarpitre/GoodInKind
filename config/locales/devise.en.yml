@@ -27,10 +27,10 @@ en:
       updated: 'Your password was changed successfully. You are now signed in.'
     confirmations:
       send_instructions: 'You will receive an email with instructions about how to confirm your account in a few minutes.'
-      confirmed: 'Your account was successfully confirmed. You are now signed in.'
+      confirmed: 'Your account was successfully confirmed. You are now signed in. Please update your profile'
     registrations:
       signed_up: 'Welcome! You have signed up successfully.'
-      inactive_signed_up: 'You have signed up successfully. However, we could not sign you in because your account is %{reason}.'
+      inactive_signed_up: 'You have signed up successfully. Please check your email on the address you provided to confirm your registration.'
       updated: 'You updated your account successfully.'
       destroyed: 'Bye! Your account was successfully cancelled. We hope to see you again soon.'
     unlocks:

@@ -61,9 +61,10 @@
   = form_for @service, :builder => JoshForm, :html => {:multipart => true} do |f|
     - if @service.errors.any?
       #error_explanation
-        %h2
-          = pluralize(@service.errors.count, "error")
-          below prevented a successful save.
+        .setp_box_error
+          %h2
+            = pluralize(@service.errors.count, "error")
+            below prevented a successful save.
     .setp_box
       %h3.setp_box_heading
         %span Step 1:
@@ -76,7 +77,7 @@
         %span Step 2:
         Choose the non-profit that you would like to support
       %p
-        = f.autocomplete_field :nonprofit_name, autocomplete_nonprofit_name_services_path, :class => "form_input_full input_half", :pre => true, :spinner => true, 'data-id-element' => "#service_nonprofit_id", :value => "#{get_nonprofit_name}", :label => "Non-Profit Name"
+        = f.autocomplete_field :nonprofit_name, autocomplete_nonprofit_name_services_path, :class => "form_input_full input_half", :pre => true, :spinner => true, 'data-id-element' => "#service_nonprofit_id", :value => "#{get_nonprofit_name}", :label => "Non-Profit Name*"
         = f.hidden_field :nonprofit_id
         %span.setp_box_p_span
         or
@@ -102,7 +103,7 @@
         = f.check_box :is_schedulelater, { :class => "input_checkbox"}, "true", "false"
         %span.setp_box_p_span
           (Leave checked if you will work out the date and time with the buyer)
-          %a{:href => "#"} How it works?
+          /%a{:href => "#"} How it works?
       #datetime    
         %p
           %span.setp_two_col
@@ -131,7 +132,7 @@
         Add a picture illustrating your service
       %p
         = f.fields_for :images do |photo|
-          = photo.file_field :image, :class => "input_browse", :type => "file", :label => "Select an Image"
+          = photo.file_field :image, :class => "input_browse", :type => "file", :label => "Select an Image", :hint => "Great images make a world of difference. Please only upload landscape images. For best results use 400x200"
       %p
         = f.fields_for :images do |photo|
           - unless photo.object.new_record?

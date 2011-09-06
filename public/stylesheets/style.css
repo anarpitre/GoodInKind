@@ -1218,6 +1218,9 @@ h2.offer_form_h2 span a {
   margin-bottom:22px;
   background:#fffbee;
 }
+.setp_box_error {
+  color:#FF0000;
+}
 .setp_box_heading {
   float:left;
   font-family: 'Crimson Text', serif;
@@ -1312,6 +1315,7 @@ h2.offer_form_h2 span a {
   float:left;
   height:25px;
   margin-left:10px;
+  width: 300px;
 }
 .input_radio_nav {
   float:left;

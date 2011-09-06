@@ -43,7 +43,7 @@ class Notifier < ActionMailer::Base
   def nonprofit_application_admin(name)
     @nonprofit_name = name
     subject = "Your GoodInKind partner application for #{name}"
-    setup_email(email,subject)
+    setup_email(ADMIN_EMAIL,subject)
   end
 
   def reset_password_instructions(nonprofit)

@@ -16,10 +16,10 @@
 .term
   %span.sign_up_form_t_c
     By clicking Sign Up you agree to our user
-    %a{:href => "/docs/GoodInKind_501_Terms_and_Conditions.html"} terms and conditions
+    %a{:href => "/docs/GoodInKind_501_Terms_and_Conditions.html", :target => "_blank"} terms and conditions
 .sing_up_fb
   %span
-%a.sign_reg_link{:href => "#"} Or Sign up using our registration form
+%a.sign_reg_link{:href => "#"} Sign up using our registration form
 .sign_up_form#sign_up_form{:style => "display: #{resource.errors.any? ? 'block':'none'} "}
   - resource.build_profile if resource.profile.blank?
   = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :builder => JoshForm) do |f|
