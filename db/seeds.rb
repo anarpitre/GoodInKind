@@ -66,5 +66,5 @@ SERVICE_CATEGORIES.each do |name|
 end
 
 # Create seed record for service area for city Ithaca
-ServiceArea.create(:city => "Ithaca", :radius => 100, :latitude => 42.4405556 , :longitude => -76.4969444)
+ServiceArea.create(:city => "Ithaca", :radius => 150, :latitude => 42.4405556 , :longitude => -76.4969444)
 
