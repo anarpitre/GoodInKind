@@ -6,8 +6,8 @@
 
        category = Category.find_by_name("Tours")
        unless category.blank?
-        category[0].name = "Whacky"
-        category[0].save!
+        category.name = "Whacky"
+        category.save!
        end
        
        category_image_hash = {
