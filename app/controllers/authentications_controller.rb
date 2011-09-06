@@ -10,9 +10,10 @@ class AuthenticationsController < ApplicationController
     authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
     session[:thank_you] = "yes" unless session[:service_id].blank?
     if authentication
+      sign_in(:user, authentication.user)
       change_service_offerer(session[:service_id],authentication.user.id) unless session[:service_id].blank? 
       #flash[:notice] = "Signed in successfully."
-      sign_in_and_redirect(:user, authentication.user)
+      redirect_to services_path
     elsif current_user
       current_user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'])
       flash[:notice] = "Authentication successful."
@@ -21,9 +22,10 @@ class AuthenticationsController < ApplicationController
       user = User.new
       user.apply_omniauth(omniauth)
       if user.save
+        sign_in(:user, user)
         change_service_offerer(session[:service_id],user.id) unless session[:service_id].blank? 
         flash[:notice] = "Registered successfully."
-        sign_in_and_redirect(:user, user)
+        redirect_to services_path
       else
         session[:omniauth] = omniauth.except('extra')
         redirect_to new_user_registration_url
