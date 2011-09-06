@@ -16,7 +16,7 @@
       %span.pl_left Social Network:
       %span.pl_right
         - unless @service.user.profile.facebook.blank?
-          = link_to "", "http://www.facebook.com/#{@service.user.profile.facebook}", :target => "_blank", :title => "Facebook", :class => "pl_sn"
+          = link_to "", "#{@service.user.profile.facebook}", :target => "_blank", :title => "Facebook", :class => "pl_sn"
         - unless @service.user.profile.twitter.blank?
           = link_to "", "http://www.twitter.com/#!/#{@service.user.profile.twitter}", :target => "_blank", :title => "Twitter", :class => "pl_sn tw_pl"
         - unless @service.user.profile.linkedin.blank?
