@@ -1,7 +1,6 @@
 
 jQuery(document).ready(function($) {
 
-
     $('#category_more, #nonprofit_more').click(function(e){
 
       e.preventDefault();
@@ -13,11 +12,20 @@ jQuery(document).ready(function($) {
 
    $('#category_all, #nonprofit_all, #price_all').closest('ul').children().find(':checkbox').attr('checked', true);
 
-   $('#category_all, #nonprofit_all, #price_all').click(function(){
-     $(this).closest('ul').children().find(':checkbox').attr('checked', $(this).is(':checked'));
+   var tJS = serviceRenderInit();
+
+   $('#category_all, #nonprofit_all, #price_all').click(function(e){
+     e.preventDefault();
+     $(this).closest('ul').children().find(':checkbox').attr('checked', true);
+     tJS.filter();
    });
 
-   serviceRenderInit();
+   $('#category_none, #nonprofit_none, #price_none').click(function(e){
+     e.preventDefault();
+     $(this).closest('ul').children().find(':checkbox').attr('checked', false);
+     tJS.filter();
+   });
+
 
    $('#category_list li:gt(5)').hide();
    $('#nonprofit_list li:gt(5)').hide();
@@ -98,5 +106,6 @@ function serviceRenderInit(){
         if ($('#' + name + '_list li').length > 6) $('#' + name + '_more').show();
       }
   }
+  return tJS;
 }
 

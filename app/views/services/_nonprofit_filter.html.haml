@@ -1,10 +1,10 @@
 .sidebar_list
-  %h3 Filter by Non-Profit
+  %h3 Filter by Non-Profit (#{@services.length})
   %ul{:id => 'nonprofit_list'}
-    %li
-      %input{:type => "checkbox", :id => 'nonprofit_all', :value => 'all'}/
-      %span All (#{@services.length})
-    - Category.by_nonprofits.by_category_count.each do |category|
+    %li.selector
+      %a{:href => '#', :id => 'nonprofit_all'} All
+      %a{:href => '#', :id => 'nonprofit_none'} None
+    - Category.by_nonprofits.each do |category|
       %li
         %input{:type => "checkbox", :id => "nonprofit_#{category.id}", :value => category.id}/
         %span= "#{truncate(category.name, :length => 22)}"

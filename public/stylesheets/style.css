@@ -710,10 +710,10 @@ h2.fs_find_h2 span a:hover {
   margin-bottom:20px;
 }
 .sidebar_list h3 {
-  font-family: 'Crimson Text', serif;
-  font-weight: 400;
-  font-size:18px;
-  margin-bottom:9px;
+	font-family: 'Crimson Text', serif;
+	font-weight: 400;
+	font-size:17px;
+	margin-bottom:9px;
 }
 .sidebar_list ul {
   width:100%;
@@ -725,6 +725,19 @@ h2.fs_find_h2 span a:hover {
   float:left;
   margin-bottom:2px;
 }
+
+.sidebar_list ul li.selector {
+	width:auto;
+	float:left;
+	margin: 2px;
+}
+
+.sidebar_list ul li.selector a {
+  text-decoration:none;
+  font-weight: bold;
+  color: #4E8D23;
+}
+
 .sidebar_list ul li input {
   float:left;
 }
