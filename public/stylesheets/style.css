@@ -509,9 +509,9 @@ h2.fs_h2 {
   box-shadow:1px 1px 3px #c4c4c4;
 }
 .fs_box_pic {
-  width:200px;
-  height:100px;
-  border:1px solid #cbcbcb;
+	width:200px;
+	height:133px;
+	border:1px solid #cbcbcb;
   text-align: center;
 }
 .fs_left {
@@ -1056,10 +1056,10 @@ h2.services_h2 em {
   float:left;
 }
 .logged_pics {
-  width:448px;
-  height: 260px;
-  float:left;
-  border:1px solid #938b8b;
+	width:450px;
+  height: 300px;
+	float:left;
+	border:1px solid #938b8b;
   text-align:center;
 }
 .tag_spots_logged {
@@ -1108,13 +1108,13 @@ h2.services_h2 em {
   float:right;
 }
 .logged_shar {
-  width:115px;
-  padding:22px 0px 12px 15px;
-  border-radius:5px;
-  background:#f8f8f8;
-  border:1px solid #e2e2e2;
-  float:right;
-  margin-bottom:37px;
+	width:115px;
+	padding:22px 0px 12px 15px;
+	border-radius:5px;
+	background:#f8f8f8;
+	border:1px solid #e2e2e2;
+	float:right;
+	margin-bottom:90px;
 }
 .st_plusone_hcount, .st_twitter_hcount, .st_facebook_hcount {
   margin-bottom:10px;

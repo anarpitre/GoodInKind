@@ -3,6 +3,8 @@ namespace :admin do
   desc "create Service Suggestions"
   task :service_suggest => :environment do
 
+  Suggestion.delete_all
+
     SERVICE_SUGGESTION = [
       "Learn Magic Tricks",
       "Vineyard tour",

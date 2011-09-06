@@ -3,8 +3,8 @@ class Image < ActiveRecord::Base
 
   has_attached_file :image, S3_DEFAULTS.merge(
      :styles => { 
-     :thumb => "200x100>", 
-     :medium => "448x260>"
+     :thumb => "200x133>", 
+     :medium => "450x300>"
      }
   )
 
