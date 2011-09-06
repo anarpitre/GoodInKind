@@ -43,7 +43,11 @@ class Nonprofit < ActiveRecord::Base
   attr_protected :hashed_password, :salt
 
   before_create :create_hash_password
-  after_create :generate_permalink, :send_application, :add_index
+  after_create :generate_permalink, :send_application
+
+  after_save { |nonprofit|
+      add_index if nonprofit.is_verified == 'Verified'
+  }
 
   default_scope order('name')
   scope :verified, where(:is_verified => 'Verified')
