@@ -1158,7 +1158,11 @@ h2.services_h2 em {
 .add_right {
   margin-left:35px;
   float:left;
-  width:180px;
+  width:90px;
+}
+.add_middle {
+  float: left;
+  margin-left: 5px;
 }
 .add_hr {
   float:right;
@@ -1782,7 +1786,7 @@ h2.offer_form_h2 span a {
 .up_my_profile_left {
   float:left;
   width:220px;
-  margin-right:35px;
+  margin-right:25px;
 }
 .mypic {
   float:left;
@@ -1825,7 +1829,7 @@ h2.offer_form_h2 span a {
 }
 .up_my_profile_right_edit {
   float:left;
-  width:650px;
+  width:675px;
   margin-top:5px;
 }
 h2.my_name {
@@ -1872,9 +1876,9 @@ h2.my_name span a img {
   margin-bottom:10px;
 }
 .up_my_profile_right_edit label {
-  width:85px;
+  width:95px;
   float:left;
-  margin-right:25px;
+  margin-right:15px;
   font-size:14px;
   font-weight:bold;
 }
@@ -1965,7 +1969,7 @@ h2.my_name span a img {
   height:30px;
 }
 .area_edit {
-  width:515px;
+  width:522px;
   height:140px;
 }
 .my_edit_check {

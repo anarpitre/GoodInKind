@@ -27,8 +27,7 @@ class MessagesController < ApplicationController
     respond_to do |format|
       if @message.save
         mark_replied if reply 
-        Notifier.new_message(@message.receiver.email)
-
+        Notifier.new_message(@message.receiver.email).deliver
         flash[:notice] = 'Message was successfully sent.'
         format.js   { render :js => "window.location='#{reply ? messages_path(current_user) : services_path}'" }
       else

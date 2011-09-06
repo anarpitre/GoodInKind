@@ -6,4 +6,5 @@
       by
       %span.ss_name=  review.user.profile.first_name
       %p
-        = review.review_remark
+        = h(review.review_remark).gsub("\n", "<br/>")
+        .up_acc_email
