@@ -113,7 +113,7 @@ class Service < ActiveRecord::Base
 
   def check_image
     if self.images.blank?
-      file = File.open('public/images/category/#{self.categories.first.image_path}')
+      file = File.open("#{Rails.root}/public/images/category/#{self.categories.first.image_path}")
       self.update_attributes({:images_attributes => {"0" => { :image => file }}})
     end
   end
