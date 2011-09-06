@@ -25,7 +25,7 @@ class Nonprofit < ActiveRecord::Base
   validates :cell_phone, :format => CELL_NO_REGEX, :unless =>  Proc.new {|nonprofit| nonprofit.cell_phone.blank? }
   validates :phone_number, :presence => true, :format => CELL_NO_REGEX
   validates :website, :presence => true
-  validates_attachment_content_type :photo, :content_type => ["image/jpeg", "image/png", "image/gif", "image/jpg", "image/bmp", "image/tiff", "image/tif" ], :message => "Valid formats are jpeg, jpg, png, gif, bmp, tiff, tif"
+  validates_attachment_content_type :photo, :content_type => ["image/jpeg", "image/png", "image/gif", "image/jpg", "image/bmp", "image/tiff", "image/tif","image/pjpeg", "image/x-png" ], :message => "Valid formats are jpeg, jpg, png, gif, bmp, tiff, tif"
   #validates_attachment_size  :photo, :less_than => 2.megabytes, :message => "Maximum image size 2 MB"
 
 

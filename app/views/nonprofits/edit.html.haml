@@ -42,10 +42,10 @@
       = f.text_field :uuid, :class => 'input_half'
       = f.text_field :name, :class => 'input_half'
       = f.text_field :EIN, :class => 'input_half', :label => "EIN", :hint => "Valid Format: XX-XXXXXXX " 
-      = f.select :category_ids, Category.by_nonprofits.collect{|b| [ b[:name] , b[:id] ]}, {}, :class => "input_select", :label => "Category"
+      = f.select :category_ids, Category.by_nonprofits.collect{|b| [ b[:name] , b[:id] ]}, {}, :class => "input_select", :label => "Category *"
       = f.text_field :website, :class => "input_half"
       = f.fields_for :location do |loc|
-        = loc.text_field :address, :class => "input_half", :hint => "Enter the actual address as you would enter on any maps website. Do not include P.O. Boxes and building names (such Wilkinson building, East Wing,e etc.)"
+        = loc.text_field :address, :class => "input_half", :label => "Address *", :hint => "Enter the actual address as you would enter on any maps website. Do not include P.O. Boxes and building names (such Wilkinson building, East Wing,e etc.)"
       = f.file_field :photo, :class => "input_browse", :label => 'Logo', :hint => "For best results, include an image that is 200X62 pixels. Only JPEG, JPG, PNG, GIF, BMP, TIFF, TIF allowed"
       = f.text_field :phone_number, :class => 'input_half', :disabled => true
       = f.text_field :contact_name, :class => 'input_half', :disabled => true
