@@ -9,8 +9,7 @@ class NonprofitsController < ApplicationController
   def index
     @head[:title] = "Browse non-profit partners and support them"
     @nonprofits = is_admin? ? Nonprofit.all : Nonprofit.verified
-    # FIXME: To add index-tank search on the following Nonprofit criteria:
-    # name, EIN, category, mission, guideline, description, website
+    @nonprofits = @nonprofits.includes(:location, :categories)
     render :locals => { :search => true }
   end
 
@@ -156,7 +155,7 @@ class NonprofitsController < ApplicationController
           arr.last if arr.first == 'Nonprofit'
         end
         
-        @nonprofits = Nonprofit.verified.where(['id in (?)', ids.compact]).includes(:categories)
+        @nonprofits = Nonprofit.verified.where(['id in (?)', ids.compact]).includes(:categories).includes(:location, :categories)
       end
     end
     render :action => 'index',:locals => { :search => true }

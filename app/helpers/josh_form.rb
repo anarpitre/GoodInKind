@@ -40,6 +40,7 @@ class JoshForm < ActionView::Helpers::FormBuilder
         label_txt = args.last[:label]
         spinner = args.last[:spinner]  # a spinner class gets added 
         pre = args.last[:pre]          # container is ignored
+        err_class = args.last[:error_class]
       end
 
       if ['password_field', 'text_field', 'text_area', 'file_field', 'email_field'].include?(method_name)
@@ -55,7 +56,9 @@ class JoshForm < ActionView::Helpers::FormBuilder
         end
 
         if error.present?
-          error_tag = @template.content_tag(:label, error.first, {:class => CSS[:error]})
+          style = CSS[:error]
+          style = err_class if err_class
+          error_tag = @template.content_tag(:label, error.first, {:class => style})
 
           args.last[:class] = "#{args.last[:class]} in_error"
         end

@@ -48,7 +48,12 @@ class BookingsController < ApplicationController
     @booking.billToFirstName = @booking.accountName.split.first
     @booking.billToLastName = @booking.accountName.split.last
     @booking.remoteAddr = request.remote_ip 
-    @booking.valid?
+
+    if params[:cc]
+      @cc = ActiveMerchant::Billing::CreditCard.new(params[:cc])
+      @cc.valid? # populate errors if any
+    end
+    raise ActiveRecord::RecordInvalid.new(@booking) unless @booking.valid? 
 
     # If no params[:cc], check if the user already had a token 
     # and if the user does have one, process the payment.
@@ -62,7 +67,6 @@ class BookingsController < ApplicationController
         render(:action => :new) and return
       end
     else
-      @cc = ActiveMerchant::Billing::CreditCard.new(params[:cc])
       render(:action => :new) and return unless @cc.valid?
 
       if CARD_ON_FILE_SUPPORTED
@@ -78,7 +82,7 @@ class BookingsController < ApplicationController
           @booking.save! #TODO: Exception handling
         else
           # TODO: Does this mean that the cardonfile is wrong, so we remove it?
-          @booking.errors.add(:base, "#{id}"); # id would be verboseErrorMessage on erroe
+          @booking.errors.add(:fg, "#{id}"); # id would be verboseErrorMessage on erroe
           render(:action => :new) and return
         end
       else
@@ -91,7 +95,7 @@ class BookingsController < ApplicationController
     redirect_to service_path(@booking.service), :notice => "Booking successful"
 
     rescue ActiveRecord::RecordInvalid
-      @cc = ActiveMerchant::Billing::CreditCard.new(params[:cc])
+      @cc = ActiveMerchant::Billing::CreditCard.new(params[:cc]) unless @cc
       render :action => :new 
   end
 

@@ -729,13 +729,13 @@ h2.fs_find_h2 span a:hover {
 .sidebar_list ul li.selector {
 	width:auto;
 	float:left;
-	margin: 2px;
+	margin-bottom: 5px;
 }
 
 .sidebar_list ul li.selector a {
-  text-decoration:none;
   font-weight: bold;
-  color: #4E8D23;
+  text-decoration:none;
+  color: #004A80;
 }
 
 .sidebar_list ul li input {
@@ -801,6 +801,13 @@ label.error {
   float:left;
   margin-left:120px;
   margin-bottom:10px;
+}
+
+label.tiny_error {
+  color: #FF0000;
+  float: left;
+  position: relative;
+  margin: 30px 0 0 -115px;
 }
 /*_____ Mini Dashboard _____*/
 .dashboard_mini {
@@ -3134,29 +3141,6 @@ div.pagination strong {
 .in_mail_act {
   cursor:default;
   opacity:0.4;
-}
-.pay_page_hr {
-  width:720px;
-  float:left;
-  height:1px;
-  background:#000;
-  border:none medium;
-  margin:10px 0px 10px 70px;
-}
-.payment_total {
-  float:left;
-  width:245px;
-  text-align:right;
-  font-size:18px;
-  font-weight:bold;
-  margin-left:110px;
-}
-.payment_total_amt {
-  float:left;
-  font-size:18px;
-  font-weight:bold;
-  margin-left:19px;
-  color:#9e0b0f;
 }
 .what_next {
   float:left;

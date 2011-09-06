@@ -29,6 +29,7 @@ class Service < ActiveRecord::Base
   scope :by_user, lambda {|user_id| where(:user_id => user_id)}
 
   after_create :generate_permalink
+  after_save :check_image
 
   after_save { |service|
     change_nonprofit = service.nonprofit_id_change
@@ -93,13 +94,13 @@ class Service < ActiveRecord::Base
     options ||= {}
     options[:except] = [:description, :created_at, :updated_at]
     options[:methods] = [:to_param, :thumbnail]
-    options[:include] = {:nonprofit => {:only => :name, :include => {:nonprofit_categories => {:only => :category_id}}},
+    options[:include] = {:nonprofit => {:only => :name, :include => {:nonprofit_categories => {:only => :category_id}}, :location => {:only => :address}},
       :service_categories => {:only => :category_id}}
     super
   end
 
   def thumbnail
-    self.images.any? ? self.images.first.image.url(:thumb) : "/images/category/cat_image_thumb.jpg"
+    self.images.first ? self.images.first.image.url(:thumb) : "/images/category/cat_image_thumb.jpg"
   end
 
   def generate_permalink
@@ -108,6 +109,13 @@ class Service < ActiveRecord::Base
 
   def add_index
     INDEX.document("Service:id:#{self.id}").add({ :text => "#{self.title} #{self.description} #{self.user.profile.first_name} #{self.user.profile.last_name} #{categories.collect(&:name).to_s} #{nonprofit.categories.collect(&:name).to_s} #{nonprofit.name}"})
+  end
+
+  def check_image
+    if self.images.blank?
+      file = File.open('public/images/category/#{self.categories.first.image_path}')
+      self.update_attributes({:images_attributes => {"0" => { :image => file }}})
+    end
   end
 
 end

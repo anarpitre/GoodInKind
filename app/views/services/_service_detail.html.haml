@@ -7,7 +7,7 @@
   .logged_top
     .logged_gallery
       .logged_pics
-        = image_tag get_service_image('medium',@service)
+        = image_tag @service.images.first.image.url(:medium)
       - if @service.images.count > 1
         .logged_pics_bottom
           %ul
