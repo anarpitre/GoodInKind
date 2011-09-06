@@ -79,29 +79,33 @@ ul: function(attrs, content){
 
 
 filter_event: function(settings){
+          var parentObj = this;
 
-                var parentObj = this;
+          settings.selector.forEach(function(selector, index) {
 
-                settings.selector.forEach(function(selector, index) {
+            $(selector.element).bind(selector.events, function(e){
+              parentObj.filter();
+            });
+          });
+     },
 
-                    $(selector.element).bind(selector.events, function(e){
-                      var filter_out = settings.all_object.slice();
-                      var selected_count = 0;
+filter: function(){
+          var parentObj = this;
+          var filter_out = parentObj.settings.all_object.slice();
+          var selected_count = 0;
 
-                      settings.selector.forEach(function(s){
-                        var out = $(s.element).filter(s.select).map(function(){ return $(this).val(); });
-                        selected_count += out.length;
+          parentObj.settings.selector.forEach(function(s){
+              var out = $(s.element).filter(s.select).map(function(){ return $(this).val(); });
+              selected_count += out.length;
 
-                        if(out.length) {
-                          filter_out = parentObj.grep(filter_out, parentObj.get_view_object(s.name, out, s.type));
-                          }
-                        });
+              if(out.length) {
+                filter_out = parentObj.grep(filter_out, parentObj.get_view_object(s.name, out, s.type));
+              }
+          });
 
-                       parentObj.hideShow((selected_count ? filter_out : []));
+          parentObj.hideShow((selected_count ? filter_out : []));
+},
 
-                      });
-                    });
-              },
 
 grep: function(filter_out, value) {
         return jQuery.grep(filter_out,

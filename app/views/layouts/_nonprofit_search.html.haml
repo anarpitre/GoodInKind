@@ -1,14 +1,14 @@
 .sidebar_search
   = form_tag search_nonprofits_path, :builder => JoshForm, :html => {:method => :post} do
-    = text_field_tag :text, "", :class => "sidebar_sarch_input", :placeholder => 'Search Non-profits'
+    = text_field_tag :text, "", :class => "sidebar_sarch_input", :placeholder => 'Search Non-profits', :value => params[:text]
     = submit_tag "Go", :class => "button btn_sidebar"
 .sidebar_left_find
   .sidebar_list
-    %h3 Browse by Category
+    %h3 Browse by Category (#{@nonprofits.length})
     %ul{:id => 'category_list'}
-      %li
-        %input{:type => "checkbox", :id => 'category_all'}/
-        %span All (#{@nonprofits.length})
+      %li.selector
+        %a{:href => '#', :id => 'category_all'} All
+        %a{:href => '#', :id => 'category_none'} None
       - Category.by_nonprofits.each do |category|
         %li
           = check_box_tag category.name, category.id, {}, :id => "category_#{category.id}"

@@ -1,10 +1,10 @@
 .sidebar_list
-  %h3 Filter by Category
+  %h3 Filter by Category (#{@services.length})
   %ul{:id => 'category_list'}
-    %li
-      %input{:type => "checkbox", :id => 'category_all', :value => 'all'}/
-      %span All (#{@services.length})
-    - Category.by_services.by_category_count.each do |category|
+    %li.selector
+      %a{:href => '#', :id => 'category_all'} All
+      %a{:href => '#', :id => 'category_none'} None
+    - Category.by_services.each do |category|
       %li
         %input{:type => "checkbox", :id => "category_#{category.id}", :value => category.id}/
         %span= "#{category.name}"

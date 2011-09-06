@@ -18,16 +18,12 @@ class Service < ActiveRecord::Base
   
   validates :title, :description, :user_id, :presence => true
   validates_inclusion_of :is_public, :in => [true, false]
-  validates_numericality_of :amount, :presence => true, :message => "Enter your price here. Min $5"
-  validates_inclusion_of :amount, :in => 5..9999, :message => " should be between $5 to $9999" 
-  validates :start_date, :end_date, :start_time, :end_time, :if => Proc.new { |t| t.is_schedulelater == false}, :presence => true
-  validate :check_categories
-  validate :check_date
-  validate :check_nonprofit
-  validates_numericality_of :booking_capacity, :only_integer => true, :message => "Please use a positive whole number such as 5"
-  #validates :estimated_duration, :numericality => true, :message => "Please enter a valid number"  
+  validates_numericality_of :amount, :presence => true, :message => :service_amount
+  validates_inclusion_of :amount, :in => 5..9999, :message => :service_amount_range
+  validates :start_date, :end_date, :start_time, :end_time, :presence =>{:message => :not_valid, :if => Proc.new {|t| t.is_schedulelater == false}}
+  validates_numericality_of :booking_capacity, :only_integer => true, :message => :booking_capacity
   validates_numericality_of :estimated_duration, :message => "Please enter a valid number"  
-  validate :check_duration
+  validate :check_categories, :check_date, :check_nonprofit, :check_duration
   
   scope :by_public, where(:is_public => true)
   scope :by_user, lambda {|user_id| where(:user_id => user_id)}
@@ -72,9 +68,15 @@ class Service < ActiveRecord::Base
 
   def check_date
     unless self.is_schedulelater
-      errors.add(:start_date,"Check Date") unless (self.start_date.blank? || self.end_date.blank? || (self.start_date < self.end_date))
-      unless self.start_time.blank? && self.end_time.blank? 
-        errors.add(:start_time," Start time cannot be greater than or equal to End time") if self.start_time >= self.end_time
+      start_date = self.start_date
+      end_date = self.end_date
+      start_time = self.start_time
+      end_time = self.end_time
+      unless (start_date.blank? && end_date.blank? )
+        errors.add(:start_date,"Start date cannot be greater than End date") unless (start_date <= end_date)
+        unless start_time.blank? && end_time.blank? 
+          errors.add(:start_time," Start time cannot be greater than or equal to End time") if ((start_time >= end_time) && (start_date == end_date))
+        end
       end
     end
   end
@@ -97,7 +99,7 @@ class Service < ActiveRecord::Base
   end
 
   def thumbnail
-    self.images.any? ? self.images.first.image.url(:thumb) : "/images/category/#{self.categories.first.image_path}_thumb.jpg"
+    self.images.any? ? self.images.first.image.url(:thumb) : "/images/category/cat_image_thumb.jpg"
   end
 
   def generate_permalink

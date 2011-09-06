@@ -28,4 +28,10 @@ module ApplicationHelper
       suggestion.limit(count)
   end
 
+  def get_full_name(user=nil)
+    user = user == nil ? current_user : user
+    return "#{user.profile.first_name} #{user.profile.last_name}"
+
+  end
+
 end
