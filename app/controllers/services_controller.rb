@@ -83,7 +83,7 @@ class ServicesController < ApplicationController
 
 
   def thankyou
-    @service = @service.blank? ? @service : current_user.service 
+    @service = !@service.blank? ? @service : current_user.services.last
   end
   
   def search
@@ -125,14 +125,21 @@ class ServicesController < ApplicationController
   end
 
   def send_invitation
-    emails = params[:email]
-    message = params[:message]
+    emails = params[:users][:email]
+    message = params[:users][:message]
     emails = emails.split(',')
-    emails.each do |email|
-      Notifier.service_invitation(email,message).deliver
+    unless emails.blank?
+      emails.each do |email|
+        Notifier.service_invitation(email,message).deliver
+      end
+      flash[:notice] = "Email was sent successfully!!"
+      redirect_to service_path(current_user.services.last)  
+    else
+      flash[:notice] = "Please add email to which invitations is to be sent!!!"
+      redirect_to thankyou_services_path 
     end
   end
-  
+
   private
 
   def build_objects
@@ -157,7 +164,7 @@ class ServicesController < ApplicationController
       :description => 'Offer a service to support your favourite NonProfits'
     }
   end
-  
+
   def is_owner
     user = @service.user  
     unless user == current_user
