@@ -41,7 +41,7 @@ class ProfilesController < ApplicationController
   end
 
   def services
-    @services = @user.services.active 
+    @services = @user.services.active.includes(:nonprofit)
   end
 
   def cancel_service
