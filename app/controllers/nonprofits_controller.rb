@@ -8,8 +8,8 @@ class NonprofitsController < ApplicationController
   
   def index
     @head[:title] = "Browse non-profit partners and support them"
-    @nonprofits = is_admin? ? Nonprofit.all : Nonprofit.verified
-    @nonprofits = @nonprofits.includes(:location, :categories)
+    @nonprofits = Nonprofit.includes(:location, :categories)
+    @nonprofits = is_admin? ? @nonprofits.all : @nonprofits.verified
     render :locals => { :search => true }
   end
 
