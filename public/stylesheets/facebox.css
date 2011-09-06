@@ -84,7 +84,10 @@
 	background-position:none;
 	clear:none;
 	float:none;
-    height:70px;
+  height:70px;
+  font-weight: bold;
+  font-size:17px;
+  text-align:center;
 }
 
 #facebox .ffooter img {
