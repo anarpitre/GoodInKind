@@ -26,6 +26,7 @@ class Nonprofit < ActiveRecord::Base
   validates :phone_number, :presence => true, :format => CELL_NO_REGEX
   validates :website, :presence => true
   validates_attachment_content_type :photo, :content_type => ["image/jpeg", "image/png", "image/gif", "image/jpg", "image/bmp", "image/tiff", "image/tif","image/pjpeg", "image/x-png" ], :message => "Valid formats are jpeg, jpg, png, gif, bmp, tiff, tif"
+  #validates_attachment_size  :photo, :less_than => 2.megabytes, :message => "Maximum image size 2 MB"
 
 
   has_attached_file :photo, S3_DEFAULTS.merge(
@@ -42,7 +43,11 @@ class Nonprofit < ActiveRecord::Base
   attr_protected :hashed_password, :salt
 
   before_create :create_hash_password
-  after_create :generate_permalink, :send_application, :add_index
+  after_create :generate_permalink, :send_application
+
+  after_save { |nonprofit|
+      add_index if nonprofit.is_verified == 'Verified'
+  }
 
   default_scope order('name')
   scope :verified, where(:is_verified => 'Verified')

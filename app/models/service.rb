@@ -43,6 +43,8 @@ class Service < ActiveRecord::Base
         nonprofit.categories.collect{|c| Category.increment_counter(:service_count, c.id) }
        end
     end
+
+    add_index if service.status == 'active'
   }
 
   aasm_column :status
@@ -56,7 +58,6 @@ class Service < ActiveRecord::Base
 
   def verify_request
     self.request.offered! unless self.request.blank?
-    add_index
   end
 
   def to_param
