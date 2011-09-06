@@ -69,16 +69,12 @@ class Nonprofit < ActiveRecord::Base
   def as_json(options = {})
     options ||= {}
     options[:only] = [:id, :name] 
-    options[:methods] = [:to_param, :full_address, :thumbnail, :short_description, :service_count]
+    options[:methods] = [:to_param, :full_address, :thumbnail, :short_description]
     options[:include] = {:nonprofit_categories => {:only => :category_id}}
     super
   end
 
   ## JSON helpers
-  def service_count
-    self.services.count
-  end
-
   def short_description
     self.description[0..250] rescue ""
   end

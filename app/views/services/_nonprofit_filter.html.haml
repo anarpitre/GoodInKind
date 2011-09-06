@@ -2,8 +2,9 @@
   %h3 Filter by Non-Profit (#{@services.length})
   %ul{:id => 'nonprofit_list'}
     %li.selector
-      %a{:href => '#', :id => 'nonprofit_all'} All
-      %a{:href => '#', :id => 'nonprofit_none'} None
+      %a{:href => '#', :id => 'nonprofit_all'} Select All
+      \/
+      %a{:href => '#', :id => 'nonprofit_none'} Unselect All
     - Category.by_nonprofits.each do |category|
       %li
         %input{:type => "checkbox", :id => "nonprofit_#{category.id}", :value => category.id}/

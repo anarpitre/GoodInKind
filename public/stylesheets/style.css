@@ -729,13 +729,13 @@ h2.fs_find_h2 span a:hover {
 .sidebar_list ul li.selector {
 	width:auto;
 	float:left;
-	margin: 2px;
+	margin-bottom: 5px;
 }
 
 .sidebar_list ul li.selector a {
-  text-decoration:none;
   font-weight: bold;
-  color: #4E8D23;
+  text-decoration:none;
+  color: #004A80;
 }
 
 .sidebar_list ul li input {

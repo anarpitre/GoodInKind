@@ -2,8 +2,9 @@
   %h3 Filter by Category (#{@services.length})
   %ul{:id => 'category_list'}
     %li.selector
-      %a{:href => '#', :id => 'category_all'} All
-      %a{:href => '#', :id => 'category_none'} None
+      %a{:href => '#', :id => 'category_all'} Select All
+      \/
+      %a{:href => '#', :id => 'category_none'} Unselect All
     - Category.by_services.each do |category|
       %li
         %input{:type => "checkbox", :id => "category_#{category.id}", :value => category.id}/
