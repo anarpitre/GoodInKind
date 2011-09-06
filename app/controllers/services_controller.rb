@@ -50,6 +50,7 @@ class ServicesController < ApplicationController
     begin
       @head[:title] = "Create Service"
       params[:service].delete(:nonprofit_name)
+      params[:service][:booking_capacity] = 0 if params[:service][:booking_capacity] == ""
       @service = Service.new(params[:service])
       @service.title = @service.title.humanize
       add_user_id                                                             
@@ -73,6 +74,7 @@ class ServicesController < ApplicationController
     begin
       @head[:title] = "Update Service"
       params[:service].delete(:nonprofit_name)
+      params[:service][:booking_capacity] = 0 if params[:service][:booking_capacity] == ""
       @service.update_attributes!(params[:service])
       redirect_to(@service, :notice => 'Service was successfully updated.') 
     rescue 

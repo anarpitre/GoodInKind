@@ -38,4 +38,7 @@
       %p
         %label Guidelines:
         %span.np_info_text= h(@nonprofit.guideline).gsub("\n", "<br/>")
+      %p
+        %label Permalink:
+        %span.np_info_text= nonprofit_url(@nonprofit.permalink)
   = render :partial => "gik_stats"
