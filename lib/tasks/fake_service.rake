@@ -68,8 +68,8 @@ namespace :admin do
                             :start_date => start_date,
                             :end_date => end_date,
                             :nonprofit_id => nonprofits.rand,
-                            :user_id => user.rand)
-      
+                            :user_id => user.rand,
+                            :status => "active")
       service.categories << service_cat.rand
       service.save!
     end
