@@ -234,7 +234,8 @@ class NonprofitsController < ApplicationController
     @response  = {}
     unless response['payload']['payload'].blank?
       @response = response['payload']['payload']['key_0']
-      @category_id = NONPROFIT_CATEGORY[@response['category_code'][0].to_s]
+      category_code =  @response['category_code'].blank? ? 'Z' : @response['category_code']
+      @category_id = NONPROFIT_CATEGORY[category_code]
     else
       render :status => 204
     end
