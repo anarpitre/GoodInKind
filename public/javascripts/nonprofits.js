@@ -4,12 +4,14 @@ jQuery(document).ready(function($) {
 
    var tJS = serviceRenderInit();
 
-   $('#category_all').click(function(){
+   $('#category_all').click(function(e){
+     e.preventDefault();
      $(this).closest('ul').children().find(':checkbox').attr('checked', true);
      tJS.filter();
    });
 
-   $('#category_none').click(function(){
+   $('#category_none').click(function(e){
+     e.preventDefault();
      $(this).closest('ul').children().find(':checkbox').attr('checked', false);
      tJS.filter();
    });

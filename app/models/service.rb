@@ -93,13 +93,13 @@ class Service < ActiveRecord::Base
     options ||= {}
     options[:except] = [:description, :created_at, :updated_at]
     options[:methods] = [:to_param, :thumbnail]
-    options[:include] = {:nonprofit => {:only => :name, :include => {:nonprofit_categories => {:only => :category_id}}},
+    options[:include] = {:nonprofit => {:only => :name, :include => {:nonprofit_categories => {:only => :category_id}}, :location => {:only => :address}},
       :service_categories => {:only => :category_id}}
     super
   end
 
   def thumbnail
-    self.images.any? ? self.images.first.image.url(:thumb) : "/images/category/cat_image_thumb.jpg"
+    self.images.first ? self.images.first.image.url(:thumb) : "/images/category/cat_image_thumb.jpg"
   end
 
   def generate_permalink

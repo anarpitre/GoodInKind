@@ -4,11 +4,12 @@
     = submit_tag "Go", :class => "button btn_sidebar"
 .sidebar_left_find
   .sidebar_list
-    %h3 Browse by Category (#{@nonprofits.length})
+    %h3 Filter by Category (#{@nonprofits.length})
     %ul{:id => 'category_list'}
       %li.selector
-        %a{:href => '#', :id => 'category_all'} All
-        %a{:href => '#', :id => 'category_none'} None
+        %a{:href => '#', :id => 'category_all'} Select All
+        \/
+        %a{:href => '#', :id => 'category_none'} Unselect All
       - Category.by_nonprofits.each do |category|
         %li
           = check_box_tag category.name, category.id, {}, :id => "category_#{category.id}"
