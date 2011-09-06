@@ -57,12 +57,10 @@ class ServicesController < ApplicationController
       if current_user.blank?               
         session[:service_id] = @service.id 
         #if user is not siggned in than service id is stored in session  
-        redirect_to(new_user_session_path, :notice => 'You need to signin/signup before posting the service') 
+        redirect_to new_user_session_path 
       else 
         @service.activate!
-        Notifier.new_service_admin(nonprofit).deliver
-        Notifier.new_service_offerer(nonprofit).deliver
-        Notifier.new_service_nonprofit(nonprofit).deliver
+        send_new_service_message(@service)
         redirect_to thankyou_services_path 
       end
     rescue 

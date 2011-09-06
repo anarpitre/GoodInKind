@@ -21,7 +21,14 @@ class ApplicationController < ActionController::Base
     service.user_id = user_id
     service.save
     service.activate! 
+    send_new_service_message(service)
     session[:service_id] = nil
+  end
+
+  def send_new_service_message(service)
+    Notifier.new_service_admin(service.id,current_user.profile.first_name,current_user.profile.last_name).deliver
+    Notifier.new_service_offerer(service.id,current_user.email).deliver
+    Notifier.new_service_nonprofit(service.id,current_user.profile.first_name,current_user.profile.last_name,current_user.profile.hide_email,current_user.email,service.nonprofit.email,service.nonprofit.name).deliver
   end
 
   def get_user
