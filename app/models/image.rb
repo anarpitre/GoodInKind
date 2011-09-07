@@ -8,6 +8,7 @@ class Image < ActiveRecord::Base
      }
   )
 
-  validates_attachment_content_type :image, :content_type => ["image/jpeg", "image/png", "image/gif", "image/jpg", "image/bmp", "image/tiff", "image/tif","image/pjp    eg", "image/x-png" ]
+  validates_attachment_content_type :image, 
+           :content_type => ["image/jpeg", "image/png", "image/gif", "image/jpg", "image/bmp", "image/tiff", "image/tif","image/pjpeg", "image/x-png" ]
 
 end
