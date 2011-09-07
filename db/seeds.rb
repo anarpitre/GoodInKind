@@ -1,14 +1,14 @@
 SERVICE = 1
 NON_PROFIT = 2
-user = User.create(:email => "dummy@dummy.com", :password => "dummy123")
+user = User.new(:email => "dummy@goodinkind.com", :password => "dummy123")
+user.build_profile(:first_name => "dummy", :last_name => "123")
 user.save!
 user.confirm!
-profile = Profile.create(:user_id => user.id, :first_name => "dummy", :last_name => "123")
-user = User.create(:email => "admin@goodinkind.com", :password => "admin123")
+user = User.new(:email => "admin@goodinkind.com", :password => "admin123")
+user.build_profile(:first_name => "admin", :last_name => "user")
 user.is_admin = true
 user.save!
 user.confirm!
-profile = Profile.create(:user_id => user.id, :first_name => "admin", :last_name => "user")
 
 
 FIRSTGIVING_CATETORIES = {
@@ -67,4 +67,3 @@ end
 
 # Create seed record for service area for city Ithaca
 ServiceArea.create(:city => "Ithaca", :radius => 150, :latitude => 42.4405556 , :longitude => -76.4969444)
-
