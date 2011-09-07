@@ -24,7 +24,7 @@ Gik::Application.routes.draw do
 
   match 'service/search' => 'services#search'
   match '/auth/:provider/callback' => 'authentications#create'
-  match '/auth/failure' => 'dashboard#index'
+  match '/auth/failure' => 'home#index'
   match '/nonprofits/:id/change_password' => 'nonprofits#change_password'
   match '/messages/new' => 'messages#new', :as => :new_message
   match '/messages' => 'messages#create', :as => :create_message, :via => :post
