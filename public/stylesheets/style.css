@@ -147,6 +147,23 @@ h1, h2, h3, h4, h5, h6, p, ol, ul {
   height:26px !important;
   line-height:26px !important;
 }
+
+
+/*_____ For IE _____*/
+.change_city {
+	background:#e9f5de\9;
+}
+*+html .change_city {
+	width:80px !important;
+}
+#slidingDiv {
+	background:#ecf7e1\9;
+}
+.search_div_input {
+	width:780px !important;
+}
+
+
 /*_____ Slide Text _____*/
 .slide_text_home {
   margin-top:-20px;
@@ -456,7 +473,7 @@ a.login_close {
   margin-left:10px;
 }
 .search_div {
-  width:880px;
+  width:900px;
   height:30px;
   margin:auto;
   padding:20px;
@@ -676,7 +693,7 @@ h2.fs_find_h2 span a:hover {
 }
 .sidebar_search {
   float:left;
-  width:220px;
+  width:225px;
   height:37px;
   border-radius:5px;
   background:#e7e7e7;
@@ -686,7 +703,7 @@ h2.fs_find_h2 span a:hover {
   margin:5px 0px 0px 5px;
 }
 .sidebar_sarch_input {
-  width:134px;
+  width:130px;
   height:15px;
   float:left;
   padding:5px 10px;
@@ -699,7 +716,7 @@ h2.fs_find_h2 span a:hover {
 }
 .sidebar_left_find {
   float:left;
-  width:180px;
+  width:185px;
   background:#e8f6f7;
   border-radius:5px;
   padding:10px 20px 0px 20px;
@@ -1056,10 +1073,10 @@ h2.services_h2 em {
   float:left;
 }
 .logged_pics {
-	width:450px;
+  width:450px;
   height: 300px;
-	float:left;
-	border:1px solid #938b8b;
+  float:left;
+  border:1px solid #938b8b;
   text-align:center;
 }
 .tag_spots_logged {
@@ -1177,7 +1194,7 @@ h2.services_h2 em {
 .add_right {
   margin-left:35px;
   float:left;
-  width:90px;
+  width:180px;
 }
 .add_right_location {
   margin-left:35px;
