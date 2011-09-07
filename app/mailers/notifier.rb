@@ -55,7 +55,7 @@ class Notifier < ActionMailer::Base
   def send_username(nonprofit)
     @nonprofit = nonprofit
     subject = "Your GoodInKind username"
-    setup_email(email,subject)
+    setup_email(nonprofit.email,subject)
   end
 
 
@@ -74,8 +74,8 @@ class Notifier < ActionMailer::Base
   #Send service invitation
   def service_invitation(email,message)
     @message = message
-    subject = "GoodinKind"
-    setup_email(GIK_EMAIL, subject, email)
+    subject = "GoodinKind Service Invitation"
+    setup_email(email, subject, GIK_EMAIL)
   end
 
   private
