@@ -1136,7 +1136,6 @@ h2.services_h2 em {
   width:60px;
   color:#4b4b4b;
   font-size: 14px;
-  margin-top: 5px;
 }
 .price_text {
   float:right;
@@ -1179,6 +1178,11 @@ h2.services_h2 em {
   margin-left:35px;
   float:left;
   width:90px;
+}
+.add_right_location {
+  margin-left:35px;
+  float:left;
+  width:400px;
 }
 .add_middle {
   float: left;

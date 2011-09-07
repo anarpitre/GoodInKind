@@ -2,7 +2,7 @@ class Notifier < ActionMailer::Base
 
 
   def new_message(email)
-    subject = "New message reveived"
+    subject = "New message received"
     setup_email(email, subject)
   end
 

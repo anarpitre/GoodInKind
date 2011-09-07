@@ -2,11 +2,14 @@
 .address_text
   %p
     %span.add_left Location:
-    %span.add_right= @service.location.try(:address)
+    -if @service.is_virtual
+      %span.add_right_location Virtual
+    - else
+      %span.add_right_location= @service.location.try(:address)
   %p
     %span.add_left Dates Available:
     - if @service.is_schedulelater
-      %span.add_right To be scheduled
+      %span.add_right_location To be scheduled
     - else
       %span.add_right= @service.start_date 
       %span.add_middle To 

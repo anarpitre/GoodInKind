@@ -33,7 +33,7 @@
           %script{:src => "http://w.sharethis.com/button/buttons.js"}
       .services_price
         %span.req_text 
-          %b Price 
+          %b Price per unit
         %span.price_text= "$"  + @service.amount.to_i.to_s 
       /= link_to "Take It", new_service_booking_path(@service), :class => 'button take_it'
       = link_to "Take It", "#", :class => 'button take_it', :id => "take_it"

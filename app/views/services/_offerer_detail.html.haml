@@ -5,22 +5,22 @@
     .profile_pic
       = image_tag(@service.user.profile.avatar.url(:thumb))
     %h3.profile_title_h3
-      = @service.user.profile.try(:first_name)
+      = @service.user.profile.try(:first_name)+" "+@service.user.profile.try(:last_name)
       %span= @service.user.location.try(:address)
   .profile_list
     %p
       %span.pl_left Website:
       %span.pl_right
-        = link_to "#{@service.user.profile.try(:website)}", "#"
+        = link_to "#{@service.user.profile.try(:website)}", "#{format_link(@service.user.profile.try(:website))}", :target => "_blank"
     %p
       %span.pl_left Social Network:
       %span.pl_right
         - unless @service.user.profile.facebook.blank?
-          = link_to "", "#{@service.user.profile.facebook}", :target => "_blank", :title => "Facebook", :class => "pl_sn"
+          = link_to "", "#{format_link(@service.user.profile.facebook)}", :target => "_blank", :title => "Facebook", :class => "pl_sn"
         - unless @service.user.profile.twitter.blank?
-          = link_to "", "http://www.twitter.com/#!/#{@service.user.profile.twitter}", :target => "_blank", :title => "Twitter", :class => "pl_sn tw_pl"
+          = link_to "", "#{format_link(@service.user.profile.twitter)}", :target => "_blank", :title => "Twitter", :class => "pl_sn tw_pl"
         - unless @service.user.profile.linkedin.blank?
-          = link_to "", "http://www.linkedin.com/#{@service.user.profile.linkedin}", :target => "_blank", :title => "Linkedin", :class => "pl_sn ln_pl"
+          = link_to "", "#{format_link(@service.user.profile.linkedin)}", :target => "_blank", :title => "Linkedin", :class => "pl_sn ln_pl"
     %p
       %span.pl_left Reviews:
       %span.pl_right= @service.user.profile.total_reviews == 0 ? "---" : (@service.user.profile.positive_reviews * 100 / @service.user.profile.total_reviews).to_i.to_s + " % Positive"
@@ -31,7 +31,7 @@
       %span.pl_left Raised:
       %span.pl_right=  "$ " + @service.user.profile.try(:donated_amount).to_i.to_s
     %p
-      %span.pl_left Description:
+      %span.pl_left About me:
       %span.pl_right
         = truncate(@service.user.profile.try(:about_me), :length => 100)
   %p.pl_view_more

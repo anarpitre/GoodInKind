@@ -11,7 +11,7 @@
     %p
       %span.pl_left Website:
       %span.pl_right
-        = link_to "#{@service.nonprofit.website}", "#"
+        = link_to "#{@service.nonprofit.website}", "#{format_link(@service.nonprofit.website)}", :target => "_blank"
     %p
       %span.pl_left Description:
       %span.pl_right
