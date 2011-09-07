@@ -19,8 +19,8 @@ $(document).ready(function() {
     if (isNaN(seats) || seats == 0) {return;}
     if (isNaN(donation)) { donation = 0; }
 
-    total = (seats * per_seat) + donation;
-    $('#total_donation').html(total);
+    total = (seats * per_seat);
+    $('#total_donation').html(total + donation);
     $('#booking_donation_amount').val(total);
   });
 

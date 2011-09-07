@@ -13,6 +13,7 @@ class BookingsController < ApplicationController
     @booking.seats_booked = 1
     @booking.additional_donation_amount = 0
     @booking.donation_amount = @booking.service.amount.to_i # default 1 seat
+    @booking.total_amount = @booking.service.amount.to_i # default 1 seat
 
     # If the user has some previous bookings, we can re-use the billing info
     prev = current_user.bookings.last
@@ -49,6 +50,12 @@ class BookingsController < ApplicationController
     @booking.billToLastName = @booking.accountName.split.last
     @booking.remoteAddr = request.remote_ip 
 
+    # Transaction fee processing
+    @booking.total_amount = @booking.donation_amount.to_f + 
+                            @booking.additional_donation_amount.to_f + 
+                            @booking.GIK_charges.to_f + 
+                            @booking.CC_charges.to_f
+
     if params[:cc]
       @cc = ActiveMerchant::Billing::CreditCard.new(params[:cc])
       @cc.valid? # populate errors if any
@@ -62,6 +69,8 @@ class BookingsController < ApplicationController
       if current_user.cc_token
         @booking.cc_captured
         @booking.save!
+
+        #TODO: A delayed job for hte actual transction!!
       else
         @cc = ActiveMerchant::Billing::CreditCard.new
         render(:action => :new) and return
@@ -80,19 +89,31 @@ class BookingsController < ApplicationController
           current_user.cc_token.save! #TODO: Exception handling
           @booking.cc_captured
           @booking.save! #TODO: Exception handling
+
+          #TODO: A delayed job for hte actual transction!!
         else
           # TODO: Does this mean that the cardonfile is wrong, so we remove it?
-          @booking.errors.add(:fg, "#{id}"); # id would be verboseErrorMessage on erroe
+          # id would be verboseErrorMessage on erroe
+          @booking.errors.add(:fg, "#{id}");
           render(:action => :new) and return
         end
       else
-        @booking.cc_captured
+        code, id = FirstGiving.donation(@booking, @cc)
+
+        # Update the transaction object.
+        @booking.create_transaction(code, id)
+        if code == 'Success'
+          @booking.payment_succeeded
+        else
+          @booking.payment_failed
+          message = "Sorry! Failed because: #{id}"
+        end
         @booking.save!
-        #TODO: Process payment using standard donation API
       end
     end
 
-    redirect_to service_path(@booking.service), :notice => "Booking successful"
+    redirect_to service_path(@booking.service), 
+                  :notice => (message or "Booking successful")
 
     rescue ActiveRecord::RecordInvalid
       @cc = ActiveMerchant::Billing::CreditCard.new(params[:cc]) unless @cc

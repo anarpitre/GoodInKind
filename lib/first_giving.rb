@@ -40,13 +40,19 @@ class FirstGiving
     [code, id ]
   end
 
-  def self.donation(booking)
+  def self.donation(booking, cc=nil)
     params = prepare_donation_params(booking)
+    if cc
+      # If credit-card is passed, then its a standard donation and
+      # no a cardonfile thing
+      params.delete(:cardOnFileId)
+      params.merge!(prepare_cardonfile_params(cc, booking))
+    end
     res = self.post('/donation/creditcard', :query => params)
 
     code = res['firstGivingDonationApi']['firstGivingResponse']['acknowledgement'] rescue "Unknown"
     if code == 'Success'
-      id = res['firstGivingDonationApi']['firstGivingResponse']['trasactionId']
+      id = res['firstGivingDonationApi']['firstGivingResponse']['transactionId']
     else
       id = res['firstGivingDonationApi']['firstGivingResponse']['verboseErrorMessage']
     end
@@ -57,14 +63,15 @@ class FirstGiving
   protected
   def self.prepare_donation_params(booking)
     params = {}
-    params[:cardOnFileId] = booking.user.cc_token
-    params[:amount] = booking.donation_amount
+    params[:cardOnFileId] = booking.user.cc_token 
+    params[:amount] = booking.total_amount
     params[:currencyCode] = "USD"
     params[:charityId] = booking.service.nonprofit.uuid
     params[:orderId] = booking.mref
     params[:description] = booking.service.title
     params[:remoteAddr] = booking.remoteAddr
     
+    params
   end
 
   def self.prepare_cardonfile_params(credit_card, booking)

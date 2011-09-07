@@ -27,14 +27,14 @@
       %hr.pay_page_hr
       %p{:style => 'width:340px'}
         %span.payment_total You will be charged
-        %span.payment_total_amt#total_donation= @booking.donation_amount.to_i
+        %span.payment_total_amt#total_donation= @booking.total_amount.to_i
         %span.payment_total_amt $
       :javascript
         var per_seat = #{@booking.service.amount.to_i}
     .setp_box{:id => 'cc_fields'}
       %h3.setp_box_heading
         %span Credit Card Details
-      - if @cardonfile and !@cc.errors.any?
+      - if @cardonfile and !@cc.errors.any? and CARD_ON_FILE_SUPPORTED
         %p{:id => 'card_on_file'}
           = f.label "Card on file", :class => 'form_lbl'
           = f.check_box :cardonfile, {:class => 'input_checkbox', :checked => true}, "true", "false"
