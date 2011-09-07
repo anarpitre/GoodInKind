@@ -23,7 +23,7 @@
     $(function(){
       $(".fb_send").click(function(){
         FB.init({
-          appId: '190285970988638',
+          appId: "#{FACEBOOK[:api_key]}",
           filters :'app_non_users',
           status: true,
           cookie: false,
