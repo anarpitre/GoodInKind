@@ -133,12 +133,6 @@
       %p
         = f.fields_for :images do |photo|
           = photo.file_field :image, :class => "input_browse", :type => "file", :label => "Select an Image", :hint => "Great images make a world of difference. Please only upload landscape images. For best results use 400x200"
-      %p
-        = f.fields_for :images do |photo|
-          - unless photo.object.new_record?
-            = link_to( image_tag(photo.object.image.url(:thumb)), photo.object.image.url(:medium) )
-            = photo.check_box :_destroy
-            Remove Photo
     .setp_box
       %h3.setp_box_heading
         %span Step 7:
