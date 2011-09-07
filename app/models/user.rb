@@ -34,11 +34,19 @@ class User < ActiveRecord::Base
     #Create user profile and profile location if provider is facebook
     if omniauth['provider'] == 'facebook'
       user_info = omniauth['user_info']
-      user_hash = omniauth['extra']['user_hash']
-      self.build_profile(:first_name => user_info['first_name'], :last_name => user_info['last_name'], :facebook => user_info['urls']['Facebook'], :gender => user_hash['gender'] )
-      self.profile.build_location(:address => user_hash['location']['name']) unless user_hash['location'].blank?
+      unless omniauth[:extra].blank?
+        user_hash = omniauth['extra']['user_hash'] 
+        if user_hash.blank?
+          gender = user_hash['gender']
+          location = user_hash['location']['name']
+        end
+      end
+      website = user_info['urls']['Facebook'] unless user_info['urls'].blank?
+      self.build_profile(:first_name => user_info['first_name'], :last_name => user_info['last_name'], :facebook => website, :gender => gender )
+      self.profile.build_location(:address => location) unless location.blank?
     end
-    authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'])
+    self.authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'])
+    update_fb_image(omniauth['uid'])
   end
 
   def password_required?
@@ -51,6 +59,24 @@ class User < ActiveRecord::Base
 
   def generate_permalink
     update_attribute(:permalink ,self.to_param)
+  end
+  
+  def update_fb_image(uid)
+    filename = "/tmp/#{uid}.jpg"
+    temp = File.open(filename, 'wb') do |f|
+      f.write(FirstGiving.get("http://graph.facebook.com/#{uid}/picture?type=large", :format => :binary).body)
+    end
+
+    File.open(filename, 'rb') do |f|
+      self.profile.avatar = f
+    end
+
+    self.save!
+
+    File.unlink(filename)
+
+    rescue Exception
+      # Ignore all errors
   end
 
 end
