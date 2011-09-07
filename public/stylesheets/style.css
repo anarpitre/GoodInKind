@@ -1208,7 +1208,7 @@ h2.offer_form_h2 {
   font-weight:700;
   margin-left:-10px;
   margin-bottom:10px;
-  width:800px;
+  width:785px;
   float:left;
 }
 h2.offer_form_h2 span {
@@ -2006,6 +2006,7 @@ h2.my_name span a img {
   font-size:15px;
   color:#636363;
   margin-bottom:15px;
+  margin-right:30px;
 }
 .sm_buttons {
   background-image: url(../images/sm_icons.png);
