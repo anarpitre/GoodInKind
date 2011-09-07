@@ -8,6 +8,7 @@
   .search_div
     = form_for :service, :url => newoffer_services_path, :html => {:method => :post} do
       - str = service_suggest(3).collect(&:title).join(' or ')
+      = hidden_field_tag :suggest, str
       = text_field_tag :title, nil, :value => str,  :class =>'search_div_input', :onblur => "if(this.value=='')this.value='#{str}';",  :onfocus => "if(this.value=='#{str}')this.value='';"
       
       = submit_tag "Offer", :class => "button btn_form"

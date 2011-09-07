@@ -29,14 +29,14 @@ class ServicesController < ApplicationController
   end
 
   def newoffer
-    @service = Service.new(:title => params[:title])
+    @service = Service.new(:title => params[:title] == params[:suggest] ? "" : params[:title])
     build_objects
     render :action => 'new'
   end
 
   def requested_service
     req = Request.find(params[:request_id])
-    @service.attributes = {"title" => req.title, "description" => req.description} 
+    @service.attributes = {"title" => req.title, "description" => req.description, :category_ids => [req.category_id]} 
     @service.location.address = req.location.address if req.location
     @service.request_id = req.id
   end

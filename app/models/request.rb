@@ -5,7 +5,7 @@ class Request < ActiveRecord::Base
   belongs_to :category
   has_one :location, :as => :resource,:dependent => :destroy
 
-  validates :title, :description, :email, :presence => true
+  validates :title, :description, :email, :category_id, :presence => true
   validates :email,  :presence => true, :format => Devise.email_regexp
   
   accepts_nested_attributes_for :location, :reject_if => :all_blank, :allow_destroy => true

@@ -8,6 +8,7 @@
         Describe the request or experience you want 
       = f.text_field :title, :hint => "Give short and sweet Title to your requested service"
       = f.text_area :description, :class => 'input_area', :hint => "Give detail Description of your requested service"
+      = f.select :category_id, Category.by_services.collect{|b| [ b[:name] , b[:id] ]}, {}, :class => "input_select", :label => "Category"
       = f.text_field :email,  :hint => "Your email-id to inform you when this request is offered"
       = f.fields_for :location do |loc|
         = loc.text_field :address, :class => "input_half", :hint => "Preferred location of service"
