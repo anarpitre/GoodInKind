@@ -32,11 +32,11 @@ validates :donation_amount, :numericality => { :greater_than_or_equal_to => Proc
   end
 
   aasm_event :payment_succeeded do
-    transitions :to => :success, :from => :processing
+    transitions :to => :success, :from => [:processing, :new]
   end
 
   aasm_event :payment_failed do
-    transitions :to => :failure, :from => :processing
+    transitions :to => :failure, :from => [:processing, :new]
   end
 
   def do_processing
@@ -54,6 +54,20 @@ validates :donation_amount, :numericality => { :greater_than_or_equal_to => Proc
 
   def cardonfile
     self.user.try(:cc_token)
+  end
+
+  # This is called from 'delayed job' or directly when an
+  # ACTUAL transaction is triggered
+  def create_transaction(code, id)
+    txn = Transaction.new(:booking => self, :total_amount => self.total_amount)
+    if code == 'Success'
+      txn.is_success = true
+      txn.FG_trnx_id = id
+    else
+      txn.is_success = false
+      txn.failed_reason = id
+    end
+    txn.save!
   end
 
   private
