@@ -64,7 +64,7 @@ namespace :admin do
 
       service = Service.new(:title => Faker::Name.name,
                             :description => Faker::Lorem.paragraph,
-                            :amount => rand(600),
+                            :amount => "1000",
                             :start_date => start_date,
                             :end_date => end_date,
                             :nonprofit_id => nonprofits.rand,
