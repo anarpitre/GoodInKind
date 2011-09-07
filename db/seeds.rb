@@ -1,6 +1,6 @@
 SERVICE = 1
 NON_PROFIT = 2
-user = User.create(:email => "dummy@dummy.com", :password => "dummy123")
+user = User.create(:email => "dummy@goodinkind.com", :password => "dummy123")
 user.save!
 user.confirm!
 profile = Profile.create(:user_id => user.id, :first_name => "dummy", :last_name => "123")
