@@ -28,8 +28,7 @@ class Service < ActiveRecord::Base
   scope :by_public, where(:is_public => true)
   scope :by_user, lambda {|user_id| where(:user_id => user_id)}
 
-  after_create :generate_permalink
-  after_save :check_image
+  after_create :generate_permalink, :check_image
 
   after_save { |service|
     change_nonprofit = service.nonprofit_id_change
