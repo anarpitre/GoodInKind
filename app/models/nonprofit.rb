@@ -155,7 +155,7 @@ class Nonprofit < ActiveRecord::Base
   end
   
   def add_index
-    INDEX.document("Nonprofit:id:#{self.id}").add({ :text => "#{self.categories.collect(&:name).to_s} #{self.name} #{self.description}"})
+    INDEX.document("Nonprofit:id:#{self.id}").add({ :text => "#{self.categories.collect(&:name).to_s} #{self.name} #{self.description}"}, :categories => { :type => 'nonprofit'})
   end
 
 

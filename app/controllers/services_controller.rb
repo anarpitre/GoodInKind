@@ -91,18 +91,11 @@ class ServicesController < ApplicationController
   
   def search
     @services = []
+
     unless params[:text].blank?
-      result = INDEX.search(params[:text]) 
-      unless result['matches'] == 0
-        result['matches'].times do |i|
-          arr = result['results'][i]['docid'].split(':')
-          if arr.first == "Service"
-            service = Service.find(arr.last.to_i)
-            @services << service if service.status == 'active' && service.is_public == true
-          end
-        end
-        @services.flatten!
-      end
+      result = INDEX.search(params[:text], :category_filters => {:type => 'service'})
+      ids = result.collect { |elem| elem['docid'].split(':').last.to_i }
+      @services = Service.active.by_public.where(['id in (?)', ids])
     end
     render 'index'
   end
