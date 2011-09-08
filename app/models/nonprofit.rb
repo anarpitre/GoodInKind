@@ -59,10 +59,10 @@ class Nonprofit < ActiveRecord::Base
     change_status = nonprofit.is_verified_change
     if(change_status)
       if(change_status[1] == "Verified")
-       # Notifier.nonprofit_approved(self.email,self.name,self.permalink).deliver
+        Notifier.nonprofit_approved(self.email,self.name,self.permalink).deliver
         self.categories.each {|c| Category.increment_counter(:nonprofit_count, c.id) }
        elsif (change_status[1] == "Rejected")
-        #Notifier.nonprofit_rejected(self.email).deliver
+        Notifier.nonprofit_rejected(self.email).deliver
         self.categories.each {|c| Category.decrement_counter(:nonprofit_count, c.id) }
        end
     end
@@ -145,8 +145,8 @@ class Nonprofit < ActiveRecord::Base
 
   def send_application
     update_attribute(:is_verified, NONPROFIT_STATE[0])
-   # Notifier.nonprofit_application(self.email, self.contact_name, self.name).deliver
-   # Notifier.nonprofit_application_admin(self.name).deliver
+    Notifier.nonprofit_application(self.email, self.contact_name, self.name).deliver
+    Notifier.nonprofit_application_admin(self.name).deliver
   end
   
   def add_index

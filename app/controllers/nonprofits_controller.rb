@@ -169,7 +169,7 @@ class NonprofitsController < ApplicationController
       if nonprofit
         nonprofit.reset_password_token = ActiveSupport::SecureRandom.hex(10)
         nonprofit.save(:validate => false)
-        #Notifier.reset_password_instructions(nonprofit).deliver
+        Notifier.reset_password_instructions(nonprofit).deliver
         flash[:notice] = "Instructions to change your password have been sent to the email address on your profile"
         redirect_to '/'
       else
@@ -215,7 +215,7 @@ class NonprofitsController < ApplicationController
     if request.post?
       nonprofit = Nonprofit.find_by_EIN(params[:nonprofit][:EIN])
       if nonprofit
-        #Notifier.send_username(nonprofit).deliver
+        Notifier.send_username(nonprofit).deliver
         flash[:notice] = "Email was sent successfully"
         redirect_to '/'
       else
