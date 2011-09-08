@@ -1,3 +1,3 @@
-DUMMY_EMAIL = 'dummy@dummy.com'
+DUMMY_EMAIL = 'dummy@goodinkind.com'
 
 GENDER = ['Male', 'Female']
