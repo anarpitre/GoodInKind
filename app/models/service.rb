@@ -46,6 +46,10 @@ class Service < ActiveRecord::Base
     add_index if service.status == 'active'
   }
 
+  before_destroy { |service|
+    INDEX.document("Service:id:#{service.id}").delete
+  }
+
   aasm_column :status
   aasm_initial_state :pending
   aasm_state :pending

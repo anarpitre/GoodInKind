@@ -51,6 +51,10 @@ class Nonprofit < ActiveRecord::Base
       add_index if nonprofit.is_verified == 'Verified'
   }
 
+  before_destroy { |nonprofit|
+    INDEX.document("Nonprofit:id:#{nonprofit.id}").delete
+  }
+
   default_scope order('name')
   scope :verified, where(:is_verified => 'Verified')
 
