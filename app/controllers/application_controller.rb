@@ -20,8 +20,10 @@ class ApplicationController < ActionController::Base
     service = Service.find(service_id)
     service.user_id = user_id
     service.save
-    service.activate! 
-    send_new_service_message(service)
+    unless current_user.blank? 
+      service.activate! 
+      send_new_service_message(service)
+    end
     session[:service_id] = nil
   end
 
