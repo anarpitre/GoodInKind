@@ -73,9 +73,9 @@ class Service < ActiveRecord::Base
       end_date = self.end_date
       start_time = self.start_time
       end_time = self.end_time
-      unless (start_date.blank? && end_date.blank? )
+      unless (start_date.blank? || end_date.blank? )
         errors.add(:start_date,"Start date cannot be greater than End date") unless (start_date <= end_date)
-        unless start_time.blank? && end_time.blank? 
+        unless start_time.blank? || end_time.blank? 
           errors.add(:start_time," Start time cannot be greater than or equal to End time") if ((start_time >= end_time) && (start_date == end_date))
         end
       end
@@ -83,7 +83,7 @@ class Service < ActiveRecord::Base
   end
 
   def check_duration
-    errors.add(:estimated_duration,"Duration must be in 0.5 hr increments") unless ((self.estimated_duration*10) % 5 == 0)
+    errors.add(:estimated_duration,"Duration must be in 0.5 hr increments") if (self.estimated_duration.blank? && ((self.estimated_duration.to_i*10) % 5 != 0) )
   end
 
   def check_nonprofit
