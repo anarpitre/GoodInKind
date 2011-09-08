@@ -3,5 +3,8 @@ staging: &default
   :token: '43c9127c-bee1-11e0-8582-12313b003616'
   :url: http://www.joshsoftware.com
 
+production:
+  <<: *default
+
 development:
   <<: *default
