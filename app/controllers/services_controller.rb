@@ -93,9 +93,9 @@ class ServicesController < ApplicationController
     @services = []
 
     unless params[:text].blank?
-      result = INDEX.search(params[:text], :category_filters => {:type => 'service'})
+      result = INDEX.search(params[:text], :category_filters => {:type => 'service'})['results']
       ids = result.collect { |elem| elem['docid'].split(':').last.to_i }
-      @services = Service.active.by_public.where(['id in (?)', ids])
+      @services = Service.active.by_public.where(['id in (?)', ids]) unless ids.empty?
     end
     render 'index'
   end
