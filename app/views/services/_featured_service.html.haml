@@ -18,8 +18,9 @@
                   .tag_day Last Day
                 - else
                   .tag_day #{pluralize(days, 'Day')} Left
-            .fs_box_pic
-              = image_tag !service.images.first.blank? ? "#{service.images.first.image.url(:thumb)}" : "/images/pics-1.jpg"
+            - image = !service.images.first.blank? ? "#{service.images.first.image.url(:thumb)}" : "/images/missing/service.png"
+            .fs_box_pic{:style=>"background:url(#{image}) no-repeat center center;"}
+              /= image_tag !service.images.first.blank? ? "#{service.images.first.image.url(:thumb)}" : "/images/pics-1.jpg"
             .fs_left
               %span.fs_head= truncate(service.title, :length => 30)
               %span.fs_for for

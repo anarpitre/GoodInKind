@@ -42,3 +42,4 @@ end
 unless Rails.env == "production"
   Paperclip.options[:command_path] = "/usr/local/bin"
 end
+INDEXTANK_API_URL = 'http://:5XxQ4mHBV7BV8w@iej.api.indextank.com'

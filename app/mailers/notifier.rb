@@ -1,6 +1,13 @@
 class Notifier < ActionMailer::Base
 
 
+  def new_service_request(id,title,email)
+    @service_id = id
+    @request_title = title
+    subject = "New service offered as per your request"
+    setup_email(email, subject)
+  end
+
   def new_message(email)
     subject = "New message received"
     setup_email(email, subject)

@@ -61,11 +61,13 @@ function serviceRenderInit(){
   var view = function(service){
     var spot_content = spots(service);
     var day_content = day_left(service);
-    var service_title = service.title.length < 27 ? service.title : service.title.substring(0,27) +'...';
+    var service_title = service.title.length < 24 ? service.title : service.title.substring(0,21) +'...';
     var nonprofit_name = service.nonprofit.name.length < 27 ? service.nonprofit.name : service.nonprofit.name.substring(0,27) +'...';
-    
+  
+
     clear     = this.div({'class': 'clear'});
-    s_image   = this.div({'class': 'fs_box_pic'}, this.image(service.thumbnail));
+    //s_image   = this.div({'class': 'fs_box_pic'}, this.image(service.thumbnail));
+    s_image   = this.div({'class': 'fs_box_pic', 'style':'background:url(' + service.thumbnail + ') no-repeat center center'}); 
     tag_spots = spot_content ? this.div({'class': 'tag_spots'}, spot_content) : null;
     tag_day   = day_content ? this.div({'class': 'tag_day'}, day_content) : null;
     fs_price  = this.div({'class': 'fs_price'}, '$' + service.amount );
@@ -88,7 +90,7 @@ function serviceRenderInit(){
 
   var tJS = new tagJS(services, "#service_list", view, settings);
 
-  obj_map = tJS.settings.object_map
+  obj_map = tJS.settings.object_map;
   for (name in obj_map) {
       if (name != 'price') {
         $('#' + name + '_list li:gt(0)').hide();
@@ -106,6 +108,8 @@ function serviceRenderInit(){
         if ($('#' + name + '_list li').length > 6) $('#' + name + '_more').show();
       }
   }
+  testJS = tJS;
   return tJS;
 }
 
+var testJS;
