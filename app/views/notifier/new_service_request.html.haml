@@ -1,0 +1,11 @@
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %body
+    %p
+      A new service was just posted on GoodInKind based on your request #{@request_title}. 
+      = link_to "Click", service_url(@service_id) 
+      here to view it.
+    %p
+    \--
+    %b Your friends at GoodInKind

@@ -63,9 +63,11 @@ function serviceRenderInit(){
     var day_content = day_left(service);
     var service_title = service.title.length < 27 ? service.title : service.title.substring(0,27) +'...';
     var nonprofit_name = service.nonprofit.name.length < 27 ? service.nonprofit.name : service.nonprofit.name.substring(0,27) +'...';
-    
+  
+
     clear     = this.div({'class': 'clear'});
-    s_image   = this.div({'class': 'fs_box_pic'}, this.image(service.thumbnail));
+    //s_image   = this.div({'class': 'fs_box_pic'}, this.image(service.thumbnail));
+    s_image   = this.div({'class': 'fs_box_pic', 'style':'background:url(' + service.thumbnail + ') no-repeat center center'}); 
     tag_spots = spot_content ? this.div({'class': 'tag_spots'}, spot_content) : null;
     tag_day   = day_content ? this.div({'class': 'tag_day'}, day_content) : null;
     fs_price  = this.div({'class': 'fs_price'}, '$' + service.amount );

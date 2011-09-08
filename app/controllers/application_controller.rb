@@ -29,6 +29,10 @@ class ApplicationController < ActionController::Base
     Notifier.new_service_admin(service.id,current_user.profile.first_name,current_user.profile.last_name).deliver
     Notifier.new_service_offerer(service.id,current_user.email).deliver
     Notifier.new_service_nonprofit(service.id,current_user.profile.first_name,current_user.profile.last_name,current_user.profile.hide_email,current_user.email,service.nonprofit.email,service.nonprofit.name).deliver
+    unless service.request_id.blank?
+      request = Request.find(service.request_id)
+      Notifier.new_service_request(service.id,request.title,request.email).deliver
+    end
   end
 
   def get_user

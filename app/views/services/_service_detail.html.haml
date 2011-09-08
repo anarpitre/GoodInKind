@@ -6,8 +6,9 @@
 .logged_left
   .logged_top
     .logged_gallery
-      .logged_pics
-        = image_tag @service.images.first.image.url(:medium)
+      - image = !@service.images.first.blank? ? "#{@service.images.first.image.url(:medium)}" : "/images/missing/service.png" 
+      .logged_pics{:style=>"background:url(#{image}) no-repeat center center;"}
+        /= image_tag @service.images.first.image.url(:medium)
       - if @service.images.count > 1
         .logged_pics_bottom
           %ul
@@ -43,6 +44,6 @@
             });
   .services_content
     = render :partial => "service_description"
-    = render :partial => "service_review"
+    /= render :partial => "service_review"
     .clear
 / #End Logged Left

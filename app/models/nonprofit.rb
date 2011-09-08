@@ -15,7 +15,8 @@ class Nonprofit < ActiveRecord::Base
   validates_length_of :guideline, :maximum => 400 
   validates :username, :presence => true, :uniqueness => true
   validates :EIN, :presence => true, :uniqueness => true
-  validates :password, :password_confirmation, :presence => true, :on => :create
+  validates :password, :password_confirmation, :presence => true, :on => :createi
+  validates_length_of :password, :minimum => 6
   validates :contact_name, :name, :position, :presence => true
   validates :uuid, :presence => true, :if => Proc.new {|nonprofit| nonprofit.is_verified? }
   #validates_attachment_presence :photo
