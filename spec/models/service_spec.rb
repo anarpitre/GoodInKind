@@ -13,6 +13,10 @@ describe Service do
       @services.should be_valid
     end
 
+    it "start time is greater than end time if start date is greater then end date" do
+      @services.start_time = "2:00pm"
+      @services.end_time = "1:30am"
+    end
 
     it "schedule later is true and date and time is not entered" do
       @services.is_schedulelater = true
@@ -41,7 +45,7 @@ describe Service do
     it "online service is not checked and address is entered" do
       @services.is_virtual = false
       ser_loc = @services.build_location
-      ser_loc.address = "baner"
+      ser_loc.address = "Ithaca"
       ser_loc.save
       loc = Location.last
       loc.should_not == nil
@@ -129,12 +133,10 @@ describe Service do
       @services.end_time = ""
     end
 
-    it "start time is greater than end time" do
-      @services.start_time = "2:00pm"
-      @services.end_time = "1:30am"
-    end
     
-    it "start time is equal to end time" do
+    it "start time is equal to end time if date is current date" do
+      @services.start_date = Date.today
+      @services.end_date = Date.today
       @services.start_time = "2:00pm"
       @services.end_time = "2:00am"
     end
@@ -147,6 +149,8 @@ describe Service do
       @services.amount = "aabbcc"
     end
 
+  end
+  context "Service should not be created" do
     it "if nonprofit_id is not selected" do
       ser = Factory.build(:service)
       ser.nonprofit_id = ""
