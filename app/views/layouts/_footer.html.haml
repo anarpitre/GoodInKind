@@ -22,21 +22,21 @@
     })();
   
 .footer
-  .footer_video
-    = image_tag('video-pic.jpg', :alt => 'video')
+  /.footer_video
+  /= image_tag('video-pic.jpg', :alt => 'video')
   %ul.footer_nav
     %li
-      = link_to "About", "#"
+      = link_to("About", about_us_path)
     %li
       = link_to "Blog", "#"
     %li
-      = link_to "FAQ", "#"
+      = link_to "FAQ", faq_path
     %li
-      = link_to "Contact", "#"
+      = link_to "Contact", contact_us_path
     %li
-      = link_to "Terms", "#"
+      = link_to "Terms", user_terms_of_use_path
     %li
-      = link_to "Privacy Policy", "#"
+      = link_to "Privacy Policy", privacy_policy_path
     %li
       = link_to "Jobs", "#"
   .footer_divider
@@ -46,6 +46,6 @@
     %li
       = link_to "", "http://www.twitter.com/goodinkind", :target => "_blank", :title => "Twitter", :class => "fot_tw"
     %li
-      = link_to "", "#", :target => "_blank", :title => "Youtube", :class => "fot_yt"
+      = link_to "", "http://www.youtube.com/goodinkind", :target => "_blank", :title => "Youtube", :class => "fot_yt"
   .footer_divider
   %span.copyr &copy;2011, GoodInKind, All Rights Reserved

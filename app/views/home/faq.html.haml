@@ -1,0 +1,98 @@
+
+:javascript
+  $(document).ready(function(){
+          $(".faq_ans").hide();
+          $(".faq_qua").click(function(){
+              $(this).toggleClass("").next().slideToggle("fast");
+              return false;
+              });
+          });
+
+.static_group
+  .sg_left
+    = render :partial => "static_tabs"
+  
+  .sg_text_container
+    .sg_content
+      %h3 Frequently Asked Questions
+      .post_faq
+        %a.faq_qua{:href => "#"} 1. What does GoodInKind do?
+        .faq_ans{:style => "float:left;"}
+          %p
+            %strong GoodInKind.com is a web platformfor anyone with any kind of skill, talentor hobby to turn that skill, talentor hobby into a cash donation to his or her favorite charity or cause.
+          %p
+            %strong
+              GoodInKind.com is also a great place to find people with the skills or services you might need, in a way that supports worthy causes.
+          %p
+            Many of us wish we had the means  to give more money to our favorite causes.   We know it takes resources for charities and nonprofits to perform the  good work that they do, but not everyone has the capacity to write the big  checks needed to provide the necessary. However,
+            = succeed "," do
+              %strong everybody does something well
+            or has the ability to provide some service that others will want.
+          %ul
+            %li Are you good at magic tricks, choosing the right  wine for a party, tutoring people in Chinese, organizing messy closets?
+            %li Do you have a professional skill like carpentry,  hair styling, graphic design, house painting, etc.?
+            %li Do you have something that others might enjoy,  like a party boat or a beach house?
+            %li
+              Are you a small business that might be able to  offer goods or services?  A free meal at  your restaurant?  Computer repair?  Travel services?
+          %p
+            In the past, those who wished to  support their favorite non-profitwith such a skillor service, or &ldquo;
+            %strong> in-kindness
+            \&rdquo;as we call it, would either  make an in-kind donation to the non-proft, or perhaps auction something off at  some annual fundraising event put on by the organizationitself.
+          %p
+            Unfortunately,  in-kind donations to charities and nonprofits are not nearly as valuable to the  organization as
+            = succeed ".\u{a0}" do
+              %strong cash that can be used to  support its operations
+            And while  big fundraising events can raise money for the organization, they are generally  very expensive to stage, with expenses often eclipsing donations.
+          %p
+            %strong
+              GoodInKind provides a platform for those goods and services, those &ldquo;in-kindnesses,&rdquo;  to be turned into cash for the non-profitor cause,
+              = succeed "." do
+                %u year round
+          %p
+      .post_faq
+        %a.faq_qua{:href => "#"} 2. How does GoodInKind work?
+        .faq_ans{:style => "float:left;"}
+          %p
+            Let's say youfeel strongly about  the good work done by your local homeless shelter.  Maybe you have written them a check in the  past, but you would like to help more.   GoodInKind would like you to thinkabout your
+            = succeed "," do
+              %strong hidden talents
+            those things you're really good at but perhaps never  thought had any real value.
+            %strong> GoodInKind provides  a platform for you to turn those skills and talents into cash for that homeless  shelter
+            \.
+          %p
+            So you think &ldquo;Aha!  I know how to juggle!&rdquo; That can be your
+            = succeed "," do
+              %strong in-kindness
+            the service you offer.
+          %p
+            Simply go to  GoodInKind.com and post an offer to teach jugglingto someoneat whatever fair  price you set, with the explicit understanding that
+            = succeed "." do
+              %strong
+                the funds paid by the buyer will be
+                %span{:style => "color:#28166f"}
+                  %strong donated
+                directly to the local homeless shelter you  designated
+          %p
+            Alternatively, maybe you are  carpenter with a little spare time. Go to GoodInKind.com and post an offer to  build bookshelves in someone&rsquo;s apartment to raise money for your designated non-profit.
+            %strong Whatever your profession, skill,  ability, talent or hobby, GoodInKind provides you with a way to turn that  &ldquo;in-kindness&rdquo; into cash for your favoritenon-profitor cause.
+          %p
+            Once a buyer contacts  you, the two of you can directly work out the whats, whens and wheres for you  to teach the buyer how to juggle, or for you to build the bookshelves.  You perform the service and ask for the
+            = succeed "," do
+              %span{:style => "color:#28166f"}
+                %strong donation
+            GoodInKind makes  sure that the buyer's
+            %span{:style => "color:#28166f"}
+              %strong donation
+            goes to the homeless shelterthat you designated, and everyone receives  acknowledgements for the good work done.
+          %p
+            The GoodInKind platform also  allows the buyer the opportunity to pay an amount
+            %u greater
+            than the price  you charged for the juggling lesson or the bookshelves, since any amount in  excess of the market rate charged for the service can be treated as a  tax-deductible donation to that homeless shelter you selected.
+          %p
+            Your in-kind skill, your good  intent,
+            = succeed "," do
+              %strong yourin-kindness
+            has thus  been monetized into much needed cash for your favorite non-profitor cause.  And you have also met someone interesting,  maybe made a friend who shares your hobby or a future client, out of the  interaction with the buyer!
+          %p The payment transactions will be  handled securely by GoodInKind, which will ensure that all participating  recipient organizations are valid, registered 501(c)(3) organizations.
+          %p
+.clear

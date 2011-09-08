@@ -15,7 +15,7 @@
       - unless user_signed_in?
         %li#sign_up= link_to "Sign Up", new_user_registration_path
         %li#login= link_to "Login", "#"
-      %li= link_to "How it works", "#"
+      %li= link_to "How it works", how_it_works_path
       %li.nav_non= link_to "Non-Profits", nonprofits_path
     .change_city{:class => "#{'inner_city' if root_path != request.fullpath}"}
       %span.city_name Ithaca, NY

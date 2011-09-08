@@ -14,7 +14,7 @@ class Nonprofit < ActiveRecord::Base
   validates :description, :length => {:in => 1..1500}, :on => :update 
   validates_length_of :guideline, :maximum => 400 
   validates :username, :presence => true, :uniqueness => true
-  validates :EIN, :presence => true, :uniqueness => true
+  validates :EIN, :presence => true, :uniqueness => {:message => "EIN number is already being used by another org. Please recheck or contacts us for help."}
   validates :password, :password_confirmation, :presence => true, :on => :create
   validates :contact_name, :name, :position, :presence => true
   validates :uuid, :presence => true, :if => Proc.new {|nonprofit| nonprofit.is_verified? }

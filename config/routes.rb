@@ -15,6 +15,21 @@ Gik::Application.routes.draw do
   end
 
   match 'offer_virtual' => 'home#offer_virtual', :as => :offer_virtual, :method => :post
+  get "about_us" => 'home#about_us'
+  get "faq" => "home#faq"
+  get "privacy_policy" => "home#privacy_policy"
+  get "contact_us" => "home#contact_us"
+  get "how_it_works" => "home#how_it_works"
+  get "np_terms_of_use" => "home#np_terms_of_use"
+  get "user_terms_of_use" => "home#user_terms_of_use"
+
+  ##### START- SPECIAL PRODUCTION ROUTING CHECK
+  if Rails.env == 'production'
+    root :to => "nonprofits#new"
+    resources :nonprofits, :only => [:new, :create]
+  else
+  ##### ALL THESE ARE OPEN FOR envs other than production
+
   match 'service/search' => 'services#search'
   match '/auth/:provider/callback' => 'authentications#create'
   match '/auth/failure' => 'home#index'

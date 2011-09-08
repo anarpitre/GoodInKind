@@ -2973,6 +2973,137 @@ div.pagination strong {
   z-index: 2;
 }
 
+/*_____ Static Group _____*/
+.static_group{
+    float: left;
+    width: 100%;
+	background:#F0F0F0;
+	margin:-20px 0 -30px -30px;
+}
+.sg_left{
+	width:240px;
+	float:left;
+	z-index:10;
+	position:relative;
+}
+.sg_left_links{
+	width:100%;
+	float:left;
+	margin-left:-8px;
+	padding-top:25px;
+	border-bottom-left-radius: 5px;
+}
+.sg_left_links li{
+	list-style:none;
+	float:left;
+	width:260px;
+	height:30px;
+	font-family:"Times New Roman", Times, serif;
+	font-size:18px;
+	font-weight:bold;
+	margin-bottom:2px;
+}
+.sg_left_links li a{
+	float:left;
+	width:224px;
+	height:30px;
+	color:#888;
+	padding-left:36px;
+	text-decoration:none;
+}
+.sg_left_links li a:hover {
+	color:#000;
+}
+.sg_left_active{
+	background:url(../images/sg_li_active.png);
+}
+.sg_left_active a{
+	color:#FFF !important;
+}
+.sg_text_container {
+    float: left;
+    width: 620px;
+	padding:13px 0 100px 60px;
+	background:#FFF;
+	z-index:0;
+	position:relative;
+}
+.sg_content{
+	min-height:400px;
+}
+.sg_content h3{
+	width:100%;
+	float:left;
+	font-size:20px;
+	margin-top:12px;
+	font-family:"Times New Roman", Times, serif;
+}
+.sg_content h4{
+	width:100%;
+	float:left;
+	font-size:13px;
+	margin-top:12px;
+	font-family:Arial, Helvetica, sans-serif;
+}
+.sg_content p{
+	width:100%;
+	float:left;
+	margin-top:15px;
+	line-height:1.5;
+}
+.about_name{
+	width:100%;
+	float:left;
+	font-size:16px;
+	margin-bottom:5px;
+	font-weight:bold;
+	font-family:"Times New Roman", Times, serif;
+}
+.sg_content p img{
+	float:left;
+	margin-top:4px;
+	padding:0px 10px 5px 0px;
+}
+.sg_content a,.sg_content p a,.sg_content ol li a,.sg_content ul li a{
+	color:#004A80;
+	font-weight:bold;
+	text-decoration:none;
+}
+.sg_content li{
+	line-height:1.5;
+}
+.sg_content ol{
+	float:left;
+	margin:5px 0px 10px 0px;
+}
+.sg_content ol li{
+	float:left;
+	width:100%;
+	margin:5px 0px;
+}
+.sg_content ol li ol,.sg_content ol li ul{
+	float:left;
+	margin-left:50px;
+}
+.post_date{
+	width:100%;
+	float:left;
+	color:#999;
+	font-size:11px;
+}
+.post_faq{
+	float:left;
+	width:100%;
+	margin-top:10px;
+}
+.faq_ans ul{
+	margin-left:20px;
+}
+.faq_ans ul li{
+	list-style:circle;
+}
+
+
 
 /*_____ Footer _____*/
 
