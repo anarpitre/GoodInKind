@@ -8,11 +8,25 @@ describe ServicesController do
   end
   context "User should be able to" do
     it "create a service with single category" do
+
+
+
+
+
+#      {"commit"=>"Offer it!", "service"=>{"is_schedulelater"=>"true", "start_date"=>"", "end_time"=>"", "images_attributes"=>{"0"=>{"image"=>#<ActionDispatch::Http::UploadedFile:0xb4b4a370 @original_filename="taj.jpg", @tempfile=#<File:/tmp/RackMultipart20110904-14399-o42tps-0>, @headers="Content-Disposition: form-data; name=\"service[images_attributes][0][image]\"; filename=\"taj.jpg\"\r\nContent-Type: image/jpeg\r\n", @content_type="image/jpeg">}}, "title"=>"test ser 123", "is_virtual"=>"true", "booking_capacity"=>"20", "request_id"=>"", "nonprofit_name"=>"non11", "estimated_duration"=>"0.0", "amount"=>"234", "category_ids"=>["104"], "description"=>"adls\r\nf;sd\r\n;sd\r\n]f;\r\n]s;fs", "is_public"=>"true", "nonprofit_id"=>"327", "end_date"=>"", "start_time"=>""}, "authenticity_token"=>"Zc2vXM7/hMOCH2v2Q60AP8E4W5FAASmRkJmyTRAM3Ss=", "utf8"=>"\342\234\223"}
+
+
+
+
+
+
       cat = Category.all.map(&:id)
       non_p = Factory(:nonprofit)
-      post :create, :nonprofit_name => non_p.name,
-                    :service => {:is_schedulelater => true, :title => "service-create", :is_virtual => true, :booking_capacity => 25, :estimated_duration => 45, :amount => 200, :description => "testing of creation of service", :is_public => true, :category_ids => ["#{cat[0]}"],:nonprofit_id => non_p.id}
+      non_p.is_verified = "Verified"
+      non_p.save
+      post :create, :service => {:is_schedulelater => true, :title => "service-create", :is_virtual => true, :booking_capacity => 25, :estimated_duration => 45, :amount => 200, :description => "testing of creation of service", :nonprofit_name => non_p.name, :is_public => true, :category_ids => ["#{cat[0]}"],:nonprofit_id => non_p.id}
       ser = Service.find_by_title("service-create")
+      p ser
       ser.should_not == nil
     end
     

@@ -57,20 +57,20 @@ namespace :admin do
   #  user.save
     user = User.all.collect(&:id)
     nonprofits = Nonprofit.all.collect(&:id)
-    100.times do
+    1000.times do
 
       start_date = Date.today - rand(30)
       end_date = start_date + rand(15)
 
       service = Service.new(:title => Faker::Name.name,
                             :description => Faker::Lorem.paragraph,
-                            :amount => rand(600),
+                            :amount => "1000",
                             :start_date => start_date,
                             :end_date => end_date,
                             :nonprofit_id => nonprofits.rand,
                             :user_id => user.rand,
-                            :status => "active",
                             :is_public => true)
+      service.activate!
       service.categories << service_cat.rand
       service.save!
     end
@@ -80,7 +80,7 @@ namespace :admin do
   desc "create Fake Nonprofits"
   task :fake_nonprofits => :environment do
     nonprofit_cat = Category.where(:category_type => 2)
-    100.times do
+    1000.times do
       nonprofit = Nonprofit.new(:name => Faker::Name.name, 
                                 :EIN => rand(9999999),
                                 :position => Faker::Name.name,

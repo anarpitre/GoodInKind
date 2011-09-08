@@ -65,6 +65,7 @@ class ServicesController < ApplicationController
         redirect_to thankyou_services_path 
       end
     rescue 
+      @service.errors.delete(:"images.image")
       build_objects
       render :action => "new" 
     end

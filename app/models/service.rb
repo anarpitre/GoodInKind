@@ -19,7 +19,7 @@ class Service < ActiveRecord::Base
   validates :title, :description, :user_id, :presence => true
   validates_inclusion_of :is_public, :in => [true, false]
   validates_numericality_of :amount, :presence => true, :message => :service_amount
-  validates_inclusion_of :amount, :in => 5..9999, :message => :service_amount_range
+  validates :amount, :inclusion => {:in => 5..9999, :message => :service_amount_range, :allow_nil => true}
   validates :start_date, :end_date, :start_time, :end_time, :presence =>{:message => :not_valid, :if => Proc.new {|t| t.is_schedulelater == false}}
   validates_numericality_of :booking_capacity, :only_integer => true, :message => :booking_capacity
   validates_numericality_of :estimated_duration, :message => "Please enter a valid number"  
@@ -44,6 +44,10 @@ class Service < ActiveRecord::Base
     end
 
     add_index if service.status == 'active'
+  }
+
+  before_destroy { |service|
+    INDEX.document("Service:id:#{service.id}").delete
   }
 
   aasm_column :status
@@ -73,9 +77,9 @@ class Service < ActiveRecord::Base
       end_date = self.end_date
       start_time = self.start_time
       end_time = self.end_time
-      unless (start_date.blank? && end_date.blank? )
+      unless (start_date.blank? || end_date.blank? )
         errors.add(:start_date,"Start date cannot be greater than End date") unless (start_date <= end_date)
-        unless start_time.blank? && end_time.blank? 
+        unless start_time.blank? || end_time.blank? 
           errors.add(:start_time," Start time cannot be greater than or equal to End time") if ((start_time >= end_time) && (start_date == end_date))
         end
       end
@@ -83,7 +87,7 @@ class Service < ActiveRecord::Base
   end
 
   def check_duration
-    errors.add(:estimated_duration,"Duration must be in 0.5 hr increments") unless ((self.estimated_duration*10) % 5 == 0)
+    errors.add(:estimated_duration,"Duration must be in 0.5 hr increments") if (self.estimated_duration.blank? && ((self.estimated_duration.to_i*10) % 5 != 0) )
   end
 
   def check_nonprofit

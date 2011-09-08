@@ -4,11 +4,11 @@ Factory.define :nonprofit do |c|
   c.name {Faker::Name.name}
   c.contact_name {Faker::Name.name}
   c.position "Manager"
-  c.email {Faker::Internet.free_email}
+  c.sequence(:email) {|n| "amit#{n}@gg.com"}
   c.sequence(:username) {|a| "a123#{a}"}
   c.password "josh123"
   c.password_confirmation "josh123"
-  c.EIN  "12-1234567"
+  c.sequence(:EIN) {|n| "12-123421#{n}"}
   c.website "www.test.com"
   c.is_active true
   c.guideline {Faker::Lorem.paragraph}

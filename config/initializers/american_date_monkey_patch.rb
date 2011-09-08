@@ -18,7 +18,7 @@ if RUBY_VERSION >= '1.9.2'
       elsif self =~ /(\d{1,2})\/(\d{1,2})\/(\d{4})/
         ::Date.civil($3.to_i, $1.to_i, $2.to_i) rescue nil
       else
-        ::Date.new(*::Date._parse(self, false).values_at(:year, :mon, :mday))
+        ::Date.new(*::Date._parse(self, false).values_at(:year, :mon, :mday)) rescue nil
       end
     end
   end
