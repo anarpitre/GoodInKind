@@ -148,15 +148,9 @@ class NonprofitsController < ApplicationController
   def search
     @nonprofits = []
     unless params[:text].blank?
-      result = INDEX.search(params[:text]) 
-      unless result['matches'] == 0
-        ids = result['results'].collect do |result|
-          arr = result['docid'].split(':')
-          arr.last if arr.first == 'Nonprofit'
-        end
-        
-        @nonprofits = Nonprofit.verified.where(['id in (?)', ids.compact]).includes(:categories).includes(:location, :categories)
-      end
+      result = INDEX.search(params[:text], :category_filters => {:type => 'nonprofit'})['results']
+      ids = result.collect { |elem| elem['docid'].split(':').last.to_i }
+      @nonprofits = Nonprofit.verified.where(['id in (?)', ids]) unless ids.empty?
     end
     render :action => 'index',:locals => { :search => true }
   end
