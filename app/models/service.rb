@@ -19,7 +19,7 @@ class Service < ActiveRecord::Base
   validates :title, :description, :user_id, :presence => true
   validates_inclusion_of :is_public, :in => [true, false]
   validates_numericality_of :amount, :presence => true, :message => :service_amount
-  validates_inclusion_of :amount, :in => 5..9999, :message => :service_amount_range
+  validates :amount, :inclusion => {:in => 5..9999, :message => :service_amount_range, :allow_nil => true}
   validates :start_date, :end_date, :start_time, :end_time, :presence =>{:message => :not_valid, :if => Proc.new {|t| t.is_schedulelater == false}}
   validates_numericality_of :booking_capacity, :only_integer => true, :message => :booking_capacity
   validates_numericality_of :estimated_duration, :message => "Please enter a valid number"  
