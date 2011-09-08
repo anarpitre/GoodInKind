@@ -23,13 +23,6 @@ Gik::Application.routes.draw do
   get "np_terms_of_use" => "home#np_terms_of_use"
   get "user_terms_of_use" => "home#user_terms_of_use"
 
-  ##### START- SPECIAL PRODUCTION ROUTING CHECK
-  if Rails.env == 'production'
-    root :to => "nonprofits#new"
-    resources :nonprofits, :only => [:new, :create]
-  else
-  ##### ALL THESE ARE OPEN FOR envs other than production
-
   match 'service/search' => 'services#search'
   match '/auth/:provider/callback' => 'authentications#create'
   match '/auth/failure' => 'home#index'
