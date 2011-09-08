@@ -12,7 +12,6 @@ en:
         service_amount: 'Enter your price here. Min $5' 
         booking_capacity: 'Please use a positive whole number such as 5'
 
-        taken: "E-mail address has already been used"
         title_service_blank: "Title of offer is complusary"
         description_service_blank: "Description of offer is complusary" 
         service_amount_blank: "Amount can not be blank"
