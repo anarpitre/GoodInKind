@@ -6,12 +6,12 @@
       = image_tag(@service.user.profile.avatar.url(:thumb))
     %h3.profile_title_h3
       = @service.user.profile.try(:first_name)+" "+@service.user.profile.try(:last_name)
-      %span= @service.user.location.try(:address)
+      %span= truncate(@service.user.profile.location.try(:address), :length => 40)
   .profile_list
     %p
       %span.pl_left Website:
       %span.pl_right
-        = link_to "#{@service.user.profile.try(:website)}", "#{format_link(@service.user.profile.try(:website))}", :target => "_blank"
+        = link_to "#{truncate(@service.user.profile.try(:website), :length => 25)}", "#{format_link(@service.user.profile.try(:website))}", :target => "_blank"
     %p
       %span.pl_left Social Network:
       %span.pl_right
