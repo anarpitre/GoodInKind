@@ -2,8 +2,8 @@ require 'faker'
 
 Factory.define :user do |u|
 #  trainer.sequence(:first_name) {|n| "firstname1#{n}"}
-
-  u.sequence(:email) {Faker::Internet.free_email}
+  u.sequence(:email) {|n| "user#{n}@user.com"}
+  #u.sequence(:email) {Faker::Internet.free_email}
   u.password 'josh123'
   u.is_admin false
   u.confirmed_at Time.now
