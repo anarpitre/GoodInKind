@@ -26,7 +26,7 @@
         FB.ui({
           method: 'apprequests',
           title :'GoodInKind',
-          message:"Check out this service that I am offering on GoodInKind.com that benefits #{@service.nonprofit.name}. I hope that you will be able to join me and enjoy this service while supporting a worthy cause. Look forward to hearing from you."});
+          message:  "I am offering this service on GoodInKind benefiting #{@service.nonprofit.name}. Hope you can join me! #{services_url(@service.permalink)}"});
         });
       
       $("#fb_share").click(function(){
