@@ -36,8 +36,6 @@ class Nonprofit < ActiveRecord::Base
     :thumb => "172x62>",
     :medium => "200x61>"
     },
-
-    :convert_options => { :all => '-strip -colorspace RGB'},
     :default_url => "/images/missing/nonprofit_:style.jpg"
   )
 
