@@ -22,6 +22,27 @@
   :javascript
     $(function(){
       $(".fb_send").click(function(){
+        fb_intialize();
+        FB.ui({
+          method: 'apprequests',
+          title :'GoodInKind',
+          message:  "I am offering this service on GoodInKind benefiting #{@service.nonprofit.name}. Hope you can join me! #{services_url(@service.permalink)}"});
+        });
+      
+      $("#fb_share").click(function(){
+        fb_intialize();
+        FB.ui({
+          method: 'feed',
+          name: "#{@service.title}",
+          link: "#{services_url(@service.permalink)}",
+          picture: "#{fqdn}#{@service.images.first.image.url(:thumb)}",
+          caption: 'Reference Documentation',
+          description: "#{@service.description}",
+            });
+      });
+    });
+
+      function fb_intialize() {
         FB.init({
           appId: "#{FACEBOOK[:api_key]}",
           filters :'app_non_users',
@@ -29,13 +50,7 @@
           cookie: false,
           // xfbml: true
         });
-
-        FB.ui({
-          method: 'apprequests',
-          title :'GoodInKind',
-          message:"Check out this service that I am offering on GoodInKind.com that benefits #{@service.nonprofit.name}. I hope that you will be able to join me and enjoy this service while supporting a worthy cause. Look forward to hearing from you."});
-        });
-    });
+      }
 .posting
   .posting_top
     %h2 Thank you for posting your offer!
@@ -43,8 +58,8 @@
     %p.posting_shar_icons{:style => "margin-left:30px;"}
       %a.twitter-share-button{"data-count" => "horizontal", "data-text" => "Check out this service that I am offering on GoodInKind.com that benefits #{@service.nonprofit.name}. via @goodinkind #GIK #socent", "data-url" => "#{service_url(@service)}", :href => "http://twitter.com/share" } Tweet
       %script{:src => "http://platform.twitter.com/widgets.js", :type => "text/javascript"}
-      %script{:src => "http://connect.facebook.net/en_US/all.js#appId=200839679982151&xfbml=1"}
-      %fb:like{:font => "arial", :href => "#{service_url(@service)}", :layout => "button_count", :send => "false", :show_faces => "true", :width => "150"}
+      %a{:href => "javascript:void(0)", :id => 'fb_share'}
+        %img{:alt => "Facebook Shar", :src => "/images/fb_shar.png"}/
       %script{:src => "http://w.sharethis.com/button/buttons.js"}
     %span.dotted
     %p.posting_shar_txt Invite your friends privately
@@ -60,7 +75,7 @@
         = text_field "users", "email", :placeholder => "(Separate email by comma)", :class => "form_input_full"
       %p
         %label.invite_mail_lbl Invitation Text
-        = text_area "users", "message", :class => "form_input_full input_area", :value => "Check out this service that I am offering on GoodInKind.com that benefits #{@service.nonprofit.name}. I hope that you will be able to join me and enjoy this  service while supporting a worthy cause. Look forward to hearing from you."
+        = text_area "users", "message", :class => "form_input_full input_area", :value => "Check out this service that I am offering on GoodInKind.com that benefits #{@service.nonprofit.name}. I hope that you will be able to join me and enjoy this  service while supporting a worthy cause. Look forward to hearing from you.\n\n To view service click: #{services_url(@service.permalink)}"
       %p.invite_mail_btns
         = submit_tag "Send", :class => "btn_form button"
         %input.btn_form.button.up_acc_btns_c{:type => "reset", :value => "Cancel"}/

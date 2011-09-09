@@ -190,7 +190,7 @@ category_map: function(data, settings){
                     var eval_out = eval('dm.' + filter_criteria[name][2]);
                     var obj = object_map[name];
 
-                    if(eval_out.constructor.name == 'Array'){
+                    if(eval_out.constructor == Array){
                     eval_out.forEach(function(x){
 
                       if(obj[x]){
@@ -230,7 +230,7 @@ hideShow: function(id_arr){
 Array.prototype.filter_collect =  function(field, out_arr) {
   var out_arr = out_arr || [];  
   this.forEach(function(obj){ 
-      if(obj.constructor.name == 'Array'){
+      if(obj.constructor == Array){
       obj.filter_collect(field, out_arr);
       }
       else{
@@ -242,9 +242,10 @@ Array.prototype.filter_collect =  function(field, out_arr) {
 
 // IE doesn't define forEach! (WTF)
 if (!('forEach' in Array.prototype)) {
-   Array.prototype.forEach= function(action, that /*opt*/) {
+   Array.prototype.forEach= function(action, that) {
      for (var i= 0, n= this.length; i<n; i++)
        if (i in this)          
          action.call(that, this[i], i, this);    
    };                
 }
+

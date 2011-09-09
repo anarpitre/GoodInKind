@@ -6,12 +6,12 @@
       = image_tag(@service.nonprofit.photo.url(:thumb), :alt => @service.nonprofit.name)
     %h3.profile_title_h3
       = @service.nonprofit.name
-      %span= @service.nonprofit.location.try(:address)
+      %span= truncate(@service.nonprofit.location.try(:address), :length => 40)
   .profile_list
     %p
       %span.pl_left Website:
       %span.pl_right
-        = link_to "#{@service.nonprofit.website}", "#{format_link(@service.nonprofit.website)}", :target => "_blank"
+        = link_to "#{truncate(@service.nonprofit.website, :length => 25)}", "#{format_link(@service.nonprofit.website)}", :target => "_blank"
     %p
       %span.pl_left Description:
       %span.pl_right

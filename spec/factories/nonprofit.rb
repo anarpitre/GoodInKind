@@ -1,7 +1,7 @@
 require 'faker'
 
 Factory.define :nonprofit do |c|
-  c.name {Faker::Name.name}
+  c.sequence(:name) {|n| "amit#{n}"}
   c.contact_name {Faker::Name.name}
   c.position "Manager"
   c.sequence(:email) {|n| "amit#{n}@gg.com"}
@@ -11,8 +11,8 @@ Factory.define :nonprofit do |c|
   c.sequence(:EIN) {|n| "12-123421#{n}"}
   c.website "www.test.com"
   c.is_active true
-  c.guideline {Faker::Lorem.paragraph}
-  c.description {Faker::Lorem.paragraph}
+  c.guideline "this is guide" 
+  c.description "this is description"
   c.phone_number "1-222-333-4444"
   c.cell_phone "1234567890"
   c.association :gateway_id, :factory => 'gateway'

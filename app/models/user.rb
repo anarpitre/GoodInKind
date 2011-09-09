@@ -15,7 +15,6 @@ class User < ActiveRecord::Base
   has_many :bookings, :dependent => :destroy  
   has_many :services, :dependent => :destroy
   has_many :authentications, :dependent => :destroy
-  has_one  :location, :as => :resource, :dependent => :destroy
   has_one  :profile, :dependent => :destroy
   has_one :cc_token, :dependent => :destroy # currently 1-1 mapping for CC token
 

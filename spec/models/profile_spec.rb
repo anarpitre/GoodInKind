@@ -26,6 +26,14 @@ describe Profile do
       pf.avatar_file_name = ""
     end
 
+    it "address is entered" do
+      add = pf.build_location
+      add.address = "Ithaca"
+      add.save
+      loc = Location.last
+      loc.should_not == nil
+   end
+
   end
 
   context "should not created if" do
