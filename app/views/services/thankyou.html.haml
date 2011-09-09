@@ -75,7 +75,7 @@
         = text_field "users", "email", :placeholder => "(Separate email by comma)", :class => "form_input_full"
       %p
         %label.invite_mail_lbl Invitation Text
-        = text_area "users", "message", :class => "form_input_full input_area", :value => "Check out this service that I am offering on GoodInKind.com that benefits #{@service.nonprofit.name}. I hope that you will be able to join me and enjoy this  service while supporting a worthy cause. Look forward to hearing from you."
+        = text_area "users", "message", :class => "form_input_full input_area", :value => "Check out this service that I am offering on GoodInKind.com that benefits #{@service.nonprofit.name}. I hope that you will be able to join me and enjoy this  service while supporting a worthy cause. Look forward to hearing from you.\n\n To view service click: #{services_url(@service.permalink)}"
       %p.invite_mail_btns
         = submit_tag "Send", :class => "btn_form button"
         %input.btn_form.button.up_acc_btns_c{:type => "reset", :value => "Cancel"}/
