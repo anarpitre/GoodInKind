@@ -27,7 +27,8 @@
       %hr.pay_page_hr
       %p{:style => 'width:340px'}
         %span.payment_total You will be charged 
-        %span.payment_total_amt$#{total_donation= @booking.total_amount.to_i}
+        %span.payment_total_amt $ 
+        %span.payment_total_amt#total_donation= @booking.total_amount.to_i
         %span.payment_total_amt 
       :javascript
         var per_seat = #{@booking.service.amount.to_i}
