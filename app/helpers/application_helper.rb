@@ -1,4 +1,16 @@
 module ApplicationHelper
+  
+  #fully quilified domain name
+  def fqdn
+    if Rails.env == 'production'
+      "http://goodinkind.com"
+    elsif Rails.env == 'staging'
+      "http://gikstaging.heroku.com"
+    else
+      "http://localhost:3000" # development/test setup
+    end
+  end  
+  
   def gik_formatted_date(date)
     date.blank? ? "" : date.strftime("%m/%d/%Y") 
   end
