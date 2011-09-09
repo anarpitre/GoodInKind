@@ -15,7 +15,4 @@ module NonprofitsHelper
     @current_nonprofit = Nonprofit.find(id) 
   end
 
-  def get_service_count(np)
-    Service.where("nonprofit_id = ?",np.id).count
-  end
 end

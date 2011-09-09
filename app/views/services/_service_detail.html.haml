@@ -37,7 +37,10 @@
           %b Price per unit
         %span.price_text= "$"  + @service.amount.to_i.to_s 
       /= link_to "Take It", new_service_booking_path(@service), :class => 'button take_it'
-      = link_to "Take It", "#", :class => 'button take_it', :id => "take_it"
+      - if Rails.env == 'production'
+        = link_to "Take It", "#", :class => 'button take_it', :id => "take_it"
+      - else
+        = link_to "Take It", new_service_booking_path(@service), :class => 'button take_it'
       :javascript
         $('#take_it').click(function() {
             jQuery.facebox("You can buy this service soon!");

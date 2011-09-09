@@ -13,7 +13,7 @@
           = f.check_box :hide_gender, {:class => "my_edit_check"}, "true", "false"
           %text Don't display on my public profile
         = f.fields_for :location do |loc|
-          = loc.text_field :address, :class => "input_half", :type => "profile"
+          = loc.text_field :address, :class => "input_half", :type => "profile", :hint => "Enter only a city and state if you wish to not share your full address."
         %p
           %label.form_lbl Email
           %text.my_edit_lbl_l{:style => "float:left;margin-left:10px"}= @profile.user.email
@@ -24,6 +24,6 @@
         = f.text_area :about_me, :class => "area_edit"  
         = f.text_field :facebook, :class => 'input_half', :hint => "Enter the web url to your facebook profile. Example: facebook.com/goodinkind"
         = f.text_field :twitter, :class => 'input_half', :hint => "Enter the web url to your twitter profile. Example: twitter.com/goodinkind "
-        = f.text_field :linkedin, :class => 'input_half', :hint => "Enter the web url to your linkedin profile."
+        = f.text_field :linkedin, :class => 'input_half', :hint => "You can find this url by going to your Linkedin profile and then copy the \"Public profile\" web address that is at the bottom of your profile information."
         %p.my_edit_btns
           = f.submit 

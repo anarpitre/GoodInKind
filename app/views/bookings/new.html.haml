@@ -10,14 +10,14 @@
         %span Booking Details
       .booking
         .fs_box
-          .fs_box_pic
-            = image_tag(@booking.service.thumbnail)
+          - image = !@booking.service.images.first.blank? ? "#{@booking.service.images.first.image.url(:thumb)}" : "/images/missing/service.png"
+          .fs_box_pic{:style=>"background:url(#{image}) no-repeat center center;"}
           .fs_left
-            %span.fs_head= @booking.service.title
+            %span.fs_head= truncate(@booking.service.title, :lenght => 30)
             %span.fs_for for
-            %span.fs_disc= @booking.service.nonprofit.name
+            %span.fs_disc= truncate(@booking.service.nonprofit.name, :length => 30)
           .fs_price{:style => 'font-size:35px'}
-            = "#{@booking.service.amount.to_i}$"
+            = "$#{@booking.service.amount.to_i}"
           .clear
       %p{:style => 'width:300px'}
         = f.text_field :seats_booked, :label => "Seats to book", :class => "input_small"
@@ -26,9 +26,9 @@
         = f.hidden_field :donation_amount
       %hr.pay_page_hr
       %p{:style => 'width:340px'}
-        %span.payment_total You will be charged
-        %span.payment_total_amt#total_donation= @booking.total_amount.to_i
-        %span.payment_total_amt $
+        %span.payment_total You will be charged 
+        %span.payment_total_amt$#{total_donation= @booking.total_amount.to_i}
+        %span.payment_total_amt 
       :javascript
         var per_seat = #{@booking.service.amount.to_i}
     .setp_box{:id => 'cc_fields'}

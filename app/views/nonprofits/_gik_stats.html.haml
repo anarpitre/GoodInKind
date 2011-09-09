@@ -13,8 +13,5 @@
     Total Transactions:
     %span= @nonprofit.total_transactions.to_i
   %p
-    - service_count = get_service_count(@nonprofit)
-    /= link_to "Browse Services(#{service_count})", service_search_path(:text => @nonprofit.name), :class => "button"
-    /= link_to 'Offer a Service', new_service_path(:id => @nonprofit.id), :class => "button bu_right"
-    = link_to "Browse Services(#{service_count})", "#", :class => "button"
-    = link_to 'Offer a Service', "#", :class => "button bu_right"
+    = link_to "Browse Services(#{@nonprofit.service_count})", service_search_path(:text => @nonprofit.name), :class => "button"
+    = link_to 'Offer a Service', new_service_path(:id => @nonprofit.id), :class => "button bu_right"
