@@ -12,8 +12,9 @@ class BookingsController < ApplicationController
     # set some defaults
     @booking.seats_booked = 1
     @booking.additional_donation_amount = 0
-    @booking.donation_amount = @booking.service.amount.to_i # default 1 seat
-    @booking.total_amount = @booking.service.amount.to_i # default 1 seat
+    @booking.donation_amount = @booking.service.amount # default 1 seat
+    @booking.CC_charges = @booking.donation_amount * FIRST_GIVING_CC_RATE / 100
+    @booking.total_amount = @booking.service.amount + @booking.CC_charges # default 1 seat
 
     # If the user has some previous bookings, we can re-use the billing info
     prev = current_user.bookings.last

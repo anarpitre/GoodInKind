@@ -514,7 +514,7 @@ h2.fs_h2 {
 }
 .fs_box {
   width:202px;
-  height:auto;
+  height:200px;
   float:left;
   margin-left:20px;
   margin-bottom:10px;
@@ -3172,6 +3172,22 @@ div.pagination strong {
   height: 1px;
   margin: 10px 0 10px 70px;
   width: 250px;
+}
+.cc_charge {
+  float: left;
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 3px;
+  text-align: right;
+  width: 143px;
+}
+.cc_charge_amt {
+  float: left;
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 3px;
+  margin-left: 10px;
+  width: 143px;
 }
 .payment_total {
   float: left;

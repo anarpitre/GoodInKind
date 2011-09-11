@@ -17,6 +17,7 @@ class RequestsController < ApplicationController
       @request = Request.new
       @request.attributes = params[:request]
       @request.save!
+      Notifier.new_request(@request.email, @request.title).deliver
       redirect_to requests_path
     rescue
       @request.build_location if @request.location.blank?

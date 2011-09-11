@@ -5,7 +5,7 @@
       %a.button.bu_right.explore_btn{:href => services_path} Explore All
     .featured_list
       - @services.each do |service|
-        %a{:href => service_path(service.id)}
+        %a{:href => service_path(service.permalink)}
           .fs_box
             - if service.booking_capacity > 0
               - spots = service.booking_capacity - service.booked_seats

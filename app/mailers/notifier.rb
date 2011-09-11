@@ -1,6 +1,37 @@
 class Notifier < ActionMailer::Base
 
 
+  # Send mails to offerer, buyer and nonprofit on successful buy
+  def buy_success_offerer(email,title)
+    @service_title = title
+    subject = "One user has purchased your service"
+    setup_email(email, subject)
+  end
+
+  def buy_success_buyer(email,title)
+    @service_title = title
+    subject = "Thank you for purchasing a service"
+    setup_email(email, subject)
+  end
+
+  def buy_success_nonprofit(email,title)
+    @service_title = title
+    subject = "One user has purchased service to support your cause"
+    setup_email(email, subject)
+  end
+
+  def buy_failed_buyer(email,title)
+    @service_title = title
+    subject = "Trasaction failed for purchasing a service"
+    setup_email(email, subject)
+  end
+
+  def new_request(email,title)
+    @request_title = title
+    subject = "Thank you for submitting a service request"
+    setup_email(email, subject)
+  end
+
   def new_service_request(id,title,email)
     @service_id = id
     @request_title = title
@@ -79,10 +110,10 @@ class Notifier < ActionMailer::Base
   end
 
   #Send service invitation
-  def service_invitation(email,message)
+  def service_invitation(email,message,offerer_email)
     @message = message
     subject = "GoodinKind Service Invitation"
-    setup_email(email, subject, GIK_EMAIL)
+    setup_email(email, subject, offerer_email)
   end
 
   private

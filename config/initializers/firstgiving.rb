@@ -11,3 +11,5 @@ FIRST_GIVING_TYPEMAP = {
   'discover' => 'DI',
   'amercan_express' => 'AX'
 }
+
+FIRST_GIVING_CC_RATE = 6.25

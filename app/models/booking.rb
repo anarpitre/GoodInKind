@@ -9,8 +9,9 @@ class Booking < ActiveRecord::Base
 
   validates :user, :service, :presence => true
 
-  validates :seats_booked, :numericality => { :greater_than_or_equal_to => 1}
-validates :donation_amount, :numericality => { :greater_than_or_equal_to => Proc.new {|booking| booking.service.amount.to_i } }
+  validates :seats_booked, :numericality => { :greater_than_or_equal_to => 1, :less_than_or_equal_to => Proc.new {|booking| booking.service.booking_capacity - booking.service.booked_seats}}
+  validates :additional_donation_amount, :numericality => { :greater_than_or_equal_to => 0}
+  validates :donation_amount, :numericality => { :greater_than_or_equal_to => Proc.new {|booking| booking.service.amount.to_i } }
 
   # first-giving validations
   validates :billToFirstName, :billToLastName, :remoteAddr, :billToCity, 
@@ -24,8 +25,8 @@ validates :donation_amount, :numericality => { :greater_than_or_equal_to => Proc
 
   aasm_state :new  # User created a booking
   aasm_state :processing, :do_enter => :do_processing # Credit Card details captured
-  aasm_state :success, :do_enter => :do_success
-  aasm_state :failure, :do_enter => :do_failure
+  aasm_state :success, :enter => :do_success
+  aasm_state :failure, :enter => :do_failure
 
   aasm_event :cc_captured do
     transitions :to => :processing, :from => :new
@@ -45,11 +46,15 @@ validates :donation_amount, :numericality => { :greater_than_or_equal_to => Proc
   end
 
   def do_success
-    # Send email to user and service offerer about this
+    # Send email to offerer, buyer and nonprofit about this
+    Notifier.buy_success_offerer(self.service.user.email,self.service.title).deliver
+    Notifier.buy_success_buyer(self.user.email,self.service.title).deliver
+    Notifier.buy_success_nonprofit(self.service.nonprofit.email,self.service.title).deliver
   end
 
   def do_failure
-    # Send email to user and service offerer about this
+    # Send email to buyer about this
+    Notifier.buy_failed_buyer(self.user.email,self.service.title).deliver
   end
 
   def cardonfile

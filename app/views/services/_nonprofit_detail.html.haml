@@ -18,4 +18,4 @@
         = truncate(@service.nonprofit.description, :length => 100)
         %br/
   %p.pl_view_more
-    = link_to "View Profile", nonprofit_path(:id => @service.nonprofit.id)
+    = link_to "View Profile", nonprofit_path(:id => @service.nonprofit.permalink)

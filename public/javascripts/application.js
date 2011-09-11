@@ -20,8 +20,11 @@ $(document).ready(function() {
     if (isNaN(donation)) { donation = 0; }
 
     total = (seats * per_seat);
-    $('#total_donation').html(total + donation);
+    cc_amt = (total + donation) * fg_cc_rate / 100
+    $('#total_donation').html(total + donation + cc_amt);
     $('#booking_donation_amount').val(total);
+    $('#total_cc_charges').html(cc_amt)
+    $('#booking_CC_charges').val(cc_amt);
   });
 
 });
