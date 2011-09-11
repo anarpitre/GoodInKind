@@ -54,13 +54,22 @@ class Service < ActiveRecord::Base
   aasm_initial_state :pending
   aasm_state :pending
   aasm_state :active, :enter => :verify_request
+  aasm_state :remove, :enter => :remove_service
 
   aasm_event :activate do
     transitions :to => :active, :from => [ :pending, :active]
   end
 
+  aasm_event :remove do
+    transitions :to => :remove, :from => [ :pending, :active]
+  end
+
   def verify_request
     self.request.offered! unless self.request.blank?
+  end
+
+  def remove_service
+    #Notifier.remove_service(self.user.email).deliver
   end
 
   def to_param
