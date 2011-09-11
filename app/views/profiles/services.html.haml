@@ -33,6 +33,10 @@
             = link_to image_tag('edit_icon.jpg', :alt => "edit"), edit_service_path(service)
           %td.bg_white
             = link_to '', service_path(service), :class => "set_icons viewpost"
+          %td.bg_white
+            = link_to 'Invite friends', invite_friends_service_path(service), :class => "set_icons viewpost"
+          %td.bg_white
+            = link_to 'remove friends', remove_service_path(service), :class => "set_icons viewpost", :onclick => "if (! confirm('Are you sure you want to remove service.There are bookings associated with this service')) return false;"
           /%td.bg_white
           /%a.set_icons.manage_service{:href => "#"}
           /%td.bg_white

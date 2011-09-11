@@ -116,6 +116,13 @@ class Notifier < ActionMailer::Base
     setup_email(email, subject, offerer_email)
   end
 
+
+  # Remove service
+  def remove_service(email)
+    subject = "Your Service has been Removed"
+    setup_email(email, subject, GIK_EMAIL)
+  end
+
   private
 
   def setup_email(sent_to, subject, sent_by=nil)

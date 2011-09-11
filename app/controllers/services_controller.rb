@@ -2,7 +2,7 @@ class ServicesController < ApplicationController
   
   before_filter :authenticate_user!, :only => [:edit, :thankyou]
   before_filter :set_seo_tags
-  before_filter :get_service_by_id, :only => [:update, :destroy, :show, :edit]
+  before_filter :get_service_by_id, :only => [:update, :destroy, :show, :edit, :invite_friends, :remove]
   before_filter :is_owner, :only => [:edit]
 
   autocomplete :nonprofit, :name, :full => true, :scopes => [:verified]
@@ -86,7 +86,19 @@ class ServicesController < ApplicationController
 
 
   def thankyou
+    @message = "Thank you for posting your offer!"
     @service = !@service.blank? ? @service : current_user.services.last
+  end
+
+  def invite_friends
+    @message = "Invite friends" 
+    render :action => 'thankyou'
+  end
+
+  #Remove service
+  def remove
+    @service.remove!
+    redirect_to services_profile_path(current_user)
   end
   
   def search
