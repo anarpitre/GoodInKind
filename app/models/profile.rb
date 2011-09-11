@@ -9,10 +9,9 @@ class Profile < ActiveRecord::Base
 
   has_attached_file :avatar, S3_DEFAULTS.merge(
     :styles => {
-    :thumb => ["101x95>", :jpg],
-    :medium => ["200x200>, :jpg"]
+    :thumb => "101x95>",
+    :medium => "200x200>"
     },
-    :convert_options => { :all => '-strip -colorspace RGB'},
     :default_url => "/images/missing/user_:style.png"
     )
 

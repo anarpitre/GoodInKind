@@ -33,11 +33,9 @@ class Nonprofit < ActiveRecord::Base
 
   has_attached_file :photo, S3_DEFAULTS.merge(
     :styles => {
-    :thumb => ["172x62>", :jpg],
-    :medium => ["200x61>", :jpg]
+    :thumb => "172x62>",
+    :medium => "200x61>"
     },
-
-    :convert_options => { :all => '-strip -colorspace RGB'},
     :default_url => "/images/missing/nonprofit_:style.jpg"
   )
 

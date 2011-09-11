@@ -14,7 +14,11 @@ CELL_NO_REGEX = /^(1\-?)?\s?\(?\d{3}\)?(\-|\s)?\d{3}(\-|\s)?\d{4}$/i
 EIN_REGEX = /^\d{2}-\d{7}$/i
 WEBSITE_REGEX= /^((http|https):\/\/)?[a-z0-9]+(\.[a-z0-9]+)?.[a-z]{2,5}$/i
 
-ADMIN_EMAIL = "admin@goodinkind.com"
+if Rails.env == 'production'
+  ADMIN_EMAIL = "admin@goodinkind.com"
+else
+  ADMIN_EMAIL = "test@joshsoftware.com"
+end
 GIK_EMAIL = "GoodInKind <alerts@goodinkind.com>"
 
 NONPROFIT_STATE = ['Pending','Verified','Rejected'] 
