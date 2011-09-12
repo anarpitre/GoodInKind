@@ -9,7 +9,7 @@ class Booking < ActiveRecord::Base
 
   validates :user, :service, :presence => true
 
-  validates :seats_booked, :numericality => { :greater_than_or_equal_to => 1, :less_than_or_equal_to => Proc.new {|booking| booking.service.booking_capacity - booking.service.booked_seats}}
+  validates :seats_booked, :numericality => { :greater_than_or_equal_to => 1, :less_than_or_equal_to => Proc.new {|booking| booking.service.booking_capacity == 0 ? 999 : booking.service.booking_capacity - booking.service.booked_seats}}
   validates :additional_donation_amount, :numericality => { :greater_than_or_equal_to => 0}
   validates :donation_amount, :numericality => { :greater_than_or_equal_to => Proc.new {|booking| booking.service.amount.to_i } }
 
@@ -17,7 +17,8 @@ class Booking < ActiveRecord::Base
   validates :billToFirstName, :billToLastName, :remoteAddr, :billToCity, 
             :billToZip, :billToAddressLine1, :accountName, 
             :billToCountry, :billToState, :presence => true
-  validates :billToCountry, :billToState, :format => { :with => /^\w{2}$/ }
+  validates :billToState, :format => { :with => /^\w{2}$/ }
+  validates :billToCountry, :format => { :with => /^\w{3}$/ } 
   validates :billToEmail, :presence => true
 
   aasm_column :charge_status

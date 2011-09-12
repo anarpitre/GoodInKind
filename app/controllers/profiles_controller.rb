@@ -41,7 +41,7 @@ class ProfilesController < ApplicationController
   end
 
   def services
-    @services = @user.services.active.includes(:nonprofit)
+    @services = @user.services.includes(:nonprofit)
     @bookings = @user.bookings.includes(:service)
   end
 
