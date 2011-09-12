@@ -13,7 +13,8 @@ class BookingsController < ApplicationController
     @booking.seats_booked = 1
     @booking.additional_donation_amount = 0
     @booking.donation_amount = @booking.service.amount # default 1 seat
-    @booking.CC_charges = @booking.donation_amount * FIRST_GIVING_CC_RATE / 100
+    @booking.GIK_charges = 0
+    @booking.CC_charges = (@booking.donation_amount * FIRST_GIVING_CC_RATE / 100).round(2)
     @booking.total_amount = @booking.service.amount + @booking.CC_charges # default 1 seat
 
     # If the user has some previous bookings, we can re-use the billing info
@@ -52,8 +53,12 @@ class BookingsController < ApplicationController
     @booking.remoteAddr = request.remote_ip 
 
     # Transaction fee processing
+    @booking.seats_booked = @booking.seats_booked.to_i
+    @booking.additional_donation_amount = (@booking.additional_donation_amount.to_f).round(2)
+    @booking.donation_amount = @booking.service.amount  * @booking.seats_booked 
+    @booking.CC_charges = ((@booking.donation_amount + @booking.additional_donation_amount) * FIRST_GIVING_CC_RATE / 100).round(2)
     @booking.total_amount = @booking.donation_amount.to_f + 
-                            @booking.additional_donation_amount.to_f + 
+                            @booking.additional_donation_amount + 
                             @booking.GIK_charges.to_f + 
                             @booking.CC_charges.to_f
 

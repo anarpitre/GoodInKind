@@ -36,23 +36,21 @@
         = f.text_field :seats_booked, :label => "No. of spots to buy", :class => "input_small", :hint => "This can be number of hours, number of people, etc. depending on the service"
       %p{:style => 'width:300px'}
         = f.text_field :additional_donation_amount, :label => "Additional Donation($)", :class => "input_small", :hint => "Optional. Our accountants tell us that any donation above the fair value of the service would be tax deductible!"
-        = f.hidden_field :CC_charges
       %p{:style => 'width:300px'}
         %span.cc_charge GIK service charge 
         %span.cc_charge_amt 0.0
       %p{:style => 'width:300px'}
         %span.cc_charge CC charges (#{FIRST_GIVING_CC_RATE}%)
         %span.cc_charge_amt#total_cc_charges= @booking.CC_charges 
-        = f.hidden_field :donation_amount
+      .clear
       %hr.pay_page_hr
       %p
-      %p{:style => 'width:340px'}
         %span.payment_total You will be charged 
         %span.payment_total_amt $ 
         %span.payment_total_amt#total_donation= @booking.total_amount
         %span.payment_total_amt 
       :javascript
-        var per_seat = #{@booking.service.amount.to_i}
+        var per_seat = #{@booking.service.amount.to_f}
         var fg_cc_rate = #{FIRST_GIVING_CC_RATE}
     .setp_box{:id => 'cc_fields'}
       %h3.setp_box_heading

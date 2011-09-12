@@ -15,12 +15,13 @@ $(document).ready(function() {
 
   $('#booking_additional_donation_amount, #booking_seats_booked').keyup(function() {
     seats = parseInt($('#booking_seats_booked').val());
-    donation = parseInt($('#booking_additional_donation_amount').val());
+    donation = parseFloat($('#booking_additional_donation_amount').val());
     if (isNaN(seats) || seats == 0) {return;}
     if (isNaN(donation)) { donation = 0; }
 
-    total = (seats * per_seat);
-    cc_amt = (total + donation) * fg_cc_rate / 100
+    donation = parseFloat(donation.toFixed(2))
+    total = parseFloat((seats * per_seat).toFixed(2));
+    cc_amt = parseFloat(((total + donation) * fg_cc_rate / 100).toFixed(2))
     $('#total_donation').html(total + donation + cc_amt);
     $('#booking_donation_amount').val(total);
     $('#total_cc_charges').html(cc_amt)
