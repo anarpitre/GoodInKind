@@ -36,3 +36,4 @@ Gik::Application.configure do
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
 end
+INDEXTANK_API_URL = 'http://:5XxQ4mHBV7BV8w@iej.api.indextank.com'
