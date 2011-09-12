@@ -86,7 +86,7 @@ class Nonprofit < ActiveRecord::Base
 
   ## JSON helpers
   def service_count
-    Service.where(:nonprofit_id => self.id).count
+    Service.active.by_public.where(:nonprofit_id => self.id).count
   end
 
   def short_description

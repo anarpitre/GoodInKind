@@ -1,4 +1,17 @@
 .offer_form
+  .np_page_top
+    %p{:style => "font-size:1px"}
+      %b Important notice
+    %p
+      %b Tax deductibility: 
+      Our accountants tell us that as a buyer of a service, the value of the service itself would not be tax deductible (because you're getting the service in return for the price). But, any donation on top of the fair market value of the service should be tax deductible. This is not professional advice - please check with your accountants or IRS documentation if you want to be certain.
+    %p
+      %b Payment: 
+      At the moment, once you confirm the information below, your payment will be immediately charged. Very shortly, we are implementing a feature where your card will be authorized immediately but not charged until later so that you can avail the service before the payment is processed. For more questions on payments and how it works, please visit our  
+      %a{:href => faq_path, :target => "_blank"} FAQs section 
+    %p
+      %b Pricing: 
+      Pricing for some services may require purchase of a minimum number of spots. If this is unclear, you may use the "Message me" feature to clarify with the service offerer before finalizing the purchase. Note that GoodInKind currently does not support a model where the price is dependent on the actual effort spent and is only known after the service has been delivered.
   = form_for(@booking, :url => service_bookings_path(@service), :builder => JoshForm) do |f|
     - if @booking.errors.any? and @booking.errors[:fg].any?
       #error_explanation
@@ -7,28 +20,32 @@
             %li= msg
     .setp_box
       %h3.setp_box_heading{:style => 'width:300px'}
-        %span Booking Details
+        %span Purchase Details
       .booking
-        .fs_box
+        .fs_box{:style => "margin-left:200px"}
           - image = !@booking.service.images.first.blank? ? "#{@booking.service.images.first.image.url(:thumb)}" : "/images/missing/service.png"
           .fs_box_pic{:style=>"background:url(#{image}) no-repeat center center;"}
           .fs_left
             %span.fs_head= truncate(@booking.service.title, :lenght => 30)
             %span.fs_for for
             %span.fs_disc= truncate(@booking.service.nonprofit.name, :length => 30)
-          .fs_price{:style => 'font-size:35px'}
+          .fs_price
             = "$#{@booking.service.amount.to_i}"
           .clear
       %p{:style => 'width:300px'}
-        = f.text_field :seats_booked, :label => "Seats to book", :class => "input_small"
+        = f.text_field :seats_booked, :label => "No. of spots to buy", :class => "input_small", :hint => "This can be number of hours, number of people, etc. depending on the service"
       %p{:style => 'width:300px'}
-        = f.text_field :additional_donation_amount, :label => "Extra Donation ($)", :class => "input_small"
+        = f.text_field :additional_donation_amount, :label => "Additional Donation($)", :class => "input_small", :hint => "Optional. Our accountants tell us that any donation above the fair value of the service would be tax deductible!"
         = f.hidden_field :CC_charges
+      %p{:style => 'width:300px'}
+        %span.cc_charge GIK service charge 
+        %span.cc_charge_amt 0.0
       %p{:style => 'width:300px'}
         %span.cc_charge CC charges (#{FIRST_GIVING_CC_RATE}%)
         %span.cc_charge_amt#total_cc_charges= @booking.CC_charges 
         = f.hidden_field :donation_amount
       %hr.pay_page_hr
+      %p
       %p{:style => 'width:340px'}
         %span.payment_total You will be charged 
         %span.payment_total_amt $ 
@@ -49,11 +66,12 @@
       = fields_for :cc, @cc, :builder => JoshForm do |cc|
         = cc.text_field :name, :class => "input_half"
         %p
-          = cc.select :month, (1..12), {}, :class => 'input_select input_tiny',:pre => true, :error_class => "tiny_error"
-          = cc.select :year, (Date.today.year..Date.today.year+5), {}, :class => 'input_select input_tiny', :pre => true, :error_class => "tiny_error"
-        = cc.select :type, [['Visa', 'visa'], ['MasterCard', 'master'], ['Discover', 'discover'], ['American Express', 'american_express']], {}, :class => "input_select"
-        = cc.text_field :number, :class => "input_half"
-        = cc.text_field :verification_value, :class => "input_half"
+        = cc.select :type, [['Visa', 'visa'], ['MasterCard', 'master'], ['Discover', 'discover'], ['American Express', 'american_express']], {}, :class => "input_select", :label => "Credit card type"
+        = cc.text_field :number, :class => "input_half", :label => "Credit card number"
+        %p
+          = cc.select :month, (1..12), {}, :class => 'input_select input_tiny',:pre => true, :error_class => "tiny_error", :label => "Expiration Date"
+          = cc.select :year, (Date.today.year..Date.today.year+10), {}, :class => 'input_select input_tiny', :pre => true, :error_class => "tiny_error"
+        = cc.text_field :verification_value, :class => "input_half", :label => "CVV/CVV2", :hint => "3 digits at back of card for VISA, MasterCard, Discover. 4 digits on front of card for AMEX"
         :javascript
           if ($('#cc_fields :checkbox').is(':checked')) $('#cc_fields p:gt(0)').hide();
           $('#cc_fields :checkbox').click( function() {
@@ -69,9 +87,9 @@
       = f.text_field :billToAddressLine3, :label => "Address Line3", :class => "input_half"
       %p
         = f.text_field :billToCity, :label => "City", :class => "input_tiny", :pre => true, :error_class => "tiny_error"
-        = f.text_field :billToState, :label => "State", :class => "input_tiny", :pre => true, :error_class => "tiny_error"
+        = f.text_field :billToState, :label => "State", :class => "input_tiny", :pre => true, :error_class => "tiny_error", :hint => "Please enter 2 letter abbreviation such as NY, CA, MA"
       %p
         = f.text_field :billToZip, :label => "Zipcode", :class => "input_tiny", :pre => true, :error_class => "tiny_error"
-        = f.text_field :billToCountry, :label => "Country", :class => "input_tiny", :pre => true, :error_class => "tiny_error"
+        = f.text_field :billToCountry, :label => "Country", :class => "input_tiny", :pre => true, :error_class => "tiny_error", :hint => "Please enter 3 letter abbreviation such as USA"
     .input_post_div
       = f.submit 'Pay'

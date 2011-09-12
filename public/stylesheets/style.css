@@ -3193,13 +3193,12 @@ div.pagination strong {
   float: left;
   font-size: 18px;
   font-weight: bold;
-  margin-top: 17px;
   width: 203px;
 }
 .payment_total_amt {
   color: #9E0B0F;
   float: left;
-  font-size: 45px;
+  font-size: 18px;
   font-weight: bold;
   margin-left: 4px;
 }

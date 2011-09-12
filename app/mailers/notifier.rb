@@ -44,9 +44,9 @@ class Notifier < ActionMailer::Base
     setup_email(email, subject)
   end
 
-  def new_service_admin(id,first_name,last_name)
+  def new_service_admin(id,full_name)
     @service_id = id
-    @service_offerer = "#{first_name} #{last_name}"
+    @service_offerer = full_name
     subject = "New service offered"
     setup_email(ADMIN_EMAIL, subject)
   end
@@ -57,9 +57,9 @@ class Notifier < ActionMailer::Base
     setup_email(email, subject)
   end
 
-  def new_service_nonprofit(id,first_name,last_name,hide_email,offerer_email,nonprofit_email,nonprofit_name)
+  def new_service_nonprofit(id,full_name,hide_email,offerer_email,nonprofit_email,nonprofit_name)
     @service_id = id
-    @service_offerer = "#{first_name} #{last_name}"
+    @service_offerer = full_name
     @offerer_email = hide_email ? " " : "(#{offerer_email})"
     subject = "New service offered to benefit #{nonprofit_name}"
     setup_email(nonprofit_email, subject)
