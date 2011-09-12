@@ -3,7 +3,7 @@ staging:
     :api_key: '203402889721350'
     :secret_key: '9aa801d7ec4418a9bd81d3464a3078a0'
 
-development:
+development: &default
   :facebook:
     :api_key: '190285970988638'
     :secret_key: 'a8859f030a6c7259a61b0a7aa1774742'
@@ -18,3 +18,6 @@ production:
   :facebook:
     :api_key: '146470382109652'
     :secret_key: '2b4203b9025848b05258a2a5a9358191'
+
+test:
+  <<: *default

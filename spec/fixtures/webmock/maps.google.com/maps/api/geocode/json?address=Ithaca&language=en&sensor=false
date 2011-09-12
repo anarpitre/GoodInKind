@@ -1,0 +1,252 @@
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=UTF-8
+Date: Fri, 09 Sep 2011 12:19:17 GMT
+Expires: Sat, 10 Sep 2011 12:19:17 GMT
+Cache-Control: public, max-age=86400
+Server: mafe
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+Transfer-Encoding: chunked
+
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Ithaca",
+               "short_name" : "Ithaca",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Tompkins",
+               "short_name" : "Tompkins",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "New York",
+               "short_name" : "NY",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Ithaca, NY, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 42.4670790,
+                  "lng" : -76.4698030
+               },
+               "southwest" : {
+                  "lat" : 42.41832700000001,
+                  "lng" : -76.52694690
+               }
+            },
+            "location" : {
+               "lat" : 42.44396140,
+               "lng" : -76.50188070
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.4604270,
+                  "lng" : -76.46986590
+               },
+               "southwest" : {
+                  "lat" : 42.42749140,
+                  "lng" : -76.53389550
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Ithaca",
+               "short_name" : "Ithaca",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Gratiot",
+               "short_name" : "Gratiot",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Michigan",
+               "short_name" : "MI",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "48847",
+               "short_name" : "48847",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Ithaca, MI 48847, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 43.3061770,
+                  "lng" : -84.5678690
+               },
+               "southwest" : {
+                  "lat" : 43.270140,
+                  "lng" : -84.62741890
+               }
+            },
+            "location" : {
+               "lat" : 43.29169750,
+               "lng" : -84.60750039999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 43.3061770,
+                  "lng" : -84.5678690
+               },
+               "southwest" : {
+                  "lat" : 43.270140,
+                  "lng" : -84.62741890
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Ithaca",
+               "short_name" : "Ithaca",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Wahoo",
+               "short_name" : "Wahoo",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Saunders",
+               "short_name" : "Saunders",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Nebraska",
+               "short_name" : "NE",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "68033",
+               "short_name" : "68033",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Ithaca, NE 68033, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 41.16283990,
+                  "lng" : -96.5318370
+               },
+               "southwest" : {
+                  "lat" : 41.1550690,
+                  "lng" : -96.54547190
+               }
+            },
+            "location" : {
+               "lat" : 41.16277860,
+               "lng" : -96.53974230
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 41.16283990,
+                  "lng" : -96.5318370
+               },
+               "southwest" : {
+                  "lat" : 41.1550690,
+                  "lng" : -96.54547190
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Ithaca",
+               "short_name" : "Ithaca",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Twin",
+               "short_name" : "Twin",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Darke",
+               "short_name" : "Darke",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Ohio",
+               "short_name" : "OH",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "45304",
+               "short_name" : "45304",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Ithaca, OH 45304, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 39.93933390,
+                  "lng" : -84.551830
+               },
+               "southwest" : {
+                  "lat" : 39.93610890,
+                  "lng" : -84.5549640
+               }
+            },
+            "location" : {
+               "lat" : 39.93727310,
+               "lng" : -84.55328569999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 39.93933390,
+                  "lng" : -84.551830
+               },
+               "southwest" : {
+                  "lat" : 39.93610890,
+                  "lng" : -84.5549640
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

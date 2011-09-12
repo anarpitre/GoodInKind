@@ -34,3 +34,6 @@ end
 # Use unicorn as the web server
 # gem 'unicorn'
 
+group :test do
+ gem 'webmock'
+end

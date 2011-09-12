@@ -227,13 +227,5 @@ describe Nonprofit do
       non1.save
       non1.should_not be_valid
     end
-    
-    it "confirm password is not matching with password" do
-      np = Factory(:nonprofit)
-      np.password = "josh123"
-      np.password_confirmation = "123josh"
-      np.save
-      np.should_not be_valid
-    end
   end
 end

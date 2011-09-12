@@ -1,0 +1,68 @@
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=UTF-8
+Date: Mon, 12 Sep 2011 08:06:01 GMT
+Expires: Tue, 13 Sep 2011 08:06:01 GMT
+Cache-Control: public, max-age=86400
+Server: mafe
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+Transfer-Encoding: chunked
+
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Pune",
+               "short_name" : "Pune",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Pune",
+               "short_name" : "Pune",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Maharashtra",
+               "short_name" : "Maharashtra",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "India",
+               "short_name" : "IN",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Pune, Maharashtra, India",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 18.62719520,
+                  "lng" : 73.98963809999999
+               },
+               "southwest" : {
+                  "lat" : 18.41367390,
+                  "lng" : 73.75319080
+               }
+            },
+            "location" : {
+               "lat" : 18.52043030,
+               "lng" : 73.85674370
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 18.60505030,
+                  "lng" : 73.98480309999999
+               },
+               "southwest" : {
+                  "lat" : 18.43576840,
+                  "lng" : 73.72868430
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

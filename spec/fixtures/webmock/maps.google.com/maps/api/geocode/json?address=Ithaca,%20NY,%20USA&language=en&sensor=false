@@ -1,0 +1,116 @@
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=UTF-8
+Date: Fri, 09 Sep 2011 12:18:43 GMT
+Expires: Sat, 10 Sep 2011 12:18:43 GMT
+Cache-Control: public, max-age=86400
+Server: mafe
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+Transfer-Encoding: chunked
+
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Ithaca",
+               "short_name" : "Ithaca",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Tompkins",
+               "short_name" : "Tompkins",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "New York",
+               "short_name" : "NY",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Ithaca, NY, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 42.4670790,
+                  "lng" : -76.4698030
+               },
+               "southwest" : {
+                  "lat" : 42.41832700000001,
+                  "lng" : -76.52694690
+               }
+            },
+            "location" : {
+               "lat" : 42.44396140,
+               "lng" : -76.50188070
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.4604270,
+                  "lng" : -76.46986590
+               },
+               "southwest" : {
+                  "lat" : 42.42749140,
+                  "lng" : -76.53389550
+               }
+            }
+         },
+         "types" : [ "locality", "political" ]
+      },
+      {
+         "address_components" : [
+            {
+               "long_name" : "Ithaca",
+               "short_name" : "Ithaca",
+               "types" : [ "colloquial_area", "political" ]
+            },
+            {
+               "long_name" : "New York",
+               "short_name" : "NY",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Ithaca, New York, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 42.6271620,
+                  "lng" : -76.2378160
+               },
+               "southwest" : {
+                  "lat" : 42.26297599999999,
+                  "lng" : -76.69664999999999
+               }
+            },
+            "location" : {
+               "lat" : 42.45757470,
+               "lng" : -76.54882320
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.6271620,
+                  "lng" : -76.2378160
+               },
+               "southwest" : {
+                  "lat" : 42.26297599999999,
+                  "lng" : -76.69664999999999
+               }
+            }
+         },
+         "types" : [ "colloquial_area", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

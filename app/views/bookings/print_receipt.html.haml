@@ -1,0 +1,53 @@
+
+= stylesheet_link_tag "print", :media => "print"
+.tab_container
+  %h2.payment_top_head Your payment has been processed!
+  = link_to_function("Print Receipt", "javascript:print()", :class => "bro_req_btn")
+  #PrintDiv.payment_form
+    %form
+      .up_acc_setp.payment_top_info
+        %p.up_acc_p
+          %label.up_acc_lbl Transaction ID:
+          %span.payment_lbl_span= @booking.transaction.FG_trnx_id
+        %p.up_acc_p
+          %label.up_acc_lbl Service Title:
+          %span.payment_lbl_span=  @booking.service.title
+        %p.up_acc_p
+          %label.up_acc_lbl Offered By:
+          - full_name = "#{@booking.service.user.profile.first_name} #{@booking.service.user.profile.last_name}"
+          %span.payment_lbl_span= full_name
+        %p.up_acc_p
+          %label.up_acc_lbl Offerer's Email
+          %span.payment_lbl_span= @booking.service.user.email
+        %p.up_acc_p
+          %label.up_acc_lbl Recepient non-Profit
+          %span.payment_lbl_span= @booking.service.nonprofit.name
+        %p.up_acc_p
+          %label.up_acc_lbl Location:
+          %span.payment_lbl_span= @booking.service.location.try(:address)
+        %p.up_acc_p
+          %label.up_acc_lbl Date of offer:
+          %span.payment_lbl_span= @booking.service.is_schedulelater == true ? "--" : @booking.service.start_date.strftime("%d-%b-%Y") 
+        %p.up_acc_p
+          %label.up_acc_lbl Price per unit:
+          %span.payment_lbl_span
+            %strong $#{@booking.service.amount}
+        %p.up_acc_p
+          %label.up_acc_lbl Number of units purchased:
+          %span.payment_lbl_span= @booking.seats_booked
+        %p.up_acc_p
+          %label.up_acc_lbl Additional Donation:
+          %span.payment_lbl_span
+            %strong $#{@booking.additional_donation_amount}
+        %hr.pay_page_hr/
+        %span.payment_total Total amount charged:
+        %span.payment_total_amt $#{@booking.total_amount}
+        %hr.pay_page_hr/
+  .what_next
+    %h2.payment_top_head What's Next?
+    %ul
+      %li
+        = link_to_function("Print this page", "javascript:print()")
+        for your records
+      %li You will receive an email confirmation with the above information and further instructions
+      %li If the service offerer did not specify a date, you should schedule a time with him/her using the above email address

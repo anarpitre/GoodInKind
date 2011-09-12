@@ -3203,6 +3203,12 @@ div.pagination strong {
   margin-left: 4px;
 }
 
+.payment_lbl_span  {
+  float: left;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
 .lbl_field {
   height: 25px; 
   margin-left: 10px;

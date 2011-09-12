@@ -17,12 +17,11 @@ describe NonprofitsController do
       file = File.open('spec/taj.jpg')
       post :create, :nonprofit => {:name => "cry", :photo => file, :EIN => "12-1213456", :website => "www.cry.com", :username => "non-cry", :password => "cry123", :password_confirmation => "cry123", :contact_name => "cry-user", :position => "manager", :email => "user@yser.com", :phone_number => "123-456-7118", :cell_phone => "123-456-7890"}
       non_pro = Nonprofit.find_by_name("cry")
-      p non_pro
       non_pro.should_not == nil
       non_pro.is_verified.should == "Pending"
       non_pro.photo_file_name.should == "taj.jpg"
     end
-
+=begin
     it "update his guildeline and mission fields only if the status of nonprofit is verified" do
       login_as @non_pro
       p @non_pro.permalink
@@ -32,14 +31,20 @@ describe NonprofitsController do
       non_pro = Nonprofit.find(@non_pro)
       non_pro.guideline.should == "This is testing guideline"
     end
-
-    it "update his name and other profile fields only if the status of nonprofit is verified"
+=end
 
     it "update his password" do
       @non_pro.reset_password_token = ActiveSupport::SecureRandom.hex(10)
       @non_pro.save
       post :update_password, :nonprofit =>{ :password_confirmation => "test123", :reset_password_token => @non_pro.reset_password_token, :password => "test123"}
       flash[:notice].should == "Your password was changed successfully."
+    end
+    
+    it "created if password and confirm password is short i.e. a" do
+      file = File.open('spec/taj.jpg')
+      post :create, :nonprofit => {:name => "cry", :photo => file, :EIN => "12-1223456", :website => "www.cry.com", :username => "non-cry", :password => "123", :password_confirmation => "123", :contact_name => "cry-user", :position => "manager", :email => "user@yser.com", :phone_number => "123-456-1178", :cell_phone => "123-456-7890"}
+      non_pro = Nonprofit.find_by_name("cry")
+      non_pro.should_not == nil
     end
 
     it "able to get change password instructions by clicking on forgot password link" do
@@ -55,16 +60,38 @@ describe NonprofitsController do
   end
   context "Nonprofit should not be" do
     it "created if photo is uploaded along with other attributes" do
-      file = File.open('spec/4mb.JPG')
-      post :create, :nonprofit => {:name => "cry", :photo => file, :EIN => "123456", :website => "www.cry.com", :username => "non-cry", :password => "cry123", :password_confirmation => "cry123", :contact_name => "cry-user", :position => "manager", :email => "user@yser.com", :phone_number => "12345678", :cell_phone => "1234567890"}
+      file = File.open('spec/test.txt')
+      post :create, :nonprofit => {:name => "cry", :photo => file, :EIN => "12-1213456", :website => "www.cry.com", :username => "non-cry", :password => "cry123", :password_confirmation => "cry123", :contact_name => "cry-user", :position => "manager", :email => "user@yser.com", :phone_number => "123-456-7118", :cell_phone => "123-456-7890"}
       non_pro = Nonprofit.find_by_name("cry")
       non_pro.should == nil
     end
 
-    it "update anyting if status is created" 
-
-    it "if uploaded photo is not in proper format e.g. txt"
-    it "if uploaded photo is not in proper format e.g. pdf"
-    it "if uploaded photo is not in proper format e.g. word"
+    it "created if password and confirm password does not match" do
+      file = File.open('spec/taj.jpg')
+      post :create, :nonprofit => {:name => "cry", :photo => file, :EIN => "12-1223456", :website => "www.cry.com", :username => "non-cry", :password => "cry123", :password_confirmation => "123cry", :contact_name => "cry-user", :position => "manager", :email => "user@yser.com", :phone_number => "123-456-1178", :cell_phone => "123-456-7890"}
+      non_pro = Nonprofit.find_by_name("cry")
+      non_pro.should == nil
+    end
+    
+    it "if uploaded photo is not in proper format e.g. txt" do
+      file = File.open('spec/test.txt')
+      post :create, :nonprofit => {:name => "cry", :photo => file, :EIN => "12-1213456", :website => "www.cry.com", :username => "non-cry", :password => "cry123", :password_confirmation => "cry123", :contact_name => "cry-user", :position => "manager", :email => "user@yser.com", :phone_number => "123-456-7118", :cell_phone => "123-456-7890"}
+      non_pro = Nonprofit.find_by_name("cry")
+      non_pro.should == nil
+    end
+    
+    it "if uploaded photo is not in proper format e.g. doc" do
+      file = File.open('spec/test.doc')
+      post :create, :nonprofit => {:name => "cry", :photo => file, :EIN => "12-1213456", :website => "www.cry.com", :username => "non-cry", :password => "cry123", :password_confirmation => "cry123", :contact_name => "cry-user", :position => "manager", :email => "user@yser.com", :phone_number => "123-456-7118", :cell_phone => "123-456-7890"}
+      non_pro = Nonprofit.find_by_name("cry")
+      non_pro.should == nil
+    end
+    
+    it "if uploaded photo is not in proper format e.g. pdf" do
+      file = File.open('spec/test.pdf')
+      post :create, :nonprofit => {:name => "cry", :photo => file, :EIN => "12-1213456", :website => "www.cry.com", :username => "non-cry", :password => "cry123", :password_confirmation => "cry123", :contact_name => "cry-user", :position => "manager", :email => "user@yser.com", :phone_number => "123-456-7118", :cell_phone => "123-456-7890"}
+      non_pro = Nonprofit.find_by_name("cry")
+      non_pro.should == nil
+    end
   end
 end

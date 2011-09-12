@@ -44,7 +44,7 @@ describe ServicesController do
         :id => ser.permalink
       ser_old = Service.find_by_title(ser.title)
       ser_old.should == nil
-      ser_new = Service.find_by_title("Ser_update")
+      ser_new = Service.find_by_title("ser_update")
       ser_new.should_not == nil
     end
 
@@ -58,9 +58,11 @@ describe ServicesController do
         :service => {:is_schedulelater => true, :images_attributes => {"0" => { :image => file }}}, 
         :id => ser.permalink
       ser1 = Service.find_by_title(ser.title)
+      p ser1
+      p ser1.images
       ser1.should_not == nil
       ser1.images.should_not == nil
-      ser1.images.first.image_file_name.should == "taj.jpg"
+      ser1.images.second.image_file_name.should == "taj.jpg"
     end
 
     it "uploaded logo is not in proper format e.g. txt" do
@@ -72,7 +74,7 @@ describe ServicesController do
         :id => ser.permalink
       ser1 = Service.find_by_title(ser.title)
       ser1.should_not == nil
-      ser1.images.should == []
+      ser1.images.first.image_file_name.should_not == "test.txt"
     end
 
     it "uploaded logo is not in proper format e.g. pdf" do
@@ -84,7 +86,7 @@ describe ServicesController do
         :id => ser.permalink
       ser1 = Service.find_by_title(ser.title)
       ser1.should_not == nil
-      ser1.images.should == []
+      ser1.images.first.image_file_name.should_not == "test.pdf"
     end
 
     it "uploaded logo is not in proper format e.g. word" do
@@ -96,7 +98,7 @@ describe ServicesController do
         :id => ser.permalink
       ser1 = Service.find_by_title(ser.title)
       ser1.should_not == nil
-      ser1.images.should == []
+      ser1.images.first.image_file_name.should_not == "test.doc"
     end
 
     it "uploaded logo uploaded is more than 5 mb"
