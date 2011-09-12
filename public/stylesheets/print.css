@@ -1,0 +1,5 @@
+
+
+body * { visibility: hidden;  }
+#PrintDiv * { visibility: visible; }
+#PrintDiv { position: absolute; top: 40px; left: 30px; }
