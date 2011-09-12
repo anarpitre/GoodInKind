@@ -15,7 +15,7 @@ class ServicesController < ApplicationController
   end
 
   def show
-    if (@service.status == "active" || is_service_owner(@service))
+    if (@service.status == "active")
       @head[:title] = @service.title + " for " + @service.nonprofit.name 
       @review = @service.reviews.build
       @reviews = Review.get_reviews(@service.id)
