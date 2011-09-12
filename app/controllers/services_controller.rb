@@ -1,9 +1,9 @@
 class ServicesController < ApplicationController
   
-  before_filter :authenticate_user!, :only => [:edit, :thankyou]
+  before_filter :authenticate_user!, :only => [:edit, :thankyou, :invite_friends, :service_detail]
   before_filter :set_seo_tags
-  before_filter :get_service_by_id, :only => [:update, :destroy, :show, :edit, :invite_friends, :remove]
-  before_filter :is_owner, :only => [:edit]
+  before_filter :get_service_by_id, :only => [:update, :destroy, :show, :edit, :invite_friends, :remove, :service_detail]
+  before_filter :is_owner, :only => [:edit, :service_detail]
 
   autocomplete :nonprofit, :name, :full => true, :scopes => [:verified]
 
@@ -15,9 +15,14 @@ class ServicesController < ApplicationController
   end
 
   def show
-    @head[:title] = @service.title + " for " + @service.nonprofit.name 
-    @review = @service.reviews.build
-    @reviews = Review.get_reviews(@service.id)
+    if (@service.status == "active" || is_service_owner(@service))
+      @head[:title] = @service.title + " for " + @service.nonprofit.name 
+      @review = @service.reviews.build
+      @reviews = Review.get_reviews(@service.id)
+    else
+      flash[:notice] = 'Service has been removed'
+      redirect_to '/'
+    end
   end
 
   def new
@@ -146,6 +151,10 @@ class ServicesController < ApplicationController
       flash[:notice] = "Please add email to which invitations is to be sent!!!"
       redirect_to thankyou_services_path 
     end
+  end
+
+  def service_detail
+    @user = current_user
   end
 
   private

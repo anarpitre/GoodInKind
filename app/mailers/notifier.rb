@@ -123,6 +123,13 @@ class Notifier < ActionMailer::Base
     setup_email(email, subject, GIK_EMAIL)
   end
 
+  # Send admin email to notify about remove service
+  def admin_remove_service_notification(service)
+    @service = service
+    subject = "Service #{service.title} has been removed!!"
+    setup_email(ADMIN_EMAIL, subject, service.user.email)
+  end
+
   private
 
   def setup_email(sent_to, subject, sent_by=nil)

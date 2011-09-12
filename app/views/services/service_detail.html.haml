@@ -1,0 +1,97 @@
+:javascript
+  function ask_user(booking_count){
+  var message = 'Are you sure you want to remove service'
+  if(booking_count != 0){ 
+    message = 'Are you sure you want to remove service.There are bookings associated with this service'
+  }
+  if (!confirm(message)) {return false;}
+    return true;
+  };
+
+= render :partial => "layouts/profile_tabs"
+#tab2.tab_content
+  .up_profile
+    %h2
+      %span.edit_service_head Service Details
+    %ul.edit_service_list
+      - if @service.status == 'active'
+        %li
+          %span.set_icons.viewpost
+          = link_to "View posting", service_path(@service)
+        -#%li
+          %span.set_icons.re_offer
+          %a{:href => "#"} Offer Again
+        %li
+          %span.set_icons.invate_friends
+          = link_to 'Invite friends', invite_friends_service_path(@service)
+        %li
+          %span.set_icons.cancel_red
+          = link_to 'remove service', remove_service_path(@service), :onclick => "return ask_user(#{@service.bookings.size});"
+    %a.bro_req_btn{:href => services_profile_path(current_user)} Go back to my services
+    .service_details
+      %p
+        %label.service_details_lbl Service title:
+        %span.service_details_txt= @service.title
+      %p
+        %label.service_details_lbl category:
+        %span.service_details_txt= @service.categories.collect(&:name).map{|i| i}.join(",")
+      %p
+        %label.service_details_lbl Non-profit:
+        %span.service_details_txt= @service.nonprofit.name
+      %p
+        %label.service_details_lbl Location:
+        - location = @service.location.blank? ? 'Virtual' : @service.location.address
+        %span.service_details_txt= location 
+      %p
+        %label.service_details_lbl Duration:
+        %span.service_details_txt= @service.estimated_duration == 0 ? '---' : @service.booking_capacity
+      %p
+        %label.service_details_lbl Date:
+        - date = @service.is_schedulelater ? 'To be  scheduled' : "#{@service.start_date}-#{@service.end_date}" 
+        %span.service_details_txt= date 
+      %p
+        %label.service_details_lbl Group size:
+        %span.service_details_txt= @service.booking_capacity == 0 ? '---' : @service.booking_capacity
+      %p
+        %label.service_details_lbl Price:
+        %span.service_details_txt= @service.amount
+      %p
+        %label.service_details_lbl Visibility:
+        %span.service_details_txt 
+        = @service.is_public ? 'Public' : 'Private'
+      %p
+        %label.service_details_lbl Description:
+        %span.service_details_txt= @service.description
+    -#%h2 Transactions:
+    -#%table.up_table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+      %tr.up_tab_top
+        %th
+          %span Buyer
+        %th Payment Amt
+        %th Payment Status
+        %th Review?
+        %th.empty_col
+        %th.bg_white &nbsp;
+        %th.bg_white &nbsp;
+        %th.bg_white &nbsp;
+        %th.bg_white &nbsp;
+      - @service.bookings.each do |booking|
+        %tr
+          %td
+            %span.person_review= "#{booking.billToFirstName} #{booking.billToLastName}"
+          %td= "$#{booking.total_amount}"
+          - status = booking.charge_status
+          %td
+            %b{:class => "#{status}_txt"}= status
+          %td
+            %b{:class => "set_icons #{status}_icon"}
+          %td.empty_col
+          %td.bg_white
+          %td.bg_white
+          %td.bg_white
+          %td.bg_white
+          %td.bg_white
+            - if status == "refunded"
+              %a.set_icons.refund\
+          %td.bg_white
+            %a.set_icons.cancel_red{:href => "#"}

@@ -46,4 +46,11 @@ module ApplicationHelper
 
   end
 
+  def is_service_owner(service)
+    if current_user
+      return true if service.user = current_user
+    end
+    return false
+  end
+
 end
