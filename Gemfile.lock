@@ -144,6 +144,7 @@ GEM
       activesupport (>= 2.3.2)
       cocaine (>= 0.0.2)
       mime-types
+    pg (0.11.0)
     polyglot (0.3.2)
     pyu-ruby-sasl (0.0.3.3)
     rack (1.2.3)
@@ -200,6 +201,9 @@ GEM
     tzinfo (0.3.29)
     warden (1.0.5)
       rack (>= 1.0)
+    webmock (1.6.2)
+      addressable (>= 2.2.2)
+      crack (>= 0.1.7)
     xml-simple (1.1.0)
     yajl-ruby (0.8.3)
 
@@ -227,9 +231,11 @@ DEPENDENCIES
   oa-openid (= 0.2.6)
   omniauth (= 0.2.6)
   paperclip (= 2.3.16)
+  pg
   railroady
   rails (= 3.0.7)
   rails3-jquery-autocomplete (= 0.9.0)
   rake (= 0.8.7)
   rspec-rails (= 2.6.1)
   ruby_parser (= 2.1.0)
+  webmock
