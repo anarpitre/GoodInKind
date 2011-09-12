@@ -18,7 +18,7 @@ class Booking < ActiveRecord::Base
             :billToZip, :billToAddressLine1, :accountName, 
             :billToCountry, :billToState, :presence => true
   validates :billToState, :format => { :with => /^\w{2}$/ }
-  validates :billToCountry, :format => { :with => /^\w{3}$/ } 
+  validates :billToCountry, :format => { :with => /^\w{2,3}$/ } 
   validates :billToEmail, :presence => true
 
   aasm_column :charge_status
