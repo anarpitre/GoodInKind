@@ -51,6 +51,48 @@ class Booking < ActiveRecord::Base
     Notifier.buy_success_offerer(self.service.user.email,self.service.title).deliver
     Notifier.buy_success_buyer(self.user.email,self.service.title).deliver
     Notifier.buy_success_nonprofit(self.service.nonprofit.email,self.service.title).deliver
+    calulate_stats_user
+    calulate_stats_nonprofit
+    calulate_stats_service
+  end
+
+  def calulate_stats_user
+    #Increment donation amount in offerer
+    amount_donated = self.donation_amount + self.additional_donation_amount
+    offerer = self.service.user.profile
+    calulate_donation_time(service,offerer)
+    offerer.donated_amount += amount_donated
+    offerer.donated_transaction += 1
+    offerer.save
+
+    #Increment purchase amount of Buyer
+    buyer = self.user.profile
+    buyer.purchase_amount = buyer.purchase_amount.to_i + amount_donated
+    buyer.save
+  end
+
+  def calulate_stats_service
+    service = self.service
+    service.booked_seats += 1
+    service.total_transactions = service.booked_seats.to_i + 1
+    service.save
+  end
+
+  def calulate_stats_nonprofit
+    nonprofit = self.service.nonprofit
+    nonprofit.donated_amount += self.donation_amount + self.additional_donation_amount 
+    calulate_donation_time(service,nonprofit)
+    nonprofit.total_donors += self.seats_booked
+    nonprofit.total_transactions += 1
+    nonprofit.save
+  end
+
+  def calulate_donation_time(service,entity)
+    if service.is_schedulelater 
+      entity.donated_time += self.seats_booked * service.estimated_duration 
+    else
+      entity.donated_time  = service.estimated_duration
+    end
   end
 
   def do_failure
