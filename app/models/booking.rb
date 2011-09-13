@@ -77,19 +77,19 @@ class Booking < ActiveRecord::Base
   def calulate_stats_service
     #Increase booked seats count
     service = self.service
-    service.booked_seats += self.seats_booked
+    service.booked_seats = service.booked_seats.to_i + self.seats_booked
     service.total_transactions = service.total_transactions.to_i + 1
-    service.donated_amount = service.donated_amount.to_i + @amount_donated
+    service.donated_amount = service.donated_amount.to_f + @amount_donated
     service.save
   end
 
   def calulate_stats_nonprofit
     #Add donated amount to nonprofit and calulate donated_time 
     nonprofit = self.service.nonprofit
-    nonprofit.donated_amount += @amount_donated
+    nonprofit.donated_amount = nonprofit.donated_amount.to_f + @amount_donated
     calulate_donation_time(service,nonprofit)
-    nonprofit.total_donors += self.seats_booked
-    nonprofit.total_transactions += 1
+    nonprofit.total_donors = nonprofit.total_donors.to_i + self.seats_booked
+    nonprofit.total_transactions = nonprofit.total_transactions.to_i + 1
     nonprofit.save
   end
 
