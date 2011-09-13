@@ -64,13 +64,13 @@ class Booking < ActiveRecord::Base
     #Add donated amount to service in offerer donated_amount 
     offerer = self.service.user.profile
     calulate_donation_time(service,offerer)
-    offerer.donated_amount += @amount_donated
-    offerer.donated_transaction += 1
+    offerer.donated_amount = offerer.donated_amoount_to.f + @amount_donated
+    offerer.donated_transaction = offerer.donated_transaction.to_i + 1
     offerer.save
 
     #Add donated amount to service in buyer purchase_amount 
     buyer = self.user.profile
-    buyer.purchase_amount += @amount_donated
+    buyer.purchase_amount = buyer.purchase_amount.to_f + @amount_donated
     buyer.save
   end
 
@@ -95,10 +95,10 @@ class Booking < ActiveRecord::Base
 
   def calulate_donation_time(service,entity)
     if service.is_schedulelater
-      entity.donated_time += self.seats_booked * service.estimated_duration 
+      entity.donated_time = entity.donated_time.to_f + (self.seats_booked * service.estimated_duration )
     else
       if service.bookings.success.count == 0
-        entity.donated_time  = entity.donated_time.to_i + service.estimated_duration.to_i
+        entity.donated_time  = entity.donated_time.to_f + service.estimated_duration.to_i
       end
     end
   end
