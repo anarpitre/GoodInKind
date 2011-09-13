@@ -51,36 +51,39 @@ class Booking < ActiveRecord::Base
     Notifier.buy_success_offerer(self.service.user.email,self.service.title).deliver
     Notifier.buy_success_buyer(self.user.email,self.service.title).deliver
     Notifier.buy_success_nonprofit(self.service.nonprofit.email,self.service.title).deliver
+    @amount_donated = self.donation_amount + self.additional_donation_amount
     calulate_stats_user
     calulate_stats_nonprofit
     calulate_stats_service
   end
 
   def calulate_stats_user
-    #Increment donation amount in offerer
-    amount_donated = self.donation_amount + self.additional_donation_amount
+    #Add donated amount to service in offerer donated_amount 
     offerer = self.service.user.profile
     calulate_donation_time(service,offerer)
-    offerer.donated_amount += amount_donated
+    offerer.donated_amount += @amount_donated
     offerer.donated_transaction += 1
     offerer.save
 
-    #Increment purchase amount of Buyer
+    #Add donated amount to service in buyer purchase_amount 
     buyer = self.user.profile
-    buyer.purchase_amount = buyer.purchase_amount.to_i + amount_donated
+    buyer.purchase_amount += @amount_donated
     buyer.save
   end
 
   def calulate_stats_service
+    #Increase booked seats count
     service = self.service
     service.booked_seats += self.seats_booked
-    service.total_transactions += 1
+    service.total_transactions = service.total_transactions.to_i + 1
+    service.donated_amount = service.donated_amount.to_i + @amount_donated
     service.save
   end
 
   def calulate_stats_nonprofit
+    #Add donated amount to nonprofit and calulate donated_time 
     nonprofit = self.service.nonprofit
-    nonprofit.donated_amount += self.donation_amount + self.additional_donation_amount 
+    nonprofit.donated_amount += @amount_donated
     calulate_donation_time(service,nonprofit)
     nonprofit.total_donors += self.seats_booked
     nonprofit.total_transactions += 1
@@ -88,11 +91,11 @@ class Booking < ActiveRecord::Base
   end
 
   def calulate_donation_time(service,entity)
-    if service.is_schedulelater 
+    if service.is_schedulelater
       entity.donated_time += self.seats_booked * service.estimated_duration 
     else
-      if service.bookings.success.count == 1
-        entity.donated_time  += service.estimated_duration
+      if service.bookings.success.count == 0
+        entity.donated_time  = entity.donated_time.to_i + service.estimated_duration.to_i
       end
     end
   end
