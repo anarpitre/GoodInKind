@@ -12,7 +12,7 @@ namespace :ci do
   end
 
   desc "Prepare for CI and run entire test suite"
-  task :build => ['ci:copy_yml', 'db:create', 'ci:bi', 'db:migrate', 'ci:spec'] do
+  task :build => ['ci:bi', 'ci:copy_yml', 'db:create', 'db:migrate', 'ci:spec'] do
   end
 end
 
