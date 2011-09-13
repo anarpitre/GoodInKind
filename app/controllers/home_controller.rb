@@ -3,7 +3,7 @@ class HomeController < ApplicationController
   layout 'home'
 
   def index
-    @services = Service.active.by_public.limit(12)
+    @services = Service.active.by_date.by_public.limit(12)
     render :dashboard => (user_signed_in? ? true : false)
   end
 

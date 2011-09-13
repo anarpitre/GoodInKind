@@ -235,6 +235,13 @@ class NonprofitsController < ApplicationController
     end
   end
 
+  def suggest
+    nonprofit = params['nonprofit']
+    Notifier.suggest_nonprofit(nonprofit['name'], nonprofit['city'], nonprofit['email']).deliver
+    flash[:notice] = 'Thankyou for suggesting'
+    redirect_to :action => 'index'
+  end
+
   private
 
   def get_nonprofit

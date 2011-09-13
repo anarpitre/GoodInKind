@@ -24,8 +24,9 @@ class Service < ActiveRecord::Base
   validates_numericality_of :booking_capacity, :only_integer => true, :message => :booking_capacity
   validates_numericality_of :estimated_duration, :message => "Please enter a valid number"  
   validate :check_categories, :check_date, :check_nonprofit, :check_duration
-  
+
   scope :by_public, where(:is_public => true)
+  scope :by_date, where("is_schedulelater = ? or (is_schedulelater = ? and end_date >= ?)",true,false,Date.today)
   scope :by_user, lambda {|user_id| where(:user_id => user_id)}
 
   after_create :generate_permalink, :check_image
@@ -132,4 +133,14 @@ class Service < ActiveRecord::Base
     end
   end
 
+  #TBD-Sameer- Create new aasm state as expire
+  #- Set expire state in this method
+  #- Add this same condition in service.active checking so no seaprate scope like by_date will be required.
+  def is_valid_service
+    if (self.status == "active" and (self.is_schedulelater == true or (self.is_schedulelater == false and self.end_date >= Date.today)))
+      return true
+    else
+      return false
+    end
+  end
 end

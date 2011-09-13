@@ -12,10 +12,13 @@
     %h2.fs_find_h2
       Non-Profit Partners
       %br/
-    %span{:style => "margin-left: 20px"} 
-      Choose a non-profit below and support it by either purchasing a service or offering a service.
-      %br/
-      %br/
+    - if @nonprofits.empty?
+      = render :partial => 'np_not_found'
+    - else
+      %span{:style => "margin-left: 20px"} 
+        Choose a non-profit below and support it by either purchasing a service or offering a service.
+        %br/
+        %br/
     .np_results#np_results
   :javascript
     var nonprofits = #{@nonprofits.to_json};

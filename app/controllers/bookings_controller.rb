@@ -7,6 +7,11 @@ class BookingsController < ApplicationController
 
   # GET /services/:service_id/bookings/new
   def new
+    unless @service.is_valid_service
+      flash[:notice] = 'Service does not exist'
+      redirect_to '/'
+    end
+
     @booking = @service.bookings.new
 
     # set some defaults
@@ -14,8 +19,8 @@ class BookingsController < ApplicationController
     @booking.additional_donation_amount = 0
     @booking.donation_amount = @booking.service.amount # default 1 seat
     @booking.GIK_charges = 0
-    @booking.CC_charges = (@booking.donation_amount * FIRST_GIVING_CC_RATE / 100).round(2)
-    @booking.total_amount = @booking.service.amount + @booking.CC_charges # default 1 seat
+    @booking.CC_charges = 0 
+    @booking.total_amount = @booking.service.amount # default 1 seat
 
     # If the user has some previous bookings, we can re-use the billing info
     prev = current_user.bookings.last
@@ -56,7 +61,6 @@ class BookingsController < ApplicationController
     @booking.seats_booked = @booking.seats_booked.to_i
     @booking.additional_donation_amount = (@booking.additional_donation_amount.to_f).round(2)
     @booking.donation_amount = @booking.service.amount  * @booking.seats_booked 
-    @booking.CC_charges = ((@booking.donation_amount + @booking.additional_donation_amount) * FIRST_GIVING_CC_RATE / 100).round(2)
     @booking.total_amount = @booking.donation_amount.to_f + 
                             @booking.additional_donation_amount + 
                             @booking.GIK_charges.to_f + 

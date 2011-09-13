@@ -130,6 +130,13 @@ class Notifier < ActionMailer::Base
     setup_email(ADMIN_EMAIL, subject, service.user.email)
   end
 
+  def suggest_nonprofit(name, city, email)
+    @name = name
+    @city = city
+    subject = "Nonprofit Suggestions"
+    setup_email(ADMIN_EMAIL, subject, email)
+  end
+
   private
 
   def setup_email(sent_to, subject, sent_by=nil)

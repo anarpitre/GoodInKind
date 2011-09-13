@@ -34,7 +34,7 @@ Gik::Application.routes.draw do
   resources :nonprofits do
     collection do
       get :login, :logout, :reset_password, :search_nonprofit
-      post :create_session, :search, :update_password
+      post :create_session, :search, :update_password, :suggest
       match :forgot_password
       match :forgot_username
     end
