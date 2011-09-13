@@ -44,7 +44,7 @@
         %span.service_details_txt= location 
       %p
         %label.service_details_lbl Duration:
-        %span.service_details_txt= @service.estimated_duration == 0 ? '---' : @service.booking_capacity
+        %span.service_details_txt= @service.estimated_duration == 0 ? '---' : @service.estimated_duration
       %p
         %label.service_details_lbl Date:
         - date = @service.is_schedulelater ? 'To be  scheduled' : "#{@service.start_date}-#{@service.end_date}" 
