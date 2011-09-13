@@ -64,7 +64,7 @@ class Booking < ActiveRecord::Base
     #Add donated amount to service in offerer donated_amount 
     offerer = self.service.user.profile
     calulate_donation_time(service,offerer)
-    offerer.donated_amount = offerer.donated_amoount_to.f + @amount_donated
+    offerer.donated_amount = offerer.donated_amount_to.f + @amount_donated
     offerer.donated_transaction = offerer.donated_transaction.to_i + 1
     offerer.save
 
