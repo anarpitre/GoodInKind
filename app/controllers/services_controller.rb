@@ -11,16 +11,16 @@ class ServicesController < ApplicationController
 
   def index
     @head[:title] = "Find services to buy in Ithaca, NY and support a non-profit cause"
-    @services = Service.active.by_public.includes([:images, {:nonprofit => :nonprofit_categories}, :service_categories])
+    @services = Service.active.by_date.by_public.includes([:images, {:nonprofit => :nonprofit_categories}, :service_categories])
   end
 
   def show
-    if (@service.status == "active")
+    if @service.is_valid_service
       @head[:title] = @service.title + " for " + @service.nonprofit.name 
       @review = @service.reviews.build
       @reviews = Review.get_reviews(@service.id)
     else
-      flash[:notice] = 'Service has been removed'
+      flash[:notice] = 'Service does not exist'
       redirect_to '/'
     end
   end
