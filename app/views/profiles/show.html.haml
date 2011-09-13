@@ -28,7 +28,7 @@
               %span 0
       .up_my_profile_right
         %h2.my_name
-          = get_user_name
+          = get_user_name(@profile)
           %span
             - if is_owner(@profile.user)
               = image_tag('edit_icon.jpg', :alt => "edit")
