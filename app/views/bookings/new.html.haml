@@ -39,9 +39,6 @@
       %p{:style => 'width:300px'}
         %span.cc_charge GIK service charge 
         %span.cc_charge_amt 0.0
-      %p{:style => 'width:300px'}
-        %span.cc_charge CC charges (#{FIRST_GIVING_CC_RATE}%)
-        %span.cc_charge_amt#total_cc_charges= @booking.CC_charges 
       .clear
       %hr.pay_page_hr
       %p
@@ -51,7 +48,6 @@
         %span.payment_total_amt 
       :javascript
         var per_seat = #{@booking.service.amount.to_f}
-        var fg_cc_rate = #{FIRST_GIVING_CC_RATE}
     .setp_box{:id => 'cc_fields'}
       %h3.setp_box_heading
         %span Credit Card Details

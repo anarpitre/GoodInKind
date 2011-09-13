@@ -21,11 +21,8 @@ $(document).ready(function() {
 
     donation = parseFloat(donation.toFixed(2))
     total = parseFloat((seats * per_seat).toFixed(2));
-    cc_amt = parseFloat(((total + donation) * fg_cc_rate / 100).toFixed(2))
-    $('#total_donation').html(total + donation + cc_amt);
+    $('#total_donation').html(total + donation);
     $('#booking_donation_amount').val(total);
-    $('#total_cc_charges').html(cc_amt)
-    $('#booking_CC_charges').val(cc_amt);
   });
 
 });
