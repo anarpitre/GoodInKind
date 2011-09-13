@@ -2,7 +2,6 @@ class BookingsController < ApplicationController
   before_filter :authenticate_user! # TODO: Anonymous buyers?
   before_filter :get_service
   before_filter :update_profile
-
   layout 'service'
 
   # GET /services/:service_id/bookings/new
@@ -114,20 +113,33 @@ class BookingsController < ApplicationController
         @booking.create_transaction(code, id)
         if code == 'Success'
           @booking.payment_succeeded
+          redirect_to service_booking_path(@service, @booking.mref), :notice => "Transaction successful!"
         else
           @booking.payment_failed
-          message = "Sorry! Failed because: #{id}"
+          flash[:notice] = "Transaction unsuccessful! Please try again or contact support!"
+          render(:action => :new) and return
         end
         @booking.save!
       end
     end
 
-    redirect_to service_path(@booking.service), 
-                  :notice => (message or "Booking successful")
 
     rescue ActiveRecord::RecordInvalid
       @cc = ActiveMerchant::Billing::CreditCard.new(params[:cc]) unless @cc
       render :action => :new 
+  end
+
+  def show
+    @booking = current_user.bookings.find_by_mref(params[:id])
+    unless @booking
+      flash[:notice] = "No such transaction!"
+      redirect_to service_path(@service) 
+    end
+  end
+
+  def destroy
+    booking = current_user.bookings.find_by_mref(params[:id])
+    booking.destroy
   end
 
 private
@@ -138,4 +150,5 @@ private
   def update_profile
     # Check for mandatory profile fields.
   end
+
 end

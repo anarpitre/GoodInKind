@@ -55,7 +55,7 @@ Gik::Application.routes.draw do
     member do
       get :invite_friends, :remove, :service_detail
     end
-    resources :bookings, :only => [:new, :create, :destroy]
+    resources :bookings, :only => [:new, :create, :show, :destroy] 
   end
 
   resources :requests

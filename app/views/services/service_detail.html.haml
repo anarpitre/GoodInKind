@@ -13,21 +13,21 @@
   .up_profile
     %h2
       %span.edit_service_head Service Details
-    %ul.edit_service_list
-      - if @service.status == 'active'
-        %li
-          %span.set_icons.viewpost
-          = link_to "View posting", service_path(@service)
-        -#%li
-          %span.set_icons.re_offer
-          %a{:href => "#"} Offer Again
-        %li
-          %span.set_icons.invate_friends
-          = link_to 'Invite friends', invite_friends_service_path(@service)
-        %li
-          %span.set_icons.cancel_red
-          = link_to 'remove service', remove_service_path(@service), :onclick => "return ask_user(#{@service.bookings.size});"
-    %a.bro_req_btn{:href => services_profile_path(current_user)} Go back to my services
+      %ul.edit_service_list
+        - if @service.status == 'active'
+          %li
+            %span.set_icons.viewpost
+            = link_to "View posting", service_path(@service)
+          -#%li
+            %span.set_icons.re_offer
+            %a{:href => "#"} Offer Again
+          %li
+            %span.set_icons.invate_friends
+            = link_to 'Invite friends', invite_friends_service_path(@service)
+          %li
+            %span.set_icons.cancel_red
+            = link_to 'remove service', remove_service_path(@service), :onclick => "return ask_user(#{@service.bookings.size});"
+      %a.bro_req_btn{:href => services_profile_path(current_user)} Go back to my services
     .service_details
       %p
         %label.service_details_lbl Service title:
