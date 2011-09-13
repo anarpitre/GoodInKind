@@ -154,7 +154,7 @@ private
   end
 
   def force_ssl
-    return if Rails.env == 'development'
+    return if Rails.env != 'production'
     if !request.ssl?
       redirect_to :protocol => 'https'
     end
