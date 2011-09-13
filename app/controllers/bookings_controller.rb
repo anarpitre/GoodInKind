@@ -118,6 +118,7 @@ class BookingsController < ApplicationController
           redirect_to service_booking_path(@service, @booking.mref), :notice => "Transaction successful!"
         else
           @booking.payment_failed
+          @booking.save!
           flash[:notice] = "Transaction unsuccessful! Please try again or contact support!"
           render(:action => :new) and return
         end

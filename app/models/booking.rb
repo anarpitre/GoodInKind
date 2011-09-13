@@ -28,7 +28,7 @@ class Booking < ActiveRecord::Base
   aasm_initial_state :new
 
   aasm_state :new  # User created a booking
-  aasm_state :processing, :do_enter => :do_processing # Credit Card details captured
+  aasm_state :processing, :enter => :do_processing # Credit Card details captured
   aasm_state :success, :enter => :do_success
   aasm_state :failure, :enter => :do_failure
 
@@ -106,6 +106,7 @@ class Booking < ActiveRecord::Base
   def do_failure
     # Send email to buyer about this
     Notifier.buy_failed_buyer(self.user.email,self.service.title).deliver
+    Notifier.failed_transaction(self).deliver
   end
 
   def cardonfile

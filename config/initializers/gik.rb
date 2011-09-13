@@ -17,7 +17,7 @@ WEBSITE_REGEX= /^((http|https):\/\/)?[a-z0-9]+(\.[a-z0-9]+)?.[a-z]{2,5}$/i
 if Rails.env == 'production'
   ADMIN_EMAIL = "admin@goodinkind.com"
 else
-  ADMIN_EMAIL = "test@joshsoftware.com"
+  ADMIN_EMAIL = "molecularsequence@yahoo.com"
 end
 GIK_EMAIL = "GoodInKind <alerts@goodinkind.com>"
 
