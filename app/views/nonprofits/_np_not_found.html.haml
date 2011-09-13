@@ -1,0 +1,37 @@
+:javascript
+  jQuery(document).ready(function(){
+    
+
+    $('#suggest_submit').click(function(){
+      var email = $('#nonprofit_email').val();
+      var name = $('#nonprofit_name').val();
+      var city = $('#nonprofit_city').val();
+      if (email == '' || name == '' || city == ''){
+        alert('Please fill all the fields');
+        return false;
+       }
+      var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+      if(reg.test(email) == false){
+        alert('The entered email address is not in correct format');
+        return false;
+      }
+        return true;
+    });
+    
+  });
+
+.np_no_results{:style => 'margin-left:90px;'}
+  %strong Sorry, we don't yet have that non-profit listed!
+  Want us to add it?  Suggest it here:
+  = form_for "nonprofit", :url => suggest_nonprofits_path, :as => :post do
+    %p
+      %label.no_res_lbl Non-Profit Name
+      = text_field "nonprofit", "name", :class => "no_res_txt", :label => 'Non-Profit Name'
+    %p
+      %label.no_res_lbl City
+      = text_field "nonprofit", "city", :class => "no_res_txt_city", :label => 'City'
+    %p
+      %label.no_res_lbl Your Email
+      = text_field "nonprofit", "email", :class => "no_res_txt", :label => 'Your Email'
+    %p
+      = submit_tag "Suggest Non-Profit", :class => "button btn_form no_res_btn", :id => 'suggest_submit'
