@@ -73,8 +73,8 @@ class Booking < ActiveRecord::Base
 
   def calulate_stats_service
     service = self.service
-    service.booked_seats += 1
-    service.total_transactions = service.booked_seats.to_i + 1
+    service.booked_seats += self.seats_booked
+    service.total_transactions += 1
     service.save
   end
 
@@ -91,7 +91,9 @@ class Booking < ActiveRecord::Base
     if service.is_schedulelater 
       entity.donated_time += self.seats_booked * service.estimated_duration 
     else
-      entity.donated_time  = service.estimated_duration
+      if service.bookings.success.count == 1
+        entity.donated_time  += service.estimated_duration
+      end
     end
   end
 

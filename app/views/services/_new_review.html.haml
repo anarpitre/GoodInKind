@@ -4,7 +4,7 @@
       - class_name =  review.is_positive == true ? "positive" : "negative"
       %span{:class => class_name}= class_name.titleize
       by
-      %span.ss_name=  review.user.profile.first_name
+      %span.ss_name=  review.user.profile.full_name
       %p
         = h(review.review_remark).gsub("\n", "<br/>")
         .up_acc_email

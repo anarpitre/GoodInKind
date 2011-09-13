@@ -16,7 +16,7 @@
 %h3.comment_icon
   = image_tag('review_icon.png', :alt => "Review")
   %span Reviews
-- if user_signed_in?
+- if user_signed_in? and is_buyer(current_user.id)
   - form_for(@review, :url => review_services_path,:remote => true, :html => {:class => "review_form"}) do |f| 
     = f.select :is_positive, REVIEW.collect{|b| b}
     = f.text_area :review_remark,  :placeholder => "Write your review...", :rows => "5", :cols => "50" 
