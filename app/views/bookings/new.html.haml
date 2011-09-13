@@ -1,3 +1,37 @@
+:javascript
+  $(document).ready(function(){
+    $("#in").click(function(event){
+      $("#overlay").fadeIn("fast");
+      var amount = $('#total_donation').html(); 
+      var amount_text = '$'+ amount;
+      $('#amount_text').html(amount_text); 
+      return false;
+    });
+    $("#close,#overlay,#cancel").click(function(event){
+      $("#overlay").fadeOut("fast");
+      return false;
+    });
+    $("#submit").click(function(event){
+       $("#overlay").fadeOut("fast");
+       $('#new_booking').submit();
+    });
+  }); 
+
+
+#overlay{:style => "display: none;"}
+  #box
+    #form
+      %a#close{:href => "#"}
+      .light_box_top
+        %h3 Review Amount
+        = image_tag "goodinkind-logo-small_2.png", :class => 'light_box_logo'
+      %h4.payment_cofirm_h4
+        Your Credit Card is going to be charged with 
+        %span{ :id => 'amount_text'}
+        Click to proceed
+      %form.light_box_form
+        %input.button.confirm_btn_light{:type => "submit", :value => "Confirm", :id => 'submit'}
+        %input.button.btn_form.up_acc_btns_c{:type => "reset", :value => "Cancel", :id => 'cancel'}
 .offer_form
   .np_page_top
     %p{:style => "font-size:16px"}
@@ -86,4 +120,7 @@
         = f.text_field :billToZip, :label => "Zipcode", :class => "input_tiny", :pre => true, :error_class => "tiny_error"
         = f.text_field :billToCountry, :label => "Country", :class => "input_tiny", :pre => true, :error_class => "tiny_error", :hint => "Please enter max. 3 letter abbreviation such as US"
     .input_post_div
-      = f.submit 'Pay'
+      #in= f.submit 'Pay'
+
+
+    
