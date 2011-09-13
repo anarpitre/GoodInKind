@@ -4,7 +4,9 @@ staging: &default
   :url: http://www.joshsoftware.com
 
 production:
-  <<: *default
+  :key: '5cd2f9aa-db0f-11e0-8582-12313b003616'
+  :token: '5cd3e16c-db0f-11e0-8582-12313b003616'
+  :url: https://payment.goodinkind.com
 
 development:
   <<: *default

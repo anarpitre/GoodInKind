@@ -2,6 +2,8 @@ class BookingsController < ApplicationController
   before_filter :authenticate_user! # TODO: Anonymous buyers?
   before_filter :get_service
   before_filter :update_profile
+  before_filter :force_ssl
+
   layout 'service'
 
   # GET /services/:service_id/bookings/new
@@ -151,4 +153,10 @@ private
     # Check for mandatory profile fields.
   end
 
+  def force_ssl
+    return if Rails.env == 'development'
+    if !request.ssl?
+      redirect_to :protocol => 'https'
+    end
+  end
 end
