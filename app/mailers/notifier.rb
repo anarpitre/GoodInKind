@@ -1,5 +1,6 @@
 class Notifier < ActionMailer::Base
 
+  include ProfilesHelper
 
     #mail to offerer when review is posted
   def review_posted(email,permalink) 
@@ -16,22 +17,44 @@ class Notifier < ActionMailer::Base
   end
 
   # Send mails to offerer, buyer and nonprofit on successful buy
-  def buy_success_offerer(email,title)
-    @service_title = title
-    subject = "One user has purchased your service"
-    setup_email(email, subject)
+  def buy_success_offerer(booking)
+    @service_title = booking.service.title
+    @booking_trnx_id = booking.transaction.FG_trnx_id
+    @buyer_name = get_user_name(booking.user.profile)
+    @buyer_email = booking.user.email
+    @nonprofit_name = booking.service.nonprofit.name
+    @spots = booking.seats_booked
+    @amount = booking.total_amount
+    @email = booking.service.user.email
+    subject = "Someone purchased your service on GoodInKind"
+    setup_email(@email, subject)
   end
 
-  def buy_success_buyer(email,title)
-    @service_title = title
-    subject = "Thank you for purchasing a service"
-    setup_email(email, subject)
+  def buy_success_buyer(booking)
+    @service_title = booking.service.title
+    @booking_trnx_id = booking.transaction.FG_trnx_id
+    @offerer_name = get_user_name(booking.service.user.profile)
+    @offerer_email = booking.service.user.email
+    @nonprofit_name = booking.service.nonprofit.name
+    @spots = booking.seats_booked
+    @amount = booking.total_amount
+    @additional_amount = booking.additional_donation_amount
+    @email = booking.user.email
+    subject = "Confirmation of your purchase on GoodInKind"
+    setup_email(@email, subject)
   end
 
-  def buy_success_nonprofit(email,title)
-    @service_title = title
-    subject = "One user has purchased service to support your cause"
-    setup_email(email, subject)
+  def buy_success_nonprofit(booking)
+    @service_title = booking.service.title
+    @buyer_name = get_user_name(booking.user.profile)
+    @buyer_email = booking.user.email
+    @offerer_name = get_user_name(booking.service.user.profile)
+    @offerer_email = booking.service.user.email
+    @amount = booking.total_amount
+    @additional_amount = booking.additional_donation_amount
+    @email = booking.service.nonprofit.email
+    subject = "A service was purchased on GoodInKind to support your organization"
+    setup_email(@email, subject)
   end
 
   def buy_failed_buyer(email,title)

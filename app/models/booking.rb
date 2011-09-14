@@ -51,9 +51,9 @@ class Booking < ActiveRecord::Base
 
   def do_success
     # Send email to offerer, buyer and nonprofit about this
-    Notifier.buy_success_offerer(self.service.user.email,self.service.title).deliver
-    Notifier.buy_success_buyer(self.user.email,self.service.title).deliver
-    Notifier.buy_success_nonprofit(self.service.nonprofit.email,self.service.title).deliver
+    Notifier.buy_success_offerer(self).deliver
+    Notifier.buy_success_buyer(self).deliver
+    Notifier.buy_success_nonprofit(self).deliver
     @amount_donated = self.donation_amount + self.additional_donation_amount
     calulate_stats_user
     calulate_stats_nonprofit

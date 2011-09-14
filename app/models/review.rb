@@ -2,7 +2,7 @@ class Review < ActiveRecord::Base
   belongs_to :service
   belongs_to :user
 
-  validates :group_number, :review,  :presence => true
+  validates :group_number, :review_remark,  :presence => true
     
   scope :get_reviews, lambda {|group_number| where("group_number = ?",group_number).order("created_at DESC")}
 

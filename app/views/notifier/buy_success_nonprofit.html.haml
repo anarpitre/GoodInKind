@@ -3,8 +3,29 @@
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
   %body
     %p
-      One user has purchased service #{@service_title} to support your cause.
-      /= link_to "here", service_url(@service_id) 
+      Yippee! Someone just purchased a service that supported your organization, so you can do even more good now.
+    %p
+      
+      Transaction details:
+    %p
+      Name of seller: #{@offerer_name} 
+    %p
+      Email of seller: #{@offerer_email}
+    %p
+      Name of buyer: #{@buyer_name} 
+    %p
+      Email of buyer: #{@buyer_email}
+    %p
+      Service title: #{@service_title}
+    %p
+      Donation amount on top of service price: #{@additional_amount}
+    %p
+      GoodInKind service charge: $0
+    %p
+      Total amount paid by buyer: #{@amount} 
+    %p
+      Please note that we use First Giving to handle disbursements to non-profits, you will receive the funds per their standard disbursement schedule. The amount you receive will be less of 4.25% transaction fees charged by First Giving.
+    
     %p
     \--
     %b Your friends at GoodInKind

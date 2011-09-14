@@ -145,7 +145,7 @@ class ServicesController < ApplicationController
       emails.each do |email|
         Notifier.service_invitation(email,message,current_user.email).deliver
       end
-      flash[:notice] = "Email was sent successfully!!"
+      flash[:notice] = "Email was sent successfully!"
       redirect_to service_path(current_user.services.last)  
     else
       flash[:notice] = "Please add email to which invitations is to be sent!!!"

@@ -3,8 +3,32 @@
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
   %body
     %p
-      Thankyou for purchasing service #{@service_title}  
-      /= link_to "here", service_url(@service_id) 
+      This email confirms your purchase on GoodInKind. Thank you for doing good and having an impact on the world!
+    %p
+
+      Details of transaction:
+    %p
+      Transaction ID: #{@booking_trnx_id} 
+    %p
+      Name of seller: #{@offerer_name} 
+    %p
+      Email of seller: #{@offerer_email}
+    %p
+      Service title: #{@service_title}
+    %p
+      Supported non-profit: #{@nonprofit_name} 
+    %p
+      Number of spots purchased: #{@spots}
+    %p
+      Additional donation amount: #{@additional_amount}
+    %p
+      Total amount paid: #{@amount}
+    %p
+      Make sure to connect with the seller using the above email address to avail your service. You can also see details of the purchase on 
+      =link_to "goodinkind.com","http://goodinkind.com" 
+      in the My Services section, which will be available after you login. And, don't forget to post a review after you've received the service.
+    %p
+      Thank you for doing good and having an impact on this world!
     %p
     \--
     %b Your friends at GoodInKind

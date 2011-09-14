@@ -26,7 +26,7 @@
         FB.ui({
           method: 'apprequests',
           title :'GoodInKind',
-          message:  "I am offering this service on GoodInKind benefiting #{@service.nonprofit.name}. Hope you can join me! #{services_url(@service.permalink)}"});
+          message:  "I am offering this service on GoodInKind benefiting #{@service.nonprofit.name}. Hope you can join me! #{service_url(@service.permalink)}"});
         });
       
       $("#fb_share").click(function(){
@@ -34,7 +34,7 @@
         FB.ui({
           method: 'feed',
           name: "#{@service.title}",
-          link: "#{services_url(@service.permalink)}",
+          link: "#{service_url(@service.permalink)}",
           picture: "#{fqdn}#{@service.images.first.image.url(:thumb)}",
           caption: 'Reference Documentation',
           description: "#{@service.description}",
@@ -75,7 +75,7 @@
         = text_field "users", "email", :placeholder => "(Separate email by comma)", :class => "form_input_full"
       %p
         %label.invite_mail_lbl Invitation Text
-        = text_area "users", "message", :class => "form_input_full input_area", :value => "Check out this service that I am offering on GoodInKind.com that benefits #{@service.nonprofit.name}. I hope that you will be able to join me and enjoy this  service while supporting a worthy cause. Look forward to hearing from you.\n\n To view service click: #{services_url(@service.permalink)}"
+        = text_area "users", "message", :class => "form_input_full input_area", :value => "Check out this service that I am offering on GoodInKind.com that benefits #{@service.nonprofit.name}. I hope that you will be able to join me and enjoy this  service while supporting a worthy cause. Look forward to hearing from you.\n\n To view service click: #{service_url(@service.permalink)}"
       %p.invite_mail_btns
         = submit_tag "Send", :class => "btn_form button"
         %input.btn_form.button.up_acc_btns_c{:type => "reset", :value => "Cancel"}/
