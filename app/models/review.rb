@@ -17,5 +17,6 @@ class Review < ActiveRecord::Base
     offerer.total_reviews = offerer.total_reviews.to_i + 1
     offerer.positive_reviews = offerer.positive_reviews.to_i + 1 if self.is_positive
     offerer.save
+    Notifier.review_posted(self.service.user.email,self.service.permalink).deliver
   end
 end

@@ -1,7 +1,14 @@
 class Notifier < ActionMailer::Base
 
 
-  #mail to admin for faild transaction
+    #mail to offerer when review is posted
+  def review_posted(email,permalink) 
+    @service_permalink = permalink 
+    subject = "A review was posted for your service"
+    setup_email(email, subject)
+  end
+
+  #mail to admin for failed transaction
   def failed_transaction(booking)
     @booking = booking
     subject = "Purchase transaction failed notice"

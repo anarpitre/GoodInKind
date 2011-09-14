@@ -4,9 +4,10 @@
     %h2 Offered By me:
     %table.up_table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
       %tr.up_tab_top
-        %th
+        %th{:style => 'width:200px;word-wrap:break-word'}
           %span Service Title
-        %th Non-Profit
+        %th{:style => 'width:200px;word-wrap:break-word'}
+          %span Non-Profit
         %th Purchases
         %th Amount Donated
         %th Expires
@@ -18,10 +19,10 @@
         /%th.bg_white &nbsp;
       - @services.each do |service|
         %tr{:class => "#{'expired_row' if is_expired?(service)}", :id => "service_#{service.id}"}
-          %td
-            %span 
-              = link_to service.title, service_path(service)
-          %td #{service.nonprofit.name} 
+          %td{:style => 'width:200px;word-wrap:break-word'}
+            %span= service.title
+          %td{:style => 'width:200px;word-wrap:break-word'}
+            %span= service.nonprofit.name 
           %td #{service.total_transactions.to_i} 
           %td $#{service.donated_amount.to_i}
           %td
@@ -71,8 +72,7 @@
         %tr
           %td{:style => 'width:200px;word-wrap:break-word'}
             %span= booking.service.title
-          - full_name = "#{booking.service.user.profile.first_name} #{booking.service.user.profile.last_name}"
-          %td= full_name 
+          %td= get_user_name(booking.service.user.profile) 
           - location = booking.service.location ? [booking.service.location.city, booking.service.location.state].join(', ') : '-'
           %td{:style => 'width:100px;word-wrap:break-word'}= location
           %td= booking.created_at.strftime("%m-%d-%Y")
