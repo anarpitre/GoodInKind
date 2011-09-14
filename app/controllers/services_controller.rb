@@ -2,7 +2,7 @@ class ServicesController < ApplicationController
   
   before_filter :authenticate_user!, :only => [:edit, :thankyou, :invite_friends, :service_detail]
   before_filter :set_seo_tags
-  before_filter :get_service_by_id, :only => [:update, :destroy, :show, :edit, :invite_friends, :remove, :service_detail]
+  before_filter :get_service_by_id, :only => [:update, :destroy, :show, :edit, :invite_friends, :remove, :service_detail, :offer_again]
   before_filter :is_owner, :only => [:edit, :service_detail]
 
   autocomplete :nonprofit, :name, :full => true, :scopes => [:verified]
@@ -155,6 +155,16 @@ class ServicesController < ApplicationController
 
   def service_detail
     @user = current_user
+  end
+
+  def offer_again
+    new_service = @service.clone
+    category_ids = @service.service_categories.collect(&:category_id)
+    new_service.attributes = {"donated_amount"=>"", "created_at"=>"", "updated_at"=>"", "request_id"=>"", "total_transactions"=>"", "permalink"=>"" ,:category_ids => category_ids }
+    new_service.build_location(:address => @service.location.address) unless @service.is_virtual 
+    new_service.images.build
+    @service = new_service
+    render :action => 'new'
   end
 
   private
