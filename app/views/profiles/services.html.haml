@@ -49,10 +49,10 @@
     %h2 Purchased by me:
     %table.up_table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
       %tr.up_tab_top
-        %th
+        %th{:style => 'width:200px;word-wrap:break-word'}
           %span Service Title
         %th Offerer
-        %th Location
+        %th{:style => 'width:100px;word-wrap:break-word'} Location
         %th Date
         %th
           Payment
@@ -62,22 +62,23 @@
           Payment
           %br
           Status
-        %th.empty_col
+        %th
+          Reference
         %th.bg_white &nbsp;
         %th.bg_white &nbsp;
         %th.bg_white &nbsp;
       - @bookings.each do |booking|  
         %tr
-          %td
+          %td{:style => 'width:200px;word-wrap:break-word'}
             %span= booking.service.title
           - full_name = "#{booking.service.user.profile.first_name} #{booking.service.user.profile.last_name}"
           %td= full_name 
-          - location = "#{booking.service.location.try(:city)},#{booking.service.location.try(:state)}"
-          %td= location
+          - location = booking.service.location ? [booking.service.location.city, booking.service.location.state].join(', ') : '-'
+          %td{:style => 'width:100px;word-wrap:break-word'}= location
           %td= booking.created_at.strftime("%m-%d-%Y")
           %td= booking.total_amount
           %td= booking.charge_status.titleize
-          %td.empty_col
+          %td= booking.mref
           %td.bg_white
             = link_to "", service_path(booking.service), :class => "set_icons viewpost"
           /%td.bg_white
