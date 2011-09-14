@@ -21,8 +21,8 @@ gem 'faker', '0.9.5'
 gem 'httparty', '0.7.8'
 gem 'nokogiri', '1.4.7'
 gem 'activemerchant', '1.16.0'
-gem 'ci_reporter'
 group :development, :test do
+ gem 'ci_reporter'
  gem  "hpricot"
  gem 'rspec-rails', '2.6.1'
  gem 'factory_girl_rails'
