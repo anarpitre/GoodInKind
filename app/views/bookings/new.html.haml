@@ -46,7 +46,7 @@
     %p
       %b Pricing: 
       Pricing for some services may require purchase of a minimum number of spots. If this is unclear, you may use the "Message me" feature to clarify with the service offerer before finalizing the purchase. Note that GoodInKind currently does not support a model where the price is dependent on the actual effort spent and is only known after the service has been delivered.
-  = form_for(@booking, :url => service_bookings_path(@service), :builder => JoshForm) do |f|
+  = form_for(@booking, :url => service_bookings_path(@service), :builder => JoshForm, :html => {:id => 'new_booking', :method => :post}) do |f|
     - if @booking.errors.any? and @booking.errors[:fg].any?
       #error_explanation
         %ul
