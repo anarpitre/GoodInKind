@@ -1,15 +1,24 @@
 :javascript
   jQuery(document).ready(function(){
-      $(".all_review").hide();
+    $('#spinner').hide();
 
     $('.show_review').click(function(){
       $(".review").hide();
       $(".show_review").hide();
-      $(".all_review").show();
     });
     
+      $("#new_review").bind("ajax:beforeSend", function() {
+        $('#spinner').show();
+        if($("#review_review_remark").val() == '') {
+          alert('Please add review');
+          $('#spinner').hide();
+          return false;
+        }
+        $("#review_review_remark").val('');
+      });
+      
       $("#new_review").bind("ajax:complete", function() {
-        $("#review_review").val('');
+        $('#spinner').hide();
       });
     
   });
@@ -19,6 +28,7 @@
 - if user_signed_in? and is_buyer(current_user.id,@service.id)
   - form_for(@review, :url => review_services_path,:remote => true, :html => {:class => "review_form"}) do |f| 
     = f.select :is_positive, REVIEW.collect{|b| b}
+    #spinner= image_tag('/images/spinner.gif')
     = f.text_area :review_remark,  :placeholder => "Write your review...", :rows => "5", :cols => "50" 
     = f.hidden_field :service_id
     = f.submit :class => "button review_form_sub"
