@@ -42,7 +42,7 @@ class ProfilesController < ApplicationController
 
   def services
     @services = @user.services.includes(:nonprofit)
-    @bookings = @user.bookings.includes(:service)
+    @bookings = @user.bookings.includes(:service).order('created_at desc')
   end
 
   def cancel_service
