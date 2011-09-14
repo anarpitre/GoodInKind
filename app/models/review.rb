@@ -4,7 +4,7 @@ class Review < ActiveRecord::Base
 
   validates :group_number, :review,  :presence => true
     
-  scope :get_reviews, lambda {|service_id| where("service_id = ?",service_id).order("created_at DESC")}
+  scope :get_reviews, lambda {|group_number| where("group_number = ?",group_number).order("created_at DESC")}
 
   scope :active, :conditions => {:active => true}
 

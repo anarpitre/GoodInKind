@@ -18,7 +18,7 @@ class ServicesController < ApplicationController
     if @service.is_valid_service
       @head[:title] = @service.title + " for " + @service.nonprofit.name 
       @review = @service.reviews.build
-      @reviews = Review.get_reviews(@service.id)
+      @reviews = Review.get_reviews(@service.group_number)
     else
       flash[:notice] = 'Service does not exist'
       redirect_to '/'
@@ -131,7 +131,7 @@ class ServicesController < ApplicationController
     review.user_id = current_user.id
     review.group_number = review.service.group_number
     review.save(false)
-    @reviews = Review.get_reviews(review.service.id)
+    @reviews = Review.get_reviews(review.service.group_number)
     respond_to do |format|
       format.js {render :layout=>false}
     end
