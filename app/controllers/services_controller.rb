@@ -155,6 +155,7 @@ class ServicesController < ApplicationController
 
   def service_detail
     @user = current_user
+    @transactions = @service.bookings.success.includes([:user => :profile], [:service => :reviews], :transaction).order("created_at DESC")
   end
 
   def offer_again
