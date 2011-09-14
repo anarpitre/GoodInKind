@@ -46,6 +46,9 @@
     %p
       %b Pricing: 
       Pricing for some services may require purchase of a minimum number of spots. If this is unclear, you may use the "Message me" feature to clarify with the service offerer before finalizing the purchase. Note that GoodInKind currently does not support a model where the price is dependent on the actual effort spent and is only known after the service has been delivered.
+  / Booking form is submitted on 'onclick' event on pay button, which submits form with the help of its id.
+  / When transaction is unsuccessfull the form id changes to edit_booking.And thus form is not submitted on pay button click.
+  / Therefore id = 'new_booking' is forced 
   = form_for(@booking, :url => service_bookings_path(@service), :builder => JoshForm, :html => {:id => 'new_booking', :method => :post}) do |f|
     - if @booking.errors.any? and @booking.errors[:fg].any?
       #error_explanation

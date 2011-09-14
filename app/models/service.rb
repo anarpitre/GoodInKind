@@ -29,7 +29,7 @@ class Service < ActiveRecord::Base
   scope :by_date, where("is_schedulelater = ? or (is_schedulelater = ? and end_date >= ?)",true,false,Date.today)
   scope :by_user, lambda {|user_id| where(:user_id => user_id)}
 
-  after_create :generate_permalink, :check_image
+  after_create :generate_permalink, :check_image, :add_group_number
 
   after_save { |service|
     change_nonprofit = service.nonprofit_id_change
@@ -131,6 +131,10 @@ class Service < ActiveRecord::Base
       file = File.open("#{Rails.root}/public/images/category/#{self.categories.first.image_path}")
       self.update_attributes({:images_attributes => {"0" => { :image => file }}})
     end
+  end
+
+  def add_group_number
+    self.update_attribute(:group_number, self.id) if self.group_number.blank?
   end
 
   #TBD-Sameer- Create new aasm state as expire

@@ -18,9 +18,9 @@
           %li
             %span.set_icons.viewpost
             = link_to "View posting", service_path(@service)
-          -#%li
+          %li
             %span.set_icons.re_offer
-            %a{:href => "#"} Offer Again
+            = link_to "Offer Again", offer_again_service_path(@service)
           %li
             %span.set_icons.invate_friends
             = link_to 'Invite friends', invite_friends_service_path(@service)

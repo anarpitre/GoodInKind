@@ -53,7 +53,7 @@ Gik::Application.routes.draw do
       post :review, :newoffer, :send_invitation
     end
     member do
-      get :invite_friends, :remove, :service_detail
+      get :invite_friends, :remove, :service_detail, :offer_again
     end
     resources :bookings, :only => [:new, :create, :show, :destroy] 
   end
