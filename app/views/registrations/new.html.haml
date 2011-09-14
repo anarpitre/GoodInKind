@@ -17,10 +17,9 @@
   %span.sign_up_form_t_c
     By clicking Sign Up you agree to our user
     %a{:href => "/docs/user_terms_and_conditions.html", :target => "_blank"} terms and conditions
-- if Rails.env != 'production'
-  .sing_up_fb
-    %span
-  %a.sign_reg_link{:href => "#"} Sign up using our registration form
+.sing_up_fb
+  %span
+%a.sign_reg_link{:href => "#"} Sign up using our registration form
 .sign_up_form#sign_up_form{:style => "display: #{resource.errors.any? ? 'block':'none'} "}
   - resource.build_profile if resource.profile.blank?
   = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :builder => JoshForm) do |f|

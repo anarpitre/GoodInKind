@@ -10,4 +10,12 @@ class Review < ActiveRecord::Base
 
   scope :for_user, lambda{|user_id| where('services.user_id' => user_id, :is_active => true).joins(:service).order('created_at DESC')}
 
+  after_save :update_count
+
+  def update_count
+    offerer = self.service.user.profile
+    offerer.total_reviews = offerer.total_reviews.to_i + 1
+    offerer.positive_reviews = offerer.positive_reviews.to_i + 1 if self.is_positive
+    offerer.save
+  end
 end

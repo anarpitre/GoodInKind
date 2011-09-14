@@ -5,13 +5,12 @@
   = link_to image_tag('facebook_sign.png', :alt => "Facebook"), "/auth/facebook"
   /%span
 .sign_up_form
-  - if Rails.env != 'production'
-    = form_for(resource, :as => resource_name, :url => session_path(resource_name), :builder => JoshForm) do |f|
-      = f.email_field :email, :class => "sign_up_form_inp"
-      = f.password_field :password, :class => "sign_up_form_inp"
-      .input_post_div{:style => "margin-left:50px;"}
-        = f.submit "Sign in"
-    %br/
+  = form_for(resource, :as => resource_name, :url => session_path(resource_name), :builder => JoshForm) do |f|
+    = f.email_field :email, :class => "sign_up_form_inp"
+    = f.password_field :password, :class => "sign_up_form_inp"
+    .input_post_div{:style => "margin-left:50px;"}
+      = f.submit "Sign in"
+  %br/
 %p.sign_up_bootm_p{:style => "margin-left:50px;"}
   If you're not Registred User,
   = link_to "Click here", new_user_registration_path
