@@ -37,9 +37,9 @@ Gik::Application.configure do
 
   #config.action_mailer.default_url_options = {:host => "localhost:3000"}
 
+  config.middleware.use "PaperclipS3UrlRewriter"
+
 end
 
-unless Rails.env == "production"
-  Paperclip.options[:command_path] = "/usr/local/bin"
-end
+Paperclip.options[:command_path] = "/usr/local/bin"
 INDEXTANK_API_URL = 'http://:5XxQ4mHBV7BV8w@iej.api.indextank.com'

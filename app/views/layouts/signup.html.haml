@@ -1,5 +1,5 @@
 !!!
-%html{:xmlns => "http://www.w3.org/1999/xhtml"}
+%html
   %head
     %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}/
     %meta{:name => (@head.fetch(:keywords, '') if @head)}
@@ -8,7 +8,7 @@
     %title GoodInKind :: #{@head.fetch(:title, '') if @head}
 
     - if Rails.env != 'development'
-      %link{:href => "http://fonts.googleapis.com/css?family=Crimson+Text&v2", :rel => "stylesheet", :type => "text/css"}
+      %link{:href => "#{request.protocol}fonts.googleapis.com/css?family=Crimson+Text&v2", :rel => "stylesheet", :type => "text/css"}
 
     = stylesheet_link_tag  "style","facebox"
     = javascript_include_tag "jquery.min", "facebox"
