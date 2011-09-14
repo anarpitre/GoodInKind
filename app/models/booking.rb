@@ -21,11 +21,14 @@ class Booking < ActiveRecord::Base
   validates :billToCountry, :format => { :with => /^\w{2,3}$/ } 
   validates :billToEmail, :presence => true
 
+  scope :get_by_service_ids, lambda { |ids| { :include => [:service], :conditions => ["service_id IN (?)", ids] } }
+  
+  
   aasm_column :charge_status
   aasm_initial_state :new
 
   aasm_state :new  # User created a booking
-  aasm_state :processing, :do_enter => :do_processing # Credit Card details captured
+  aasm_state :processing, :enter => :do_processing # Credit Card details captured
   aasm_state :success, :enter => :do_success
   aasm_state :failure, :enter => :do_failure
 
@@ -61,41 +64,41 @@ class Booking < ActiveRecord::Base
     #Add donated amount to service in offerer donated_amount 
     offerer = self.service.user.profile
     calulate_donation_time(service,offerer)
-    offerer.donated_amount += @amount_donated
-    offerer.donated_transaction += 1
+    offerer.donated_amount = offerer.donated_amount.to_f + @amount_donated
+    offerer.donated_transaction = offerer.donated_transaction.to_i + 1
     offerer.save
 
     #Add donated amount to service in buyer purchase_amount 
     buyer = self.user.profile
-    buyer.purchase_amount += @amount_donated
+    buyer.purchase_amount = buyer.purchase_amount.to_f + @amount_donated
     buyer.save
   end
 
   def calulate_stats_service
     #Increase booked seats count
     service = self.service
-    service.booked_seats += self.seats_booked
+    service.booked_seats = service.booked_seats.to_i + self.seats_booked
     service.total_transactions = service.total_transactions.to_i + 1
-    service.donated_amount = service.donated_amount.to_i + @amount_donated
+    service.donated_amount = service.donated_amount.to_f + @amount_donated
     service.save
   end
 
   def calulate_stats_nonprofit
     #Add donated amount to nonprofit and calulate donated_time 
     nonprofit = self.service.nonprofit
-    nonprofit.donated_amount += @amount_donated
+    nonprofit.donated_amount = nonprofit.donated_amount.to_f + @amount_donated
     calulate_donation_time(service,nonprofit)
-    nonprofit.total_donors += self.seats_booked
-    nonprofit.total_transactions += 1
+    nonprofit.total_donors = nonprofit.total_donors.to_i + self.seats_booked
+    nonprofit.total_transactions = nonprofit.total_transactions.to_i + 1
     nonprofit.save
   end
 
   def calulate_donation_time(service,entity)
     if service.is_schedulelater
-      entity.donated_time += self.seats_booked * service.estimated_duration 
+      entity.donated_time = entity.donated_time.to_f + (self.seats_booked * service.estimated_duration )
     else
       if service.bookings.success.count == 0
-        entity.donated_time  = entity.donated_time.to_i + service.estimated_duration.to_i
+        entity.donated_time  = entity.donated_time.to_f + service.estimated_duration.to_i
       end
     end
   end
@@ -103,6 +106,7 @@ class Booking < ActiveRecord::Base
   def do_failure
     # Send email to buyer about this
     Notifier.buy_failed_buyer(self.user.email,self.service.title).deliver
+    Notifier.failed_transaction(self).deliver
   end
 
   def cardonfile

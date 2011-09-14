@@ -1,6 +1,13 @@
 class Notifier < ActionMailer::Base
 
 
+  #mail to admin for faild transaction
+  def failed_transaction(booking)
+    @booking = booking
+    subject = "Purchase transaction failed notice"
+    setup_email(ADMIN_EMAIL, subject)
+  end
+
   # Send mails to offerer, buyer and nonprofit on successful buy
   def buy_success_offerer(email,title)
     @service_title = title
@@ -22,7 +29,7 @@ class Notifier < ActionMailer::Base
 
   def buy_failed_buyer(email,title)
     @service_title = title
-    subject = "Trasaction failed for purchasing a service"
+    subject = "Purchase transaction failed notice"
     setup_email(email, subject)
   end
 

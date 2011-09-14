@@ -1,0 +1,10 @@
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %body
+    %p
+      Transaction faild with following detials  #{@service_offerer}. 
+      Service Title : #{@booking.service.title}
+      Buyer Name    : #{@booking.user.profile.full_name}
+      Total Amount  : #{@booking.total_amount}
+      FG ref No     : #{@booking.mref}

@@ -2191,7 +2191,7 @@ span.ss_name {
 .cancel_txt {
   color:#005826;
 }
-.paid_txt {
+.positive_txt {
   color:#005826;
 }
 .refunded_txt {
@@ -2236,11 +2236,11 @@ span.ss_name {
 .cancel_grey {
   background-position:-226px -2px;
 }
-.paid_icon {
+.positive_icon {
   background-position:-250px -1px;
   margin-left:40%;
 }
-.refunded_icon {
+.negative_icon {
   background-position:-282px -2px;
   margin-left:40%;
 }
@@ -3173,6 +3173,31 @@ div.pagination strong {
   margin: 10px 0 10px 70px;
   width: 250px;
 }
+
+.pay_page_hr_tag  {
+  background: none repeat scroll 0 0 #000000;
+  border: medium none;
+  float: left;
+  height: 1px;
+  margin: 10px 0 10px 70px;
+  width: 720px;
+  }
+
+.payment_total_tag  {
+  float: left;
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 110px;
+  text-align: right;
+  width: 245px;
+ }
+.payment_total_amt_tag {
+  color: #9E0B0F;
+  float: left;
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 19px;
+}
 .cc_charge {
   float: left;
   font-size: 14px;
@@ -3195,6 +3220,7 @@ div.pagination strong {
   font-weight: bold;
   width: 203px;
 }
+
 .payment_total_amt {
   color: #9E0B0F;
   float: left;
@@ -3202,6 +3228,7 @@ div.pagination strong {
   font-weight: bold;
   margin-left: 4px;
 }
+
 
 .payment_lbl_span  {
   float: left;
@@ -3343,4 +3370,20 @@ div.pagination strong {
 .what_next ul li a:hover {
   text-decoration:none;
 }
+.payment_cofirm_h4 {
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1.5;
+  margin: auto auto 80px;
+  padding-top: 30%;
+  text-align: center;
+  width: 420px;
+}
 
+.payment_cofirm_h4 span {
+  color: #9E0B0F;
+}
+
+.confirm_btn_light {
+  margin-left: 160px;
+}

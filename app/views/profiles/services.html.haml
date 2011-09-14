@@ -20,7 +20,7 @@
         %tr{:class => "#{'expired_row' if is_expired?(service)}", :id => "service_#{service.id}"}
           %td
             %span 
-              = link_to service.title, service_detail_service_path(service)
+              = link_to service.title, service_path(service)
           %td #{service.nonprofit.name} 
           %td #{service.total_transactions.to_i} 
           %td $#{service.donated_amount.to_i}
@@ -36,11 +36,12 @@
               = link_to image_tag('edit_icon.jpg', :alt => "edit"), edit_service_path(service)
             %td.bg_white
               = link_to '', service_path(service), :class => "set_icons viewpost"
+            %td.bg_white
+              = link_to '', service_detail_service_path(service), :class => "set_icons manage_service"
           - else
             %td.bg_white
             %td.bg_white
-          /%td.bg_white
-          /%a.set_icons.manage_service{:href => "#"}
+            %td.bg_white
           /%td.bg_white
           /%a.set_icons.re_offer{:href => "#"}
     %p.up_bottom_p
@@ -68,12 +69,12 @@
       - @bookings.each do |booking|  
         %tr
           %td
-            %span= link_to booking.service.title, service_path(booking.service)
+            %span= booking.service.title
           - full_name = "#{booking.service.user.profile.first_name} #{booking.service.user.profile.last_name}"
           %td= full_name 
           - location = "#{booking.service.location.try(:city)},#{booking.service.location.try(:state)}"
           %td= location
-          %td= booking.charge_on_date
+          %td= booking.created_at.strftime("%m-%d-%Y")
           %td= booking.total_amount
           %td= booking.charge_status.titleize
           %td.empty_col
@@ -81,7 +82,6 @@
             = link_to "", service_path(booking.service), :class => "set_icons viewpost"
           /%td.bg_white
           /%a.set_icons.write_review{:href => "#"}
-          %td.bg_white
     %p.up_bottom_p
       = link_to "Browse all services offered", services_path
       %span or

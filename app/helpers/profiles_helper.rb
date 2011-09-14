@@ -1,7 +1,7 @@
 module ProfilesHelper
 
-  def get_user_name
-    "#{@profile.first_name} #{@profile.last_name}"
+  def get_user_name(profile)
+    "#{profile.first_name} #{profile.last_name}"
   end
 
   def get_user_email

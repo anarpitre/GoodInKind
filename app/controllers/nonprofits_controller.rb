@@ -111,10 +111,9 @@ class NonprofitsController < ApplicationController
   end
 
   def transactions
-    # FIXME
     @head[:title] = @nonprofit.name + " transactions"
-    @transactions = []
-    #@transactions = @nonprofit.services.collect(&:transactions)
+    service_ids = @nonprofit.services.collect(&:id)
+    @bookings = Booking.get_by_service_ids(service_ids)
   end
 
   def login

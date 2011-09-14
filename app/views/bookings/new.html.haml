@@ -1,3 +1,37 @@
+:javascript
+  $(document).ready(function(){
+    $("#in").click(function(event){
+      $("#overlay").fadeIn("fast");
+      var amount = $('#total_donation').html(); 
+      var amount_text = '$'+ amount;
+      $('#amount_text').html(amount_text); 
+      return false;
+    });
+    $("#close,#overlay,#cancel").click(function(event){
+      $("#overlay").fadeOut("fast");
+      return false;
+    });
+    $("#submit").click(function(event){
+       $("#overlay").fadeOut("fast");
+       $('#new_booking').submit();
+    });
+  }); 
+
+
+#overlay{:style => "display: none;"}
+  #box
+    #form
+      %a#close{:href => "#"}
+      .light_box_top
+        %h3 Review Amount
+        = image_tag "goodinkind-logo-small_2.png", :class => 'light_box_logo'
+      %h4.payment_cofirm_h4
+        Your Credit Card is going to be charged with 
+        %span{ :id => 'amount_text'}
+        Click to proceed
+      %form.light_box_form
+        %input.button.confirm_btn_light{:type => "submit", :value => "Confirm", :id => 'submit'}
+        %input.button.btn_form.up_acc_btns_c{:type => "reset", :value => "Cancel", :id => 'cancel'}
 .offer_form
   .np_page_top
     %p{:style => "font-size:16px"}
@@ -12,7 +46,7 @@
     %p
       %b Pricing: 
       Pricing for some services may require purchase of a minimum number of spots. If this is unclear, you may use the "Message me" feature to clarify with the service offerer before finalizing the purchase. Note that GoodInKind currently does not support a model where the price is dependent on the actual effort spent and is only known after the service has been delivered.
-  = form_for(@booking, :url => service_bookings_path(@service), :builder => JoshForm) do |f|
+  = form_for(@booking, :url => service_bookings_path(@service), :builder => JoshForm, :html => {:id => 'new_booking', :method => :post}) do |f|
     - if @booking.errors.any? and @booking.errors[:fg].any?
       #error_explanation
         %ul
@@ -37,8 +71,8 @@
       %p{:style => 'width:300px'}
         = f.text_field :additional_donation_amount, :label => "Additional Donation($)", :class => "input_small", :hint => "Optional. Our accountants tell us that any donation above the fair value of the service would be tax deductible!"
       %p{:style => 'width:300px'}
-        %span.cc_charge GIK service charge 
-        %span.cc_charge_amt 0.0
+        %span.cc_charge GoodInKind service charge 
+        %span.cc_charge_amt $ 0.0
       .clear
       %hr.pay_page_hr
       %p
@@ -86,4 +120,7 @@
         = f.text_field :billToZip, :label => "Zipcode", :class => "input_tiny", :pre => true, :error_class => "tiny_error"
         = f.text_field :billToCountry, :label => "Country", :class => "input_tiny", :pre => true, :error_class => "tiny_error", :hint => "Please enter max. 3 letter abbreviation such as US"
     .input_post_div
-      = f.submit 'Pay'
+      #in= f.submit 'Pay'
+
+
+    

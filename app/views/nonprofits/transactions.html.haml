@@ -1,6 +1,6 @@
 - content_for :tab_content do 
   .transactions_bord
-    - if @transactions.count == 0
+    - if @bookings.count == 0
       %p
       You have no completed transactions yet. When someone buys a service on GoodInKind to support your organization, this page will show the details of the transactions.
     - else
@@ -13,12 +13,15 @@
           %th Date
           %th Service
           %th.td_amount Amount
-        - @transactions.each do |transaction|
+        - @bookings.each do |booking|
+          - service = booking.service
+          - offerer = service.user.profile
+          - buyer = booking.user.profile
           %tr
-            %td.td_name= transaction
-            %td
-            %td
-            %td
-            %td
-            %td
-            %td.td_price
+            %td.td_name= get_user_name(offerer)
+            %td= offerer.user.email
+            %td.td_name= get_user_name(buyer)
+            %td= buyer.user.email
+            %td= booking.created_at.strftime("%m/%d/%Y")
+            %td= service.title
+            %td.td_price= service.donated_amount
