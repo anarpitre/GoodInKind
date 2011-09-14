@@ -22,8 +22,22 @@
     })();
   
 .footer
-  /.footer_video
-  /= image_tag('video-pic.jpg', :alt => 'video')
+  - if Rails.env == 'production'
+    .footer_icon_1
+      %a{:href => "http://privacy-policy.truste.com/verified-policy/www.goodinkind.com", :target => "_blank", :title => "Privacy Policy by TRUSTe"}
+        Privacy Policy by TRUSTe
+    .footer_icon_1
+      %script{:src => "https://seal.verisign.com/getseal?host_name=goodinkind.com&amp;size=M&amp;use_flash=NO&amp;use_transparent=NO&amp;lang=en", :type => "text/javascript"}
+      %br/
+      %a{:href => "http://www.verisign.com/verisign-trust-seal", :style => "color:#000000; text-decoration:none; font:bold 7px verdana,sans-serif; letter-spacing:.5px; text-align:center; margin:0px; padding:0px;", :target => "_blank"} ABOUT TRUST ONLINE
+    .footer_icon_3
+      / BEGIN DigiCert Site Seal Code
+      #digicertsitesealcode{:align => "center", :style => "width: 81px; margin: 5px auto 5px 5px;"}
+        %script{:language => "javascript", :src => "https://www.digicert.com/custsupport/sealtable.php?order_id=00254267&amp;seal_type=a&amp;seal_size=large&amp;seal_color=blue&amp;new=1", :type => "text/javascript"}
+        %a{:href => "http://www.digicert.com/"} SSL
+        Certificate
+        %script{:language => "javascript", :type => "text/javascript"} coderz();
+      / END DigiCert Site Seal Code
   %ul.footer_nav
     %li
       = link_to("About", about_us_path)
@@ -47,5 +61,4 @@
       = link_to "", "http://www.twitter.com/goodinkind", :target => "_blank", :title => "Twitter", :class => "fot_tw"
     %li
       = link_to "", "http://www.youtube.com/goodinkind", :target => "_blank", :title => "Youtube", :class => "fot_yt"
-  .footer_divider
   %span.copyr &copy;2011, GoodInKind, All Rights Reserved
