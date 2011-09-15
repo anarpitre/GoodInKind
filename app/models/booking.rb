@@ -9,7 +9,7 @@ class Booking < ActiveRecord::Base
 
   validates :user, :service, :presence => true
 
-  validates :seats_booked, :numericality => { :greater_than_or_equal_to => 1, :less_than_or_equal_to => Proc.new {|booking| booking.service.booking_capacity == 0 ? 999 : booking.service.booking_capacity - booking.service.booked_seats}}
+  validates :seats_booked, :numericality => { :greater_than_or_equal_to => 1, :less_than_or_equal_to => Proc.new {|booking| booking.service.booking_capacity == 0 ? 999 : booking.service.booking_capacity - booking.service.booked_seats}}, :on => :create
   validates :additional_donation_amount, :numericality => { :greater_than_or_equal_to => 0}
   validates :donation_amount, :numericality => { :greater_than_or_equal_to => Proc.new {|booking| booking.service.amount.to_i } }
 
@@ -57,9 +57,9 @@ class Booking < ActiveRecord::Base
       calulate_stats_nonprofit
       calulate_stats_service
     end
-    Notifier.buy_success_offerer(self).deliver
-    Notifier.buy_success_buyer(self).deliver
-    Notifier.buy_success_nonprofit(self).deliver
+    #Notifier.buy_success_offerer(self).deliver
+    #Notifier.buy_success_buyer(self).deliver
+    #Notifier.buy_success_nonprofit(self).deliver
   end
 
   def calulate_stats_user
@@ -107,8 +107,8 @@ class Booking < ActiveRecord::Base
 
   def do_failure
     # Send email to buyer about this
-    Notifier.buy_failed_buyer(self.user.email,self.service.title).deliver
-    Notifier.failed_transaction(self).deliver
+    #Notifier.buy_failed_buyer(self.user.email,self.service.title).deliver
+    #Notifier.failed_transaction(self).deliver
   end
 
   def cardonfile
@@ -136,4 +136,5 @@ class Booking < ActiveRecord::Base
   def generate_mref
     self.mref = "#{Date.today.strftime("%Y%m%d")}-#{self.object_id}"
   end
+
 end

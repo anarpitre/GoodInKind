@@ -22,6 +22,11 @@
           %span.add_right= (@service.end_time).strftime("%H:%M %p")
         - else
           %span.add_right Any 
+  - if @service.estimated_duration > 0 
+    %p
+      %span.add_left Est Duration:
+      %span.add_right= @service.estimated_duration 
+      %span.add_middle{:style => "margin-left:-140px"}hrs
   - if @service.booking_capacity > 0 
     %p
       %span.add_left Spots Available:
