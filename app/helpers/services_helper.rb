@@ -16,4 +16,8 @@ module ServicesHelper
     end
   end
 
+  def review_percentage(service)
+    service.user.profile.total_reviews == 0 ? "---" : (service.user.profile.positive_reviews * 100 / service.user.profile.total_reviews).to_i.to_s + "% Positive"
+  end
+
 end

@@ -136,10 +136,11 @@ class ServicesController < ApplicationController
 
   def review
     review = Review.new(params[:review])
+    @service = review.service
     review.user_id = current_user.id
-    review.group_number = review.service.group_number
+    review.group_number = @service.group_number
     review.save(false)
-    @reviews = Review.get_reviews(review.service.group_number)
+    @reviews = Review.get_reviews(@service.group_number)
     respond_to do |format|
       format.js {render :layout=>false}
     end

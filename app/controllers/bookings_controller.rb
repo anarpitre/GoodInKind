@@ -116,10 +116,15 @@ class BookingsController < ApplicationController
         if code == 'Success'
           @booking.payment_succeeded
           @booking.save!
+          Notifier.buy_success_offerer(@booking).deliver
+          Notifier.buy_success_buyer(@booking).deliver
+          Notifier.buy_success_nonprofit(@booking).deliver
           redirect_to service_booking_path(@service, @booking.mref), :notice => "Transaction successful!"
         else
           @booking.payment_failed
           @booking.save!
+          Notifier.buy_failed_buyer(@booking.user.email,@booking.service.title).deliver
+          Notifier.failed_transaction(@booking).deliver
           flash[:notice] = "Transaction unsuccessful! Please try again or contact support!"
           render(:action => :new) and return
         end
