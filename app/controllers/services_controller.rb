@@ -145,7 +145,9 @@ class ServicesController < ApplicationController
     emails = emails.split(',')
     unless emails.blank?
       emails.each do |email|
-        Notifier.service_invitation(email,message,current_user.email).deliver
+        name = get_user_name(current_user.profile)
+        offerer_email= "#{name}<#{current_user.email}>"
+        Notifier.service_invitation(email,message,offerer_email).deliver
       end
       flash[:notice] = "Email was sent successfully!!"
       unless session[:invite_friends]

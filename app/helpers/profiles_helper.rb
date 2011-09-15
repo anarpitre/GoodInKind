@@ -1,9 +1,5 @@
 module ProfilesHelper
 
-  def get_user_name(profile)
-    "#{profile.first_name} #{profile.last_name}"
-  end
-
   def get_user_email
     @profile.hide_email ? "---" : @profile.user.email
   end
