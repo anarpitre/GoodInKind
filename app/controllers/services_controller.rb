@@ -99,6 +99,7 @@ class ServicesController < ApplicationController
   def invite_friends
     @message = "Invite friends" 
     session[:invite_friends] = true
+    session[:refered_from] = request.env['HTTP_REFERER'] 
     render :action => 'thankyou'
   end
 
@@ -153,7 +154,8 @@ class ServicesController < ApplicationController
       unless session[:invite_friends]
         redirect_to service_path(current_user.services.last)  
       else
-        redirect_to services_profile_path(current_user)  
+        redirect_to session[:refered_from]  
+        #redirect_to services_profile_path(current_user)  
       end
     else
       flash[:notice] = "Please add email to which invitations is to be sent!!!"

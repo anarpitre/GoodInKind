@@ -1,6 +1,5 @@
 class Notifier < ActionMailer::Base
 
-  include ProfilesHelper
 
     #mail to offerer when review is posted
   def review_posted(email,permalink) 
@@ -20,7 +19,7 @@ class Notifier < ActionMailer::Base
   def buy_success_offerer(booking)
     @service_title = booking.service.title
     @booking_trnx_id = booking.transaction.FG_trnx_id
-    @buyer_name = get_user_name(booking.user.profile)
+    @buyer_name = booking.user.profile.full_name
     @buyer_email = booking.user.email
     @nonprofit_name = booking.service.nonprofit.name
     @spots = booking.seats_booked
@@ -33,7 +32,7 @@ class Notifier < ActionMailer::Base
   def buy_success_buyer(booking)
     @service_title = booking.service.title
     @booking_trnx_id = booking.transaction.FG_trnx_id
-    @offerer_name = get_user_name(booking.service.user.profile)
+    @offerer_name = booking.service.user.profile.full_name
     @offerer_email = booking.service.user.email
     @nonprofit_name = booking.service.nonprofit.name
     @spots = booking.seats_booked
@@ -46,9 +45,9 @@ class Notifier < ActionMailer::Base
 
   def buy_success_nonprofit(booking)
     @service_title = booking.service.title
-    @buyer_name = get_user_name(booking.user.profile)
+    @buyer_name = booking.user.profile.full_name
     @buyer_email = booking.user.email
-    @offerer_name = get_user_name(booking.service.user.profile)
+    @offerer_name = booking.service.user.profile.full_name
     @offerer_email = booking.service.user.email
     @amount = booking.total_amount
     @additional_amount = booking.additional_donation_amount

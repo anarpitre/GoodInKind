@@ -28,7 +28,10 @@
       %h4.payment_cofirm_h4
         Your Credit Card is going to be charged with 
         %span{ :id => 'amount_text'}
-        Click to proceed
+        Upon confirmation the payment processing might take a minute or so- please do not click “Pay” again.
+        %br/
+        %br/
+        If you want to proceed please "Confirm"
       %form.light_box_form
         %input.button.confirm_btn_light{:type => "submit", :value => "Confirm", :id => 'submit'}
         %input.button.btn_form.up_acc_btns_c{:type => "reset", :value => "Cancel", :id => 'cancel'}
@@ -59,16 +62,17 @@
       %h3.setp_box_heading{:style => 'width:300px'}
         %span Purchase Details
       .booking
-        .fs_box{:style => "margin-left:200px"}
-          - image = !@booking.service.images.first.blank? ? "#{@booking.service.images.first.image.url(:thumb)}" : "/images/missing/service.png"
-          .fs_box_pic{:style=>"background:url(#{image}) no-repeat center center;"}
-          .fs_left
-            %span.fs_head= truncate(@booking.service.title, :lenght => 30)
-            %span.fs_for for
-            %span.fs_disc= truncate(@booking.service.nonprofit.name, :length => 30)
-          .fs_price
-            = "$#{@booking.service.amount.to_i}"
-          .clear
+        %a{:href => service_path(@booking.service.permalink)}
+          .fs_box{:style => "margin-left:200px"}
+            - image = !@booking.service.images.first.blank? ? "#{@booking.service.images.first.image.url(:thumb)}" : "/images/missing/service.png"
+            .fs_box_pic{:style=>"background:url(#{image}) no-repeat center center;"}
+            .fs_left
+              %span.fs_head= truncate(@booking.service.title, :lenght => 30)
+              %span.fs_for for
+              %span.fs_disc= truncate(@booking.service.nonprofit.name, :length => 30)
+            .fs_price
+              = "$#{@booking.service.amount.to_i}"
+            .clear
       %p{:style => 'width:300px'}
         = f.text_field :seats_booked, :label => "No. of spots to buy", :class => "input_small", :hint => "This can be number of hours, number of people, etc. depending on the service"
       %p{:style => 'width:300px'}
@@ -121,7 +125,7 @@
         = f.text_field :billToState, :label => "State", :class => "input_tiny", :pre => true, :error_class => "tiny_error", :hint => "Please enter 2 letter abbreviation such as NY, CA, MA"
       %p
         = f.text_field :billToZip, :label => "Zipcode", :class => "input_tiny", :pre => true, :error_class => "tiny_error"
-        = f.text_field :billToCountry, :label => "Country", :class => "input_tiny", :pre => true, :error_class => "tiny_error", :hint => "Please enter max. 3 letter abbreviation such as US"
+        = f.text_field :billToCountry, :value => "US", :label => "Country", :class => "input_tiny", :pre => true, :error_class => "tiny_error", :hint => "Please enter max. 3 letter abbreviation."
     .input_post_div
       #in= f.submit 'Pay'
 

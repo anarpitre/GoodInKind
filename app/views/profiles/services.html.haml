@@ -31,19 +31,20 @@
           %td.empty_col
           %td.bg_white
             /= link_to '', cancel_service_profile_path(@user, :id => service), :class => "set_icons refund", :remote => true, :method => :post, :confirm => "Are you sure you want to cancel the service?" 
+          %td.bg_white
+            = link_to '', service_detail_service_path(service), :class => "set_icons manage_service"
+          %td.bg_white
+            = link_to '', offer_again_service_path(service), :class => "set_icons re_offer"
+          %td.bg_white &nbsp;
+          %td.bg_white &nbsp;
           - if service.is_valid_service
             %td.bg_white
-              /= image_tag('edit_icon.jpg', :alt => "edit")
               = link_to image_tag('edit_icon.jpg', :alt => "edit"), edit_service_path(service)
             %td.bg_white
               = link_to '', service_path(service), :class => "set_icons viewpost"
           - else
             %td.bg_white
             %td.bg_white
-          %td.bg_white
-            = link_to '', service_detail_service_path(service), :class => "set_icons manage_service"
-          %td.bg_white
-            = link_to '', offer_again_service_path(service), :class => "set_icons re_offer"
           /%td.bg_white
           /%a.set_icons.re_offer{:href => "#"}
     %p.up_bottom_p
