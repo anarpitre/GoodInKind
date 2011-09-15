@@ -3,7 +3,7 @@ class ServicesController < ApplicationController
   before_filter :authenticate_user!, :only => [:edit, :thankyou, :invite_friends, :service_detail]
   before_filter :set_seo_tags
   before_filter :get_service_by_id, :only => [:update, :destroy, :show, :edit, :invite_friends, :remove, :service_detail, :offer_again]
-  before_filter :is_owner, :only => [:edit, :service_detail]
+  before_filter :is_owner, :only => [:edit, :service_detail, :invite_friends, :thankyou, :offer_again]
 
   autocomplete :nonprofit, :name, :full => true, :scopes => [:verified]
 
