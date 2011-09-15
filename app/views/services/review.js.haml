@@ -1,3 +1,4 @@
 :plain
   $('.review').html("#{escape_javascript(render(:partial => 'new_review'))}"); 
+  $('#review_percentage').html("#{review_percentage(@service)}"); 
 
