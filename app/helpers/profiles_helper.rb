@@ -22,10 +22,6 @@ module ProfilesHelper
     end
   end
 
-  def is_expired?(service)
-    service.is_schedulelater? ? false : service.end_date < Date.today
-  end
-
   def format_link(socialnetwork)
     return "http://#{socialnetwork}" unless socialnetwork =~ /^http:\/\//
     return socialnetwork
