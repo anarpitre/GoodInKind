@@ -15,7 +15,7 @@ class Profile < ActiveRecord::Base
     :default_url => "/images/missing/user_:style.png"
     )
 
-  validates_attachment_size :avatar, :less_than => 2.megabytes, :message => "file size should be less than 2MB"
+  #validates_attachment_size :avatar, :less_than => 2.megabytes, :message => "file size should be less than 2MB"
 
   validates_attachment_content_type :avatar, 
     :content_type => ["image/jpeg", "image/png", "image/gif", "image/jpg", "image/bmp", "image/tiff", "image/tif","image/pjpeg", "image/x-png" ], 

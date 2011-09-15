@@ -9,8 +9,8 @@
         = f.text_field :first_name, :class => "input_half"
         = f.text_field :last_name, :class => "input_half"
         %p
-          = f.select :gender, GENDER.collect{ |g| [ g, g] }, { }, :class => "my_edit_input sle_inp", :style => "float:left;margin-left:9px", :pre => true
-          = f.check_box :hide_gender, {:class => "my_edit_check"}, "true", "false"
+          = f.select :gender, GENDER.collect{ |g| [ g, g] }, { :prompt => "-select-"},:class => "my_edit_input sle_inp", :style => "float:left;margin-left:9px;width:82px;", :pre => true
+          = f.check_box :hide_gender, {:class => "my_edit_check", :style => "margin-left:10px;"}, "true", "false"
           %text Don't display on my public profile
         = f.fields_for :location do |loc|
           = loc.text_field :address, :class => "input_half", :type => "profile", :hint => "Enter only a city and state if you wish to not share your full address."
