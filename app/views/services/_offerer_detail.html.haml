@@ -23,7 +23,7 @@
           = link_to "", "#{format_link(@service.user.profile.linkedin)}", :target => "_blank", :title => "Linkedin", :class => "pl_sn ln_pl"
     %p
       %span.pl_left Reviews:
-      %span.pl_right= @service.user.profile.total_reviews == 0 ? "---" : (@service.user.profile.positive_reviews * 100 / @service.user.profile.total_reviews).to_i.to_s + "% Positive"
+      %span#review_percentage.pl_right= review_percentage(@service)
     %p
       %span.pl_left Transactions:
       %span.pl_right= @service.user.profile.try(:donated_transaction)
