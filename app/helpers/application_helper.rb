@@ -46,4 +46,8 @@ module ApplicationHelper
 
   end
 
+  def get_user_name(profile)
+    "#{profile.first_name} #{profile.last_name}"
+  end
+
 end
