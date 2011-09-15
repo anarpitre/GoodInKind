@@ -127,9 +127,9 @@ class BookingsController < ApplicationController
     end
 
 
-    #rescue ActiveRecord::RecordInvalid
-    #  @cc = ActiveMerchant::Billing::CreditCard.new(params[:cc]) unless @cc
-    #  render(:action => :new) and return
+    rescue ActiveRecord::RecordInvalid
+      @cc = ActiveMerchant::Billing::CreditCard.new(params[:cc]) unless @cc
+      render(:action => :new) and return
   end
 
   def show
