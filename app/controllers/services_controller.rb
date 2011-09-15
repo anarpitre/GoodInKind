@@ -20,7 +20,7 @@ class ServicesController < ApplicationController
       @review = @service.reviews.build
       @reviews = Review.get_reviews(@service.group_number)
     else
-      flash[:notice] = 'Service does not exist'
+      flash[:notice] = 'This service has been removed or has expired'
       redirect_to '/'
     end
   end
@@ -47,8 +47,13 @@ class ServicesController < ApplicationController
   end
 
   def edit
-    @head[:title] = "Edit Service"
-    build_objects
+    if @service.is_valid_service
+      @head[:title] = "Edit Service"
+      build_objects
+    else
+      flash[:notice] = 'This service has been removed or has expired'
+      redirect_to '/'
+    end
   end
 
   def create

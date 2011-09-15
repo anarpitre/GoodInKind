@@ -24,4 +24,4 @@
             %td= buyer.user.email
             %td= booking.created_at.strftime("%m/%d/%Y")
             %td= service.title
-            %td.td_price= service.donated_amount
+            %td.td_price= booking.total_amount

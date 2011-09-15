@@ -26,7 +26,7 @@
           %td #{service.total_transactions.to_i} 
           %td $#{service.donated_amount.to_i}
           %td
-            %b #{service.is_valid_service ?  service.is_schedulelater ? 'To be Scheduled' : service.start_date.strftime('%m-%d-%Y') : 'Expired'}
+            %b #{service.is_valid_service ?  service.is_schedulelater ? 'To be Scheduled' : service.end_date.strftime('%m-%d-%Y') : 'Expired'}
           %td #{service.status.humanize}
           %td.empty_col
           %td.bg_white
