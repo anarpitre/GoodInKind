@@ -48,7 +48,15 @@ describe ServicesController do
       ser_new.should_not == nil
     end
 
-    it "delete a service"
+    it "delete a service" do
+      cat = Category.all.map(&:id)
+      ser = Factory(:service)
+      get :remove, :id => ser.permalink
+      ser_old = Service.find_by_title(ser.title)
+      p ser_old
+      ser_old.status.should == "removed"
+
+    end
 
     it "upload image" do
       file = File.open('spec/taj.jpg')
