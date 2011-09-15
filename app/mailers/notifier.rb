@@ -1,7 +1,7 @@
 class Notifier < ActionMailer::Base
 
 
-    #mail to offerer when review is posted
+  #mail to offerer when review is posted
   def review_posted(email,permalink) 
     @service_permalink = permalink 
     subject = "A review was posted for your service"
@@ -80,10 +80,10 @@ class Notifier < ActionMailer::Base
     setup_email(email, subject)
   end
 
-  def new_service_admin(id,full_name)
+  def new_service_admin(id,full_name,is_public)
     @service_id = id
     @service_offerer = full_name
-    subject = "New service offered"
+    subject = "New service offered" + (is_public ? "" : " - unlisted")
     setup_email(ADMIN_EMAIL, subject)
   end
 

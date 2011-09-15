@@ -23,5 +23,7 @@
             %td.td_name= get_user_name(buyer)
             %td= buyer.user.email
             %td= booking.created_at.strftime("%m/%d/%Y")
-            %td= service.title
+            %td
+              %b
+                =link_to service.title, service_path{service.permalink}
             %td.td_price= booking.total_amount

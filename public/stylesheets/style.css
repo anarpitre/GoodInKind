@@ -1026,6 +1026,7 @@ h2.services_h2 em {
 .pl_right {
   width:180px;
   float:left;
+  word-wrap:break-word;
 }
 .pl_right a {
   font-weight:bold;
