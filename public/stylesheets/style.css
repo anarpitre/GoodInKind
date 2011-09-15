@@ -1026,6 +1026,7 @@ h2.services_h2 em {
 .pl_right {
   width:180px;
   float:left;
+  word-wrap:break-word;
 }
 .pl_right a {
   font-weight:bold;
@@ -3122,7 +3123,7 @@ div.pagination strong {
 }
 .footer_divider {
   float:right;
-  width:730px;
+  width:530px;
 }
 .footer_nav {
   float:right;
@@ -3163,7 +3164,7 @@ div.pagination strong {
 .copyr {
   float:right;
   color:#414e52;
-  margin:30px 20px 0 0;
+  margin:35px 20px 0 0;
 }
 .pay_page_hr {
   background: none repeat scroll 0 0 #000000;
@@ -3391,7 +3392,8 @@ div.pagination strong {
 .footer_icon_3  {
   float: left;
   margin-left: 20px;
-  margin-}
+  margin-top:5px;
+  }
 
 .footer_icon_1  {
  float: left;

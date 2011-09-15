@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
   end
 
   def send_new_service_message(service)
-    Notifier.new_service_admin(service.id,current_user.profile.full_name).deliver
+    Notifier.new_service_admin(service.id,current_user.profile.full_name,service.is_public).deliver
     Notifier.new_service_offerer(service.id,current_user.email).deliver
     Notifier.new_service_nonprofit(service.id,current_user.profile.full_name,current_user.profile.hide_email,current_user.email,service.nonprofit.email,service.nonprofit.name).deliver
     unless service.request_id.blank?

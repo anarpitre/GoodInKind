@@ -29,7 +29,7 @@
       %span.pl_right= @service.user.profile.try(:donated_transaction)
     %p
       %span.pl_left Raised:
-      %span.pl_right=  "$ " + @service.user.profile.try(:donated_amount).to_i.to_s
+      %span.pl_right=  "$" + @service.user.profile.try(:donated_amount).to_i.to_s
     %p
       %span.pl_left About me:
       %span.pl_right
