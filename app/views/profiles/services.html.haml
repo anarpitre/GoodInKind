@@ -1,3 +1,16 @@
+- content_for :header do
+  = stylesheet_link_tag "jquery.tooltip"
+  = javascript_include_tag "jquery-dimension", "jquery.tooltip.min"
+:javascript
+  jQuery(document).ready(function(){
+    $('.bg_white a').tooltip({ 
+      delay: 0, 
+      showURL: false, 
+      bodyHandler: function() { 
+        return $(this).attr("detail"); 
+      } 
+      });
+    });
 = render :partial => "layouts/profile_tabs"
 #tab2.tab_content
   .up_profile
@@ -32,16 +45,16 @@
           %td.bg_white
             /= link_to '', cancel_service_profile_path(@user, :id => service), :class => "set_icons refund", :remote => true, :method => :post, :confirm => "Are you sure you want to cancel the service?" 
           %td.bg_white
-            = link_to '', service_detail_service_path(service), :class => "set_icons manage_service"
+            = link_to '', service_detail_service_path(service), :class => "set_icons manage_service", :detail => 'Sevice Details'
           %td.bg_white
-            = link_to '', offer_again_service_path(service), :class => "set_icons re_offer"
+            = link_to '', offer_again_service_path(service), :class => "set_icons re_offer", :detail => 'Offer Again'
           %td.bg_white &nbsp;
           %td.bg_white &nbsp;
           - if service.is_valid_service
             %td.bg_white
-              = link_to image_tag('edit_icon.jpg', :alt => "edit"), edit_service_path(service)
+              = link_to image_tag('edit_icon.jpg', :alt => "edit"), edit_service_path(service), :detail => 'Edit'
             %td.bg_white
-              = link_to '', service_path(service), :class => "set_icons viewpost"
+              = link_to '', service_path(service), :class => "set_icons viewpost", :detail => 'View Posting'
           - else
             %td.bg_white
             %td.bg_white
