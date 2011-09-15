@@ -1,9 +1,5 @@
 module ProfilesHelper
 
-  def get_user_name(profile)
-    "#{profile.first_name} #{profile.last_name}"
-  end
-
   def get_user_email
     @profile.hide_email ? "---" : @profile.user.email
   end
@@ -24,10 +20,6 @@ module ProfilesHelper
     else
       '%span{:class => :negative }Negative'
     end
-  end
-
-  def is_expired?(service)
-    service.is_schedulelater? ? false : service.end_date < Date.today
   end
 
   def format_link(socialnetwork)
