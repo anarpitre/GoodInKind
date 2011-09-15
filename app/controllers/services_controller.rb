@@ -92,11 +92,13 @@ class ServicesController < ApplicationController
 
   def thankyou
     @message = "Thank you for posting your offer!"
+    session[:invite_friends] = false
     @service = !@service.blank? ? @service : current_user.services.last
   end
 
   def invite_friends
     @message = "Invite friends" 
+    session[:invite_friends] = true
     render :action => 'thankyou'
   end
 
@@ -145,8 +147,12 @@ class ServicesController < ApplicationController
       emails.each do |email|
         Notifier.service_invitation(email,message,current_user.email).deliver
       end
-      flash[:notice] = "Email was sent successfully!"
-      redirect_to service_path(current_user.services.last)  
+      flash[:notice] = "Email was sent successfully!!"
+      unless session[:invite_friends]
+        redirect_to service_path(current_user.services.last)  
+      else
+        redirect_to services_profile_path(current_user)  
+      end
     else
       flash[:notice] = "Please add email to which invitations is to be sent!!!"
       redirect_to thankyou_services_path 
