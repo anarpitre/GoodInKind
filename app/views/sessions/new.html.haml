@@ -1,9 +1,9 @@
 .sing_up_fb
   %h3 
-    You need to signin / signup before posting the service
+    You need to signin / signup before continuing.
   %br/
   = link_to image_tag('facebook_sign.png', :alt => "Facebook"), "/auth/facebook"
-  /%span
+  %span
 .sign_up_form
   = form_for(resource, :as => resource_name, :url => session_path(resource_name), :builder => JoshForm) do |f|
     = f.email_field :email, :class => "sign_up_form_inp"
@@ -11,6 +11,6 @@
     .input_post_div{:style => "margin-left:50px;"}
       = f.submit "Sign in"
   %br/
-%p.sign_up_bootm_p{:style => "margin-left:50px;"}
+%p.sign_up_bootm_p{:style => "margin-left:10px;"}
   If you're not Registred User,
   = link_to "Click here", new_user_registration_path

@@ -6,7 +6,7 @@
     Your "Good-In-Kindness" is:
   %span.dm_price
     = image_tag('dot_dash.png', :alt => "dot")
-    %b $#{current_user.profile.blank? ? 0 : current_user.profile.donated_amount.to_i}
+    %b $#{current_user.profile.blank? ? 0 : current_user.profile.donated_amount.to_i + current_user.profile.purchase_amount.to_i}
   %span.dm_price.dm_time
     = image_tag('dash_time.png', :alt => "time")
     %b #{current_user.profile.blank? ? "0h" : current_user.profile.donated_time.to_s}h
