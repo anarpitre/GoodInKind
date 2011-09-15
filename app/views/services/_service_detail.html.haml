@@ -41,6 +41,8 @@
       - else
         - if @service.booking_capacity == 0 or (@service.booking_capacity - @service.booked_seats > 0)
           = link_to "Take It", new_service_booking_path(@service), :class => 'button take_it'
+        - else
+          = link_to "Sold Out!", "#", :class => 'button take_it'
       :javascript
         $('#take_it').click(function() {
             jQuery.facebox("You can buy this service soon!");

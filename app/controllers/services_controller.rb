@@ -26,6 +26,7 @@ class ServicesController < ApplicationController
   end
 
   def new
+    @btn_text = "Offer it!"
     @head[:title] = "offer a service to support your non-profit cause"
     @service = Service.new
     build_objects
@@ -47,6 +48,7 @@ class ServicesController < ApplicationController
   end
 
   def edit
+    @btn_text = "Save"
     if @service.is_valid_service
       @head[:title] = "Edit Service"
       build_objects
