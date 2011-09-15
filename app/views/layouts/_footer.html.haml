@@ -24,8 +24,9 @@
 .footer
   - if Rails.env == 'production'
     .footer_icon_1
-      %a{:href => "http://privacy-policy.truste.com/verified-policy/www.goodinkind.com", :target => "_blank", :title => "Privacy Policy by TRUSTe"}
-        Privacy Policy by TRUSTe
+      %a{:href => "//privacy-policy.truste.com/click-to-verify/www.goodinkind.com", :target => "_blank", :title => "Privacy Policy by TRUSTe"}
+        %img{:alt => "Privacy Policy by TRUSTe", :src => "//privacy-policy.truste.com/verified-seal/www.goodinkind.com/green/h.png", :style => "border: none"}/
+
     .footer_icon_1
       %script{:src => "https://seal.verisign.com/getseal?host_name=goodinkind.com&amp;size=M&amp;use_flash=NO&amp;use_transparent=NO&amp;lang=en", :type => "text/javascript"}
       %br/
