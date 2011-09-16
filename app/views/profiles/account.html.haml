@@ -43,6 +43,9 @@
           %p.up_acc_p
             = f.check_box :email_remindpayment, {}, "true", "false"
             %span When payment from me or buyer has been processed and sent to non-profit 
+          %p.up_acc_p
+            = f.check_box :show_email_to_nonprofit, {}, "true", "false"
+            %span Share my email address with non-profits that I support
       %p.up_acc_btns.account_btn_wrap
         = f.cancel :class => "btn_form bu_right up_acc_btns_c"
         = f.submit "Save", :class => "btn_form bu_right account_btn"
