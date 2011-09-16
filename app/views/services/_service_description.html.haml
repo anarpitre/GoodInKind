@@ -1,4 +1,9 @@
-%p.services_content_disc= h(@service.description).gsub("\n", "<br/>")
+.services_content_disc
+  %p= h(@service.description).gsub("\n", "<br/>")
+  %br/
+  %span.add_left Experience:
+  %br/
+  %p= h(@service.qualification).gsub("\n", "<br/>")
 .address_text
   %p
     %span.add_left Location:
