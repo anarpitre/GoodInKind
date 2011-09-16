@@ -71,7 +71,8 @@
         %span Step 1:
         Describe the service or experience you want to offer
       = f.text_field :title, :hint => "Make it good and short! Don’t worry about mentioning the non-profit here - we’ll include that in the title for you"
-      = f.text_area :description, :class => 'input_area', :hint => "More details the better! Give the buyer a detailed description of your service. Specifically explain why you are qualified to offer this service and explain how your pricing works (you will be setting the price ‘per unit’ below)"
+      = f.text_area :description, :class => 'input_area', :hint => "More details the better! Give the buyer a detailed description of your service. Specifically explain how your pricing works (you will be setting the price 'per unit' below)"
+      = f.text_area :qualification, :label => 'Experience', :class => 'input_area', :hint => "Please explain why you are qualified to offer this service to the buyers"
       = f.collection_select :category_ids, Category.by_services, :id, :name, {:selected => @service.categories.collect(&:id)}, { :multiple => true, :class => "input_select", :style => "height:100px;width:530px;", :hint => "Select one or more categories that best describes your service", :label => "Category *" }
     .setp_box
       %h3.setp_box_heading
