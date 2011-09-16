@@ -6,6 +6,7 @@ describe ServicesController do
     @request.env['devise.mapping'] = :user
     sign_in @user
   end
+
   context "User should be able to" do
     it "create a service with single category" do
       cat = Category.all.map(&:id)
@@ -15,6 +16,7 @@ describe ServicesController do
       post :create, :service => {:is_schedulelater => true, :start_date =>"", :end_time => "", :request_id =>"", :end_date => "", :start_time => "", :title => "service-create", :is_virtual => true, :booking_capacity => 25, :estimated_duration => 45, :amount => 200, :description => "testing of creation of service", :location_attributes => {:address => "Ithaca"}, :is_public => true, :category_ids => ["#{cat[0]}"],:nonprofit_id => non_p.id}
       ser = Service.find_by_title("Service-create")
       ser.should_not == nil
+      response.should redirect_to("http://test.host/services/thankyou") 
     end
 
     it "create a service with multiple categories" do
@@ -110,5 +112,138 @@ describe ServicesController do
     end
 
     it "uploaded logo uploaded is more than 5 mb"
+  end
+end
+
+describe ServicesController do
+  context "Service status : Active , Login user should be able to access" do
+    before(:each) do
+      @ser = Factory(:service)
+      @ser.status.should == "active"
+      @ser.save
+      @user = @ser.user
+      @request.env['devise.mapping'] = :user
+      sign_in @user
+    end
+    it "service detail page" do
+      get :service_detail, :id => @ser.permalink
+      flash[:notice].should_not == "Service does not exist"
+    end
+
+    it "offer again page" do
+      get :offer_again, :id => @ser.permalink
+      flash[:notice].should_not == "Service does not exist"
+    end
+
+    it "edit service page" do
+      get :edit, :id => @ser.permalink
+      flash[:notice].should_not == "Service does not exist"
+    end
+
+    it "view service page" do
+      get :show, :id => @ser.permalink
+      flash[:notice].should_not == "Service does not exist"
+    end
+  end
+
+  context "Service status : Active ,Non- Login user" do
+    before(:each) do
+      @service = Factory(:service)
+      @service.status.should == "active"
+      @service.save
+      p @service
+      @user = @service.user
+    end
+    it "should be able to access service detail page" do
+      get :service_detail, :id => @service.permalink
+      response.should redirect_to("http://test.host/users/sign_in")
+    end
+
+    it "should not be able to access offer again page" do
+      get :offer_again, :id => @service.permalink
+      flash[:notice].should == "You do not have sufficent privileges."
+      response.should redirect_to("http://test.host/services/#{@service.permalink}")
+    end
+
+    it "should not be able to edit service page" do
+      get :edit, :id => @service.permalink
+      response.should redirect_to("http://test.host/users/sign_in") 
+    end
+
+    it "should be able to view service page" do
+      get :show, :id => @service.permalink
+      response.should be_success
+      flash[:notice].should_not == "You need to sign in or sign up before continuing."
+      flash[:notice].should_not == "Service does not exist"
+      flash[:notice].should_not == "You do not have sufficent privileges."
+    end
+  end
+
+  context "Service status : Expired/Removed , Login user" do
+    before(:each) do
+      @service = Factory(:service)
+      @service.status = "removed"
+      @service.save
+      p @service
+      @user = @service.user
+      @request.env['devise.mapping'] = :user
+      sign_in @user
+    end
+    it "should be able to access service detail page" do
+      get :service_detail, :id => @service.permalink
+      response.should be_success
+      flash[:notice].should_not == "You need to sign in or sign up before continuing."
+      flash[:notice].should_not == "Service does not exist"
+      flash[:notice].should_not == "You do not have sufficent privileges."
+    end
+
+    it "should be able to access offer again page" do
+      get :offer_again, :id => @service.permalink
+      response.should be_success
+      flash[:notice].should_not == "You need to sign in or sign up before continuing."
+      flash[:notice].should_not == "Service does not exist"
+    end
+
+    it "should not able to edit service page" do
+      get :edit, :id => @service.permalink
+      response.should redirect_to("http://test.host/") 
+      flash[:notice].should == "This service has been removed or has expired"
+    end
+
+    it "should not able to view service page" do
+      get :show, :id => @service.permalink
+      response.should redirect_to("http://test.host/") 
+      flash[:notice].should == "This service has been removed or has expired"
+    end
+  end
+
+  context "Service status : Active ,Non- Login user" do
+    before(:each) do
+      @service = Factory(:service)
+      @service.status.should == "active"
+      @service.save
+      p @service
+      @user = @service.user
+    end
+    it "should not be able to access service detail page" do
+      get :service_detail, :id => @service.permalink
+      response.should redirect_to("http://test.host/users/sign_in") 
+    end
+
+    it "should not be able to access offer again page" do
+      get :offer_again, :id => @service.permalink
+      response.should redirect_to("http://test.host/services/#{@service.permalink}") 
+      flash[:notice].should == "You do not have sufficent privileges."
+    end
+
+    it "should not be able to edit service page" do
+      get :edit, :id => @service.permalink
+      response.should redirect_to("http://test.host/users/sign_in") 
+    end
+
+    it "should not be able to view service page" do
+      get :show, :id => @service.permalink
+      response.should be_success
+    end
   end
 end
