@@ -21,9 +21,9 @@
           - buyer = booking.user.profile
           %tr
             %td.td_name= get_user_name(offerer)
-            %td= offerer.user.email
+            %td= show_email_to_nonprofit(offerer)
             %td.td_name= get_user_name(buyer)
-            %td= buyer.user.email
+            %td= show_email_to_nonprofit(buyer)
             %td= booking.created_at.strftime("%m/%d/%Y")
             %td
               %b
