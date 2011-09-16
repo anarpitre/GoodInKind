@@ -35,6 +35,24 @@
 %br
 %div.review
   = render :partial => 'new_review'
+#fb-root
+:javascript
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+.fb-comments{"data-href" => "#{service_url(@service.permalink)}", "data-num-posts" => "1", "data-width" => "600"}
+
+/ FACEBOOK COMMENT
+/href - News feed stories on Facebook will link to this URL.
+/width - the width of the plugin in pixels. Minimum recommended width: 400px.
+/num_posts - the number of comments to show by default. Default: 10. Minimum: 1 
+
+
+
 /%h3.comment_icon
 /  = image_tag('q_a_icon.png', :alt => "Reviews")
 /  %span Q&amp;A
