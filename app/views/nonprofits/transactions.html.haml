@@ -12,7 +12,9 @@
           %th Email
           %th Date
           %th Service
-          %th.td_amount Amount
+          %th.td_amount Service Amount
+          %th.td_amount Donation Amount
+          %th.td_amount Total Amount
         - @bookings.each do |booking|
           - service = booking.service
           - offerer = service.user.profile
@@ -26,4 +28,6 @@
             %td
               %b
                 =link_to service.title, service_path{service.permalink}
+            %td.td_price= booking.donation_amount
+            %td.td_price= booking.additional_donation_amount
             %td.td_price= booking.total_amount

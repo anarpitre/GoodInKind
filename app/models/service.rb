@@ -25,6 +25,7 @@ class Service < ActiveRecord::Base
   validates_numericality_of :estimated_duration, :message => "Please enter a valid number"  
   validate :check_categories, :check_date, :check_nonprofit, :check_duration
 
+  default_scope order('created_at DESC')
   scope :by_public, where(:is_public => true)
   scope :by_date, where("is_schedulelater = ? or (is_schedulelater = ? and end_date >= ?)",true,false,Date.today)
   scope :by_user, lambda {|user_id| where(:user_id => user_id)}

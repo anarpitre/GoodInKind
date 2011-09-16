@@ -148,7 +148,7 @@
           = f.label(:is_public, "Unlisted: Don't list this service publicly on GoodInKind. I will share it privately")
           = f.hidden_field :request_id
     .input_post_div
-      = f.submit "Offer it!", :class => "btn_form button form_post_btn"
+      = f.submit @btn_text, :class => "btn_form button form_post_btn"
       %p You will be able to share it afterwards
     %ul.offer_form_bottom_nav
       %li -- All services offered must be fully legal under US law and appropriate to discuss in front of people all ages.  Please keep it appropriate and positive!

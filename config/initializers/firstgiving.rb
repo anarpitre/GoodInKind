@@ -9,7 +9,7 @@ FIRST_GIVING_TYPEMAP = {
   'visa' => 'VI',
   'master' => 'MC',
   'discover' => 'DI',
-  'amercan_express' => 'AX'
+  'american_express' => 'AX'
 }
 
-FIRST_GIVING_CC_RATE = 6.25
+FIRST_GIVING_CC_RATE = 0 
