@@ -1,4 +1,6 @@
 class Notifier < ActionMailer::Base
+  
+  include ApplicationHelper
 
 
   #mail to offerer when review is posted
@@ -46,9 +48,9 @@ class Notifier < ActionMailer::Base
   def buy_success_nonprofit(booking)
     @service_title = booking.service.title
     @buyer_name = booking.user.profile.full_name
-    @buyer_email = booking.user.email
+    @buyer_email = show_email_to_nonprofit(booking.user.profile)
     @offerer_name = booking.service.user.profile.full_name
-    @offerer_email = booking.service.user.email
+    @offerer_email = show_email_to_nonprofit(booking.service.user.profile)
     @amount = booking.total_amount
     @additional_amount = booking.additional_donation_amount
     @email = booking.service.nonprofit.email
