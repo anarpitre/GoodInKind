@@ -60,7 +60,8 @@ class ServicesController < ApplicationController
 
   def create
     begin
-      @head[:title] = "Create Service"
+      @btn_text = "Offer it!"
+      @head[:title] = "offer a service to support your non-profit cause"
       params[:service].delete(:nonprofit_name)
       params[:service][:booking_capacity] = 0 if params[:service][:booking_capacity] == ""
       @service = Service.new(params[:service])
@@ -85,7 +86,8 @@ class ServicesController < ApplicationController
 
   def update
     begin
-      @head[:title] = "Update Service"
+      @btn_text = "Save"
+      @head[:title] = "Edit Service"
       params[:service].delete(:nonprofit_name)
       params[:service][:booking_capacity] = 0 if params[:service][:booking_capacity] == ""
       @service.update_attributes!(params[:service])

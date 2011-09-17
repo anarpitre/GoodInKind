@@ -38,9 +38,9 @@ function prepareInputsForHints() {
 		}
 	}
 	
-	// repeat the same tests as above for selects
+	// repeat the same tests as above for textareas
 	var textareas = document.getElementsByTagName("textarea");
-	for (var k=0; k<selects.length; k++){
+	for (var k=0; k<textareas.length; k++){
 		if (textareas[k].parentNode.getElementsByTagName("span")[0]) {
 			textareas[k].onfocus = function () {
 				this.parentNode.getElementsByTagName("span")[0].style.display = "inline";

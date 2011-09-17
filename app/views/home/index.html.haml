@@ -36,7 +36,11 @@
 
 #overlay
   #box
-    %iframe{:allowfullscreen => "true", :allowscriptaccess => "always", :flashvars => "playerVars=autoPlay=no", :height => "338", :name => "Metacafe_yt-n7jL4MmdyoE", :pluginspage => "http://www.macromedia.com/go/getflashplayer", :src => "http://www.youtube.com/embed/Y58vy76ONfg?hl=en&fs=1", :type => "application/x-shockwave-flash", :width => "600", :wmode => "transparent"}
+    %object{:height => "390", :width => "640"}
+      %param{:name => "movie", :value => "http://www.youtube.com/v/Y58vy76ONfg?version=3&amp;hl=en_US&amp;rel=0"}/
+      %param{:name => "allowFullScreen", :value => "true"}/
+      %param{:name => "allowscriptaccess", :value => "always"}/
+      %embed{:allowfullscreen => "true", :allowscriptaccess => "always", :height => "390", :src => "http://www.youtube.com/v/Y58vy76ONfg?version=3&amp;hl=en_US&amp;rel=0", :type => "application/x-shockwave-flash", :width => "640"}
 
 %ul#slide_text.slide_text_db
   %li
@@ -51,8 +55,17 @@
     GoodInKind is a
     %span marketplace
     for cool services, from real people who care
+
 .home_banner
   %a#in.watch_video{:href => "#"} Watch Video
+  %img{:alt => "Goodinkind", :border => "0", :src => "/images/banner.png", :style => "margin-top:-27px;", :usemap => "#Map"}/
+  %map#Map{:name => "Map"}
+    / Offer a service link
+    %area{:coords => "1,34,312,179", :href => "#{new_service_path}", :shape => "rect"}/
+    / Non Profits Link
+    %area{:coords => "336,110,650,274", :href => "#{nonprofits_path}", :shape => "rect"}/
+    / Browse Services Link
+    %area{:coords => "671,40,974,197", :href => "#{services_path}", :shape => "rect"}/
   %ul
     %li
       %strong> Offer a Service

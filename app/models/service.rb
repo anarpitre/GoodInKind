@@ -16,7 +16,7 @@ class Service < ActiveRecord::Base
   accepts_nested_attributes_for :images, :location, :allow_destroy => true
   
   
-  validates :title, :description, :user_id, :presence => true
+  validates :title, :description, :user_id, :qualification, :presence => true
   validates_inclusion_of :is_public, :in => [true, false]
   validates_numericality_of :amount, :presence => true, :message => :service_amount
   validates :amount, :inclusion => {:in => 5..9999, :message => :service_amount_range, :allow_nil => true}

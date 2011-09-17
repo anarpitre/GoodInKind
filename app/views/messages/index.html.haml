@@ -25,7 +25,8 @@
         - @unread_message.each do |msg|
           %tr.mail_un_red
             %td
-              %span= msg.sender.profile.first_name
+              %span.mail_sub
+                = link_to msg.sender.profile.full_name, profile_path(msg.sender_id)
             %td
               %span.mail_sub
                 = link_to msg.title, message_path(@user, msg.id)
@@ -37,7 +38,8 @@
         - @read_message.each do |msg|
           %tr.mail_red
             %td
-              %span= msg.sender.profile.first_name 
+              %span.mail_sub
+                = link_to msg.sender.profile.full_name, profile_path(msg.sender_id)
             %td
               %span.mail_sub
                 = link_to msg.title, message_path(@user, msg.id)

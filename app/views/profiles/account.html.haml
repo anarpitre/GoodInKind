@@ -18,34 +18,36 @@
         %h2 Email Alert Preferences
         .up_acc_email
           %h4 When I offer a service, I want to receive emails when:
-          %p.up_acc_p
-            = f.check_box :email_takemyservice, {}, "true", "false"
-            %span When someone buys my service
+          /%p.up_acc_p
+          /  = f.check_box :email_takemyservice, {}, "true", "false"
+          /  %span When someone buys my service                             ##Commented if required in future not reqd now.
           %p.up_acc_p
             = f.check_box :email_addreview, {}, "true", "false"
-            %span When someone post a review on my posted service
-          %p.up_acc_p
-            = f.check_box :email_cancel, {}, "true", "false"
-            %span When someone requests a cancel and refund
-        .up_acc_email
-          %h4 When I buy a service, I want to receive emails when:
-          %p.up_acc_p
-            = f.check_box :email_itakeservice, {}, "true", "false"
-            %span When I purchase a service
-          %p.up_acc_p
-            = f.check_box :email_paid, {}, "true", "false"
-            %span 2 days before my payment will be processed and confirmed
-        .up_acc_email
-          %h4 I want to receive emails when:
+            %span When someone writes a review on my posted service
           %p.up_acc_p
             = f.check_box :email_addmessage, {}, "true", "false"
             %span When someone direct messages me
-          %p.up_acc_p
-            = f.check_box :email_remindpayment, {}, "true", "false"
-            %span When payment from me or buyer has been processed and sent to non-profit 
+        .up_acc_email
+          %h4 Non-profit communication:
           %p.up_acc_p
             = f.check_box :show_email_to_nonprofit, {}, "true", "false"
-            %span Share my email address with non-profits that I support
+            %span Share my email address with non-profits that I support by offering or buying services
+          /%p.up_acc_p
+          /  = f.check_box :email_cancel, {}, "true", "false"
+          /  %span When someone requests a cancel and refund                     ## TBD uncomment as cancel functionality is added
+        .up_acc_email
+          /%h4 When I buy a service, I want to receive emails when:
+          /%p.up_acc_p
+          /  = f.check_box :email_itakeservice, {}, "true", "false"            
+          /  %span When I purchase a service                                     ## Commented if required in future not reqd now.
+          /%p.up_acc_p
+          /  = f.check_box :email_paid, {}, "true", "false"
+          /  %span 2 days before my payment will be processed and confirmed      ## TBD uncomment when cardonfile is implemented. 
+        .up_acc_email
+          /%h4 I want to receive emails when:
+          /%p.up_acc_p
+          /  = f.check_box :email_remindpayment, {}, "true", "false"
+          /  %span When payment from me or buyer has been processed and sent to non-profit    ## TBD uncomment when cardonfile is implemented.
       %p.up_acc_btns.account_btn_wrap
         = f.cancel :class => "btn_form bu_right up_acc_btns_c"
         = f.submit "Save", :class => "btn_form bu_right account_btn"

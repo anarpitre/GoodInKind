@@ -95,6 +95,7 @@ class FirstGiving
     params[:billToEmail] = booking.billToEmail
     params[:billToPhone] = booking.billToPhone
     params[:remoteAddr] = booking.remoteAddr
+    params[:donationMessage] = "Donation for #{booking.service.nonprofit.name}"
 
     params
   end
