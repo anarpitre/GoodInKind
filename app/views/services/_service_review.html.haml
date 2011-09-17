@@ -44,6 +44,9 @@
     js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
+%h3.comment_icon
+  = image_tag('q_a_icon.png', :alt => "Comment")
+  %span Comments and Q&A 
 .fb-comments{"data-href" => "#{service_url(@service.permalink)}", "data-num-posts" => "1", "data-width" => "600"}
 
 / FACEBOOK COMMENT
