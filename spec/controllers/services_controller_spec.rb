@@ -13,7 +13,7 @@ describe ServicesController do
       non_p = Factory(:nonprofit)
       non_p.is_verified = "Verified"
       non_p.save
-      post :create, :service => {:is_schedulelater => true, :start_date =>"", :end_time => "", :request_id =>"", :end_date => "", :start_time => "", :title => "service-create", :is_virtual => true, :booking_capacity => 25, :estimated_duration => 45, :amount => 200, :description => "testing of creation of service", :location_attributes => {:address => "Ithaca"}, :is_public => true, :category_ids => ["#{cat[0]}"],:nonprofit_id => non_p.id}
+      post :create, :service => {:is_schedulelater => true, :qualification => "BE IT", :start_date =>"", :end_time => "", :request_id =>"", :end_date => "", :start_time => "", :title => "service-create", :is_virtual => true, :booking_capacity => 25, :estimated_duration => 45, :amount => 200, :description => "testing of creation of service", :location_attributes => {:address => "Ithaca"}, :is_public => true, :category_ids => ["#{cat[0]}"],:nonprofit_id => non_p.id}
       ser = Service.find_by_title("Service-create")
       ser.should_not == nil
       response.should redirect_to("http://test.host/services/thankyou") 
@@ -23,7 +23,7 @@ describe ServicesController do
       cat = Category.all.map(&:id)
       non_p = Factory(:nonprofit)
       post :create, :nonprofit_name => non_p.name,
-        :service => {:is_schedulelater => true, :title => "service-create-with-multiple-category", :is_virtual => true, :booking_capacity => 25, :estimated_duration => 45, :amount => 200, :description => "testing of creation of service", :is_public => true, :category_ids => ["#{cat[0]}, #{cat[1]}, #{cat[2]}"],:nonprofit_id => non_p.id}
+        :service => {:is_schedulelater => true, :title => "service-create-with-multiple-category", :qualification => "Be IT", :is_virtual => true, :booking_capacity => 25, :estimated_duration => 45, :amount => 200, :description => "testing of creation of service", :is_public => true, :category_ids => ["#{cat[0]}, #{cat[1]}, #{cat[2]}"],:nonprofit_id => non_p.id}
       ser = Service.find_by_title("Service-create-with-multiple-category")
       ser.should_not == nil
     end
@@ -32,7 +32,7 @@ describe ServicesController do
       cat = Category.all.map(&:id)
       ser = Factory(:service)
       post :create, :nonprofit_name => ser.nonprofit.name,
-        :service => {:is_schedulelater => true, :title => "service-with-same-nonp", :is_virtual => true, :booking_capacity => 25, :estimated_duration => 45, :amount => 200, :description => "testing of creation of service", :is_public => true, :category_ids => ["#{cat[0]}, #{cat[1]}, #{cat[2]}"],:nonprofit_id => ser.nonprofit.id}
+        :service => {:is_schedulelater => true, :title => "service-with-same-nonp", :qualification => "BE IT", :is_virtual => true, :booking_capacity => 25, :estimated_duration => 45, :amount => 200, :description => "testing of creation of service", :is_public => true, :category_ids => ["#{cat[0]}, #{cat[1]}, #{cat[2]}"],:nonprofit_id => ser.nonprofit.id}
       ser1 = Service.find_by_title("Service-with-same-nonp")
       ser1.should_not == nil
       ser.nonprofit.name.should == ser1.nonprofit.name

@@ -3,6 +3,7 @@ Factory.define :service do |s|
  # s.sequence(:title) {|n| "ser_title#{n}"}
   s.title "service_title"
   s.sequence(:description) {|n| "ser_description#{n}"}
+  s.qualification "BE I.T"
   s.amount 500
   s.booking_capacity 100
   s.booked_seats 0

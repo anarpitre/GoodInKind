@@ -25,12 +25,27 @@ RSpec.configure do |config|
     stubs["http://maps.google.com/#{uri}"] = path
   end
 
+  firstgiving = config.fixture_path + '/webmock/firstgiving/'
+    payment_response = []
+  Dir["#{firstgiving}/**/*"].each  do |path|
+    payment_response << path
+  end
+
 
   config.around(:each) do |example|
     stubs.each { |uri, path|  WebMock::API.stub_request(:get, uri).to_return (File.new(path))  }
     stub_request(:put, /http:\/\/s3.amazonaws.com\/otz_photos\/.*/).to_return(:status => 200, :body => "", :headers => {})
+    stub_request(:get, "http://127.0.0.1:38533/__identify__").
+              with(:headers => {'Accept'=>'*/*'}).
+                      to_return(:status => 200, :body => "", :headers => {})
+    stub_request(:post, "http://www.joshsoftware.com/donation/creditcard?accountName=amit%20kulkarni&amount=500.0&billToAddressLine1=Pune&billToAddressLine2=Pashan&billToCity=Newyork&billToCountry=US&billToEmail=user1@user.com&billToFirstName=amit&billToLastName=kulkarni&billToPhone=&billToState=NY&billToZip=12345&ccCardValidationNum=123&ccExpDateMonth=1&ccExpDateYear=2012&ccNumber=4457010000000009&ccType=VI&charityId=0346acc0-2024-11e0-a279-4061860da51d&currencyCode=USD&description=service_title&orderId=&remoteAddr=0.0.0.0").
+               with(:headers => {'Jg-Applicationkey'=>'43c8301e-bee1-11e0-8582-12313b003616', 'Jg-Securitytoken'=>'43c9127c-bee1-11e0-8582-12313b003616'}).
+                        to_return(:status => 200, :body => File.new(payment_response[0]), :headers => {})
 
+
+    WebMock.disable_net_connect!(:allow_localhost => true, :allow => "http://www.joshsoftware.com/donation/creditcard")
     WebMock.disable_net_connect!(:allow_localhost => true, :allow => ":5XxQ4mHBV7BV8w@iej.api.indextank.com/v1/indexes/idx/docs/")
+                                # :5XxQ4mHBV7BV8w@iej.api.indextank.com/v1/indexes/idx/docs/"
     example.call
     WebMock.allow_net_connect!
   end
