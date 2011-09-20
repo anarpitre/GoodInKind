@@ -9,6 +9,7 @@
 
     - if Rails.env != 'development'
       %link{:href => "#{request.protocol}fonts.googleapis.com/css?family=Crimson+Text&v2", :rel => "stylesheet", :type => "text/css"}
+    - if Rails.env == 'production'
       :javascript
           var _kmq = _kmq || [];
           function _kms(u){
