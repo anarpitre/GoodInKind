@@ -125,9 +125,7 @@
         = f.text_field :billToState, :label => "State", :class => "input_tiny", :pre => true, :error_class => "tiny_error", :hint => "Please enter 2 letter abbreviation such as NY, CA, MA"
       %p
         = f.text_field :billToZip, :label => "Zipcode", :class => "input_tiny", :pre => true, :error_class => "tiny_error"
-        /= f.text_field :billToCountry, :value => "US", :label => "Country", :class => "input_tiny", :pre => true, :error_class => "tiny_error", :enable => false
-        = f.label "Country", :class => 'form_lbl'
-        %span.cc_charge_amt US
+        = f.text_field :billToCountry, :value => "US", :label => "Country", :class => "input_tiny", :pre => true, :error_class => "tiny_error", :disabled => true
     .input_post_div
       #in= f.submit 'Pay'
 
