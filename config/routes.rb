@@ -47,7 +47,9 @@ Gik::Application.routes.draw do
 
   resources :authentications
 
-  resources :services do
+  match '/services/:id' => redirect("/services/details/%{id}")
+  match '/services/details/:id' => 'services#show', :as => 'service'
+  resources :services, :except => :show do
     collection do
       get :autocomplete_nonprofit_name, :thankyou, :browse_nonprofit
       post :review, :newoffer, :send_invitation
