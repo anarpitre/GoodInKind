@@ -1,6 +1,19 @@
 Gik::Application.routes.draw do
 
 
+
+  namespace :admin do
+    root :to => "admin_base#index"
+    resources :services, :except => [:new, :create] do
+      member do
+        get :transaction
+      end
+    end
+    resources :bookings, :only => [:index]
+  end
+
+
+
   devise_for :users, :controllers => {:sessions => :sessions, :registrations => :registrations, :confirmations => :confirmations, :passwords => :passwords}
 
   scope '/users/:user_id' do

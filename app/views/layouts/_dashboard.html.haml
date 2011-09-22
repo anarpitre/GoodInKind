@@ -11,20 +11,22 @@
     = image_tag('dash_time.png', :alt => "time")
     %b #{current_user.profile.blank? ? "0h" : current_user.profile.donated_time.to_s}h
   %ul.dm_nav
-    %li
-      = link_to "Profile", profile_path(current_user)
-    %li
-      = link_to "My Services", services_profile_path(current_user)
+    - unless is_admin?
+      %li
+        = link_to "Profile", profile_path(current_user)
+      %li
+        = link_to "My Services", services_profile_path(current_user)
     %li
       = link_to "Logout", destroy_user_session_path, :method => :get
   / Network Functionality posted on 7-SEP-11    
   %span.dm_network
     /= image_tag('network_icon.png', :alt => "Network")
     /%strong.count= current_user.messages.where(:is_read => false).size 
-  %span.dm_mail
-    = link_to image_tag('mail_icon.png', :alt => "mail"), messages_path(current_user) 
-    - message_count = get_unread_message_size
-    - unless message_count == 0
-      %strong.count.mail_c= message_count
+  - unless is_admin?
+    %span.dm_mail
+      = link_to image_tag('mail_icon.png', :alt => "mail"), messages_path(current_user) 
+      - message_count = get_unread_message_size
+      - unless message_count == 0
+        %strong.count.mail_c= message_count
   %span.dm_st
   %span
