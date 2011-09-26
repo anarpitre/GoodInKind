@@ -107,7 +107,7 @@ class ServicesController < ApplicationController
   def thankyou
     @message = "Thank you for posting your offer!"
     session[:invite_friends] = false
-    @service = !@service.blank? ? @service : current_user.services.last
+    @service = !@service.blank? ? @service : current_user.services.first
     if @service.blank?
       redirect_to "/"
     end
