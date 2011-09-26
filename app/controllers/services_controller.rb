@@ -91,7 +91,12 @@ class ServicesController < ApplicationController
       params[:service].delete(:nonprofit_name)
       params[:service][:booking_capacity] = 0 if params[:service][:booking_capacity] == ""
       @service.update_attributes!(params[:service])
-      redirect_to(@service, :notice => 'Service was successfully updated.') 
+      flash[:notice] = 'Service was successfully updated.'
+      if @service.user == current_user
+        redirect_to @service 
+      else
+        redirect_to admin_services_path
+      end
     rescue 
       build_objects
       render :action => "edit", :id => @service.id 

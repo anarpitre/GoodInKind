@@ -1,7 +1,7 @@
 
 - content_for :header do
-  = stylesheet_link_tag "jquery.tooltip"
-  = javascript_include_tag "jquery-dimension", "jquery.tooltip.min"
+  = stylesheet_link_tag "jquery.tooltip", "facebox"
+  = javascript_include_tag "jquery-dimension", "jquery.tooltip.min", "facebox"
 :javascript
   jQuery(document).ready(function(){
     $('.bg_white a').tooltip({ 

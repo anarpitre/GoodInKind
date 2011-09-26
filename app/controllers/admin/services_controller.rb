@@ -1,7 +1,7 @@
 class Admin::ServicesController < Admin::AdminBaseController
 
   def index
-    @services = Service.includes(:nonprofit, :user => :profile)
+    @services = Service.includes(:nonprofit, :user => :profile).unscoped.order("title")
   end
 
   def show
