@@ -1,0 +1,54 @@
+.up_profile
+  %h2
+    %span.edit_service_head Service Details
+    %ul.edit_service_list
+      /- if @service.is_valid_service
+      /%li
+      /%span.set_icons.viewpost
+      /= link_to "View posting", service_path(@service)
+      /%li
+      /%span.set_icons.invate_friends
+      /= link_to 'Invite friends', invite_friends_service_path(@service)
+      /%li
+      /%span.set_icons.cancel_red
+      /= link_to 'remove service', remove_service_path(@service), :onclick => "return ask_user(#{@service.bookings.size});"
+      /%li
+      /%span.set_icons.re_offer
+      /= link_to "Offer Again", offer_again_service_path(@service)
+    %a.bro_req_btn{:href => admin_services_path} Go back to services
+  .service_details
+    %p
+      %label.service_details_lbl Service title:
+      %span.service_details_txt= @service.title
+    %p
+      %label.service_details_lbl category:
+      %span.service_details_txt= @service.categories.collect(&:name).map{|i| i}.join(",")
+    %p
+      %label.service_details_lbl Non-profit:
+      %span.service_details_txt= @service.nonprofit.name
+    %p
+      %label.service_details_lbl Location:
+      - location = @service.location.blank? ? 'Virtual' : @service.location.address
+      %span.service_details_txt= location 
+    %p
+      %label.service_details_lbl Duration:
+      %span.service_details_txt= @service.estimated_duration == 0 ? '---' : @service.estimated_duration
+    %p
+      %label.service_details_lbl Date:
+      - date = @service.is_schedulelater ? 'To be  scheduled' : "#{@service.start_date}-#{@service.end_date}" 
+      %span.service_details_txt= date 
+    %p
+      %label.service_details_lbl Group size:
+      %span.service_details_txt= @service.booking_capacity == 0 ? '---' : @service.booking_capacity
+    %p
+      %label.service_details_lbl Price:
+      %span.service_details_txt= @service.amount
+    %p
+      %label.service_details_lbl Visibility:
+      %span.service_details_txt 
+      = @service.is_public ? 'Public' : 'Private'
+    %p
+      %label.service_details_lbl Description:
+      %span.service_details_txt= @service.description
+  
+  

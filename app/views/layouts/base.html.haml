@@ -4,11 +4,22 @@
     %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}/
     %meta{:name => (@head.fetch(:keywords, '') if @head)}
     %meta{:description => (@head.fetch(:description, '') if @head)}
-
+    - if Rails.env == 'production'
+      %meta{:name => "google-site-verification",  :content => "TC-1dD6MyDmQ7l1zRKXqgS8_yWRg47TCD3QMVmeZe7Q"} 
     %title GoodInKind :: #{@head.fetch(:title, '') if @head}
 
     - if Rails.env != 'development'
       %link{:href => "#{request.protocol}fonts.googleapis.com/css?family=Crimson+Text&v2", :rel => "stylesheet", :type => "text/css"}
+    - if Rails.env == 'production'
+      :javascript
+          var _kmq = _kmq || [];
+          function _kms(u){
+              setTimeout(function(){
+                      var s = document.createElement('script'); var f = document.getElementsByTagName('script')[0]; s.type = 'text/javascript'; s.async = true;
+                      s.src = u; f.parentNode.insertBefore(s, f);
+                      }, 1);
+          }
+          _kms('//i.kissmetrics.com/i.js');_kms('//doug1izaerwt3.cloudfront.net/0a379d0eefa0527ccfda794f8c3c374806b7d1da.1.js');
 
     = stylesheet_link_tag "calendrical", "jquery-ui-1.8.14.custom", "thickbox", "style", "facebox"
     = javascript_include_tag "jquery.min", "jquery_ujs", "jquery-ui-1.8.14.custom.min", "tooltip", "thickbox", "jquery.calendrical", "application", "facebox"
@@ -17,6 +28,16 @@
     = yield :header
 
   %body
+    - if Rails.env == 'production'
+      :javascript
+        var _kiq = _kiq || [];
+        var _kmq = _kmq || [];
+      %script{:async => "true", :src => "//s3.amazonaws.com/ki.js/23844/4JZ.js", :type => "text/javascript"}
+      - if user_signed_in?  
+        %script{:charset => "utf-8", :type => "text/javascript"}
+          _kiq.push(['identify', '#{current_user.email}']);
+        %script{:charset => "utf-8", :type => "text/javascript"}
+          _kmq.push(['identify', '#{current_user.email}']);
     - unless content_for?(:header_content)
       .header
         %h1.logo
@@ -27,7 +48,7 @@
       = yield(:header_content)
     = render 'layouts/change_city'
     = render 'layouts/top_login' unless user_signed_in?
-
+   
     .container
       - if user_signed_in? and defined?(dashboard) and dashboard
         = render 'layouts/dashboard' 

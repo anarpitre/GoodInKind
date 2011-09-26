@@ -1,5 +1,6 @@
 %h2.offer_form_h2
   Request
+%a.bro_req_btn{:href => requests_path} Browse Requests
 .offer_form
   = form_for @request, :builder => JoshForm, :html => {:multipart => true} do |f|
     .setp_box

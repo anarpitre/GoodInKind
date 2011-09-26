@@ -22,6 +22,7 @@ class BookingsController < ApplicationController
     @booking.GIK_charges = 0
     @booking.CC_charges = 0 
     @booking.total_amount = @booking.service.amount # default 1 seat
+    @booking.billToCountry = "US"
 
     # If the user has some previous bookings, we can re-use the billing info
     prev = current_user.bookings.last
@@ -57,6 +58,7 @@ class BookingsController < ApplicationController
     @booking.billToFirstName = @booking.accountName.split.first
     @booking.billToLastName = @booking.accountName.split.last
     @booking.remoteAddr = request.remote_ip 
+    @booking.billToCountry = "US"
 
     # Transaction fee processing
     @booking.seats_booked = @booking.seats_booked.to_i
