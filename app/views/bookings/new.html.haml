@@ -116,13 +116,13 @@
     .setp_box
       %h3.setp_box_heading
         %span Billing Details
-      = f.text_field :accountName, :label => "Bill to", :class => "input_half"
+      = f.text_field :accountName, :label => "Billing Name", :class => "input_half"
       = f.text_field :billToAddressLine1, :label => "Address Line1", :class => "input_half"
       = f.text_field :billToAddressLine2, :label => "Address Line2", :class => "input_half"
       = f.text_field :billToAddressLine3, :label => "Address Line3", :class => "input_half"
       %p
         = f.text_field :billToCity, :label => "City", :class => "input_tiny", :pre => true, :error_class => "tiny_error"
-        = f.text_field :billToState, :label => "State", :class => "input_tiny", :pre => true, :error_class => "tiny_error", :hint => "Please enter 2 letter abbreviation such as NY, CA, MA"
+        = f.text_field :billToState, :label => "State", :class => "input_tiny", :pre => true, :error_class => "tiny_error", :hint => "Please enter 2 letter abbreviation for State such as NY, CA, MA"
       %p
         = f.text_field :billToZip, :label => "Zipcode", :class => "input_tiny", :pre => true, :error_class => "tiny_error"
         = f.text_field :billToCountry, :value => "US", :label => "Country", :class => "input_tiny", :pre => true, :error_class => "tiny_error", :disabled => true
