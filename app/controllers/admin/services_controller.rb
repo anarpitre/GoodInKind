@@ -15,7 +15,7 @@ class Admin::ServicesController < Admin::AdminBaseController
 
  def transaction
     @service = Service.includes(:user => :profile).find(params[:id])
-    @bookings = @service.bookings.includes(:service, :user => :profile)
+    @bookings = @service.bookings.includes(:service, :user => :profile).order("created_at DESC")
  end
 
   def destroy
