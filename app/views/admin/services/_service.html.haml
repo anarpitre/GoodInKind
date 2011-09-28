@@ -27,13 +27,14 @@
       %td.bg_white
         /= link_to '', cancel_service_profile_path(@user, :id => service), :class => "set_icons refund", :remote => true, :method => :post, :confirm => "Are you sure you want to cancel the service?" 
       %td.bg_white &nbsp;
-      %td.bg_white
-        = link_to '', transaction_admin_service_path(service), :class => "set_icons manage_service", :detail => 'Bookings'
       - if service.is_valid_service
         %td.bg_white
           = link_to image_tag('edit_icon.jpg', :alt => "edit"), edit_service_path(service), :detail => 'Edit'
         %td.bg_white
           = link_to "", admin_service_path(service), :confirm => 'Are you sure?',  :method => :delete, :class => "set_icons cancel_red", :detail => "Remove It"
+      - if service.bookings.count > 0
+        %td.bg_white
+          = link_to '', transaction_admin_service_path(service), :class => "set_icons manage_service", :detail => 'Bookings'
 
 
 
