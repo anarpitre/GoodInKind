@@ -21,6 +21,7 @@ gem 'faker', '0.9.5'
 gem 'httparty', '0.7.8'
 gem 'nokogiri', '1.4.7'
 gem 'activemerchant', '1.16.0'
+gem 'will_paginate', '3.0.0'
 group :development, :test do
  gem 'ci_reporter'
  gem  "hpricot"
