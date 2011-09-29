@@ -1,4 +1,12 @@
 
+:javascript
+  $(document).ready(function() { 
+  $(".ans").hide();
+  $('.bg_white1').click(function() {
+     $(this).next().toggle();
+     return false;
+     });    
+  }); 
 %table.up_table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
   %tr.up_tab_top
     %th{:style => 'width:130px;word-wrap:break-word'}
@@ -44,7 +52,10 @@
       %td #{booking.mref} 
       %td #{booking.transaction.FG_trnx_id} 
       - if booking.charge_status == 'failure'
-        %td.bg_white= link_to("Failure", "#",  :detail => "#{booking.transaction.failed_reason }")
+        %td.bg_white
+          %a.bg_white1{:href => "#"} Failure
+          .ans
+            %p #{booking.transaction.failed_reason }
       - else
         %td #{booking.charge_status} 
 
