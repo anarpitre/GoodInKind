@@ -30,7 +30,7 @@
           link: "#{service_url(@service.permalink)}",
           picture: "#{fqdn}#{@service.images.first.image.url(:thumb)}",
           caption: 'Reference Documentation',
-          description: "#{@service.description}",
+          description: "#{escape_javascript(@service.description)}",
             });
       });
     });
