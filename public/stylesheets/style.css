@@ -2541,7 +2541,7 @@ span.ss_name {
 div.pagination {
   float:left;
   font-size:14px;
-  margin-left:120px;
+  margin-left:350px;
   margin-top:30px;
 }
 div.pagination span {
@@ -3340,6 +3340,10 @@ div.pagination strong {
   width:100%;
 }
 .fb_send {
+  float:left;
+  margin:20px 20px 0px 360px;
+}
+.fb-send {
   float:left;
   margin:20px 20px 0px 360px;
 }

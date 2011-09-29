@@ -1,7 +1,7 @@
 
 - content_for :header do
-  = stylesheet_link_tag "jquery.tooltip"
-  = javascript_include_tag "jquery-dimension", "jquery.tooltip.min"
+  = stylesheet_link_tag "jquery.tooltip", "facebox"
+  = javascript_include_tag "jquery-dimension", "jquery.tooltip.min", "facebox"
 :javascript
   jQuery(document).ready(function(){
     $('.bg_white a').tooltip({ 
@@ -16,42 +16,7 @@
 %h2
   %span.edit_service_head Services 
   %a.bro_req_btn{:href => admin_root_path} Go to Admin
-%table.up_table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
-  %tr.up_tab_top
-    %th{:style => 'width:200px;word-wrap:break-word'}
-      %span Service Title
-    %th{:style => 'width:200px;word-wrap:break-word'}
-      %span Non-Profit
-    %th Offerer
-    %th Service Expiry
-    %th Status
-    %th.empty_col
-    %th.bg_white &nbsp;
-    %th.bg_white &nbsp;
-    /%th.bg_white &nbsp;
-    /%th.bg_white &nbsp;
-  - @services.each do |service|
-    %tr{:class => "#{'expired_row' unless service.is_valid_service}", :id => "service_#{service.id}"}
-      %td{:style => 'width:200px;word-wrap:break-word'}
-        %span= link_to "#{service.title}", admin_service_path(service)
-      %td{:style => 'width:200px;word-wrap:break-word'}
-        %span= link_to("#{service.nonprofit.name}", nonprofit_path(service.nonprofit) ) 
-      %td= link_to "#{service.user.profile.full_name}", profile_path(service.user) 
-      %td
-        %b #{service.is_valid_service ?  service.is_schedulelater ? 'To be Scheduled' : service.end_date.strftime('%m-%d-%Y') : 'Expired'}
-      %td #{service.status.humanize}
-      %td.empty_col
-      %td.bg_white
-        /= link_to '', cancel_service_profile_path(@user, :id => service), :class => "set_icons refund", :remote => true, :method => :post, :confirm => "Are you sure you want to cancel the service?" 
-      %td.bg_white &nbsp;
-      %td.bg_white
-        = link_to '', transaction_admin_service_path(service), :class => "set_icons manage_service", :detail => 'Bookings'
-      - if service.is_valid_service
-        %td.bg_white
-          = link_to image_tag('edit_icon.jpg', :alt => "edit"), edit_service_path(service), :detail => 'Edit'
-        %td.bg_white
-          = link_to "", admin_service_path(service), :confirm => 'Are you sure?',  :method => :delete, :class => "set_icons cancel_red", :detail => "Remove It"
-
-
-
-
+#services
+  = render :partial => "service"
+#pagination
+  = render :partial => "page"

@@ -21,13 +21,6 @@
   // To-do -> Change the api id according to environment
   :javascript
     $(function(){
-      $(".fb_send").click(function(){
-        fb_intialize();
-        FB.ui({
-          method: 'apprequests',
-          title :'GoodInKind',
-          message:  "I am offering this service on GoodInKind benefiting #{@service.nonprofit.name}. Hope you can join me! #{service_url(@service.permalink)}"});
-        });
       
       $("#fb_share").click(function(){
         fb_intialize();
@@ -41,6 +34,13 @@
             });
       });
     });
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
 
       function fb_intialize() {
         FB.init({
@@ -57,7 +57,7 @@
     %br/
     %h2= @message 
     %p.posting_shar_txt Share it with your social network now!
-    %p.posting_shar_icons{:style => "margin-left:30px;"}
+    %p.posting_shar_icons
       %a.twitter-share-button{"data-count" => "horizontal", "data-text" => "Check out this service that I am offering on GoodInKind.com that benefits #{@service.nonprofit.name}. via @goodinkind #GIK #socent", "data-url" => "#{service_url(@service)}", :href => "http://twitter.com/share" } Tweet
       %script{:src => "http://platform.twitter.com/widgets.js", :type => "text/javascript"}
       %a{:href => "javascript:void(0)", :id => 'fb_share'}
@@ -66,8 +66,7 @@
     %span.dotted
     %p.posting_shar_txt Invite your friends privately
   .invite_mail_empty
-  %a.fb_send{:href => "#"}
-    %img{:alt => "Facebook Shar", :src => "/images/fb_send.png"}/
+  .fb-send{"data-href" => "#{service_url(@service.permalink)}"}
   %a.in_mail{:href => "#"}
     %img{:alt => "Invite by Email", :src => "/images/by_mail.png"}/
   .invite_mail

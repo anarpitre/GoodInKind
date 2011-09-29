@@ -14,55 +14,7 @@
 %h2 
   %span.edit_service_head Bookings. 
   %a.bro_req_btn{:href => admin_root_path} Go to Admin
-%table.up_table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
-  %tr.up_tab_top
-    %th{:style => 'width:130px;word-wrap:break-word'}
-      %span Service Title
-    %th{:style => 'width:130px;word-wrap:break-word'}
-      %span Buyer
-    %th 
-      Seats
-      %br
-      Booked
-    %th
-      Donation
-      %br Amount
-    %th
-      Additional
-      %br Amount
-    %th
-      Total
-      %br Amount
-    %th Reference 
-    %th 
-      FirstGiving
-      %br ID
-    %th 
-      Payment
-      %br Status
-    %th Date
-    %th.bg_white &nbsp;
-    %th.bg_white &nbsp;
-    %th.bg_white &nbsp;
-    /%th.bg_white &nbsp;
-    /%th.bg_white &nbsp;
-  - @bookings.each do |booking|
-    %tr
-      %td{:style => 'width:130px;word-wrap:break-word'}
-        %span= link_to "#{booking.service.title}", admin_service_path(booking.service)
-      %td{:style => 'width:130px;word-wrap:break-word'}
-        %span= link_to("#{booking.user.profile.full_name}", profile_path(booking.user)) 
-      %td #{booking.seats_booked} 
-      %td #{booking.donation_amount} 
-      %td #{booking.additional_donation_amount} 
-      %td #{booking.total_amount} 
-      %td #{booking.mref} 
-      %td #{booking.transaction.FG_trnx_id} 
-      - if booking.charge_status == 'failure'
-        %td.bg_white= link_to("Failure", "#",  :detail => "#{booking.transaction.failed_reason }")
-      - else
-        %td #{booking.charge_status} 
-
-      %td #{booking.created_at.strftime("%m-%d-%Y")}
-      %td.bg_white
-      %td.bg_white 
+#bookings
+  = render :partial => "booking"
+#pagination
+  = render :partial => "page"

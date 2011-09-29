@@ -1,7 +1,12 @@
 class Admin::ServicesController < Admin::AdminBaseController
 
   def index
-    @services = Service.includes(:nonprofit, :user => :profile)
+    @services = Service.unscoped.includes(:nonprofit, :user => :profile).order("title")
+    @services = @services.paginate(:per_page => 20, :page => params[:page] )
+    respond_to do |format|
+      format.html 
+      format.js
+    end
   end
 
   def show
@@ -10,7 +15,7 @@ class Admin::ServicesController < Admin::AdminBaseController
 
  def transaction
     @service = Service.includes(:user => :profile).find(params[:id])
-    @bookings = @service.bookings.includes(:service, :user => :profile)
+    @bookings = @service.bookings.includes(:service, :user => :profile).order("created_at DESC")
  end
 
   def destroy

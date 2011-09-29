@@ -127,7 +127,8 @@ class BookingsController < ApplicationController
           @booking.save!
           Notifier.buy_failed_buyer(@booking.user.email,@booking.service.title).deliver
           Notifier.failed_transaction(@booking).deliver
-          flash[:notice] = "Transaction unsuccessful! Please try again or contact support!"
+          flash[:notice] = "Transaction unsuccessful! Message from payment gateway: #{id}"
+          #flash[:notice] = "Transaction unsuccessful! Please try again or contact support!"
           render(:action => :new) and return
         end
       end

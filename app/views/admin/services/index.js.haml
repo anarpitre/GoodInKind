@@ -1,0 +1,6 @@
+
+$('#pagination').html('#{escape_javascript(will_paginate(@services))}');
+$("#services").html("#{escape_javascript(render :partial => "service")}");
+$("#pagination").html("#{escape_javascript(render :partial => "page")}");
+
+
