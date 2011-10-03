@@ -1,16 +1,3 @@
-
-- content_for :header do
-  = stylesheet_link_tag "jquery.tooltip"
-  = javascript_include_tag "jquery-dimension", "jquery.tooltip.min"
-:javascript
-  jQuery(document).ready(function(){
-    $('.bg_white a ').tooltip({ 
-      showURL: false, 
-      bodyHandler: function() { 
-        return $(this).attr("detail"); 
-      } 
-      });
-    });
 %h2 
   %span.edit_service_head Bookings. 
   %a.bro_req_btn{:href => admin_root_path} Go to Admin

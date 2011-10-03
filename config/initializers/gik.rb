@@ -6,7 +6,9 @@ else
       :s3_credentials => "#{Rails.root}/config/s3.yml",
       :path => ":attachment/:id/:style.:extension",
       :bucket => "GIK_photos_#{Rails.env}",                       
-      :default_url => "/images/missing/logo/:style.gif"
+      :default_url => "/images/missing/logo/:style.gif",
+      :s3_permissions => 'private',
+      :s3_protocol => 'https'
   }
 end
 
