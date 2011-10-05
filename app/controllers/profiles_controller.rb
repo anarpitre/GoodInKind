@@ -42,7 +42,13 @@ class ProfilesController < ApplicationController
 
   def services
     @services = @user.services.includes(:nonprofit)
-    @bookings = @user.bookings.includes(:service).order('created_at desc')
+    @services = @services.paginate(:per_page => PER_PAGE_RECORDS, :page => params[:offerer_page])
+    @bookings = @user.bookings.includes(:service => [{:user => :profile}, :location]).order('created_at desc')
+    @bookings = @bookings.paginate(:per_page => PER_PAGE_RECORDS, :page => params[:buyer_page])
+    respond_to do |format|
+      format.html
+      format.js 
+    end
   end
 
   def cancel_service

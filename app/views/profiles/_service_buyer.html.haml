@@ -1,0 +1,37 @@
+
+%table.up_table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+  %tr.up_tab_top
+    %th{:style => 'width:200px;word-wrap:break-word'}
+      %span Service Title
+    %th Offerer
+    %th{:style => 'width:100px;word-wrap:break-word'} Location
+    %th Date
+    %th
+      Payment
+      %br
+      Amount
+    %th
+      Payment
+      %br
+      Status
+    %th
+      Reference
+    %th.bg_white &nbsp;
+    %th.bg_white &nbsp;
+    %th.bg_white &nbsp;
+  - @bookings.each do |booking|  
+    %tr
+      %td{:style => 'width:200px;word-wrap:break-word'}
+        %span= booking.service.title
+      %td= get_user_name(booking.service.user.profile) 
+      - location = booking.service.location ? [booking.service.location.city, booking.service.location.state].join(', ') : '-'
+      %td{:style => 'width:100px;word-wrap:break-word'}= location
+      %td= booking.created_at.strftime("%m-%d-%Y")
+      %td= booking.total_amount
+      %td= booking.charge_status.titleize
+      %td= booking.mref
+      %td.bg_white
+        = link_to "", service_path(booking.service), :class => "set_icons viewpost"
+      /%td.bg_white
+      /%a.set_icons.write_review{:href => "#"}
+= will_paginate(@bookings, :renderer => PaginationListLinkRenderer, :param_name =>  'buyer_page')

@@ -15,89 +15,13 @@
 #tab2.tab_content
   .up_profile
     %h2 Offered By me:
-    %table.up_table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
-      %tr.up_tab_top
-        %th{:style => 'width:200px;word-wrap:break-word'}
-          %span Service Title
-        %th{:style => 'width:200px;word-wrap:break-word'}
-          %span Non-Profit
-        %th Purchases
-        %th Amount Donated
-        %th Service Expiry
-        %th Status
-        %th.empty_col
-        %th.bg_white &nbsp;
-        %th.bg_white &nbsp;
-        /%th.bg_white &nbsp;
-        /%th.bg_white &nbsp;
-      - @services.each do |service|
-        %tr{:class => "#{'expired_row' unless service.is_valid_service}", :id => "service_#{service.id}"}
-          %td{:style => 'width:200px;word-wrap:break-word'}
-            %span= service.title
-          %td{:style => 'width:200px;word-wrap:break-word'}
-            %span= service.nonprofit.name 
-          %td #{service.total_transactions.to_i} 
-          %td $#{service.donated_amount.to_i}
-          %td
-            %b #{service.is_valid_service ?  service.is_schedulelater ? 'To be Scheduled' : service.end_date.strftime('%m-%d-%Y') : 'Expired'}
-          %td #{service.status.humanize}
-          %td.empty_col
-          %td.bg_white
-            /= link_to '', cancel_service_profile_path(@user, :id => service), :class => "set_icons refund", :remote => true, :method => :post, :confirm => "Are you sure you want to cancel the service?" 
-          %td.bg_white
-            = link_to '', service_detail_service_path(service), :class => "set_icons manage_service", :detail => 'Sevice Details'
-          %td.bg_white
-            = link_to '', offer_again_service_path(service), :class => "set_icons re_offer", :detail => 'Offer Again'
-          %td.bg_white &nbsp;
-          %td.bg_white &nbsp;
-          - if service.is_valid_service
-            %td.bg_white
-              = link_to image_tag('edit_icon.jpg', :alt => "edit"), edit_service_path(service), :detail => 'Edit'
-            %td.bg_white
-              = link_to '', service_path(service), :class => "set_icons viewpost", :detail => 'View Posting'
-          - else
-            %td.bg_white
-            %td.bg_white
-          /%td.bg_white
-          /%a.set_icons.re_offer{:href => "#"}
+    #service_offerer
+      = render :partial => "service_offerer"
     %p.up_bottom_p
       = link_to "Check out requests from buyers and offer a new service today!", requests_path
     %h2 Purchased by me:
-    %table.up_table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
-      %tr.up_tab_top
-        %th{:style => 'width:200px;word-wrap:break-word'}
-          %span Service Title
-        %th Offerer
-        %th{:style => 'width:100px;word-wrap:break-word'} Location
-        %th Date
-        %th
-          Payment
-          %br
-          Amount
-        %th
-          Payment
-          %br
-          Status
-        %th
-          Reference
-        %th.bg_white &nbsp;
-        %th.bg_white &nbsp;
-        %th.bg_white &nbsp;
-      - @bookings.each do |booking|  
-        %tr
-          %td{:style => 'width:200px;word-wrap:break-word'}
-            %span= booking.service.title
-          %td= get_user_name(booking.service.user.profile) 
-          - location = booking.service.location ? [booking.service.location.city, booking.service.location.state].join(', ') : '-'
-          %td{:style => 'width:100px;word-wrap:break-word'}= location
-          %td= booking.created_at.strftime("%m-%d-%Y")
-          %td= booking.total_amount
-          %td= booking.charge_status.titleize
-          %td= booking.mref
-          %td.bg_white
-            = link_to "", service_path(booking.service), :class => "set_icons viewpost"
-          /%td.bg_white
-          /%a.set_icons.write_review{:href => "#"}
+    #service_buyer 
+      = render :partial => "service_buyer", :object => @bookings
     %p.up_bottom_p
       = link_to "Browse all services offered", services_path
       %span or

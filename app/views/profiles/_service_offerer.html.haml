@@ -1,0 +1,47 @@
+
+%table.up_table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+  %tr.up_tab_top
+    %th{:style => 'width:200px;word-wrap:break-word'}
+      %span Service Title
+    %th{:style => 'width:200px;word-wrap:break-word'}
+      %span Non-Profit
+    %th Purchases
+    %th Amount Donated
+    %th Service Expiry
+    %th Status
+    %th.empty_col
+    %th.bg_white &nbsp;
+    %th.bg_white &nbsp;
+    /%th.bg_white &nbsp;
+    /%th.bg_white &nbsp;
+  - @services.each do |service|
+    %tr{:class => "#{'expired_row' unless service.is_valid_service}", :id => "service_#{service.id}"}
+      %td{:style => 'width:200px;word-wrap:break-word'}
+        %span= service.title
+      %td{:style => 'width:200px;word-wrap:break-word'}
+        %span= service.nonprofit.name 
+      %td #{service.total_transactions.to_i} 
+      %td $#{service.donated_amount.to_i}
+      %td
+        %b #{service.is_valid_service ?  service.is_schedulelater ? 'To be Scheduled' : service.end_date.strftime('%m-%d-%Y') : 'Expired'}
+      %td #{service.status.humanize}
+      %td.empty_col
+      %td.bg_white
+        /= link_to '', cancel_service_profile_path(@user, :id => service), :class => "set_icons refund", :remote => true, :method => :post, :confirm => "Are you sure you want to cancel the service?" 
+      %td.bg_white
+        = link_to '', service_detail_service_path(service), :class => "set_icons manage_service", :detail => 'Sevice Details'
+      %td.bg_white
+        = link_to '', offer_again_service_path(service), :class => "set_icons re_offer", :detail => 'Offer Again'
+      %td.bg_white &nbsp;
+      %td.bg_white &nbsp;
+      - if service.is_valid_service
+        %td.bg_white
+          = link_to image_tag('edit_icon.jpg', :alt => "edit"), edit_service_path(service), :detail => 'Edit'
+        %td.bg_white
+          = link_to '', service_path(service), :class => "set_icons viewpost", :detail => 'View Posting'
+      - else
+        %td.bg_white
+        %td.bg_white
+      /%td.bg_white
+      /%a.set_icons.re_offer{:href => "#"}
+= will_paginate(@services, :renderer => PaginationListLinkRenderer, :param_name =>  'offerer_page')
