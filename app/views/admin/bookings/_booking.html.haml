@@ -1,8 +1,6 @@
-
 :javascript
   $(document).ready(function() { 
-  $(".ans").hide();
-  $('.bg_white1').click(function() {
+  $('.bg_white1 ').click(function() {
      $(this).next().toggle();
      return false;
      });    
@@ -54,11 +52,11 @@
       - if booking.charge_status == 'failure'
         %td.bg_white
           %a.bg_white1{:href => "#"} Failure
-          .ans
-            %p #{booking.transaction.failed_reason }
+          %p.ans{:style => "display:none;"} #{booking.transaction.failed_reason }
       - else
         %td #{booking.charge_status} 
 
       %td #{booking.created_at.strftime("%m-%d-%Y")}
       %td.bg_white
       %td.bg_white 
+= will_paginate(@bookings, :renderer => PaginationListLinkRenderer)

@@ -1,6 +1,4 @@
 
-$('#pagination').html('#{escape_javascript(will_paginate(@bookings))}');
 $("#bookings").html("#{escape_javascript(render :partial => "booking")}");
-$("#pagination").html("#{escape_javascript(render :partial => "page")}");
 
 
