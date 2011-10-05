@@ -114,6 +114,11 @@ class NonprofitsController < ApplicationController
     @head[:title] = @nonprofit.name + " transactions"
     service_ids = @nonprofit.services.collect(&:id)
     @bookings = Booking.get_by_service_ids(service_ids)
+    @bookings = @bookings.paginate(:per_page => PER_PAGE_RECORDS, :page => params[:page])
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def login

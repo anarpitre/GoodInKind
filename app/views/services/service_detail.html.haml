@@ -63,37 +63,6 @@
         %label.service_details_lbl Description:
         %span.service_details_txt= @service.description
     %h2 Transactions:
-    %table.up_table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
-      %tr.up_tab_top
-        %th
-          %span Buyer
-        %th Payment Amt
-        %th Payment Date
-        %th Seats Booked
-        %th Review?
-        %th.empty_col
-        %th.bg_white &nbsp;
-        %th.bg_white &nbsp;
-        %th.bg_white &nbsp;
-        %th.bg_white &nbsp;
-      - @transactions.each do |booking|
-        %tr
-          %td
-            - full_name = "#{booking.user.profile.first_name} #{booking.user.profile.last_name}"
-            %span.person_review= full_name
-          %td= "$#{booking.total_amount}"
-          %td= booking.transaction.created_at.strftime("%m-%d-%Y")
-          %td= booking.seats_booked
-          - review = booking.service.reviews.first
-          - unless review.blank?
-            - icon_name = review.is_positive == true ? "positive" : "negative"
-            %td
-              %b{:class => "set_icons #{icon_name}_icon"}
-          - else  
-            %td= "-"
-          %td.empty_col
-          %td.bg_white
-          %td.bg_white
-          %td.bg_white
-          %td.bg_white
-            /%a.set_icons.cancel_red{:href => "#"} #Pending for Delete transaction
+    #transaction
+      = render :partial => "transaction"
+      

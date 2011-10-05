@@ -184,11 +184,11 @@ class ServicesController < ApplicationController
   def service_detail
     @user = current_user
     @transactions = @service.bookings.success.includes([:user => :profile], [:service => :reviews], :transaction).order("created_at DESC")
-    #@transactions = @transactions.paginate(:per_page => PER_PAGE_RECORDS, :page => params[:page])
-    #respond_to do |format|
-     # format.html 
-     # format.js
-    #end
+    @transactions = @transactions.paginate(:per_page => PER_PAGE_RECORDS, :page => params[:page])
+    respond_to do |format|
+      format.html 
+      format.js
+    end
   end
 
   def offer_again

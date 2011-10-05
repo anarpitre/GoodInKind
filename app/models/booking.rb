@@ -21,7 +21,7 @@ class Booking < ActiveRecord::Base
   validates :billToCountry, :format => { :with => /^\w{2,3}$/ } 
   validates :billToEmail, :presence => true
 
-  scope :get_by_service_ids, lambda { |ids| { :include => [:service], :conditions => ["service_id IN (?)", ids] } }
+  scope :get_by_service_ids, lambda { |ids| { :include => [:service, :user => :profile], :conditions => ["service_id IN (?)", ids] } }
   
   
   aasm_column :charge_status
