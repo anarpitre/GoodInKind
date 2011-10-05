@@ -1,13 +1,19 @@
 class MessagesController < ApplicationController
+ require "will_paginate/array"
   before_filter :authenticate_user!, :except => [:new, :create]
   before_filter :get_user
   before_filter :is_owner, :except => [:new, :create]
-  
   layout 'service'
 
   def index
     @unread_message = Message.get_unread_message(@user.id)
     @read_message = Message.get_read_message(@user.id)
+    @messages = @unread_message + @read_message 
+    @messages = @messages.paginate(:per_page => PER_PAGE_RECORDS, :page => params[:page])
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   #Create message
