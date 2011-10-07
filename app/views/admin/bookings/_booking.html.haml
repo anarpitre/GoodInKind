@@ -1,9 +1,16 @@
 :javascript
-  $(document).ready(function() { 
-  $('.bg_white1 ').click(function() {
-     $(this).next().toggle();
-     return false;
-     });    
+  $(document).ready(function() {
+  $(".bg_white").hover(
+  function () {
+  $(this).children("span").fadeIn(300);
+  },
+
+  function () {
+  $(this).children("span").fadeOut('fast');
+  }
+  
+  );
+  
   }); 
 %table.up_table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
   %tr.up_tab_top
@@ -51,8 +58,9 @@
       %td #{booking.transaction.FG_trnx_id} 
       - if booking.charge_status == 'failure'
         %td.bg_white
-          %a.bg_white1{:href => "#"} Failure
-          %p.ans{:style => "display:none;"} #{booking.transaction.failed_reason }
+          %a{:href => "#"} Failure
+          %span
+            %p #{booking.transaction.failed_reason }
       - else
         %td #{booking.charge_status} 
 
