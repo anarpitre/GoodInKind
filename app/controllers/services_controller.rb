@@ -201,6 +201,13 @@ class ServicesController < ApplicationController
     render :action => 'new'
   end
 
+  def notify_owner
+    service = Service.find_by_id(params[:id])
+    email = service.user.email
+    Notifier.notify_owner(email, service).deliver
+    render :nothing => true
+  end
+
   private
 
   def build_objects

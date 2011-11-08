@@ -44,6 +44,26 @@
     js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
+  window.fbAsyncInit = function() {
+    FB.init({
+            appId: "FACEBOOK[:API_KEY]",
+            filters :'app_non_users',
+            status: true,
+            cookie: false,
+          });
+
+    FB.Event.subscribe('comment.create',
+      function(response) {
+        $.post("#{notify_owner_services_path}", { id: "#{@service.id}" } );
+      }
+     );
+  };
+   (function() {
+        var e = document.createElement('script'); e.async = true;
+        e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+        document.getElementById('fb-root').appendChild(e);
+    }());
+
 %h3.comment_icon
   = image_tag('q_a_icon.png', :alt => "Comment")
   %span Comments and Q&A 

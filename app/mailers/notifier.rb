@@ -175,6 +175,12 @@ class Notifier < ActionMailer::Base
     setup_email(ADMIN_EMAIL, subject, email)
   end
 
+  def notify_owner(email, service)
+    @service = service
+    subject = "Comment added to your service #{service.title}"
+    setup_email(email,subject)
+  end
+
   private
 
   def setup_email(sent_to, subject, sent_by=nil)

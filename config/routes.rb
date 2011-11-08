@@ -63,7 +63,7 @@ Gik::Application.routes.draw do
   resources :services do
     collection do
       get :autocomplete_nonprofit_name, :thankyou, :browse_nonprofit
-      post :review, :newoffer, :send_invitation
+      post :review, :newoffer, :send_invitation, :notify_owner
     end
     member do
       get :invite_friends, :remove, :service_detail, :offer_again
