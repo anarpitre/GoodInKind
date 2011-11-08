@@ -18,6 +18,10 @@ class MessagesController < ApplicationController
 
   #Create message
   def new
+    if current_user.blank?
+      session[:message_to] = params[:id]
+      redirect_to new_user_session_path and return
+    end
     if params[:msg_id]
       msg = Message.find(params[:msg_id])
       @message = Message.new(:receiver_id => msg.sender_id, :sender_id => msg.receiver_id, :parent_message_id => msg.id)

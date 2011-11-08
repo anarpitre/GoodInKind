@@ -4,9 +4,12 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
   
   def after_sign_in_path_for(scope)
-    if session[:thank_you] == "yes"
+    if session[:thank_you] == 'yes'
       session[:thank_you] = nil
       thankyou_services_path
+    elsif session[:message_to] != nil
+      new_message_path(:id => session[:message_to])
+      session[:message_to] = nil
     elsif is_admin?
       nonprofits_path
     else

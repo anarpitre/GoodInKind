@@ -37,6 +37,5 @@
   %p.pl_view_more
     = link_to "View Profile", profile_path(@service.user.id)
     %br
-    - if current_user
-      %br= link_to "Message me" , new_message_path(:id => @service.user.id)
+    %br= link_to "Message me" , new_message_path(:id => @service.user.id)
 / #End Offered By
