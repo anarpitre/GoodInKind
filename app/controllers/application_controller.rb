@@ -7,9 +7,9 @@ class ApplicationController < ActionController::Base
     if session[:thank_you] == 'yes'
       session[:thank_you] = nil
       thankyou_services_path
-    elsif session[:message_to] != nil
+    elsif session[:message] == true
+      session[:message] = nil
       new_message_path(:id => session[:message_to])
-      session[:message_to] = nil
     elsif is_admin?
       nonprofits_path
     else

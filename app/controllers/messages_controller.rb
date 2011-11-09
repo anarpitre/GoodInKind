@@ -19,6 +19,7 @@ class MessagesController < ApplicationController
   #Create message
   def new
     if current_user.blank?
+      session[:message] = true
       session[:message_to] = params[:id]
       redirect_to new_user_session_path and return
     end
