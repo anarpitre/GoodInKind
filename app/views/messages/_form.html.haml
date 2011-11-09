@@ -1,4 +1,4 @@
-- form_for @message, :url => create_message_path, :html => {:method => :post}, :builder => JoshForm, :remote => true do |f| 
+= form_for @message, :url => create_message_path, :html => {:method => :post}, :builder => JoshForm, :remote => true do |f| 
   .setp_box
     = f.text_field :title, :label => "Subject"
     = f.text_area :message, :label => "Message", :class => "area_edit"
