@@ -71,9 +71,9 @@
         %span Step 1:
         Describe the lesson or consultation you want to offer
       = f.text_field :title, :hint => "Make it good and short! Don’t worry about mentioning the non-profit here - we’ll include that in the title for you"
-      = f.text_area :description, :class => 'input_area', :hint => "More details the better! Give the buyer a detailed description of your service. Specifically explain how your pricing works (you will be setting the price 'per unit' below)"
-      = f.text_area :qualification, :label => 'Experience', :class => 'input_area', :hint => "Please explain why you are qualified to offer this service"
-      = f.collection_select :category_ids, Category.by_services, :id, :name, {:selected => @service.categories.collect(&:id)}, { :multiple => true, :class => "input_select", :style => "height:100px;width:530px;", :hint => "Select one or more categories that best describes your service", :label => "Category *" }
+      = f.text_area :description, :class => 'input_area', :hint => "More details the better! Give the buyer a detailed description of your lesson. Specifically explain how your pricing works (you will be setting the price 'per unit' below)"
+      = f.text_area :qualification, :label => 'Experience', :class => 'input_area', :hint => "Please explain why you are qualified to offer this lesson"
+      = f.collection_select :category_ids, Category.by_services, :id, :name, {:selected => @service.categories.collect(&:id)}, { :multiple => true, :class => "input_select", :style => "height:100px;width:530px;", :hint => "Select one or more categories that best describes your lesson", :label => "Category *" }
     .setp_box
       %h3.setp_box_heading
         %span Step 2:
@@ -90,9 +90,9 @@
         %span Step 3:
         Tell us where this lesson or consultation will be offered
       %p
-        = f.label "Online Service", :class => 'form_lbl'
+        = f.label "Online Lesson", :class => 'form_lbl'
         = f.check_box :is_virtual, { :class => "input_checkbox"}, "true", "false"
-        %span.setp_box_p_span (Check if this service will be offered virtually/online)
+        %span.setp_box_p_span (Check if this lesson will be offered virtually/online)
       %p
         = f.fields_for :location do |loc|
           .address
@@ -120,9 +120,9 @@
             = f.text_field :end_time, :id => 'dt_time_end', :class => "input_small", :label => "End time in EST", :value => "#{gik_formatted_time(@service.end_time)}"
       %p
         %span.setp_two_col
-          = f.text_field :booking_capacity, :value => @service.booking_capacity == 0 ? "" : @service.booking_capacity, :class => "input_small", :label => "Max. Tickets", :hint => "Max. number of people who can buy this service"
+          = f.text_field :booking_capacity, :value => @service.booking_capacity == 0 ? "" : @service.booking_capacity, :class => "input_small", :label => "Max. Tickets", :hint => "Max. number of people who can buy this lesson"
         %span.setp_two_col
-          = f.text_field :estimated_duration,  :label => "Estimated Duration", :class => "input_small", :hint => "Enter approx. service duration to the nearest 0.5 hrs, ex: 2.5hrs", :label => "Est. Service Duration"
+          = f.text_field :estimated_duration,  :label => "Estimated Duration", :class => "input_small", :hint => "Enter approx. lesson duration to the nearest 0.5 hrs, ex: 2.5hrs", :label => "Est. Lesson Duration"
     .setp_box
       %h3.setp_box_heading
         %span Step 5:
