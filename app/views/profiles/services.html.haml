@@ -18,11 +18,11 @@
     #service_offerer
       = render :partial => "service_offerer"
     %p.up_bottom_p
-      = link_to "Check out requests from buyers and offer a new service today!", requests_path
+      = link_to "Check out requests from buyers and offer a new lesson today!", requests_path
     %h2 Purchased by me:
     #service_buyer 
       = render :partial => "service_buyer", :object => @bookings
     %p.up_bottom_p
-      = link_to "Browse all services offered", services_path
+      = link_to "Browse all lessons offered", services_path
       %span or
       = link_to "Make a Request", new_request_path

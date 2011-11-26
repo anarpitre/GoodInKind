@@ -2,7 +2,7 @@
   .transactions_bord
     - if @bookings.count == 0
       %p
-      You have no completed transactions yet. When someone buys a service on GoodInKind to support your organization, this page will show the details of the transactions.
+      You have no completed transactions yet. When someone buys a lesson on GoodInKind to support your organization, this page will show the details of the transactions.
     - else
       #transaction
         = render :partial => "transaction"

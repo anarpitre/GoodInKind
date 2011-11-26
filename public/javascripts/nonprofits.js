@@ -35,7 +35,7 @@ function serviceRenderInit(){
     var admin_update = null;
 
     if (nonprofit.service_count > 0) {
-      browse_service = "Browse Services (" + nonprofit.service_count + ")";
+      browse_service = "Browse Lessons (" + nonprofit.service_count + ")";
       browse_service_btn = this.link("/service/search?text=" + nonprofit.name.split(' ').join('+'), {'class':'button'}, browse_service);
     }
 
@@ -43,7 +43,7 @@ function serviceRenderInit(){
       admin_btn = this.link("/nonprofits/" + nonprofit.to_param + '/edit', {'class':'button'}, "Update");
     }
 
-    offer_btn = this.link("/services/new?id=" + nonprofit.id, {'class':'button'}, "Offer a Service");
+    offer_btn = this.link("/services/new?id=" + nonprofit.id, {'class':'button'}, "Offer a Lesson");
     np_logos = this.div({'class':'np_logos'}, this.image(nonprofit.thumbnail));
     np_rel_span = this.span({}, nonprofit_show_link);
     np_rel_text = this.content_tag('p', {'class':'np_rel_text'}, [$(np_rel_span).append(" " + nonprofit.full_address), this.content_tag('p', {}, description)]);

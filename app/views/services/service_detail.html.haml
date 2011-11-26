@@ -12,7 +12,7 @@
 #tab2.tab_content
   .up_profile
     %h2
-      %span.edit_service_head Service Details
+      %span.edit_service_head Lesson Details
       %ul.edit_service_list
         - if @service.is_valid_service
           %li
@@ -23,14 +23,14 @@
             = link_to 'Invite friends', invite_friends_service_path(@service)
           %li
             %span.set_icons.cancel_red
-            = link_to 'remove service', remove_service_path(@service), :onclick => "return ask_user(#{@service.bookings.size});"
+            = link_to 'remove Lesson', remove_service_path(@service), :onclick => "return ask_user(#{@service.bookings.size});"
         %li
           %span.set_icons.re_offer
           = link_to "Offer Again", offer_again_service_path(@service)
-      %a.bro_req_btn{:href => services_profile_path(current_user)} Go back to my services
+      %a.bro_req_btn{:href => services_profile_path(current_user)} Go back to my lessons
     .service_details
       %p
-        %label.service_details_lbl Service title:
+        %label.service_details_lbl Lesson title:
         %span.service_details_txt= @service.title
       %p
         %label.service_details_lbl category:

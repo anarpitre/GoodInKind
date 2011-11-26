@@ -17,13 +17,13 @@
       .up_acc_setp{:style => "padding:0"}
         %h2 Email Alert Preferences
         .up_acc_email
-          %h4 When I offer a service, I want to receive emails when:
+          %h4 When I offer a lesson, I want to receive emails when:
           /%p.up_acc_p
           /  = f.check_box :email_takemyservice, {}, "true", "false"
           /  %span When someone buys my service                             ##Commented if required in future not reqd now.
           %p.up_acc_p
             = f.check_box :email_addreview, {}, "true", "false"
-            %span When someone writes a review on my posted service
+            %span When someone writes a review on my posted lesson
           %p.up_acc_p
             = f.check_box :email_addmessage, {}, "true", "false"
             %span When someone direct messages me
@@ -31,7 +31,7 @@
           %h4 Non-profit communication:
           %p.up_acc_p
             = f.check_box :show_email_to_nonprofit, {}, "true", "false"
-            %span Share my email address with non-profits that I support by offering or buying services
+            %span Share my email address with non-profits that I support by offering or buying lesson
           /%p.up_acc_p
           /  = f.check_box :email_cancel, {}, "true", "false"
           /  %span When someone requests a cancel and refund                     ## TBD uncomment as cancel functionality is added

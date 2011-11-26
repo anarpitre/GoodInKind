@@ -52,7 +52,7 @@
   }
 
 %h2.offer_form_h2
-  Offer a Service to support your favorite non-profit
+  Offer a Lesson to support your favorite non-profit
   - if user_signed_in?
     %span
       /Want to copy information from an offer you made previously?
@@ -69,7 +69,7 @@
     .setp_box
       %h3.setp_box_heading
         %span Step 1:
-        Describe the service or experience you want to offer
+        Describe the lesson or consultation you want to offer
       = f.text_field :title, :hint => "Make it good and short! Don’t worry about mentioning the non-profit here - we’ll include that in the title for you"
       = f.text_area :description, :class => 'input_area', :hint => "More details the better! Give the buyer a detailed description of your service. Specifically explain how your pricing works (you will be setting the price 'per unit' below)"
       = f.text_area :qualification, :label => 'Experience', :class => 'input_area', :hint => "Please explain why you are qualified to offer this service"
@@ -88,7 +88,7 @@
     .setp_box
       %h3.setp_box_heading
         %span Step 3:
-        Tell us where this service will be offered
+        Tell us where this lesson or consultation will be offered
       %p
         = f.label "Online Service", :class => 'form_lbl'
         = f.check_box :is_virtual, { :class => "input_checkbox"}, "true", "false"
@@ -100,7 +100,7 @@
     .setp_box
       %h3.setp_box_heading
         %span Step 4:
-        Tell us when this service will be offered
+        Tell us when this lesson or consultation will be offered
       %p
         = f.label "Schedule Later", :class => 'form_lbl'
         = f.check_box :is_schedulelater, { :class => "input_checkbox"}, "true", "false"
@@ -126,13 +126,13 @@
     .setp_box
       %h3.setp_box_heading
         %span Step 5:
-        What is the min. price per session, hour or person (based on the type of service) for this service?
+        What is the min. price per session, hour or person (based on the type of lesson) for this lesson?
       %p
         = f.text_field :amount, :label => "Amount ($)*", :class => "input_small", :hint => "Keep it reasonable – everyone loves a deal! Min $5 <br> Note: the price is per person or per \'unit\' price. Please explain in description above."
     .setp_box
       %h3.setp_box_heading
         %span Step 6:
-        Add a picture illustrating your service
+        Add a picture illustrating your lesson
       %p
         = f.fields_for :images do |photo|
           = photo.file_field :image, :class => "input_browse", :type => "file", :label => "Select an Image", :hint => "Great images make a world of difference. Please only upload landscape images. For best results use 400x200"
@@ -143,15 +143,15 @@
       %ul.input_radio_nav
         %li
           = f.radio_button(:is_public, true)
-          = f.label(:is_public, "Public: I want this service listing posted publicly for all users on GoodInKind") 
+          = f.label(:is_public, "Public: I want this lesson listing posted publicly for all users on GoodInKind") 
         %li
           = f.radio_button(:is_public, false)
-          = f.label(:is_public, "Unlisted: Don't list this service publicly on GoodInKind. I will share it privately")
+          = f.label(:is_public, "Unlisted: Don't list this lesson publicly on GoodInKind. I will share it privately")
           = f.hidden_field :request_id
     .input_post_div
       = f.submit @btn_text, :class => "btn_form button form_post_btn"
       %p You will be able to share it afterwards
     %ul.offer_form_bottom_nav
-      %li -- All services offered must be fully legal under US law and appropriate to discuss in front of people all ages.  Please keep it appropriate and positive!
-      %li -- Please also check the specific policies of the non-profit for which you are offering your service
+      %li -- All lessons offered must be fully legal under US law and appropriate to discuss in front of people all ages.  Please keep it appropriate and positive!
+      %li -- Please also check the specific policies of the non-profit for which you are offering your lesson.
       %li -- GoodInKind reserves the right to remove any postings at any time.

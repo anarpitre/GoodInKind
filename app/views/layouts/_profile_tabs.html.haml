@@ -4,7 +4,7 @@
       %li{:class => "#{'ui-tabs-selected' if ['show', 'edit', 'update'].include?(action_name)}"}
         = link_to content_tag(:span, "My Profile"), profile_path(@user)
       %li{:class => "#{'ui-tabs-selected' if ['services', 'service_detail'].include?(action_name)}"}
-        = link_to content_tag(:span, "My Services"), services_profile_path(@user)
+        = link_to content_tag(:span, "My Lessons"), services_profile_path(@user)
       %li{:class => "#{'ui-tabs-selected' if action_name == 'account'}"}
         = link_to content_tag(:span, "My Account"), account_profile_path(@user) 
       %li{:class => "#{'ui-tabs-selected' if action_name == 'index'}"}
