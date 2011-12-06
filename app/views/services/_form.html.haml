@@ -128,7 +128,9 @@
         %span Step 5:
         What is the min. price per session, hour or person (based on the type of lesson) for this lesson?
       %p
-        = f.text_field :amount, :label => "Amount ($)*", :class => "input_small", :hint => "Keep it reasonable – everyone loves a deal! Min $5 <br> Note: the price is per person or per \'unit\' price. Please explain in description above."
+        = f.text_field :amount, :label => "Amount ($)*", :class => "input_small", :hint => "Min $5"
+      %p
+        = f.text_field :tipamount, :label => "(optional) Expected Tip Amount($)", :class => "input_small", :hint => "Keep it reasonable- Tip is meant as an appreciation and cant be more than your Lesson price! GoodInKind does not collect this amount for you. Please take it from the student directly after the lesson."
     .setp_box
       %h3.setp_box_heading
         %span Step 6:

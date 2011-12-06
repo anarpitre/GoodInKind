@@ -36,6 +36,11 @@
         %span.req_text 
           %b Price per unit
         %span.price_text= "$"  + @service.amount.to_i.to_s 
+      - if @service.tipamount > 0 
+        %p
+          %span.req_text
+            %b Expected Tip 
+          %span.price_text{:style=> "font-size : 20px; font_weight : normal"}= "$"  + @service.tipamount.to_i.to_s 
       - if @service.booking_capacity == 0 or (@service.booking_capacity - @service.booked_seats > 0)
         = link_to "Take It", new_service_booking_path(@service), :class => 'button take_it'
       - else
