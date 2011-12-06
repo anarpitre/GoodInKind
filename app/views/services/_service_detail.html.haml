@@ -36,7 +36,7 @@
         %span.req_text 
           %b Price per unit
         %span.price_text= "$"  + @service.amount.to_i.to_s 
-      - if @service.tipamount > 0 
+      - if @service.tipamount.to_i > 0 
         %p
           %span.req_text
             %b Expected Tip 
